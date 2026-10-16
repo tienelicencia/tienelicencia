@@ -177,6 +177,18 @@
   to = "/zonas.html"
   status = 200
 [[redirects]]
+  from = "/barcelona"
+  to = "/area.html"
+  status = 200
+[[redirects]]
+  from = "/barcelona/mapa"
+  to = "/mapa.html"
+  status = 200
+[[redirects]]
+  from = "/barcelona/zonas"
+  to = "/zonas.html"
+  status = 200
+[[redirects]]
   from = "/marbella"
   to = "/area.html"
   status = 200

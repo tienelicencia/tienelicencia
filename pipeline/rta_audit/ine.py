@@ -22,7 +22,7 @@ def _series(table):
     return http.get(API.format(t=table), timeout=300).json()
 
 
-def fetch(cache_dir, provs=("29", "41", "04", "11", "14", "18", "21", "23")):
+def fetch(cache_dir, provs=("29", "41", "04", "11", "14", "18", "21", "23", "08")):
     """Download the latest period for these provinces' municipalities ("province" = the first one, Málaga; all of them under
     "provinces"). Keeps the cached copy if INE is unreachable."""
     p = os.path.join(cache_dir, "ine.json")

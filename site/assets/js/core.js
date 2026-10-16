@@ -246,6 +246,8 @@
           <div><h2 data-t="foot_sources"></h2><ul>
             <li><a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Junta de Andalucía · Open RTA</a></li>
             <li><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga · datos abiertos</a> (CC BY 4.0)</li>
+            <li><a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Generalitat de Catalunya · Registre de Turisme</a></li>
+            <li><a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</li>
             <li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</li>
             <li><a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Dirección General del Catastro</a></li>
             <li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> · <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda (SERPAVI)</a></li>
@@ -447,7 +449,7 @@
     // ---- street autocomplete (/api/suggest): debounced, keyboard-navigable, ignores licence numbers
     const list = el.querySelector(".suggest");
     let items = [], active = -1, seq = 0, timer = null;
-    const CODE_RE = /^\s*(VUT|VFT|VTF|VTAR|CTR|CR|A|H)\s*[-/_.\s]*[A-Z]{0,2}\s*[-/_.\s]*\d|^\s*\d+\s*$/i;
+    const CODE_RE = /^\s*(HUTB|ATB|VUT|VFT|VTF|VTAR|CTR|CR|A|H)\s*[-/_.\s]*[A-Z]{0,2}\s*[-/_.\s]*\d|^\s*\d+\s*$/i;
     const close = () => { list.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; };
     const paintList = () => {
       list.innerHTML = items.map((it, i) => `<li role="option" id="${uid}-o${i}" aria-selected="${i === active}" data-i="${i}">

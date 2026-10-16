@@ -35,9 +35,13 @@ const inArea = (r, area) => AREA_MUNI[area] ? r._muni === AREA_MUNI[area]
 const POSTCODE = /^(04|11|14|18|21|23|29|41)\d{3}$/;   // Andalusian provinces
 const BARRIO_ALIASES = { SOHO: "ENSANCHE CENTRO" };
 const codeKey = (code) => {
-  const m = /^([A-Z]+)\/([A-Z]{2})\/(\d+)$/.exec(String(code || "").trim().toUpperCase());
-  return m ? normaliseKey(m[1], m[2], m[3]) : null;
+  const c = String(code || "").trim().toUpperCase();
+  const m = /^([A-Z]+)\/([A-Z]{2})\/(\d+)$/.exec(c);
+  if (m) return normaliseKey(m[1], m[2], m[3]);
+  const k = /^(HUTB|HB|ATB)-?0*(\d{1,6})$/.exec(c);   // Catalonia (Barcelona): HUTB-012345
+  return k ? `${k[1]}-${k[2].padStart(6, "0")}` : null;
 };
+export const catKey = (q) => { const m = /(?<![A-Z0-9])(HUTB|HB|ATB)[\s\-_/.]*0*(\d{1,6})(?![0-9])/i.exec(String(q || "")); return m ? `${m[1].toUpperCase()}-${m[2].padStart(6, "0")}` : null; };
 const cleanNum = (n) => String(n || "").toUpperCase().replace(/^0+(?=\w)/, "");
 
 export function search() {
@@ -160,6 +164,8 @@ export const publicRow = (r) => Object.fromEntries(Object.entries(r).filter(([k]
 /** Look a registration number up. Returns {query, key, variant, rows (Málaga province), elsewhere:[{key, muni}]}. */
 export function findCode(q) {
   const S = search(), L = lookup();
+  const ck = catKey(q);   // a Catalan number: look it up directly (no Andalusian variants)
+  if (ck) return { query: q, key: ck, variant: "exact", rows: (S.byKey.get(ck) || []).map(publicRow) };
   const p = parse(q, L.max_issued);
   let items = p.junta;
   const bare = String(q).trim().match(/^(\d{1,6})$/);

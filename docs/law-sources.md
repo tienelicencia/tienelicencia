@@ -160,6 +160,86 @@ commercial premises were announced in Feb 2025, but neither is confirmed as adop
 None of the following has an adopted limit we could find: Nerja, Torremolinos, Benalmádena, Fuengirola, Estepona,
 Mijas, Ronda, Vélez-Málaga, Rincón de la Victoria. Check BOP Málaga before stating "none".
 
+## Barcelona city (Catalonia)
+Checked 17 Oct 2026. Items 1–4 verified against the consolidated texts on the Portal Jurídic de Catalunya (DOGC), the
+BOE and ajuntament.barcelona.cat unless marked "press". Catalan term: habitatge d'ús turístic (HUT); register number
+NIRTC (Barcelona numbers look like `HUTB-012345`).
+1. **Registration and the number in every advert.**
+   - **Llei 13/2002, de 21 de juny, de turisme de Catalunya** (DOGC núm. 3669, 3 Jul 2002; consolidated text in force
+     from 14 Jul 2026). Art. 73.5: "El número d'inscripció dels allotjaments turístics en el Registre de Turisme de
+     Catalunya ha de constar en tota mena de publicitat, promoció o comercialització" (added by Llei 2/2014, amended
+     by Llei 5/2020). Art. 50 bis.2: an HUT needs its habilitating title before it is offered or advertised; the
+     service "s'inicia quan es fa la publicitat o la comercialització". Art. 50 bis.1: HUTs are let whole, never by rooms.
+   - Infractions (art. 88, greus): u ter) advertising/marketing a tourist lodging without the NIRTC or with a wrong
+     number; u quinquies) ignoring an order to remove such adverts; u novies) letting an HUT by rooms. Art. 88.a)
+     offering/advertising without the habilitating title (if the requirements are met); art. 89.a) muy greu if they
+     aren't. Fines (art. 94): lleu up to €3,000; greu €3,001–60,000; molt greu €60,001–600,000.
+     https://portaljuridic.gencat.cat/eli/es-ct/l/2002/06/21/13
+   - **Decret 75/2020, de 4 d'agost, de turisme de Catalunya** (DOGC núm. 8195, 6 Aug 2020; in force 26 Aug 2020;
+     consolidated text from 1 Apr 2026). Art. 131-3.3 refers to "l'obligació d'exhibició del número ... en tota mena de
+     publicitat" (provisional FUE number until the NIRTC is issued). Art. 221-2.6: the NIRTC must be displayed inside
+     the flat. Art. 251-2.2.c–d: platforms (intermediaris) must check the NIRTC or provisional number before
+     publishing an advert, refuse it if missing, and show it in all advertising. (Art. 212-2.2 is the same rule for
+     establiments d'allotjament turístic, i.e. hotels etc., not HUTs.)
+     https://portaljuridic.gencat.cat/eli/es-ct/d/2020/08/04/75
+2. **Seasonal threshold: 31 days.**
+   - Decret 75/2020 art. 221-1.1–2: an HUT is let "per a una estada de temporada"; "Es considera estada de temporada
+     tota ocupació de l'habitatge per un període de temps continu igual o inferior a 31 dies." Same wording for llars
+     compartides (art. 241-1.2). So a stay of **more than 31 days** is outside the HUT definition; a 31-day stay is
+     inside it. The Ajuntament's HUT page uses the same "igual o inferior a 31 dies".
+   - National: LAU art. 5.e (as amended by **Real Decreto-ley 29/2026, de 6 de octubre**, BOE-A-2026-20823, in force
+     8 Oct 2026): a tourist cession "no podrá en ningún caso superar los treinta y un días"; new art. 9 bis: a
+     "vivienda temporal" lease must be "superior a treinta y un días" (max 12 months as a rule) and needs a justified
+     cause (art. 2.3). RDL 29/2026 replaces RDL 26/2026, which Congress repealed on 2 Oct 2026 (BOE-A-2026-20526);
+     **convalidation of RDL 29/2026 not confirmed** as of 17 Oct 2026.
+     https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003
+   - Site rule: treat a listing as "possibly exempt" only with a **minimum stay of 32 nights or more**. A 31-night
+     minimum is still within the Catalan tourist definition.
+3. **Decret llei 3/2023, de 7 de novembre** (urban-planning regime for HUTs). DOGC núm. **9036**, 8 Nov 2023; in force
+   9 Nov 2023; validated by Parlament Resolució 897/XIV, 20 Dec 2023 (DOGC núm. 9066, 22 Dec 2023, per the STC).
+   - Art. 1: in listed municipalities, using a home as an HUT needs a prior planning licence, valid five years and
+     renewable only if the local plan allows it. Annex: **262 municipalities**, including Barcelona (no. 24).
+   - DT 2a.1: HUTs already registered must obtain that licence within five years of entry into force (i.e. by
+     **9 Nov 2028**) or stop. DT 2a.2: an owner who shows the transition doesn't compensate the loss may ask the
+     council once, after four years and before the end, for an extension of up to five more years.
+   - DF 1a: adds art. 187.1.p and DA 27a to the Text refós de la Llei d'urbanisme (HUT compatible with housing only if
+     the plan expressly allows it; max 10 HUTs per 100 inhabitants).
+   - PDF still "text publicat", no end of validity shown.
+     https://portaljuridic.gencat.cat/eli/es-ct/dl/2023/11/07/3
+   - **STC 64/2025, de 13 de marzo** (recurso 798-2024, PP deputies): appeal dismissed in full ("desestimar el
+     presente recurso"). BOE núm. 88, 11 Apr 2025, BOE-A-2025-7430. Two dissenting votes.
+     https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-7430
+4. **Barcelona: no HUT licences after November 2028.**
+   - Ajuntament news, 21 Jun 2024: the mayor set November 2028 as the end of the current ~10,000 HUTs; the PEUAT will
+     have "cap categoria que reconegui l'habitatge d'ús turístic".
+     https://ajuntament.barcelona.cat/turisme/ca/actualidad/noticias/barcelona-no-renovara-les-llicencies-dhabitatges-dus-turistic-1413375
+   - Ajuntament page "Application of Decree Law 3/2023": plans not to renew the 10,000 licences expiring in 2028;
+     PEUAT review to start in 2025. https://ajuntament.barcelona.cat/turisme/en/application-decree-law-32023-tourist-use-flats-huts
+   - Ajuntament, 9 Oct 2026: **10,627 active HUT licences**; IBI surcharge on HUTs (up to 50/100/150%) passed in
+     committee, initial approval at an extraordinary plenary (15 Oct 2026, press listing), final approval due in
+     December; first applies 31 Dec 2027.
+     https://ajuntament.barcelona.cat/premsa/2026/10/09/la-comissio-dhisenda-aprova-incrementar-limpost-de-bens-immobles-fins-a-un-150-als-pisos-turistics/
+   - Status: the decision is a stated policy; the legal mechanism is DL 3/2023 (no planning licence unless the plan
+     allows it). **No adopted PEUAT revision found** as of 17 Oct 2026. The DT 2a.2 extension route exists in law;
+     how Barcelona will treat requests is not confirmed.
+   - Challenges (press): Apartur has a contencioso before the TSJC (after a rejected compensation claim) asking for a
+     preliminary reference to the CJEU; decision expected late 2026/early 2027. No ruling suspending the plan found.
+5. **PEUAT (Pla especial urbanístic d'allotjaments turístics).**
+   - PEUAT 2017: final approval Plenari 27 Jan 2017 (BOPB 6 Mar 2017, per COAC; secondary). Annulled by the TSJC in
+     2019 for lacking an economic study; the TSJC did not admit the council's cassation appeal (Ajuntament,
+     13 May 2021). https://ajuntament.barcelona.cat/premsa/2021/05/13/la-prohibicio-i-limitacio-de-nous-allotjaments-turistics-a-barcelona-segueix-vigent/
+   - **Current PEUAT** ("Pla especial urbanístic per a la regulació dels establiments d'allotjament turístic, albergs
+     de joventut, habitatges d'ús turístic, llars compartides i residències col·lectives docents..."): initial approval
+     Comissió de Govern 29 Jan 2021; final approval Plenari **23 Dec 2021**; **BOPB 26 Jan 2022** (Ajuntament
+     transparency page). https://ajuntament.barcelona.cat/transparencia/ca/ordenanca-allotjament-dotacional
+   - Content (Ajuntament press release 23 Dec 2021): HUT numbers can't grow; zone 1 and now zone 2 are "decreixement";
+     when one closes in zone 1, one may open only in the contained-growth zone; **llars compartides: "Es manté la
+     prohibició d'implantar-ne a Barcelona"**, except in HUTs converted to a main residence, pending a municipal
+     ordinance (not found adopted).
+     https://ajuntament.barcelona.cat/premsa/2021/12/23/vistiplau-a-lactualitzacio-de-la-regulacio-de-tots-els-allotjaments-turistics-de-barcelona/
+   - Regional law: Llei 13/2002 art. 50 quater–sexies define llars compartides (host lives there; max 4 tourist places,
+     art. 50 sexies added by Llei 11/2026, 9 Jul 2026).
+
 ## Reporting channels
 - **Junta, Málaga (unregistered flats).**
   - Buzón de colaboración contra la clandestinidad turística: ma.buzonclandestinidadturistica.ctjdal@juntadeandalucia.es
@@ -191,6 +271,19 @@ Mijas, Ronda, Vélez-Málaga, Rincón de la Victoria. Check BOP Málaga before s
 - **Ayuntamientos de Granada and Córdoba.** No dedicated VUT channel found; general complaint forms not verified, so
   not listed on the site.
 - **Ayuntamiento de Marbella.** Buzón del ciudadano: https://gobiernoabierto.marbella.es/buzon-del-ciudadano.html
+- **Ajuntament de Barcelona** (checked 17 Oct 2026).
+  - HUT page with the licence check by address and the "Avisa'ns" link (Catalan only; /es and /en return 404):
+    https://ajuntament.barcelona.cat/urbanisme-accio-climatica-mobilitat-pla-barris-serveis-urbans/ca/habitatges-turistics
+  - "Avisa'ns" form (unlicensed HUTs, nuisance; online citizen service):
+    https://atencioenlinia.ajuntament.barcelona.cat/ca/fitxa/alta?cbDetall=3205&consulta=1&directo=1&i=c&origen=HABITATGES_US_TURISTIC
+  - Phone 010 (information, procedures, complaints): https://ajuntament.barcelona.cat/canals-comunicacio-ciutadana/
+  - Old channels in 2016 press (900 226 226, barcelona.cat/incidencies/habitatgesturistics, fairtourism.barcelona):
+    not verified as current; not used.
+- **Generalitat de Catalunya.** Tràmit "Denúncia respecte de l'estat o el funcionament d'un allotjament turístic"
+  (Departament d'Empresa i Treball, Sub-direcció General d'Ordenació i Inspecció Turística; online, idCAT/certificate;
+  covers establishments in the Registre de Turisme de Catalunya; no fee; 3 months to resolve):
+  https://tramits.gencat.cat/ca/tramits/tramits-temes/Denuncia-respecte-de-lestat-i-o-el-funcionament-dun-establiment-turistic
+  For unlicensed flats, the Ajuntament is the first channel.
 - **Platforms.**
   - Airbnb: https://www.airbnb.com/neighbors
   - Booking.com: https://www.booking.com/content-moderation-policy/reporting-content-on-booking.html
@@ -217,3 +310,12 @@ Mijas, Ronda, Vélez-Málaga, Rincón de la Victoria. Check BOP Málaga before s
 - Cádiz: BOP publication date of the final approval of MP nº 10, and how it fits with the pending MP nº 9 for VUTs
   in Ensanche Moderno.
 - Granada / Cádiz: whether the ".ctcd" buzón addresses still work.
+- Barcelona: no adopted PEUAT revision removing the HUT category; how DL 3/2023 DT 2a.2 extension requests (possible
+  from Nov 2027) will be handled; outcome of the Apartur case at the TSJC (press only).
+- Barcelona: the BOPB reference of the 2017 PEUAT (6 Mar 2017 from COAC only), and whether the llars compartides
+  ordinance promised in Dec 2021 was ever adopted.
+- Barcelona: final approval of the IBI surcharge on HUTs (due Dec 2026).
+- Spain: whether Congress validates RDL 29/2026 (the 31-day cap in LAU art. 5.e and the >31-day "vivienda temporal"
+  lease); the Catalan 31-day definition applies either way.
+- Catalonia: a current official URL for searching the Registre de Turisme de Catalunya (datos.gob.es lists a dataset
+  "Establecimientos de alojamiento turístico inscritos en el Registro de Turismo de Catalunya"; not checked).

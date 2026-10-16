@@ -6,7 +6,9 @@ import re
 from . import http
 
 INDEX = "https://insideairbnb.com/get-the-data/"
-BASE = "https://data.insideairbnb.com/spain/andaluc%C3%ADa/{city}/{date}/{path}"
+BASE = "https://data.insideairbnb.com/spain/{region}/{city}/{date}/{path}"
+REGION = {"malaga": "andaluc%C3%ADa", "sevilla": "andaluc%C3%ADa", "barcelona": "catalonia"}   # Inside Airbnb's folders
+REGION_RE = {"malaga": "andaluc[^/]*", "sevilla": "andaluc[^/]*", "barcelona": "catalonia"}
 
 
 def _dir(cache_dir, city):
@@ -15,7 +17,7 @@ def _dir(cache_dir, city):
 
 def latest_remote_date(city="malaga"):
     h = http.get(INDEX, timeout=60).text
-    dates = re.findall(rf"spain/andaluc[^/]*/{city}/(\d{{4}}-\d{{2}}-\d{{2}})/data/listings\.csv\.gz", h)
+    dates = re.findall(rf"spain/{REGION_RE[city]}/{city}/(\d{{4}}-\d{{2}}-\d{{2}})/data/listings\.csv\.gz", h)
     return max(dates) if dates else None
 
 
@@ -43,7 +45,7 @@ def update(cache_dir, city="malaga"):
         os.makedirs(d, exist_ok=True)
         for path, name in (("data/listings.csv.gz", "listings.csv.gz"),
                            ("visualisations/neighbourhoods.geojson", "neighbourhoods.geojson")):
-            r = http.get(BASE.format(city=city, date=remote, path=path), timeout=600)
+            r = http.get(BASE.format(region=REGION[city], city=city, date=remote, path=path), timeout=600)
             open(os.path.join(d, name), "wb").write(r.content)
         return remote, os.path.join(d, "listings.csv.gz"), True
     date, p = latest_local(cache_dir, city)

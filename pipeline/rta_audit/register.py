@@ -50,9 +50,14 @@ def _num(s):
 
 
 def utm30_to_wgs84(x, y):
-    """ETRS89 / UTM zone 30N (EPSG:25830) -> (lat, lon). GRS80 ellipsoid, ~cm accuracy."""
+    """ETRS89 / UTM zone 30N (EPSG:25830) -> (lat, lon)."""
+    return utm_to_wgs84(x, y, 30)
+
+
+def utm_to_wgs84(x, y, zone=30):
+    """ETRS89 / UTM zone N (EPSG:258NN; Andalucía 30, Catalonia 31) -> (lat, lon). GRS80 ellipsoid, ~cm accuracy."""
     a, f = 6378137.0, 1 / 298.257222101
-    k0, lon0, e2 = 0.9996, math.radians(-3.0), f * (2 - f)
+    k0, lon0, e2 = 0.9996, math.radians(zone * 6 - 183), f * (2 - f)
     ep2 = e2 / (1 - e2)
     x -= 500000.0
     m = y / k0
@@ -150,8 +155,12 @@ def is_malaga_city(r):
 
 
 def code_key(code):
-    m = re.match(r"^([A-Z]+)/([A-Z]{2})/(\d+)$", (code or "").strip().upper())
-    return normalise_key(m.group(1), m.group(2), m.group(3)) if m else None
+    c = (code or "").strip().upper()
+    m = re.match(r"^([A-Z]+)/([A-Z]{2})/(\d+)$", c)
+    if m:
+        return normalise_key(m.group(1), m.group(2), m.group(3))
+    k = re.match(r"^(HUTB|HB|ATB)-?0*(\d{1,6})$", c)   # Catalonia (already in its key form, HUTB-012345)
+    return f"{k.group(1)}-{int(k.group(2)):06d}" if k else None
 
 
 def build_index(records):

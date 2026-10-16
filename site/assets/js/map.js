@@ -336,8 +336,8 @@
         text: L(`${p.name} (${area.slug === "sevilla" ? "Sevilla" : "Málaga"}): ${p.vut_share != null ? `el ${pc(p.vut_share)} de las viviendas son turísticas registradas` : `${p.vut} viviendas turísticas registradas`}`,
           `${p.name} (${area.slug === "sevilla" ? "Sevilla" : "Málaga"}): ${p.vut_share != null ? `${pc(p.vut_share)} of homes are registered tourist flats` : `${p.vut} registered tourist flats`}`) + " · tienelicencia.com",
         content: "map_barrio" })}</div>
-      ${p.vut_share != null ? `<p class="sub">${L(`<b>${pc(p.vut_share)}</b> de las viviendas del barrio son turísticas registradas (${fmt(p.vut)} de ${fmt(p.homes)}; indicativo)${p.vut_share > (area.cap || 8) ? `, por encima del límite del ${area.cap || 8}&nbsp;% que usa el Ayuntamiento` : ""}.`,
-        `<b>${pc(p.vut_share)}</b> of homes in this barrio are registered tourist flats (${fmt(p.vut)} of ${fmt(p.homes)}; indicative)${p.vut_share > (area.cap || 8) ? `, above the ${area.cap || 8}% limit the council uses` : ""}.`)}</p>` : ""}
+      ${p.vut_share != null ? `<p class="sub">${L(`<b>${pc(p.vut_share)}</b> de las viviendas del barrio son turísticas registradas (${fmt(p.vut)} de ${fmt(p.homes)}; indicativo)${area.cap && p.vut_share > area.cap ? `, por encima del límite del ${area.cap}&nbsp;% que usa el Ayuntamiento` : ""}.`,
+        `<b>${pc(p.vut_share)}</b> of homes in this barrio are registered tourist flats (${fmt(p.vut)} of ${fmt(p.homes)}; indicative)${area.cap && p.vut_share > area.cap ? `, above the ${area.cap}% limit the council uses` : ""}.`)}</p>` : ""}
       <div class="figs"><div><b>${fmt(p.vut)}</b><span>${L("viviendas registradas", "registered flats")}</span></div><div><b>${fmt(p.listings)}</b><span>${L("anuncios", "listings")}</span></div>
         ${has ? `<div><b style="color:var(--bad)">${Math.round(p.not_valid_pct)}%</b><span>${L("sin número válido", "no valid number")}</span></div>` : ""}</div>
       ${has ? `<table class="flats"><tbody>

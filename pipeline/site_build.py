@@ -21,7 +21,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 
 warnings.filterwarnings("ignore")
-from rta_audit import buildings, catastro, classify, codes, geo, ine, live, register, sample, serpavi, snapshot, state  # noqa: E402
+from rta_audit import buildings, catastro, catalunya, classify, codes, geo, ine, live, register, sample, serpavi, snapshot, state  # noqa: E402
 
 PIPE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(PIPE)
@@ -50,6 +50,7 @@ def state_path(city):
 def cmd_refresh(a):
     meta = register.fetch(REG_DIR)
     snaps = {c: snapshot.update(CACHE, c) for c in LISTING_CITIES}
+    catalunya.fetch(CACHE)   # Barcelona: Generalitat register (province) + Ajuntament HUT file
     snap = snaps["malaga"]
     geo.ensure_barrios(CACHE)
     i = ine.fetch(CACHE)   # tourist homes advertised on the main platforms, per municipality (about twice a year)
@@ -257,6 +258,10 @@ AREAS = [
     {"slug": "sevilla", "name": {"es": "Sevilla (ciudad)", "en": "Seville (city)"}, "kind": "city", "home": "SEVILLA",
      "match": lambda x: x.get("municipalities") == "SEVILLA", "listings": True, "barrios": True, "ine": "41091",
      "center": [-5.987, 37.389], "zoom": 13.2, "hex_m": 90, "subareas": "barrio", "cap": 10},
+    # Catalonia: register from the Generalitat (numbers) + Ajuntament (coordinates); see rta_audit/catalunya.py
+    {"slug": "barcelona", "name": {"es": "Barcelona", "en": "Barcelona"}, "kind": "city", "home": "BARCELONA", "region": "catalunya",
+     "match": lambda x: x.get("municipalities") == "BARCELONA", "listings": True, "barrios": True, "ine": "08019",
+     "center": [2.165, 41.392], "zoom": 13, "hex_m": 90, "subareas": "barrio"},
     {"slug": "marbella", "name": {"es": "Marbella", "en": "Marbella"}, "kind": "city",
      "match": lambda x: x.get("municipalities") == "MARBELLA", "listings": False, "barrios": False, "ine": "29069",
      "center": [-4.93, 36.51], "zoom": 12, "hex_m": 150, "subareas": "locality"},
@@ -288,8 +293,15 @@ AREAS = [
 ]
 SEARCH_PROVINCES = ANDALUSIA   # the search index covers all of Andalucía
 CATASTRO_PROVINCE = "29"     # Catastro: every municipality in Málaga province…
-CATASTRO_EXTRA = [("41", "SEVILLA"), ("18", "GRANADA"), ("14", "CORDOBA"), ("11", "CADIZ")]   # …plus these cities
-LISTING_CITIES = [A["slug"] for A in AREAS if A["listings"]]   # Inside Airbnb city slugs = our area slugs
+CATASTRO_EXTRA = [("41", "SEVILLA"), ("18", "GRANADA"), ("14", "CORDOBA"), ("11", "CADIZ"), ("08", "BARCELONA")]   # …plus these cities
+LISTING_CITIES = [A["slug"] for A in AREAS if A["listings"]]
+# The official register behind each region's areas (names for the page) and its seasonal-let threshold
+REGISTERS = {
+    "andalucia": {"es": "Registro de Turismo de Andalucía", "en": "Andalusian Tourism Register", "by_es": "la Junta", "by_en": "the Junta",
+                  "src": "Open RTA", "seasonal_nights": 60},
+    "catalunya": {"es": "Registre de Turisme de Catalunya", "en": "Catalan Tourism Register", "by_es": "la Generalitat", "by_en": "the Generalitat",
+                  "src": "Generalitat de Catalunya y Ajuntament de Barcelona", "seasonal_nights": 32},
+}   # Inside Airbnb city slugs = our area slugs
 
 
 def city_barrios(slug):
@@ -300,7 +312,7 @@ def city_barrios(slug):
     return geo.Barrios(os.path.join(os.path.dirname(p), "neighbourhoods.geojson"))
 
 
-def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA"):
+def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA", cat_idx=None):
     """Classify every listing of one city (live if fresh, else snapshot text). Returns (listings, removed, by_key)."""
     out, removed = [], 0
     for r in rows:
@@ -316,7 +328,12 @@ def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA"):
         else:
             v = {"registration_raw": r["license"], "lat": r["latitude"], "lon": r["longitude"], "room_type": r["room_type"],
                  "property_type": r["property_type"], "min_nights": r["minimum_nights"]}
-        c = classify.classify(v, index, official, mx, home)
+        if cat_idx is not None:   # Catalonia: HUTB numbers against the Generalitat register (rta_audit.catalunya)
+            cc = catalunya.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], cat_idx, home.title())
+            c = {"category": cc["category"], "match_key": cc["key"] if cc["category"].startswith("FOUND") else None,
+                 "primary_code_norm": cc["key"], "junta_codes_norm": cc["key"] or "", "register_record": {"group": cc.get("group")}}
+        else:
+            c = classify.classify(v, index, official, mx, home)
         out.append({"id": r["id"], "lat": float(v["lat"]), "lon": float(v["lon"]), "basis": basis, "cat": c["category"],
                     "verdict": classify.VERDICT[c["category"]], "key": c.get("match_key") or c.get("primary_code_norm"),
                     "keys": [k for k in (c.get("junta_codes_norm") or "").split("; ") if k],
@@ -623,6 +640,10 @@ def cmd_build(a):
     # ---- tourist accommodation in the search province, grouped into buildings
     prov = [x for rs in index.values() for x in rs if (x.get("provinces") or "").upper() in SEARCH_PROVINCES
             and x.get("objects_type_id") in register.TOURIST_ACCOMMODATION_TYPES]
+    # Catalonia (Barcelona city): converted to the same record shape, so buildings, barrios and search work unchanged
+    cg, ca = os.path.join(CACHE, "catalunya", "generalitat.csv"), os.path.join(CACHE, "catalunya", "ajuntament_hut.csv")
+    CAT = catalunya.load_register(cg, ca) if os.path.exists(cg) and os.path.exists(ca) else {}
+    prov += [x for x in catalunya.as_register_records(CAT) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     agg = buildings.Aggregator()
     agg_ids = {id(x): agg.add(x) for x in prov}
 
@@ -632,7 +653,11 @@ def cmd_build(a):
         if A["listings"]:
             d_, p_ = snaps[A["slug"]]
             rows_ = sample.load_snapshot(p_)
-            LIST[A["slug"]] = (rows_, d_, *classify_listings(index, official, mx, d_, rows_, state.load(state_path(A["slug"])), A["home"]))
+            if A.get("region") == "catalunya" and not CAT:
+                print("barcelona: no Catalan register in the cache; skipped")
+                continue
+            LIST[A["slug"]] = (rows_, d_, *classify_listings(index, official, mx, d_, rows_, state.load(state_path(A["slug"])), A["home"],
+                                                             CAT if A.get("region") == "catalunya" else None))
 
     os.makedirs(SITE_DATA, exist_ok=True)
 
@@ -672,6 +697,7 @@ def cmd_build(a):
             BUILDING_CSV_COLS)
         reg["top_buildings"] = reg["top_buildings"][:200]
         summary = {"slug": A["slug"], "registered": reg, "has_listings": A["listings"], "cap": A.get("cap"),
+                   "register": REGISTERS[A.get("region", "andalucia")],
                    **({"snapshot_date": a_snap} if a_snap else {})}
         hexg = geo.Hex(A["hex_m"])
 
@@ -827,7 +853,12 @@ def cmd_build(a):
         json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"], "max_issued":
                    {f"{p}/{v}": n_ for (p, v), n_ in mx.items()}, "codes": idx, "shared": usage,
                    # listings with a minimum stay of 60+ nights (seasonal lets): the advert page doesn't show it
-                   "long_stay": sorted(r["id"] for rs, *_ in LIST.values() for r in rs if int(r["minimum_nights"] or 0) >= 60),
+                   # (Andalucía: 60+ nights; Catalonia: more than 31 days is seasonal)
+                   "long_stay": sorted(r["id"] for slug_, (rs, *_) in LIST.items() for r in rs
+                                       if int(r["minimum_nights"] or 0) >= (catalunya.SEASONAL_NIGHTS if slug_ == "barcelona" else 60)),
+                   # Catalonia (province of Barcelona): HUTB/HB/ATB numbers → [municipality, lat, lon, group]
+                   "cat": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                               "C" if k.startswith("HUTB") else ""] for k, v in CAT.items()},
                    # date only: the source note describes a private document and stays in the private state
                    "cancelled": {k: {"date": v.get("cancel_date")} for k, v in official.items()
                                  if v.get("status") == "cancelled"}},
@@ -836,7 +867,7 @@ def cmd_build(a):
     clean = lambda v: " ".join(str(v).split()) if v not in (None, "", "-") else ""
     srows = []
     MUNI_AREA = {A["home"]: A["slug"] for A in AREAS if A.get("home") and A["barrios"]}   # barrio names in search results
-    PROV_CODE = {"ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
+    PROV_CODE = {"BARCELONA": "B", "ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
                  "MÁLAGA": "MA", "SEVILLA": "SE"}   # the register's own province codes (VUT/MA/…, VUT/HU/…)
     for x in prov:
         srows.append([x["registration_code"], buildings.KIND.get(x.get("objects_type_id"), "?"), (x.get("group") or "")[:1],

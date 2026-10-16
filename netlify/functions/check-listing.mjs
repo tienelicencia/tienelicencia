@@ -101,7 +101,9 @@ const licenceOf = (key) => {
  */
 // ---- Coverage: we only check numbers against registers we have (today: Andalucía).
 // Where a listing is: Airbnb's location line names the region ("Málaga, Andalucía, España"); else the map pin.
-const COVERED = [{ id: "andalucia", name: "Andalucía", words: /andaluc/i,
+const COVERED = [
+  { id: "barcelona", name: "Barcelona", words: /^\s*barcelona\b/i, inside: (la, lo) => la > 41.32 && la < 41.47 && lo > 2.05 && lo < 2.23 },
+  { id: "andalucia", name: "Andalucía", words: /andaluc/i,
   // rough outline of Andalucía (lat/lon box minus Murcia/Extremadura corners is close enough as a fallback)
   inside: (la, lo) => la > 35.9 && la < 38.75 && lo > -7.6 && lo < -1.6 && !(lo > -2.0 && la > 37.6) && !(lo < -5.6 && la > 38.2) }];
 // Other regions' number formats, so a typed number from elsewhere gets "not covered yet" rather than "invalid"
@@ -113,17 +115,61 @@ export function coverage(page) {
   const loc = page.location || "";
   if (loc) {
     const c = COVERED.find((r) => r.words.test(loc));
-    return c ? { covered: true, region: c.name } : { covered: false, place: loc.split(",")[0].trim(), region: loc.split(",").slice(-2, -1)[0]?.trim() || null };
+    return c ? { covered: true, region: c.name, id: c.id } : { covered: false, place: loc.split(",")[0].trim(), region: loc.split(",").slice(-2, -1)[0]?.trim() || null };
   }
   if (page.lat != null) {
     const c = COVERED.find((r) => r.inside(page.lat, page.lon));
-    return c ? { covered: true, region: c.name } : { covered: false, place: null, region: null };
+    return c ? { covered: true, region: c.name, id: c.id } : { covered: false, place: null, region: null };
   }
   return { covered: true };   // nothing to go on: check as usual
 }
 export function otherRegion(text) {
   const f = OTHER_FORMATS.find(([re]) => re.test(text || ""));
   return f ? f[1] : null;
+}
+
+// ---- Catalonia (Barcelona): HUTB-012345 numbers against the Generalitat register (same rules as pipeline/rta_audit/catalunya.py)
+const CAT_RE = /(?<![A-Z0-9])(HUTB|HB|ATB|AJ|HSB|PB|HUT)[\s\-_/.]*0*(\d{1,6})(?![0-9])/gi;
+const catKeyOf = (p, n) => `${p.toUpperCase() === "HUT" ? "HUTB" : p.toUpperCase()}-${String(+n).padStart(6, "0")}`;
+export function assessCat(page, L, listingId = null) {
+  const text = (page.registration_raw || "").replace(/<br\s*\/?>/gi, " | ");
+  const national = [...text.matchAll(/(?<![A-Z0-9])ES[A-Z]{4}\d{10,}[0-9A-Z/\-]*/gi)].map((m) => m[0]);
+  const rest = text.replace(/(?<![A-Z0-9])ES[A-Z]{4}\d{10,}[0-9A-Z/\-]*/gi, " ");
+  let keys = [...new Set([...rest.matchAll(CAT_RE)].map((m) => catKeyOf(m[1], m[2])))];
+  if (!keys.length) keys = [...new Set(national.flatMap((n) => [...n.matchAll(/HUTB-?(\d{6})/gi)].map((m) => `HUTB-${m[1]}`)))];
+  const base = { shown: keys, national_numbers: national, register_date: L.register_lastUpdateData, region: "Catalunya" };
+  const C = L.cat || {};
+  if (!keys.length) {
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room") exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (national.length) exempt.push("national_only");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  let best = null;
+  for (const k of keys) {
+    const rec = C[k];
+    let r;
+    if (!rec) r = { k, v: 4 };
+    else {
+      const [mun, lat, lon, group] = rec;
+      const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      const other = mun && mun !== "Barcelona" && (page.lat != null || page.location);
+      r = { k, mun, dist, group, v: other ? 2 : dist != null && dist > THRESHOLD_M ? 1 : 0 };
+    }
+    if (!best || r.v < best.v) best = r;
+  }
+  const res = { ...base, code: best.k, key: best.k, licence: licenceOf(best.k), licence_muni: best.mun || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    if (page.room_type && page.room_type !== "Entire home/apt" && best.group === "C") return { ...res, verdict: "VALID_TYPE_MISMATCH", reason: "type_mismatch" };
+    const shared = (L.shared[best.k] || 0) > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: L.shared[best.k] || 0 };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place" };
+  return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
 }
 
 export function assess(page, L, listingId = null) {
@@ -200,8 +246,9 @@ export default async (req, context) => {
   const code = (url.searchParams.get("code") || "").slice(0, 80);
   if (code) {
     if (rateLimited(ip, 60)) return json(429, { error: "rate_limited" });
-    const res = assess({ registration_raw: code }, L);
-    const other = !res.shown.length && otherRegion(code);   // e.g. a Catalan HUTB number typed in
+    const isCat = CAT_RE.test(code); CAT_RE.lastIndex = 0;
+    const res = isCat ? assessCat({ registration_raw: code }, L) : assess({ registration_raw: code }, L);
+    const other = !isCat && !res.shown.length && otherRegion(code);   // e.g. a Valencian VT- number typed in
     if (other) return json(200, { mode: "code", checked_at: new Date().toISOString(), verdict: "NOT_COVERED", reason: "not_covered",
       region: other, code, register_date: L.register_lastUpdateData });
     return json(200, { mode: "code", checked_at: new Date().toISOString(), ...res });
@@ -230,7 +277,8 @@ export default async (req, context) => {
         region: cov.region || otherRegion(page.registration_raw), shown_text: (page.registration_raw || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200),
         register_date: L.register_lastUpdateData }
     : { ...meta, title: page.title, location: page.location, room_type: page.room_type,
-        pin: page.lat != null ? [page.lat, page.lon] : null, ...assess(page, L, ad.platform === "airbnb" ? ad.id : null) };
+        pin: page.lat != null ? [page.lat, page.lon] : null,
+        ...(cov.id === "barcelona" ? assessCat : assess)(page, L, ad.platform === "airbnb" ? ad.id : null) };
   CACHE.set(ad.url, { at: Date.now(), body });
   return json(200, body);
 };

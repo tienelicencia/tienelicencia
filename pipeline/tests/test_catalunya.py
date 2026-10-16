@@ -5,7 +5,7 @@ import unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from rta_audit import catalunya as C  # noqa: E402
 
-IDX = {"HUTB-012345": {"type": "HUT", "lat": 41.3851, "lon": 2.1734, "barri": "el Barri Gòtic", "district": "Ciutat Vella", "places": 4},
+IDX = {"HUTB-012345": {"type": "HUT", "municipi": "Barcelona", "lat": 41.3851, "lon": 2.1734, "barri": "el Barri Gòtic", "district": "Ciutat Vella", "places": 4},
        "HB-000123": {"type": "Hotel", "lat": None, "lon": None, "barri": None, "district": None, "places": 80}}
 
 
@@ -38,6 +38,7 @@ class ClassifyTests(unittest.TestCase):
     def test_no_number_and_exempt(self):
         self.assertEqual(self.cat(""), "NO_CODE_IN_SCOPE")
         self.assertEqual(self.cat("", mn="32"), "NO_CODE_POSSIBLY_EXEMPT")
+        self.assertEqual(self.cat("", mn="31"), "NO_CODE_IN_SCOPE")   # 31 days is still a tourist stay
         self.assertEqual(self.cat("Barcelona - Regional registration number<br />Exempt - seasonal rental"), "NO_CODE_POSSIBLY_EXEMPT")
 
 

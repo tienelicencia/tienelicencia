@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -65,8 +65,15 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(assess({ registration_raw: "VUT/SE/00624" }, lookup()).verdict, "VALID");
   // Coverage: listings outside Andalucía aren't judged; other regions' numbers are recognised
   assert.equal(coverage({ location: "Málaga, Andalucía, España" }).covered, true);
-  assert.equal(coverage({ location: "Barcelona, Cataluña, España" }).covered, false);
-  assert.equal(coverage({ lat: 41.39, lon: 2.17 }).covered, false);
+  assert.equal(coverage({ location: "Barcelona, Cataluña, España" }).id, "barcelona");
+  assert.equal(coverage({ lat: 41.39, lon: 2.17 }).id, "barcelona");
+  assert.equal(coverage({ location: "Girona, Cataluña, España" }).covered, false);
+  // Barcelona: HUTB numbers against the Generalitat register
+  const bcn = lookup().cat["HUTB-002062"];
+  assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Entire home/apt", location: "Barcelona" }, lookup()).reason, "valid");
+  assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Private room", location: "Barcelona" }, lookup()).reason, "type_mismatch");
+  assert.equal(assessCat({ registration_raw: "HUTB-000000" }, lookup()).reason, "not_in_register");
+  assert.equal(assessCat({ registration_raw: "ESFCTU000008058000039706000000000000000HUTB-002062349" }, lookup()).key, "HUTB-002062");
   assert.equal(coverage({ lat: 37.39, lon: -5.99 }).covered, true);
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");

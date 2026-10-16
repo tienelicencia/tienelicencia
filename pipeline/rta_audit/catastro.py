@@ -15,7 +15,7 @@ import zipfile
 from datetime import datetime, timezone
 
 from . import http
-from .register import utm30_to_wgs84
+from .register import utm_to_wgs84
 
 FEED = "https://www.catastro.hacienda.gob.es/INSPIRE/buildings/{prov}/ES.SDGC.bu.atom_{prov}.xml"
 ZIP = "https://www.catastro.hacienda.gob.es/INSPIRE/Buildings/{prov}/{code}-{name}/A.ES.SDGC.BU.{code}.zip"
@@ -37,13 +37,16 @@ def parse_zip(path):
     out = {}
     with zipfile.ZipFile(path) as z:
         name = next(n for n in z.namelist() if n.endswith(".building.gml"))
-        buf = ""
+        buf, zone = "", None
         with z.open(name) as fh:
             while True:
                 chunk = fh.read(1 << 22)
                 if not chunk:
                     break
                 buf += chunk.decode("utf-8", "ignore")
+                if zone is None:   # the file's grid: EPSG 25830 (Andalucía) or 25831 (Catalonia)
+                    zm = re.search(r"EPSG:+258(\d\d)", buf)
+                    zone = int(zm.group(1)) if zm else None
                 last = 0
                 for m in _FEATURE.finditer(buf):
                     ref, body = m.group(1)[:14], m.group(2)
@@ -51,7 +54,7 @@ def parse_zip(path):
                     if not e:
                         continue
                     x, y = (float(e.group(1)) + float(e.group(3))) / 2, (float(e.group(2)) + float(e.group(4))) / 2
-                    lat, lon = utm30_to_wgs84(x, y)
+                    lat, lon = utm_to_wgs84(x, y, zone or 30)
                     p = out.get(ref)
                     dw = int(d.group(1)) if d else 0
                     res = 1 if (u and u.group(1).startswith("1_residential")) else 0
