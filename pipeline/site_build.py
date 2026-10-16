@@ -249,7 +249,7 @@ def host_bucket(n):
 
 
 # Areas shown on the site. `match` picks register records; only Málaga city has Airbnb listing data
-# (Inside Airbnb covers the municipality only). Add a city here and in netlify.toml's redirects.
+# (Inside Airbnb covers the municipality only). Add a city here and in site/_redirects.
 ANDALUSIA = {"ALMERÍA", "CÁDIZ", "CÓRDOBA", "GRANADA", "HUELVA", "JAÉN", "MÁLAGA", "SEVILLA"}
 AREAS = [
     {"slug": "malaga", "name": {"es": "Málaga (ciudad)", "en": "Málaga (city)"}, "kind": "city", "home": "MÁLAGA",

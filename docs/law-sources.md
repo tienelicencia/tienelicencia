@@ -319,3 +319,63 @@ NIRTC (Barcelona numbers look like `HUTB-012345`).
   lease); the Catalan 31-day definition applies either way.
 - Catalonia: a current official URL for searching the Registre de Turisme de Catalunya (datos.gob.es lists a dataset
   "Establecimientos de alojamiento turístico inscritos en el Registro de Turismo de Catalunya"; not checked).
+
+## Seasonal-let thresholds (checked 17 Oct 2026)
+Which minimum stay lets a listing with no registration number be shown as "possibly exempt" (a seasonal let, not
+tourist accommodation).
+
+1. **Andalucía: Decreto 28/2016 art. 1.2.b** (wording given by Decreto 31/2024 art. 1.Dos, BOJA nº 24, 2 Feb 2024,
+   in force 22 Feb 2024). "Quedan excluidas del ámbito de aplicación de la presente norma: […] b) Las viviendas
+   arrendadas por tiempo superior a dos meses computados de forma continuada a un mismo arrendatario."
+   https://www.juntadeandalucia.es/boja/2024/24/50
+   - It means **more than** two months, **continuously**, to the **same tenant**. Exactly two months is still a VUT.
+   - Months run date to date (Código Civil art. 5.1), so two months is 59–62 nights depending on the start date
+     (e.g. 1 Feb–1 Apr = 59; 1 Jul–1 Sep = 62). A **60-night** minimum can exceed two months for some dates. Only
+     **63 nights or more** exceeds two months whatever the start date.
+   - Art. 3.1 (same decree): tourist purpose is presumed when the home is marketed on tourist channels, including
+     any channel where the stay can be booked (so Airbnb). A long minimum stay makes exemption plausible, not
+     certain.
+   - No later change to art. 1.2 found. The Junta's consolidated text lists only Decreto 31/2024 and Decreto-ley
+     7/2024 (water). Decreto-ley 1/2025 deals with zoning, not duration. The Ley de Turismo Sostenible lapsed (see
+     Andalucía above). We found no Andalusian rule adopted after 8 Oct 2026 in response to RDL 29/2026.
+   - Our earlier "≥ 60 nights" came from this article. It is now sourced, but it is approximate (see above).
+
+2. **Spain: Real Decreto-ley 29/2026, de 6 de octubre** (BOE núm. 249, 7 Oct 2026, BOE-A-2026-20823; in force 8 Oct
+   2026). Art. 3 amends the LAU:
+   - **Art. 5.e** (4th amendment): tourist lets fall outside the LAU only when they are covered by a specific
+     regional tourism regime. "La duración máxima de este tipo de cesión, que será fijada por las administraciones
+     competentes, no podrá en ningún caso superar los treinta y un días."
+   - **Art. 7.2 and 9 bis.1** (5th and 7th amendments): a "vivienda temporal" lease needs a "real y acreditable"
+     cause written into the contract. Its length "debiendo ser superior a treinta y un días" is 12 months at most as
+     a rule. Without the cause, the lease counts as a habitual-residence lease.
+   - **New DA 12ª LAU** (21st amendment): the LAU is civil law (CE 149.1.8ª) and leaves the regions' housing powers
+     intact. Its rules on temporary and room lets are "sin perjuicio" of regional rules. The text does not mention
+     regional tourism powers.
+   - Art. 20: adverts must show the "códigos alfanuméricos de ámbito municipal o autonómico relativos a las viviendas
+     de uso turístico". The regional code is still the identifier.
+   - The RDL does not amend Andalusian law (no mention of Andalucía). Read together:
+     - From 8 Oct 2026, national civil law treats any stay of 32 nights or more as a LAU lease, not a tourist let.
+     - Decreto 28/2016 has not been amended and still brings stays of 32 nights up to two months within the VUT rules.
+     - The RTA registration duty comes from regional law (Ley 13/2011; Decreto 28/2016), so on paper Andalucía still
+       decides. However, art. 5.e expressly caps the regional limit at 31 days. A host offering 32–62 nights has a
+       real argument that the stay is not a VUT. **Not resolved** by any court or Junta statement that we found.
+   - **Convalidation status: not confirmed.**
+     - The BOE consolidated text shows only the "texto inicial" of 7 Oct 2026, with no note of convalidation or
+       derogation. https://www.boe.es/buscar/act.php?id=BOE-A-2026-20823
+     - Congress is dissolved (elections 29 Nov), so the Diputación Permanente must vote. According to the press, it
+       was not on the 16 Oct agenda, and the deadline is about 13 Nov 2026 (Infobae, 16 Oct 2026, press only).
+     - If the RDL is not convalidated, it is derogated from then on, and the old art. 5.e (no 31-day cap) returns.
+
+3. **Recommendation for Andalucía ("possibly exempt" threshold).**
+   - **While RDL 29/2026 is in force: use ≥ 32 nights.** Brief reason:
+     - A 32–62-night minimum stay is plausibly not a tourist let under national law.
+     - Our rule is not to call a listing "no valid number" when it plausibly doesn't need one.
+   - **Show both tiers in the wording:**
+     - **32–62 nights:** "possibly exempt: over 31 nights is not a tourist let under national law (RDL 29/2026,
+       pending validation), but the Junta's decree still covers lets of up to two months".
+     - **≥ 63 nights:** "possibly exempt: more than two months, outside the Junta's decree (art. 1.2.b)".
+   - Both tiers stay "possibly", because of the Airbnb presumption in art. 3.1 and the same-tenant condition.
+   - **If the RDL lapses** (check BOE/Congreso after ~13 Nov 2026), go back to the regional rule only, at **≥ 60
+     nights**. 60–62 can already exceed two months, so it stays conservative; 63 or more always does. Catalonia stays
+     at ≥ 32 either way (Decret 75/2020 art. 221-1.2).
+   - Not confirmed: the original 2016 wording of art. 1.2. We relied on the 2024 BOJA text, which is the one in force.

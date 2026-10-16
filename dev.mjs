@@ -1,5 +1,5 @@
 // Local preview: serves site/, the functions in netlify/functions (by their config.path) and the page
-// rewrites from netlify.toml, like Netlify does.
+// rewrites from site/_redirects, like Netlify does.
 //   node dev.mjs            → http://127.0.0.1:8791
 import { createServer } from "node:http";
 import { readFile, readdir } from "node:fs/promises";
@@ -19,12 +19,11 @@ for (const f of await readdir("netlify/functions")) {
   const m = await import(pathToFileURL(join(process.cwd(), "netlify/functions", f)).href);
   if (m.config?.path) FUNCS[m.config.path] = m.default;
 }
-// [[redirects]] from = "/x" to = "/y.html" status = 200  → rewrite table
-const toml = await readFile("netlify.toml", "utf8");
+// site/_redirects: "/x  /y.html  200" → rewrite table
 const REWRITES = {};
-for (const b of toml.split("[[redirects]]").slice(1)) {
-  const from = b.match(/from\s*=\s*"([^"]+)"/)?.[1], to = b.match(/to\s*=\s*"([^"]+)"/)?.[1];
-  if (from && to && /status\s*=\s*200/.test(b)) REWRITES[from.replace(/\/$/, "")] = to;
+for (const line of (await readFile("site/_redirects", "utf8")).split("\n")) {
+  const [from, to, status] = line.trim().split(/\s+/);
+  if (from && !from.startsWith("#") && to && status === "200") REWRITES[from.replace(/\/$/, "")] = to;
 }
 
 createServer(async (req, res) => {
