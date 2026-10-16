@@ -10,7 +10,7 @@
       strip: "Servicio de información independiente con datos abiertos oficiales.",
       strip_b: "No es una web oficial de la Junta de Andalucía ni de ningún ayuntamiento.",
       foot_about: "Un recurso gratuito para quienes viven en Andalucía, empezando por Málaga y Sevilla: qué viviendas turísticas están registradas y qué anuncios no muestran un número válido, con datos abiertos y verificables. Sin publicidad ni fines comerciales.",
-      foot_contact: "Contacto y correcciones", foot_press: "Prensa y datos",
+      foot_contact: "Contacto y correcciones", foot_code: "Código abierto (GitHub)", foot_press: "Prensa y datos",
       foot_areas: "Zonas", foot_tools: "Herramientas", foot_sources: "Fuentes de datos",
       foot_built: "Desarrollado y mantenido sin coste por", foot_updated: "Datos actualizados el",
       foot_disclaimer: "Un número no válido es una discrepancia con el registro: no demuestra por sí solo que la vivienda no tenga permiso.",
@@ -53,7 +53,7 @@
       strip: "An independent public-information service built on official open data.",
       strip_b: "Not an official website of the Junta de Andalucía or any council.",
       foot_about: "A free resource for people in Andalucía, starting with Málaga and Seville: which tourist flats are registered and which adverts don't display a valid number, from open, verifiable data. No advertising, no commercial purpose.",
-      foot_contact: "Contact and corrections", foot_press: "Press and data",
+      foot_contact: "Contact and corrections", foot_code: "Open source (GitHub)", foot_press: "Press and data",
       foot_areas: "Areas", foot_tools: "Tools", foot_sources: "Data sources",
       foot_built: "Built and maintained free of charge by", foot_updated: "Data updated",
       foot_disclaimer: "An invalid number is a mismatch with the register: on its own it doesn't show that a flat lacks a permit.",
@@ -213,7 +213,8 @@
             <h2 style="margin-top:24px" data-t="foot_tools"></h2>
             <ul><li><a href="/comprobar" data-t="nav_check"></a></li><li><a href="/metodologia" data-t="nav_method"></a></li>
               <li><a href="/preguntas" data-t="nav_faq"></a></li><li><a href="/metodologia#prensa" data-t="foot_press"></a></li>
-              <li><a href="/contacto" data-t="foot_contact"></a></li></ul></div>
+              <li><a href="/contacto" data-t="foot_contact"></a></li>
+              <li><a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener" data-t="foot_code"></a></li></ul></div>
           <div><h2 data-t="foot_sources"></h2><ul>
             <li><a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Junta de Andalucía · Open RTA</a></li>
             <li><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga · datos abiertos</a> (CC BY 4.0)</li>
