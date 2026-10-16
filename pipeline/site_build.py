@@ -368,6 +368,33 @@ def listing_summary(out, removed, by_key, area_vut):
     }
 
 
+def listing_dots(out, hexg):
+    """Dot-density layer: one dot per Airbnb listing, coloured by result, placed at a RANDOM spot inside its ~150 m
+    hexagon (never at the listing's own, already approximate, location). Only hexagons with MIN_LISTINGS_HEX+ listings,
+    like the hexagon layer. The randomness is seeded per hexagon so the picture is stable between builds.
+    Returns [[lon, lat, v]] with v = 0 no valid number, 1 valid number, 2 possibly exempt."""
+    import random
+    by_hex = defaultdict(list)
+    for o in out:
+        by_hex[hexg.cell(o["lat"], o["lon"])].append(
+            0 if o["verdict"] == "NOT_VALID" else 2 if o["verdict"] == "POSSIBLY_EXEMPT" else 1)
+    dots = []
+    for (q, r_), vs in by_hex.items():
+        if len(vs) < MIN_LISTINGS_HEX:
+            continue
+        ring = hexg.polygon(q, r_)[:6]
+        lons, lats = [p[0] for p in ring], [p[1] for p in ring]
+        rnd = random.Random(f"{q},{r_}")
+        rnd.shuffle(vs)   # order carries no information either
+        for v in vs:
+            while True:   # uniform inside the hexagon (rejection sampling in its bounding box)
+                lo, la = rnd.uniform(min(lons), max(lons)), rnd.uniform(min(lats), max(lats))
+                if geo._pip(la, lo, [(p[1], p[0]) for p in ring]):
+                    break
+            dots.append([round(lo, 5), round(la, 5), v])
+    return dots
+
+
 def registered_summary(recs, agg_ids, agg):
     """Register-only facts for an area: counts, places, years, biggest buildings."""
     vut = [x for x in recs if x.get("objects_type_id") == buildings.VUT]
@@ -677,6 +704,8 @@ def cmd_build(a):
                 hfeats.append({"type": "Feature", "properties": p,
                                "geometry": {"type": "Polygon", "coordinates": [hexg.polygon(q, r_)]}})
         w(f"{A['slug']}/hex.geojson", {"type": "FeatureCollection", "features": hfeats})
+        if A["listings"]:
+            w(f"{A['slug']}/dots.json", listing_dots(out, hexg))
         # small dot-density preview for cards and teasers: hex centres [lon, lat, flats, % not valid or -1]
         pv = []
         for f in hfeats:

@@ -91,8 +91,8 @@
           "Each dot is a building with registered tourist flats. Shading shows how many there are in each area."),
       share: L("Viviendas turísticas registradas como porcentaje de todas las viviendas de cada zona (Catastro). Dato indicativo.",
         "Registered tourist flats as a share of all homes in each area (Catastro). Indicative."),
-      problems: L(`Porcentaje de anuncios de Airbnb que no muestran un número válido, por zona. Solo zonas con ${5} anuncios o más; nunca anuncios individuales.`,
-        "Share of Airbnb listings not showing a valid number, by area. Only areas with 5+ listings; never individual listings."),
+      problems: L("Porcentaje de anuncios de Airbnb que no muestran un número válido, por zona. Solo zonas con 10 anuncios o más; nunca anuncios individuales.",
+        "Share of Airbnb listings not showing a valid number, by area. Only areas with 10+ listings; never individual listings."),
       barrios: L("Porcentaje de anuncios sin número válido por barrio oficial. Pulsa un barrio para ver sus datos.",
         "Share of listings without a valid number by official barrio. Tap a barrio for its figures."),
     }[view];
@@ -111,7 +111,11 @@
       <div class="legend-title">${measure === "share" ? L("% de viviendas que son turísticas registradas", "% of homes that are registered tourist flats")
         : L("Anuncios de vivienda completa en Airbnb, % de viviendas", "Entire-home Airbnb listings, % of homes")}</div>
       ${ramp(SHARE, ["0", "2%", "5%", "8%", "15%+"])}<p class="tiny muted" style="margin:6px 0 0">${L(`Indicativo · zonas de ~${fmt(across)} m con al menos 30 viviendas`, `Indicative · ~${fmt(across)} m areas with at least 30 homes`)}</p>`;
-    if (view === "problems") return `<div class="legend-title">${L("Anuncios sin número válido", "Listings without a valid number")}</div>${ramp(RAMP, ["0%", "15%", "30%", "45%", "60%+"])}`;
+    if (view === "problems") return `<div class="legend-title">${L("Anuncios sin número válido", "Listings without a valid number")}</div>${ramp(RAMP, ["0%", "15%", "30%", "45%", "60%+"])}
+      <div class="legend-items" style="margin-top:10px"><span><i style="background:#b3261e"></i>${L("Sin número válido", "No valid number")}</span>
+        <span><i style="background:#2e7d5b"></i>${L("Número válido", "Valid number")}</span><span><i style="background:#9aa3b0"></i>${L("Posiblemente exento", "Possibly exempt")}</span></div>
+      <p class="tiny muted" style="margin:6px 0 0">${L("Al acercarte, cada punto es un anuncio, colocado al azar dentro de su zona de ~150 m: no marca dónde está.",
+        "Zoom in and each dot is a listing, placed at random inside its ~150 m area: it doesn't mark where the listing is.")}</p>`;
     return `<div class="legend-title">${L("Anuncios sin número válido, por barrio", "Listings without a valid number, by barrio")}</div>${ramp(RAMP, ["0%", "15%", "25%", "35%", "45%+"])}`;
   }
 
@@ -137,7 +141,7 @@
   }, true);
 
   // ---------------------------------------------------------------- layers
-  const VIEWS = { licences: ["dens", "bld", "sel-halo", "sel"], share: ["share", "bld", "sel-halo", "sel"], problems: ["prob", "sel-halo", "sel"], barrios: ["bar-fill", "bar-line", "sel-halo", "sel"] };
+  const VIEWS = { licences: ["dens", "bld", "sel-halo", "sel"], share: ["share", "bld", "sel-halo", "sel"], problems: ["prob", "dots", "sel-halo", "sel"], barrios: ["bar-fill", "bar-line", "sel-halo", "sel"] };
   function addLayers(bld, hex, bar) {
     const feats = B.map((r, i) => ({ type: "Feature", id: i, properties: { vut: r[3], other: r[5], n: r[3] + r[5] },
       geometry: { type: "Point", coordinates: [r[1], r[0]] } }));
@@ -169,7 +173,17 @@
     });
     if (area.has_listings) {
       map.addLayer({ id: "prob", type: "fill", source: "hex", filter: ["has", "pct"],
-        paint: { "fill-color": step("pct", RAMP, [15, 30, 45, 60]), "fill-opacity": 0.75, "fill-outline-color": "rgba(255,255,255,.6)" } });
+        paint: { "fill-color": step("pct", RAMP, [15, 30, 45, 60]), "fill-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0.75, 16, 0.22],
+          "fill-outline-color": "rgba(255,255,255,.6)" } });
+      // Dot density: one dot per listing at a random spot inside its hexagon (not where the listing is). Zoomed in only.
+      map.addSource("dots", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+      map.addLayer({ id: "dots", type: "circle", source: "dots", minzoom: 14,
+        paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 14, 1.8, 17, 4],
+          "circle-color": ["match", ["get", "v"], 0, "#b3261e", 1, "#2e7d5b", "#9aa3b0"],
+          "circle-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0, 14.6, 0.9],
+          "circle-stroke-color": "#ffffff", "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 14, 0, 16, 0.8] } });
+      getJSON(`/data/${slug}/dots.json`).then((D) => map.getSource("dots").setData({ type: "FeatureCollection",
+        features: D.map(([lo, la, v]) => ({ type: "Feature", properties: { v }, geometry: { type: "Point", coordinates: [lo, la] } })) })).catch(() => {});
     }
     barData = bar;
     if (bar) {
