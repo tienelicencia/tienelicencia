@@ -207,7 +207,7 @@
         L("anuncios de Airbnb activos en el municipio", "active Airbnb listings in the municipality"),
         `<p>${L(`Solo <b>${fmt(LS.registered_vut_seen)} de las ${fmt(LS.registered_vut)}</b> viviendas registradas aparecen en Airbnb con su número. El resto puede anunciarse en otras plataformas, alquilarse directamente o no estar en uso.`,
           `Only <b>${fmt(LS.registered_vut_seen)} of the ${fmt(LS.registered_vut)}</b> registered flats appear on Airbnb with their number. The rest may advertise elsewhere, let directly or not be in use.`)}</p>`,
-        bar([[L("Muestran un número del registro", "Show a number in the register"), v.VALID + v.VALID_CODE_SHARED + v.VALID_LOCATION_MISMATCH, COLORS.valid],
+        bar([[L("Muestran un número del registro", "Show a number in the register"), v.VALID + v.VALID_CODE_SHARED + v.VALID_LOCATION_MISMATCH + (v.VALID_TYPE_MISMATCH || 0), COLORS.valid],
           [L("No muestran un número válido", "Don't show a valid number"), v.NOT_VALID, COLORS.bad],
           [L("Posiblemente exentos", "Possibly exempt"), v.POSSIBLY_EXEMPT, COLORS.exempt]], n)
           + `<p class="tiny muted" style="margin-top:10px;max-width:70ch">${L("<b>Posiblemente exentos:</b> anuncios sin número de la Junta que parecen no necesitarlo: hoteles y aparthoteles (tienen otro tipo de registro), alojamientos rurales, estancias mínimas de 60 noches o más (alquiler de temporada) o anuncios que solo muestran un número nacional. No los contamos como «sin número válido».",
@@ -227,6 +227,12 @@
         L("anuncios de vivienda completa usan una licencia que también usan otros anfitriones", "entire-home listings use a licence that other hosts also use"),
         `<p>${L(`Son ${fmt(LS.shared_codes)} licencias de una sola vivienda que aparecen en anuncios de vivienda completa de dos o más anfitriones distintos. El número es real, pero no puede ser válido para todos: uno de ellos puede ser el legítimo. No contamos al mismo anfitrión anunciando dos veces la misma vivienda.`,
           `That's ${fmt(LS.shared_codes)} single-dwelling licences that appear on entire-home listings from two or more different hosts. The number is real, but it can't be valid for all of them: one may be the genuine listing. The same host listing the same flat twice isn't counted.`)}</p>`, "", srcAirbnb);
+
+      // room listings showing a whole-dwelling licence
+      if (v.VALID_TYPE_MISMATCH) point("habitaciones", L("Habitaciones", "Rooms"), `<span class="big" style="color:var(--shared)">${fmt(v.VALID_TYPE_MISMATCH)}</span>`,
+        L("anuncios de habitación muestran una licencia registrada para una vivienda completa", "room listings show a licence registered for a whole home"),
+        `<p>${L("El número existe, pero esa licencia es para alquilar la vivienda entera. Para alquilar habitaciones hace falta una inscripción «por habitaciones». No lo contamos como «sin número válido», pero el número no encaja con lo que se anuncia.",
+          "The number exists, but that licence is for letting the whole home. Letting rooms needs a “by rooms” registration. We don't count these as “no valid number”, but the number doesn't fit what's advertised.")}</p>`, "", srcAirbnb);
 
       // 05 host size
       const HS = [["1", L("1 anuncio", "1 listing")], ["2-5", L("2–5 anuncios", "2–5 listings")], ["6-20", L("6–20 anuncios", "6–20 listings")], ["21+", L("21 o más", "21 or more")]];

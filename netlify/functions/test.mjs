@@ -55,6 +55,8 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(assess({ ...near, location: "Málaga, Andalucía, España" }, lookup()).reason, "far");
   assert.equal(assess({ ...near, location: "Torremolinos, Andalucía, España" }, lookup()).reason, "other_place");
   assert.equal(assess({ ...near }, lookup()).reason, "far");   // no town given: 3 km fallback
+  // A room advert showing a whole-home ('Completa') licence: real number, but it doesn't fit the listing
+  assert.equal(assess({ registration_raw: "VUT/MA/14434", room_type: "Private room" }, lookup()).reason, "type_mismatch");
   // Sevilla: city search, province filter, barrio ids that don't clash with Málaga's
   assert.ok(findAddress("Calle Feria 70", "sevilla").length > 0);
   assert.equal(findAddress("Calle Feria 70", "provincia").filter((b) => b.muni === "Sevilla").length, 0);

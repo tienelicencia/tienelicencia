@@ -335,6 +335,11 @@ def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA"):
         if o["verdict"] == "VALID" and o["entire"] and o["reg_group"] == "Completa":
             if shared_hosts(by_key[o["key"]]) > 1:
                 o["verdict"] = "VALID_CODE_SHARED"
+    # A room listing showing a licence registered for a whole dwelling ("Completa"): the number is real, but rooms need a
+    # "por habitaciones" registration. Like shared licences: valid number, flagged, not in the headline.
+    for o in out:
+        if o["verdict"] == "VALID" and not o["entire"] and o["reg_group"] == "Completa":
+            o["verdict"] = "VALID_TYPE_MISMATCH"
     return out, removed, by_key
 
 
@@ -344,14 +349,14 @@ def shared_hosts(rows):
 
 
 def listing_summary(out, removed, by_key, area_vut):
-    V = ["VALID", "VALID_CODE_SHARED", "VALID_LOCATION_MISMATCH", "NOT_VALID", "POSSIBLY_EXEMPT", "INCONCLUSIVE"]
+    V = ["VALID", "VALID_CODE_SHARED", "VALID_LOCATION_MISMATCH", "VALID_TYPE_MISMATCH", "NOT_VALID", "POSSIBLY_EXEMPT", "INCONCLUSIVE"]
     vc = Counter(o["verdict"] for o in out)
     cc = Counter(o["cat"] for o in out)
     hb = defaultdict(Counter)
     for o in out:
         hb[o["host_bucket"]]["n"] += 1
         hb[o["host_bucket"]][o["verdict"]] += 1
-    shown = {o["key"] for o in out if o["verdict"] in ("VALID", "VALID_CODE_SHARED", "VALID_LOCATION_MISMATCH")}
+    shown = {o["key"] for o in out if o["verdict"] in ("VALID", "VALID_CODE_SHARED", "VALID_LOCATION_MISMATCH", "VALID_TYPE_MISMATCH")}
     return {
         "listings": len(out), "removed_since_snapshot": removed, "live_checked": sum(1 for o in out if o["basis"] == "live"),
         "verdicts": {v: vc.get(v, 0) for v in V},

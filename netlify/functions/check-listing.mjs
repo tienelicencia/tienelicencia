@@ -143,6 +143,7 @@ export function assess(page, L, listingId = null) {
       r.other_place = r.dist != null ? r.dist > THRESHOLD_M && !(same ?? r.dist <= OTHER_PLACE_M) : same === false;
       r.far = !r.other_place && r.dist != null && r.dist > THRESHOLD_M;
       r.shared = group === "C" ? (L.shared[hit.key] || 0) : 0; // only whole-dwelling ('Completa') VUTs
+      r.group = group;
       r.v = r.other_place ? 2 : r.far ? 1 : 0;
     } else r.v = j.malformed ? 5 : 4;
     if (!best || r.v < best.v) best = r;
@@ -152,6 +153,8 @@ export function assess(page, L, listingId = null) {
     licence: hit?.key ? licenceOf(hit.key) : null, licence_muni: best.muni || null, distance_m: best.dist ?? null };
   if (best.v === 0) {
     const shared = best.shared > 1 && page.room_type === "Entire home/apt";
+    const room = page.room_type && page.room_type !== "Entire home/apt" && best.group === "C";   // room advert, whole-home licence
+    if (room) return { ...res, verdict: "VALID_TYPE_MISMATCH", reason: "type_mismatch" };
     return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: best.shared };
   }
   if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
