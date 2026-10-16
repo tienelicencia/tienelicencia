@@ -110,6 +110,12 @@
           j.ctc ? L("Muestra una referencia «CTC», que es de un trámite, no un número de registro.", "It shows a 'CTC' reference, which is an application number, not a registration.") : "",
           j.national_numbers?.length ? L("Muestra un número nacional (ES…), pero no el de la Junta. El registro nacional fue anulado por el Tribunal Supremo en mayo de 2026.", "It shows a national (ES…) number but no Junta number. The national register was annulled by the Supreme Court in May 2026.") : "",
           L("Algunos alojamientos están exentos (estancias de más de dos meses, hoteles): compruébalo antes de comunicarlo.", "Some lets are exempt (stays over two months, hotels): check before reporting.")].filter(Boolean).join(" ")],
+      not_covered: ["neutral", ICON.info,
+        j.place || j.region ? L(`Todavía no cubrimos ${esc(j.place || j.region)}`, `We don't cover ${esc(j.place || j.region)} yet`) : L("Todavía no cubrimos esta zona", "We don't cover this area yet"),
+        [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
+            `We can only check numbers against the official register of the areas we cover (so far, Andalucía${j.region ? `; this looks like ${esc(j.region)}` : ""}).`),
+          j.shown_text ? L(`El anuncio muestra: <code>${esc(j.shown_text)}</code>.`, `The advert shows: <code>${esc(j.shown_text)}</code>.`) : "",
+          `<a href="/contacto?${new URLSearchParams({ tipo: "zona", ref: j.place || j.region || j.code || "" })}">${L("Pídenos que lleguemos a esta zona →", "Ask us to cover this area →")}</a>`].filter(Boolean).join(" ")],
       removed: ["neutral", ICON.info, L("Este anuncio ya no existe", "This advert no longer exists"), L("La plataforma devuelve que el anuncio ha sido retirado.", "The platform says the advert has been removed.")],
       blocked: ["neutral", ICON.info, L("No hemos podido leer este anuncio", "We couldn't read this advert"),
         j.platform === "booking"
@@ -140,7 +146,7 @@
         <li>${L("Incluye el enlace, el número que muestra, la fecha de hoy y una captura de pantalla.", "Include the link, the number it shows, today's date and a screenshot.")}</li>
       </ul><p class="small"><a href="/metodologia#denunciar">${L("Todos los canales para comunicarlo →", "All the ways to report it →")}</a></p>` : "";
     const ctx = new URLSearchParams({ tipo: "correccion", ...(j.listing_url ? { anuncio: j.listing_url } : {}), ...(j.code ? { numero: j.code } : {}) });
-    const host = ["bad", "warn", "shared", "neutral"].includes(tone) && !["removed", "blocked", "unreadable"].includes(j.reason)
+    const host = ["bad", "warn", "shared", "neutral"].includes(tone) && !["removed", "blocked", "unreadable", "not_covered"].includes(j.reason)
       ? `<details class="host-help" style="margin-top:18px"><summary><b>${L("¿Es tu anuncio? Cómo resolverlo", "Is this your listing? How to fix it")}</b></summary>
         <ol style="margin:10px 0 0">
           <li>${L("Busca tu número en el Registro de Turismo de Andalucía (", "Look up your number in the Andalusian Tourism Register (")}<a href="/provincia">${L("nuestro buscador de la provincia", "our province search")}</a>${L(" o el ", " or the ")}<a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">${L("registro abierto de la Junta", "Junta's open register")}</a>).</li>
@@ -156,7 +162,7 @@
       || L("He comprobado este número de registro", "I checked this registration number")) : { ok: L(`Este anuncio muestra un número que está en el Registro de Turismo de Andalucía (${j.code || ""})`, `This advert shows a number that's in the Andalusian Tourism Register (${j.code || ""})`),
       bad: L("Este anuncio no muestra un número de registro válido de la Junta de Andalucía", "This advert doesn't show a valid Junta de Andalucía registration number") }[tone]
       || L("He comprobado el número de registro de este anuncio", "I checked this advert's registration number");
-    const share = !["removed", "blocked", "unreadable"].includes(j.reason) && (j.listing_url || q.code)
+    const share = !["removed", "blocked", "unreadable", "not_covered"].includes(j.reason) && (j.listing_url || q.code)
       ? `<div class="check-share">${TL.shareButton({ url: shareUrl, text: `${shareText} · tienelicencia.com`, content: `check_${j.reason}` })}
           <span class="tiny muted">${L("Quien abra el enlace verá la comprobación actualizada.", "Whoever opens the link sees an up-to-date check.")}</span></div>` : "";
     if (share) history.replaceState(null, "", `/comprobar?${new URLSearchParams(q)}`);

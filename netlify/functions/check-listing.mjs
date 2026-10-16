@@ -99,6 +99,33 @@ const licenceOf = (key) => {
  * {verdict, reason, shown, key, licence, ...}. Verdicts: VALID, VALID_CODE_SHARED, VALID_LOCATION_MISMATCH, NOT_VALID.
  * Reasons: valid, shared, far, other_place, cancelled, not_in_register, malformed, no_number.
  */
+// ---- Coverage: we only check numbers against registers we have (today: Andalucía).
+// Where a listing is: Airbnb's location line names the region ("Málaga, Andalucía, España"); else the map pin.
+const COVERED = [{ id: "andalucia", name: "Andalucía", words: /andaluc/i,
+  // rough outline of Andalucía (lat/lon box minus Murcia/Extremadura corners is close enough as a fallback)
+  inside: (la, lo) => la > 35.9 && la < 38.75 && lo > -7.6 && lo < -1.6 && !(lo > -2.0 && la > 37.6) && !(lo < -5.6 && la > 38.2) }];
+// Other regions' number formats, so a typed number from elsewhere gets "not covered yet" rather than "invalid"
+const OTHER_FORMATS = [
+  [/(?<![A-Z0-9])HUT[A-Z]{1,2}[\s\-_/.]*\d/i, "Catalunya"], [/(?<![A-Z0-9])VT-?\d{2,7}-?[VACS](?![A-Z0-9])/i, "Comunitat Valenciana"],
+  [/(?<![A-Z0-9])E?[BLV]I\d{3,6}|(?<![A-Z0-9])ESS\d{4,6}/i, "Euskadi"], [/(?<![A-Z0-9])ETV[\s\-_/]*\d|(?<![A-Z0-9])VT\/\d+/i, "Illes Balears"],
+  [/(?<![A-Z0-9])VT-\d{1,6}(?![A-Z0-9-])/i, "Comunidad de Madrid"]];
+export function coverage(page) {
+  const loc = page.location || "";
+  if (loc) {
+    const c = COVERED.find((r) => r.words.test(loc));
+    return c ? { covered: true, region: c.name } : { covered: false, place: loc.split(",")[0].trim(), region: loc.split(",").slice(-2, -1)[0]?.trim() || null };
+  }
+  if (page.lat != null) {
+    const c = COVERED.find((r) => r.inside(page.lat, page.lon));
+    return c ? { covered: true, region: c.name } : { covered: false, place: null, region: null };
+  }
+  return { covered: true };   // nothing to go on: check as usual
+}
+export function otherRegion(text) {
+  const f = OTHER_FORMATS.find(([re]) => re.test(text || ""));
+  return f ? f[1] : null;
+}
+
 export function assess(page, L, listingId = null) {
   const p = parse(page.registration_raw || "", L.max_issued);
   // Only a national number shown, with the Junta code at its tail (…0000VUT/MA/117055): check that code.
@@ -173,7 +200,11 @@ export default async (req, context) => {
   const code = (url.searchParams.get("code") || "").slice(0, 80);
   if (code) {
     if (rateLimited(ip, 60)) return json(429, { error: "rate_limited" });
-    return json(200, { mode: "code", checked_at: new Date().toISOString(), ...assess({ registration_raw: code }, L) });
+    const res = assess({ registration_raw: code }, L);
+    const other = !res.shown.length && otherRegion(code);   // e.g. a Catalan HUTB number typed in
+    if (other) return json(200, { mode: "code", checked_at: new Date().toISOString(), verdict: "NOT_COVERED", reason: "not_covered",
+      region: other, code, register_date: L.register_lastUpdateData });
+    return json(200, { mode: "code", checked_at: new Date().toISOString(), ...res });
   }
 
   const ad = parseAdvertUrl(url.searchParams.get("url") || url.searchParams.get("id"));
@@ -193,8 +224,13 @@ export default async (req, context) => {
   const html = await res.text();
   const page = ad.platform === "airbnb" ? extractPage(html) : extractBooking(html);
   if (!page.page_ok) return json(200, { ...meta, verdict: "UNREADABLE", reason: "unreadable" });
-  const body = { ...meta, title: page.title, location: page.location, room_type: page.room_type,
-    pin: page.lat != null ? [page.lat, page.lon] : null, ...assess(page, L, ad.platform === "airbnb" ? ad.id : null) };
+  const cov = coverage(page);
+  const body = !cov.covered
+    ? { ...meta, title: page.title, location: page.location, verdict: "NOT_COVERED", reason: "not_covered", place: cov.place,
+        region: cov.region || otherRegion(page.registration_raw), shown_text: (page.registration_raw || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200),
+        register_date: L.register_lastUpdateData }
+    : { ...meta, title: page.title, location: page.location, room_type: page.room_type,
+        pin: page.lat != null ? [page.lat, page.lon] : null, ...assess(page, L, ad.platform === "airbnb" ? ad.id : null) };
   CACHE.set(ad.url, { at: Date.now(), body });
   return json(200, body);
 };

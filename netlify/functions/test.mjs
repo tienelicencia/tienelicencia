@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, extractListingId, parseAdvertUrl } from "./check-listing.mjs";
+import { extractPage, assess, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -63,6 +63,14 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.ok(suggest("santa cruz", "sevilla").barrios.some((b) => b.muni === "Sevilla"));
   assert.ok(!suggest("santa cruz", "malaga").barrios.some((b) => b.muni === "Sevilla"));
   assert.equal(assess({ registration_raw: "VUT/SE/00624" }, lookup()).verdict, "VALID");
+  // Coverage: listings outside Andalucía aren't judged; other regions' numbers are recognised
+  assert.equal(coverage({ location: "Málaga, Andalucía, España" }).covered, true);
+  assert.equal(coverage({ location: "Barcelona, Cataluña, España" }).covered, false);
+  assert.equal(coverage({ lat: 41.39, lon: 2.17 }).covered, false);
+  assert.equal(coverage({ lat: 37.39, lon: -5.99 }).covered, true);
+  assert.equal(otherRegion("HUTB-012345"), "Catalunya");
+  assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");
+  assert.equal(otherRegion("VUT/MA/12345"), null);
   console.log("search tests ok");
 }
 

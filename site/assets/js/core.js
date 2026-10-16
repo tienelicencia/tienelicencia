@@ -5,10 +5,10 @@
   const SHIFTED_LABS = "https://shiftedlabs.ai";
   const STR = {
     es: {
-      nav_areas: "Zonas", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú",
+      nav_areas: "Zonas", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú", city_label: "Elige tu zona", city_all: "Toda España", city_avail: "Disponibles", city_soon: "Próximamente", soon: "próximamente",
       privacy: "Privacidad y cookies", legal: "Aviso legal", cookies: "Preferencias de cookies",
       strip: "Servicio de información independiente con datos abiertos oficiales.",
-      strip_b: "No es una web oficial de la Junta de Andalucía ni de ningún ayuntamiento.",
+      strip_b: "No es una web oficial de ninguna administración.",
       foot_about: "Un recurso gratuito para quienes viven en Andalucía, empezando por Málaga y Sevilla: qué viviendas turísticas están registradas y qué anuncios no muestran un número válido, con datos abiertos y verificables. Sin publicidad ni fines comerciales.",
       foot_contact: "Contacto y correcciones", foot_code: "Código abierto (GitHub)", foot_press: "Prensa y datos",
       foot_areas: "Zonas", foot_tools: "Herramientas", foot_sources: "Fuentes de datos",
@@ -48,10 +48,10 @@
       view_data: "Ver los datos",
     },
     en: {
-      nav_areas: "Areas", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu",
+      nav_areas: "Areas", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu", city_label: "Choose your area", city_all: "All of Spain", city_avail: "Available", city_soon: "Coming soon", soon: "coming soon",
       privacy: "Privacy & cookies", legal: "Legal notice", cookies: "Cookie settings",
       strip: "An independent public-information service built on official open data.",
-      strip_b: "Not an official website of the Junta de Andalucía or any council.",
+      strip_b: "Not an official website of any administration.",
       foot_about: "A free resource for people in Andalucía, starting with Málaga and Seville: which tourist flats are registered and which adverts don't display a valid number, from open, verifiable data. No advertising, no commercial purpose.",
       foot_contact: "Contact and corrections", foot_code: "Open source (GitHub)", foot_press: "Press and data",
       foot_areas: "Areas", foot_tools: "Tools", foot_sources: "Data sources",
@@ -176,6 +176,33 @@
   const LOGO = '<svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d5a46"/><path d="M8.5 19.2 20 9.6l11.5 9.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 17v11.6c0 1 .8 1.8 1.8 1.8h11.6c1 0 1.8-.8 1.8-1.8V17" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.6 23.4 3.1 3.1 5.8-6" fill="none" stroke="#e2b54a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const WORD = '<span class="brand-word">tiene<span class="q">licencia</span><span class="tld">.com</span></span>';
 
+  // ---------------------------------------------------------------- city picker (header)
+  // Cities we're working on: shown as "coming soon" until their area exists in areas.json, then they move to the list.
+  const COMING = [["barcelona", "Barcelona"], ["madrid", "Madrid"], ["valencia", "Valencia"], ["bilbao", "Bilbao"],
+    ["donostia", "San Sebastián"], ["palma", "Palma (Mallorca)"]];
+  function cityPicker(A) {
+    const sel = document.getElementById("city-pick");
+    if (!sel) return;
+    const have = new Set(A.areas.map((a) => a.slug));
+    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "region");
+    const cur = currentArea();
+    const paint = () => {
+      sel.innerHTML = `<option value="">${t("city_all")}</option>
+        <optgroup label="${t("city_avail")}">${live.map((a) => `<option value="${a.slug}" ${a.slug === cur ? "selected" : ""}>${esc(name(a.name))}</option>`).join("")}</optgroup>
+        <optgroup label="${t("city_soon")}">${COMING.filter(([s]) => !have.has(s)).map(([, n]) => `<option disabled>${esc(n)} · ${t("soon")}</option>`).join("")}</optgroup>`;
+      if (cur && !live.some((a) => a.slug === cur)) {   // a province page: show it as the current choice
+        const a = A.areas.find((x) => x.slug === cur);
+        if (a) sel.insertAdjacentHTML("afterbegin", `<option value="${a.slug}" selected>${esc(name(a.name))}</option>`);
+      }
+    };
+    paint();
+    listeners.push(paint);
+    sel.addEventListener("change", () => {
+      track("city_pick", { area: sel.value || "spain" });
+      location.href = !sel.value ? "/" : areaHref(sel.value, /\/mapa$/.test(location.pathname) ? "mapa" : /\/zonas$/.test(location.pathname) ? "zonas" : undefined);
+    });
+  }
+
   // ---------------------------------------------------------------- header / footer
   function chrome(page) {
     const h = document.getElementById("site-header");
@@ -185,6 +212,7 @@
       <header class="site-header"><div class="wrap">
         <a class="brand" href="/" aria-label="tienelicencia.com — inicio">${LOGO}${WORD}</a>
         <nav class="site-nav" id="site-nav" aria-label="Principal">
+          <label class="city-pick"><span class="sr-only" data-t="city_label"></span><select id="city-pick" data-t-aria="city_label"></select></label>
           <a href="/#zonas" data-t="nav_areas" ${page === "home" || page === "area" || page === "map" ? 'aria-current="page"' : ""}></a>
           <a href="/comprobar" data-t="nav_check" ${page === "check" ? 'aria-current="page"' : ""}></a>
           <a href="/metodologia" data-t="nav_method" ${page === "method" ? 'aria-current="page"' : ""}></a>
@@ -232,6 +260,7 @@
         </div>
       </div></footer>`;
       getJSON("/data/areas.json").then((A) => {
+        cityPicker(A);
         const paint = () => {
           document.getElementById("foot-areas").innerHTML = A.areas.filter((a) => a.kind !== "province").map((a) => `<li><a href="${areaHref(a.slug)}">${esc(name(a.name))}</a></li>`).join("");
           document.getElementById("foot-updated").textContent = `${t("foot_updated")} ${date(A.built_at)}`;
@@ -674,6 +703,6 @@
   }
 
   window.TL = { init, t, lang: () => lang, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
-    getJSON, api, areaHref, areaOfMuni, AREA_OF_PROV, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
+    getJSON, api, areaHref, areaOfMuni, AREA_OF_PROV, COMING, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
     track, shareButton, loading };
 })();

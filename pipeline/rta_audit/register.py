@@ -165,7 +165,9 @@ def build_index(records):
         slim = {f: r.get(f) for f in KEEP_FIELDS}
         x, y = _num(r.get("coord_x")), _num(r.get("coord_y"))
         if x and y and str(r.get("srid") or "25830") == "25830" and 100000 < x < 900000:
-            slim["lat"], slim["lon"] = utm30_to_wgs84(x, y)
+            la, lo = utm30_to_wgs84(x, y)
+            if 35.8 < la < 38.9 and -7.7 < lo < -1.5:   # inside Andalucía: a few records carry broken coordinates
+                slim["lat"], slim["lon"] = la, lo
         idx.setdefault(k, []).append(slim)
     return idx
 

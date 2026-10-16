@@ -790,7 +790,8 @@ def cmd_build(a):
             "has_listings": A["listings"], "has_barrios": A["barrios"], "cap": A.get("cap"), "census": bool(census), "vut": reg["vut"], "vut_places": reg["vut_places"],
             "homes": reg.get("homes"), "vut_share": reg.get("vut_share"), "ine_homes": reg.get("ine_homes"),
             "ine_pct": reg.get("ine_pct"), "ine_period": reg.get("ine_period"), **areas_extra,
-            **({"listings": summary["listings"]["listings"], "not_valid": summary["listings"]["verdicts"]["NOT_VALID"]}
+            **({"listings": summary["listings"]["listings"], "not_valid": summary["listings"]["verdicts"]["NOT_VALID"],
+                "live_checked": summary["listings"]["live_checked"]}
                if A["listings"] else {})})
 
     built = now()

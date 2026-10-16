@@ -5,7 +5,7 @@
   const L = (es, en) => (TL.lang() === "es" ? es : en);
   const search = TL.searchWidget(document.getElementById("home-search"), { area: "andalucia", examples: ["VUT/MA/86284", "Calle Bolivia 121 Málaga", "Calle Feria 70 Sevilla"] });
 
-  getJSON("/data/malaga/preview.json").then((pts) => TL.preview(document.getElementById("hero-map"), pts, { pad: 8, q: [.12, .9] }));
+  getJSON("/data/andalucia/preview.json").then((pts) => TL.preview(document.getElementById("hero-map"), pts, { pad: 8, q: [.01, .99] }));
 
   // "Search an address" hero action: scroll to the search box and focus it
   document.querySelector('[data-track="hero_search"]')?.addEventListener("click", (e) => {
@@ -37,19 +37,27 @@
     const mb = by.marbella, mg = by.malaga;
     const pc = (x) => `${Number(x).toLocaleString(TL.lang() === "es" ? "es-ES" : "en-GB", { maximumFractionDigits: 1 })}${TL.lang() === "es" ? " %" : "%"}`;
     const base = "https://tienelicencia.com";
+    // Across every city we analyse (full lists + town samples with enough checks). Never "in Spain": only where we look.
+    const full = A.areas.filter((a) => a.has_listings), samp = A.areas.filter((a) => !a.has_listings && a.sample_pct != null && a.sample_checked >= 300);
+    const totL = full.reduce((x, a) => x + a.listings, 0), totNV = full.reduce((x, a) => x + a.not_valid, 0);
+    const cityPcts = [...full.map((a) => `${esc(name(a.name).replace(/ \(.*\)/, ""))} ${pctStr(a.not_valid, a.listings)}`),
+      ...samp.map((a) => `${esc(name(a.name).replace(/ \(.*\)/, ""))} ~${Math.round(a.sample_pct)}%`)].join(" · ");
+    const nCities = full.length + samp.length;
+    const SB = SS?.listings?.not_valid_breakdown;
+    const wrongAll = wrong + (SB ? SB.not_in_register + SB.other_town + (SB.cancelled || 0) : 0);
     const S = [
-      ["bad", pctStr(LS.verdicts.NOT_VALID, n), L("de los anuncios de Airbnb en Málaga capital <b>no muestran un número de registro válido</b>", "of Airbnb listings in Málaga city <b>don't display a valid registration number</b>"),
-        L("La Junta exige mostrar el número en todos los anuncios.", "The Junta requires the number in every advert."), "/malaga#sin-numero",
-        L(`El ${pctStr(LS.verdicts.NOT_VALID, n)} de los anuncios de Airbnb en Málaga capital no muestran un número de registro válido`, `${pctStr(LS.verdicts.NOT_VALID, n)} of Airbnb listings in Málaga city don't display a valid registration number`)],
-      SL ? ["bad", pctStr(SL.verdicts.NOT_VALID, SL.listings), L("de los anuncios de Airbnb en <b>Sevilla</b> capital tampoco muestran un número válido", "of Airbnb listings in <b>Seville</b> city don't show a valid number either"),
-        L("Casi la misma proporción que en Málaga.", "Almost the same share as in Málaga."), "/sevilla#sin-numero",
-        L(`El ${pctStr(SL.verdicts.NOT_VALID, SL.listings)} de los anuncios de Airbnb en Sevilla capital no muestran un número de registro válido`, `${pctStr(SL.verdicts.NOT_VALID, SL.listings)} of Airbnb listings in Seville city don't display a valid registration number`)]
-      : ["bad", fmt(b.no_number), L(`anuncios <b>no muestran ningún número</b> de registro: 1 de cada ${Math.round(n / b.no_number)}`, `listings <b>show no registration number at all</b>: 1 in ${Math.round(n / b.no_number)}`),
-        L("Málaga capital, Airbnb.", "Málaga city, Airbnb."), "/malaga#sin-numero",
-        L(`${fmt(b.no_number)} anuncios de Airbnb en Málaga no muestran ningún número de registro`, `${fmt(b.no_number)} Airbnb listings in Málaga show no registration number`)],
-      ["bad", fmt(wrong), L("anuncios en Málaga capital muestran <b>un número que no está en el registro</b> o que es de otro municipio", "listings in Málaga city show <b>a number that isn't in the register</b> or belongs to another town"),
+      ["bad", pctStr(totNV, totL), L(`de los anuncios de Airbnb en las <b>${nCities} ciudades que analizamos</b> no muestran un número de registro válido`,
+          `of Airbnb listings in the <b>${nCities} cities we analyse</b> don't display a valid registration number`),
+        cityPcts, "/#zonas",
+        L(`El ${pctStr(totNV, totL)} de los anuncios de Airbnb en las ciudades que analiza tienelicencia.com no muestran un número de registro válido`,
+          `${pctStr(totNV, totL)} of Airbnb listings in the cities tienelicencia.com analyses don't display a valid registration number`)],
+      ["", fmt(totL + samp.reduce((x, a) => x + a.sample_checked, 0)), L("anuncios de Airbnb analizados, uno a uno, con el registro oficial", "Airbnb listings checked one by one against the official register"),
+        L(`${fmt(full.reduce((x, a) => x + (a.live_checked || 0), 0) + samp.reduce((x, a) => x + a.sample_checked, 0))} de ellos revisados en directo en la página del anuncio.`,
+          `${fmt(full.reduce((x, a) => x + (a.live_checked || 0), 0) + samp.reduce((x, a) => x + a.sample_checked, 0))} of them re-checked live on the listing page.`), "/metodologia#comprobacion",
+        L(`tienelicencia.com ha comprobado ${fmt(totL)} anuncios de Airbnb con el registro oficial de turismo`, `tienelicencia.com has checked ${fmt(totL)} Airbnb listings against the official tourism register`)],
+      ["bad", fmt(wrongAll), L("anuncios en Málaga y Sevilla muestran <b>un número que no está en el registro</b> o que es de otro municipio", "listings in Málaga and Seville show <b>a number that isn't in the register</b> or belongs to another town"),
         L("No sabemos por qué: puede ser una baja, una errata o un número de otra vivienda.", "We don't know why: a closed registration, a typo or another flat's number."), "/malaga#sin-numero",
-        L(`${fmt(wrong)} anuncios de Airbnb en Málaga muestran un número de registro que no existe o es de otro municipio`, `${fmt(wrong)} Airbnb listings in Málaga show a registration number that doesn't exist or belongs to another town`)],
+        L(`${fmt(wrongAll)} anuncios de Airbnb en Málaga y Sevilla muestran un número de registro que no existe o es de otro municipio`, `${fmt(wrongAll)} Airbnb listings in Málaga and Seville show a registration number that doesn't exist or belongs to another town`)],
       overS ? ["gold", fmt(over8 + overS), L(`barrios superan el <b>límite de viviendas turísticas</b> de su ayuntamiento: ${fmt(over8)} en Málaga (8&nbsp;%) y ${fmt(overS)} en Sevilla (10&nbsp;%)`,
           `barrios are above their council's <b>tourist-flat limit</b>: ${fmt(over8)} in Málaga (8%) and ${fmt(overS)} in Seville (10%)`),
         L("Indicativo: sobre las viviendas del Catastro.", "Indicative: against Catastro homes."), "/sevilla/zonas",
@@ -88,6 +96,21 @@
           <span class="go">${t("view_data")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</span>
         </div>
       </a>`).join("");
+    // Cities we're working on, after the live ones
+    const have = new Set(A.areas.map((a) => a.slug));
+    document.getElementById("areas").insertAdjacentHTML("beforeend", TL.COMING.filter(([s]) => !have.has(s)).map(([s, n]) => `
+      <div class="card area-card soon">
+        <div class="body">
+          <span class="kind">${L("Próximamente", "Coming soon")}</span>
+          <h3>${esc(n)}</h3>
+          <p class="small muted">${L("Estamos preparando sus datos: registro oficial y anuncios.", "We're preparing its data: official register and listings.")}</p>
+          <a class="go" href="/contacto?${new URLSearchParams({ tipo: "zona", ref: n })}">${L("Avísame / pídela", "Tell me / ask for it")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</a>
+        </div>
+      </div>`).join(""));
+    const live = A.areas.filter((a) => a.kind === "city").map((a) => esc(name(a.name).replace(/ \(.*\)/, "")));
+    const soon = TL.COMING.filter(([s]) => !have.has(s)).map(([, n]) => esc(n));
+    document.getElementById("coverage-line").innerHTML = L(`<b>Disponible:</b> ${live.join(", ")} y toda Andalucía. <b>Próximamente:</b> ${soon.join(", ")}.`,
+      `<b>Available:</b> ${live.join(", ")} and all of Andalucía. <b>Coming soon:</b> ${soon.join(", ")}.`);
     document.querySelectorAll("[data-preview]").forEach((el) =>
       getJSON(`/data/${el.dataset.preview}/preview.json`).then((pts) => TL.preview(el, pts, { pad: 10 })));
   }

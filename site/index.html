@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>¿Tiene licencia? · Viviendas turísticas en Málaga y Sevilla | tienelicencia.com</title>
-<meta name="title-es" content="¿Tiene licencia? · Viviendas turísticas en Málaga y Sevilla | tienelicencia.com">
-<meta name="title-en" content="Is it licensed? · Tourist flats in Málaga and Seville | tienelicencia.com">
-<meta name="description" content="Consulta qué viviendas turísticas están registradas en Málaga y Sevilla, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
-<meta name="description-es" content="Consulta qué viviendas turísticas están registradas en Málaga y Sevilla, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
-<meta name="description-en" content="See which tourist flats are registered in Málaga and Seville, where they are concentrated and how many adverts don't display a valid registration number. Official data, updated daily.">
+<title>¿Tiene licencia? · Viviendas turísticas en España | tienelicencia.com</title>
+<meta name="title-es" content="¿Tiene licencia? · Viviendas turísticas en España | tienelicencia.com">
+<meta name="title-en" content="Is it licensed? · Tourist flats in Spain | tienelicencia.com">
+<meta name="description" content="Consulta qué viviendas turísticas están registradas en España, ciudad a ciudad, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
+<meta name="description-es" content="Consulta qué viviendas turísticas están registradas en España, ciudad a ciudad, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
+<meta name="description-en" content="See which tourist flats are registered in Spain, city by city, where they are concentrated and how many adverts don't display a valid registration number. Official data, updated daily.">
 <meta property="og:title" content="¿Tiene licencia? · tienelicencia.com">
-<meta property="og:description" content="Viviendas turísticas registradas y anuncios sin número válido en Málaga y Sevilla.">
+<meta property="og:description" content="Viviendas turísticas registradas y anuncios sin número válido, ciudad a ciudad, en España.">
 <meta name="theme-color" content="#0d5a46">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
@@ -35,16 +35,17 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow"><span lang="es">Viviendas turísticas · Andalucía</span><span lang="en">Tourist flats · Andalucía</span></span>
+      <span class="eyebrow"><span lang="es">Viviendas turísticas · España</span><span lang="en">Tourist flats · Spain</span></span>
       <h1 class="display"><span lang="es">¿Tiene <em>licencia</em>?</span><span lang="en">Is it <em>licensed</em>?</span></h1>
-      <p class="lede" lang="es">Consulta qué pisos turísticos están inscritos en el Registro de Turismo de Andalucía, dónde se concentran
-        y cuántos anuncios no muestran un número de registro válido. Datos oficiales y abiertos, actualizados cada día.</p>
-      <p class="lede" lang="en">See which tourist flats are in the Andalusian Tourism Register, where they are concentrated, and how many
-        adverts don't display a valid registration number. Official open data, updated every day.</p>
+      <p class="lede" lang="es">Comprueba cualquier anuncio, mira qué pisos turísticos están registrados, dónde se concentran y cuántos
+        anuncios no muestran un número de registro válido, ciudad a ciudad. Datos oficiales y abiertos, actualizados cada día.</p>
+      <p class="lede" lang="en">Check any advert, and see which tourist flats are registered, where they concentrate and how many adverts
+        don't display a valid registration number, city by city. Official open data, updated every day.</p>
+      <p class="small muted" id="coverage-line" style="margin-top:-6px"></p>
       <div class="hero-actions grid4">
         <a class="action" href="#zonas" data-track="hero_zone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg>
           <span><b lang="es">Ver el resumen de una zona</b><b lang="en">See an area summary</b></span></a>
-        <a class="action" href="/malaga/mapa" data-track="hero_map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
+        <a class="action" href="/andalucia/mapa" data-track="hero_map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
           <span><b lang="es">Consultar el mapa interactivo</b><b lang="en">Open the interactive map</b></span></a>
         <a class="action" href="/comprobar" data-track="hero_check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg>
           <span><b lang="es">Comprobar un anuncio</b><b lang="en">Check an advert</b></span></a>
@@ -54,8 +55,8 @@
     </div>
     <div class="hero-art">
       <div class="card" style="aspect-ratio:1/1;position:relative;overflow:hidden;background:var(--surface-2)" id="hero-map" aria-hidden="true"></div>
-      <p class="tiny muted" style="margin-top:10px" lang="es">Málaga capital: cada punto es una zona de ~150 m; más grande y oscuro, más viviendas turísticas registradas.</p>
-      <p class="tiny muted" style="margin-top:10px" lang="en">Málaga city: each dot is a ~150 m area; bigger and darker means more registered tourist flats.</p>
+      <p class="tiny muted" style="margin-top:10px" lang="es">Andalucía: cada punto es una zona; más grande y oscuro, más viviendas turísticas registradas.</p>
+      <p class="tiny muted" style="margin-top:10px" lang="en">Andalucía: each dot is an area; bigger and darker means more registered tourist flats.</p>
     </div>
   </div>
 </section>
@@ -98,7 +99,7 @@
     <div class="section-head">
       <div>
         <span class="eyebrow"><span lang="es">Zonas</span><span lang="en">Areas</span></span>
-        <h2 class="h2" style="margin-top:10px"><span lang="es">Elige una zona</span><span lang="en">Choose an area</span></h2>
+        <h2 class="h2" style="margin-top:10px"><span lang="es">Elige tu ciudad</span><span lang="en">Choose your city</span></h2>
         <p class="muted" lang="es">Cada zona tiene un resumen con los datos clave, un buscador por dirección o número de licencia y un mapa por edificios.</p>
         <p class="muted" lang="en">Each area has a summary of the key figures, a search by address or licence number, and a building-by-building map.</p>
       </div>
