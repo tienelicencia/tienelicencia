@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Contacto · tienelicencia.com</title>
+<meta name="title-es" content="Contacto · tienelicencia.com">
+<meta name="title-en" content="Contact · tienelicencia.com">
+<meta name="description" content="Comunica un error en los datos, propón una mejora o escríbenos si eres periodista.">
+<meta name="description-es" content="Comunica un error en los datos, propón una mejora o escríbenos si eres periodista.">
+<meta name="description-en" content="Report a data error, suggest an improvement or get in touch as a journalist.">
+<meta name="theme-color" content="#0d5a46">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Contacto · tienelicencia.com">
+<meta property="og:description" content="Comunica un error en los datos, propón una mejora o escríbenos si eres periodista.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/js/core.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+  <section class="area-hero">
+    <div class="wrap" style="max-width:720px">
+      <nav class="crumbs" aria-label="breadcrumb"><a href="/"><span lang="es">Inicio</span><span lang="en">Home</span></a><span aria-hidden="true">/</span>
+        <span aria-current="page"><span lang="es">Contacto</span><span lang="en">Contact</span></span></nav>
+      <h1 class="display"><span lang="es">Contacto</span><span lang="en">Contact</span></h1>
+      <p class="lede" lang="es">¿Has visto un error en los datos, tienes una sugerencia o eres periodista? Escríbenos. Lo lee una persona y respondemos si nos dejas tu correo.</p>
+      <p class="lede" lang="en">Spotted a data error, have a suggestion or are you a journalist? Write to us. A person reads every message, and we'll reply if you leave your email.</p>
+    </div>
+  </section>
+  <div class="wrap" style="max-width:720px">
+    <div class="note" style="margin-top:28px" lang="es"><b>Si el error está en el propio registro</b> (dirección, número, estado de la inscripción), solo la Junta de Andalucía puede corregirlo.
+      Nosotros mostramos el registro tal como lo publica. Sí podemos corregir cómo lo interpretamos o lo mostramos.</div>
+    <div class="note" style="margin-top:28px" lang="en"><b>If the mistake is in the register itself</b> (address, number, registration status), only the Junta de Andalucía can correct it.
+      We show the register as published. We can fix how we read or display it.</div>
+
+    <form id="contact-form" class="form" name="contacto" method="POST" action="/contacto?enviado=1" data-netlify="true" netlify-honeypot="empresa">
+      <input type="hidden" name="form-name" value="contacto">
+      <p class="hp" aria-hidden="true"><label>Empresa <input name="empresa" tabindex="-1" autocomplete="off"></label></p>
+      <label><span lang="es">Motivo</span><span lang="en">Topic</span>
+        <select name="tipo" required>
+          <option value="correccion">Corrección de un resultado · Correction to a result</option>
+          <option value="error">Error en la web · Something on the site is wrong</option>
+          <option value="zona">Quiero que llegue a mi municipio o provincia · Bring it to my town or province</option>
+          <option value="sugerencia">Sugerencia o mejora · Suggestion or improvement</option>
+          <option value="prensa">Prensa · Press</option>
+          <option value="otro">Otro · Other</option>
+        </select></label>
+      <label><span lang="es">Enlace del anuncio o número de licencia (opcional)</span><span lang="en">Advert link or licence number (optional)</span>
+        <input name="referencia" maxlength="300" autocomplete="off" spellcheck="false" placeholder="https://www.airbnb.es/rooms/… · VUT/MA/12345"></label>
+      <label><span lang="es">Mensaje</span><span lang="en">Message</span>
+        <textarea name="mensaje" rows="6" maxlength="5000" required></textarea></label>
+      <div class="form-row">
+        <label><span lang="es">Nombre (opcional)</span><span lang="en">Name (optional)</span>
+          <input name="nombre" maxlength="120" autocomplete="name"></label>
+        <label><span lang="es">Correo (opcional, para responderte)</span><span lang="en">Email (optional, so we can reply)</span>
+          <input name="email" type="email" maxlength="200" autocomplete="email"></label>
+      </div>
+      <p class="tiny muted" lang="es">Usamos lo que nos envíes solo para responderte y mejorar la web, y lo borramos en un plazo de 12 meses. Más en <a href="/privacidad">privacidad</a>.</p>
+      <p class="tiny muted" lang="en">We only use what you send to reply and improve the site, and delete it within 12 months. More in <a href="/privacidad">privacy</a>.</p>
+      <p><button class="btn btn-primary" type="submit"><span lang="es">Enviar</span><span lang="en">Send</span></button></p>
+      <div id="contact-status" role="status"></div>
+    </form>
+    <p class="small muted" style="margin:28px 0 48px"><span lang="es">También puedes escribirnos a</span><span lang="en">You can also email</span>
+      <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script>
+TL.init({ page: "contact" });
+(() => {
+  const f = document.getElementById("contact-form"), st = document.getElementById("contact-status");
+  const q = new URLSearchParams(location.search);
+  const L = (es, en) => (TL.lang() === "es" ? es : en);
+  if (q.get("tipo")) f.tipo.value = q.get("tipo");
+  const ref = [q.get("anuncio"), q.get("numero"), q.get("ref")].filter(Boolean).join(" · ");
+  if (ref) f.referencia.value = ref;
+  const done = () => { f.querySelectorAll("label, button, .tiny, .form-row").forEach((x) => (x.style.display = "none"));
+    st.innerHTML = `<div class="note">${L("<b>Gracias, lo hemos recibido.</b> Si nos has dejado tu correo, te responderemos.", "<b>Thanks, we've got it.</b> If you left your email, we'll reply.")}</div>`; };
+  if (q.get("enviado")) done();
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = f.querySelector("button");
+    btn.disabled = true;
+    try {
+      const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(f)).toString() });
+      if (!r.ok) throw new Error(r.status);
+      TL.track("contact_sent", { topic: f.tipo.value });
+      done();
+    } catch {
+      btn.disabled = false;
+      st.innerHTML = `<p class="small">${L("No se ha podido enviar. Inténtalo de nuevo o escríbenos a", "It didn't send. Try again or email")} <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Resumen · tienelicencia.com</title>
+<meta name="description" content="Viviendas turísticas registradas, anuncios sin número válido y buscador por dirección o licencia.">
+<meta name="theme-color" content="#0d5a46">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Resumen · tienelicencia.com">
+<meta property="og:description" content="Viviendas turísticas registradas, anuncios sin número válido y buscador por dirección o licencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/js/core.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+  <section class="area-hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="breadcrumb">
+        <a href="/"><span lang="es">Inicio</span><span lang="en">Home</span></a><span aria-hidden="true">/</span>
+        <a href="/#zonas"><span lang="es">Zonas</span><span lang="en">Areas</span></a><span aria-hidden="true">/</span>
+        <span id="crumb-area" aria-current="page"></span>
+      </nav>
+      <h1 class="display" id="area-name">&nbsp;</h1>
+      <p class="updated" id="area-updated"><span class="live"></span><span class="skeleton" style="width:280px">…</span></p>
+      <div class="area-top">
+        <div>
+          <h2 class="h3" style="margin-bottom:6px"><span lang="es">Comprueba una dirección o un número de licencia</span><span lang="en">Check an address or a licence number</span></h2>
+          <p class="small muted" style="margin-bottom:14px" lang="es">Busca en el Registro de Turismo de Andalucía. Para una dirección verás todas las viviendas turísticas inscritas en ese edificio.</p>
+          <p class="small muted" style="margin-bottom:14px" lang="en">Searches the Andalusian Tourism Register. For an address you'll see every tourist flat registered in that building.</p>
+          <div id="area-search"></div>
+        </div>
+        <a class="map-teaser" id="map-teaser" href="#">
+          <span class="label"><span><span lang="es">Abrir el mapa</span><span lang="en">Open the map</span></span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <nav class="toc" id="toc" aria-label="Contenido"></nav>
+    <div id="points"></div>
+    <div class="cta-band">
+      <div>
+        <h2><span lang="es">Explora edificio por edificio</span><span lang="en">Explore building by building</span></h2>
+        <p lang="es">Cada edificio con viviendas turísticas registradas, sus direcciones y sus licencias.</p>
+        <p lang="en">Every building with registered tourist flats, its addresses and its licences.</p>
+      </div>
+      <a class="btn" id="cta-map" href="#"><span lang="es">Abrir el mapa</span><span lang="en">Open the map</span></a>
+    </div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="/assets/js/area.js"></script>
+</body>
+</html>

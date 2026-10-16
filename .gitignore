@@ -1,0 +1,11 @@
+# Regenerable data fetched by the pipeline
+pipeline/cache
+pipeline/evidence
+pipeline/output
+# Private state (checked out by the workflows from a private repository)
+state/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.netlify/

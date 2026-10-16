@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Tiene licencia? · Viviendas turísticas en Málaga y Sevilla | tienelicencia.com</title>
+<meta name="title-es" content="¿Tiene licencia? · Viviendas turísticas en Málaga y Sevilla | tienelicencia.com">
+<meta name="title-en" content="Is it licensed? · Tourist flats in Málaga and Seville | tienelicencia.com">
+<meta name="description" content="Consulta qué viviendas turísticas están registradas en Málaga y Sevilla, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
+<meta name="description-es" content="Consulta qué viviendas turísticas están registradas en Málaga y Sevilla, dónde se concentran y cuántos anuncios no muestran un número de registro válido. Datos oficiales actualizados a diario.">
+<meta name="description-en" content="See which tourist flats are registered in Málaga and Seville, where they are concentrated and how many adverts don't display a valid registration number. Official data, updated daily.">
+<meta property="og:title" content="¿Tiene licencia? · tienelicencia.com">
+<meta property="og:description" content="Viviendas turísticas registradas y anuncios sin número válido en Málaga y Sevilla.">
+<meta name="theme-color" content="#0d5a46">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/js/core.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><span lang="es">Viviendas turísticas · Andalucía</span><span lang="en">Tourist flats · Andalucía</span></span>
+      <h1 class="display"><span lang="es">¿Tiene <em>licencia</em>?</span><span lang="en">Is it <em>licensed</em>?</span></h1>
+      <p class="lede" lang="es">Consulta qué pisos turísticos están inscritos en el Registro de Turismo de Andalucía, dónde se concentran
+        y cuántos anuncios no muestran un número de registro válido. Datos oficiales y abiertos, actualizados cada día.</p>
+      <p class="lede" lang="en">See which tourist flats are in the Andalusian Tourism Register, where they are concentrated, and how many
+        adverts don't display a valid registration number. Official open data, updated every day.</p>
+      <div class="hero-actions grid4">
+        <a class="action" href="#zonas" data-track="hero_zone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg>
+          <span><b lang="es">Ver el resumen de una zona</b><b lang="en">See an area summary</b></span></a>
+        <a class="action" href="/malaga/mapa" data-track="hero_map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
+          <span><b lang="es">Consultar el mapa interactivo</b><b lang="en">Open the interactive map</b></span></a>
+        <a class="action" href="/comprobar" data-track="hero_check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg>
+          <span><b lang="es">Comprobar un anuncio</b><b lang="en">Check an advert</b></span></a>
+        <a class="action" href="#buscar" data-track="hero_search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span><b lang="es">Buscar una dirección o licencia</b><b lang="en">Search an address or licence</b></span></a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="card" style="aspect-ratio:1/1;position:relative;overflow:hidden;background:var(--surface-2)" id="hero-map" aria-hidden="true"></div>
+      <p class="tiny muted" style="margin-top:10px" lang="es">Málaga capital: cada punto es una zona de ~150 m; más grande y oscuro, más viviendas turísticas registradas.</p>
+      <p class="tiny muted" style="margin-top:10px" lang="en">Málaga city: each dot is a ~150 m area; bigger and darker means more registered tourist flats.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bigstats" aria-labelledby="bigstats-h">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:22px"><div>
+      <span class="eyebrow"><span lang="es">¿Sabías que…?</span><span lang="en">Did you know?</span></span>
+      <h2 class="h2" id="bigstats-h" style="margin-top:10px"><span lang="es">Lo que dicen los datos</span><span lang="en">What the data shows</span></h2>
+    </div></div>
+    <div class="stats-grid" id="bigstats"></div>
+    <p class="tiny muted" style="margin-top:14px" id="bigstats-src"></p>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="section" id="como-usar" style="scroll-margin-top:24px">
+    <div class="section-head"><div>
+      <span class="eyebrow"><span lang="es">Guía rápida</span><span lang="en">Quick guide</span></span>
+      <h2 class="h2" style="margin-top:10px"><span lang="es">¿Cómo uso esta web?</span><span lang="en">How do I use this site?</span></h2>
+    </div></div>
+    <div class="howto">
+      <a class="howto-item" href="#zonas"><span class="n">1</span><div><h3><span lang="es">Elige tu zona</span><span lang="en">Pick your area</span></h3>
+        <p lang="es">Málaga capital, Sevilla capital, Marbella o toda la provincia de Málaga. Verás las cifras clave: viviendas registradas, qué parte de las viviendas son turísticas y cuántos anuncios no muestran un número válido.</p>
+        <p lang="en">Málaga city, Seville city, Marbella or the whole of Málaga province. You'll see the key figures: registered flats, what share of homes are tourist lets and how many adverts don't show a valid number.</p></div></a>
+      <a class="howto-item" href="#buscar"><span class="n">2</span><div><h3><span lang="es">Busca tu calle o tu edificio</span><span lang="en">Look up your street or building</span></h3>
+        <p lang="es">Escribe una dirección, un barrio o un número de licencia. Verás cada vivienda turística registrada en ese edificio, con su planta y puerta.</p>
+        <p lang="en">Type an address, a barrio or a licence number. You'll see every registered tourist flat in that building, with its floor and door.</p></div></a>
+      <a class="howto-item" href="/malaga/mapa"><span class="n">3</span><div><h3><span lang="es">Explora el mapa</span><span lang="en">Explore the map</span></h3>
+        <p lang="es">Edificio por edificio, con capas para el porcentaje de viviendas turísticas y, en Málaga y Sevilla capital, los anuncios sin número por zonas y barrios.</p>
+        <p lang="en">Building by building, with layers for the share of tourist homes and, in Málaga and Seville cities, adverts without a number by area and barrio.</p></div></a>
+      <a class="howto-item" href="/comprobar"><span class="n">4</span><div><h3><span lang="es">Comprueba un anuncio</span><span lang="en">Check an advert</span></h3>
+        <p lang="es">Pega un enlace de Airbnb (o escribe el número de un anuncio de Booking) y te decimos si el número es válido y a qué vivienda corresponde. Si no lo es, te explicamos cómo comunicarlo.</p>
+        <p lang="en">Paste an Airbnb link (or type the number from a Booking advert) and we tell you whether it's valid and which flat it belongs to. If not, we explain how to report it.</p></div></a>
+    </div>
+    <p class="small" style="margin-top:16px"><a href="/preguntas"><span lang="es">Preguntas frecuentes →</span><span lang="en">Frequently asked questions →</span></a></p>
+  </section>
+
+  <section class="section" id="zonas" style="scroll-margin-top:24px">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow"><span lang="es">Zonas</span><span lang="en">Areas</span></span>
+        <h2 class="h2" style="margin-top:10px"><span lang="es">Elige una zona</span><span lang="en">Choose an area</span></h2>
+        <p class="muted" lang="es">Cada zona tiene un resumen con los datos clave, un buscador por dirección o número de licencia y un mapa por edificios.</p>
+        <p class="muted" lang="en">Each area has a summary of the key figures, a search by address or licence number, and a building-by-building map.</p>
+      </div>
+    </div>
+    <div class="areas" id="areas">
+      <div class="card area-card skeleton" style="height:320px"></div>
+      <div class="card area-card skeleton" style="height:320px"></div>
+      <div class="card area-card skeleton" style="height:320px"></div>
+    </div>
+    <p class="small muted" style="margin-top:16px"><span data-t="more_soon"></span> · <a href="/contacto?tipo=zona" data-t="more_ask"></a></p>
+  </section>
+
+  <section class="section" id="buscar" style="scroll-margin-top:24px">
+    <div class="section-head"><div>
+      <span class="eyebrow"><span lang="es">Búsqueda rápida</span><span lang="en">Quick search</span></span>
+      <h2 class="h2" style="margin-top:10px"><span lang="es">¿Una dirección o un número concreto?</span><span lang="en">Got an address or a number?</span></h2>
+      <p class="muted" lang="es">Busca en el registro de las provincias de Málaga y Sevilla. Verás cada vivienda turística inscrita en ese edificio, con su planta y puerta.</p>
+      <p class="muted" lang="en">Search the register for Málaga and Seville provinces. You'll see every tourist flat registered in that building, with its floor and door.</p>
+    </div></div>
+    <div id="home-search" style="max-width:760px"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div>
+      <span class="eyebrow"><span lang="es">Cómo funciona</span><span lang="en">How it works</span></span>
+      <h2 class="h2" style="margin-top:10px"><span lang="es">Datos oficiales, cruzados con lo que se anuncia</span><span lang="en">Official data, checked against what is advertised</span></h2>
+    </div></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div>
+        <h3><span lang="es">El registro oficial</span><span lang="en">The official register</span></h3>
+        <p lang="es">Descargamos cada día el Registro de Turismo de Andalucía en formato abierto: cada vivienda turística inscrita, con su dirección y su número.</p>
+        <p lang="en">Every day we download the Andalusian Tourism Register's open data: every registered tourist flat, with its address and number.</p></div>
+      <div class="step"><div class="n">2</div>
+        <h3><span lang="es">Lo que se anuncia</span><span lang="en">What is advertised</span></h3>
+        <p lang="es">Leemos el número que muestra cada anuncio de Airbnb en Málaga y Sevilla capital y lo buscamos en el registro, teniendo en cuenta los errores de formato habituales.</p>
+        <p lang="en">We read the number each Airbnb listing in Málaga and Seville displays and look it up in the register, allowing for the usual formatting mistakes.</p></div>
+      <div class="step"><div class="n">3</div>
+        <h3><span lang="es">Solo por zonas</span><span lang="en">Areas, not people</span></h3>
+        <p lang="es">Publicamos los problemas por zonas, nunca anuncio a anuncio. Cualquiera puede comprobar un anuncio concreto y decidir si lo comunica.</p>
+        <p lang="en">We publish problems by area, never listing by listing. Anyone can check a specific advert and decide whether to report it.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sources">
+      <b lang="es">Fuentes:</b><b lang="en">Sources:</b>
+      <span>Junta de Andalucía · Registro de Turismo (Open RTA)</span>
+      <span>Ayuntamiento de Málaga · Barrios</span>
+      <span>Inside Airbnb</span>
+      <span>OpenStreetMap</span>
+      <a href="/metodologia" style="margin-left:auto"><span lang="es">Metodología y normativa →</span><span lang="en">Methodology &amp; the law →</span></a>
+    </div>
+  </section>
+</div>
+</main>
+<div id="site-footer"></div>
+<script src="/assets/js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Clasificación · tienelicencia.com</title>
+<meta name="description" content="Clasificación de barrios y municipios por viviendas turísticas registradas y anunciadas sobre el total de viviendas.">
+<meta name="theme-color" content="#0d5a46">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Clasificación · tienelicencia.com">
+<meta property="og:description" content="Clasificación de barrios y municipios por viviendas turísticas registradas y anunciadas sobre el total de viviendas.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/js/core.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+  <section class="area-hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="breadcrumb">
+        <a href="/"><span lang="es">Inicio</span><span lang="en">Home</span></a><span aria-hidden="true">/</span>
+        <a id="crumb-area" href="#"></a><span aria-hidden="true">/</span>
+        <span aria-current="page"><span lang="es">Clasificación</span><span lang="en">Ranking</span></span>
+      </nav>
+      <h1 class="display" id="rank-title">&nbsp;</h1>
+      <p class="lede" id="rank-lede"></p>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="rank-tools">
+      <label class="search" style="flex:1;max-width:420px"><span class="field" style="display:block;position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="rank-filter" type="search" autocomplete="off" data-t-ph="filter_ph"></span></label>
+      <span class="small muted" id="rank-count"></span>
+    </div>
+    <div class="table-scroll"><table class="data rank" id="rank"></table></div>
+    <p class="small muted" id="rank-notes" style="margin-top:16px;max-width:80ch"></p>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="/assets/js/zonas.js"></script>
+</body>
+</html>

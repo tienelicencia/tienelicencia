@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Comprobar un anuncio · tienelicencia.com</title>
+<meta name="title-es" content="Comprobar un anuncio · tienelicencia.com">
+<meta name="title-en" content="Check an advert · tienelicencia.com">
+<meta name="description" content="Pega el enlace de un anuncio de Airbnb o Booking.com y comprueba si el número de registro que muestra está en el registro de la Junta de Andalucía.">
+<meta name="description-es" content="Pega el enlace de un anuncio de Airbnb o Booking.com y comprueba si el número de registro que muestra está en el registro de la Junta de Andalucía.">
+<meta name="description-en" content="Paste an Airbnb or Booking.com link and check whether the registration number it shows is in the Junta de Andalucía register.">
+<meta name="theme-color" content="#0d5a46">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Comprobar un anuncio · tienelicencia.com">
+<meta property="og:description" content="Pega el enlace de un anuncio de Airbnb o Booking.com y comprueba si el número de registro que muestra está en el registro de la Junta de Andalucía.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/js/core.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main id="main">
+  <section class="area-hero">
+    <div class="wrap" style="max-width:880px">
+      <nav class="crumbs" aria-label="breadcrumb"><a href="/"><span lang="es">Inicio</span><span lang="en">Home</span></a><span aria-hidden="true">/</span>
+        <span aria-current="page" data-t="check"></span></nav>
+      <h1 class="display"><span lang="es">Comprobar un anuncio</span><span lang="en">Check an advert</span></h1>
+      <p class="lede" lang="es">Pega el enlace de un anuncio de Airbnb o Booking.com. Leemos el número de registro que muestra y lo buscamos en el
+        Registro de Turismo de Andalucía. Si es válido te decimos a qué vivienda corresponde; si no, qué falla.</p>
+      <p class="lede" lang="en">Paste an Airbnb or Booking.com link. We read the registration number it displays and look it up in the
+        Andalusian Tourism Register. If it's valid we tell you which flat it belongs to; if not, what's wrong.</p>
+    </div>
+  </section>
+  <div class="wrap" style="max-width:880px">
+    <div class="note info" style="margin-top:32px">
+      <p lang="es" style="margin:0"><b>Antes de empezar.</b> <b>Airbnb:</b> pega el enlace y leemos el número automáticamente.
+        <b>Booking.com:</b> no permite leer sus anuncios automáticamente, así que tendrás que escribir el número que muestra
+        (en «Letra pequeña» o «Información legal»). <b>Otras plataformas</b> (Vrbo, webs propias…): escribe el número en «Número que aparece».</p>
+      <p lang="en" style="margin:0"><b>Before you start.</b> <b>Airbnb:</b> paste the link and we read the number automatically.
+        <b>Booking.com:</b> doesn't allow its adverts to be read automatically, so you'll need to type the number it shows
+        (under “Fine print” or “Legal information”). <b>Other platforms</b> (Vrbo, own websites…): type the number under “Number shown”.</p>
+    </div>
+    <div class="card check-card" style="margin-top:20px">
+      <div class="check-tabs" role="tablist">
+        <button type="button" role="tab" data-mode="url" aria-selected="true"><span lang="es">Enlace del anuncio</span><span lang="en">Advert link</span></button>
+        <button type="button" role="tab" data-mode="code" aria-selected="false"><span lang="es">Número que aparece</span><span lang="en">Number shown</span></button>
+      </div>
+      <form id="check-form" class="search">
+        <div style="display:flex;gap:8px" class="row">
+          <label class="field" style="position:relative;flex:1;min-width:0"><span class="sr-only" lang="es">Enlace o número</span><span class="sr-only" lang="en">Link or number</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+            <input id="check-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" required></label>
+          <button class="btn btn-primary" type="submit"><span lang="es">Comprobar</span><span lang="en">Check</span></button>
+        </div>
+        <p class="hint" id="check-hint"></p>
+      </form>
+      <div id="check-result" aria-live="polite"></div>
+    </div>
+
+    <div class="note info" style="margin-top:24px">
+      <p lang="es" style="margin:0"><b>Cómo leer el resultado.</b> Un número que no está en el registro es una discrepancia con el registro, no demuestra por sí solo que la vivienda no tenga permiso:
+        hay anfitriones con licencia que no la muestran y algunos registros no se publican. Algunos alojamientos están exentos (alquileres de más de dos meses, hoteles).
+        <a href="/metodologia#comprobacion">Más detalles</a>.</p>
+      <p lang="en" style="margin:0"><b>Reading the result.</b> A number that isn't in the register is a mismatch with the register; on its own it doesn't show that a flat lacks a permit:
+        some licensed hosts don't display their number and a few registrations aren't published. Some lets are exempt (stays over two months, hotels).
+        <a href="/metodologia#comprobacion">More detail</a>.</p>
+    </div>
+    <p class="small muted" style="margin-top:16px" lang="es">Consultamos el anuncio una sola vez, sin iniciar sesión, y no guardamos los enlaces que compruebas (solo una caché temporal de unas horas).</p>
+    <p class="small muted" style="margin-top:16px" lang="en">We fetch the advert once, without logging in, and don't keep the links you check (only a temporary cache of a few hours).</p>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="/assets/js/check.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+// GET /api/check?url=<Airbnb or Booking.com link>   or   /api/check?code=<number shown in the advert>
+// Fetches the public advert page once, reads the registration number it displays and checks it against the
+// Junta de Andalucía open register (data built by pipeline/site_build.py). No login, no CAPTCHA handling;
+// results cached for 6 h per advert; per-IP rate limit. The response carries reason codes, not prose, so the
+// site can phrase the answer in Spanish or English.
+import { parse, variants, haversine } from "./lib/codes.mjs";
+import { lookup, search, publicRow, norm } from "./lib/register-data.mjs";
+import { json, rateLimited, clientIp } from "./lib/http.mjs";
+
+const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36";
+const CACHE = new Map(); // advert -> {at, body}
+// Same location rule as the city figures (pipeline/rta_audit/classify.py, LOCATION_THRESHOLD_M):
+//   within 800 m → matches; further away in the same municipality → valid but "far";
+//   further away in another municipality → belongs somewhere else.
+// The advert's municipality comes from its location line; without one, fall back to 3 km.
+const THRESHOLD_M = 800;    // platform pin shift (up to ~150 m) + register geocoding error
+const OTHER_PLACE_M = 3000; // only used when the advert doesn't say which town it's in
+const HOTELISH = /hotel|hostel|aparthotel|boutique|bed and breakfast|guesthouse|pension/i;
+const RURAL = /rural|cortijo|finca|farm/i;
+let LONG_STAY;
+
+export const config = { path: "/api/check" };
+
+export function extractListingId(input) {
+  if (!input) return null;
+  const s = String(input).trim();
+  const m = s.match(/airbnb\.[a-z.]+\/rooms\/(?:plus\/)?(\d{5,20})/i) || s.match(/^(\d{5,20})$/);
+  return m ? m[1] : null;
+}
+
+export function parseAdvertUrl(input) {
+  const s = String(input || "").trim();
+  const id = extractListingId(s);
+  if (id) return { platform: "airbnb", id, url: `https://www.airbnb.co.uk/rooms/${id}` };
+  const b = s.match(/booking\.com\/hotel\/([a-z]{2})\/([a-z0-9\-_.]+?)(?:\.[a-z]{2}(?:-[a-z]{2})?)?\.html/i);
+  if (b) return { platform: "booking", id: `${b[1]}/${b[2]}`, url: `https://www.booking.com/hotel/${b[1]}/${b[2]}.es.html` };
+  return null;
+}
+
+function* walk(o) {
+  if (o && typeof o === "object") {
+    yield o;
+    for (const v of Array.isArray(o) ? o : Object.values(o)) yield* walk(v);
+  }
+}
+
+export function extractPage(html) {
+  const out = { registration_raw: null, lat: null, lon: null, room_type: null, property_type: null, title: null, location: null };
+  const reg = [];
+  for (const m of html.matchAll(/<script[^>]*id="data-(?:deferred-state|injector-instances)[^"]*"[^>]*>([\s\S]*?)<\/script>/g)) {
+    let blob;
+    try { blob = JSON.parse(m[1]); } catch { continue; }
+    for (const d of walk(blob)) {
+      if (typeof d.title === "string" && /^(registration details|detalles del registro|licen[cs]e)/i.test(d.title)
+          && d.html && d.html.htmlText) reg.push(d.html.htmlText);
+      if (d.__typename === "DemandStayListingLocation" && d.coordinate) {
+        out.lat = d.coordinate.latitude; out.lon = d.coordinate.longitude;
+      }
+      if (d.__typename === "StaysPdpLocation" && d.subtitle) out.location = d.subtitle;
+      if (d.__typename === "PdpSharingConfig" && d.title && !out.title) out.title = d.title;
+    }
+  }
+  const rt = html.match(/"listingLat":[^}]*?"roomType":"([^"]+)"/);
+  if (rt) out.room_type = rt[1];
+  const pt = [...html.matchAll(/"propertyType":"([^"]{1,60})"/g)].map((m) => m[1]).find((x) => x !== "OTHER");
+  if (pt) out.property_type = pt;
+  if (out.lat == null) {
+    const la = html.match(/"listingLat":(-?[\d.]+)/), lo = html.match(/"listingLng":(-?[\d.]+)/);
+    if (la && lo) { out.lat = +la[1]; out.lon = +lo[1]; }
+  }
+  out.registration_raw = [...new Set(reg)].join("\n") || null;
+  out.page_ok = out.lat != null;
+  return out;
+}
+
+/** Booking.com property page: the licence number sits in the fine print / "Número de licencia". */
+export function extractBooking(html) {
+  const out = { registration_raw: null, lat: null, lon: null, room_type: null, title: null, location: null };
+  const ll = html.match(/data-atlas-latlng="(-?[\d.]+),(-?[\d.]+)"/);
+  if (ll) { out.lat = +ll[1]; out.lon = +ll[2]; }
+  const t = html.match(/<meta property="og:title" content="([^"]{1,200})"/);
+  if (t) out.title = t[1];
+  const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/g, " ").replace(/\s+/g, " ");
+  const bits = [...text.matchAll(/(n[uú]mero de (licencia|registro)|licen[cs]e number|registration (number|details)|licencia)[^.]{0,160}/gi)]
+    .map((m) => m[0]);
+  out.registration_raw = [...new Set(bits)].join(" | ") || null;
+  out.page_ok = !!(out.title && (out.lat != null || /hp_hotel_name|hotel_name/.test(html)));
+  return out;
+}
+
+const licenceOf = (key) => {
+  const rows = search().byKey.get(key);
+  return rows ? publicRow(rows[0]) : null;
+};
+
+/**
+ * Assess what an advert shows. page: {registration_raw, lat, lon, room_type, location}. Returns
+ * {verdict, reason, shown, key, licence, ...}. Verdicts: VALID, VALID_CODE_SHARED, VALID_LOCATION_MISMATCH, NOT_VALID.
+ * Reasons: valid, shared, far, other_place, cancelled, not_in_register, malformed, no_number.
+ */
+export function assess(page, L, listingId = null) {
+  const p = parse(page.registration_raw || "", L.max_issued);
+  // Only a national number shown, with the Junta code at its tail (…0000VUT/MA/117055): check that code.
+  if (!p.junta.length) p.junta = p.national.filter((n) => n.embedded_regional).flatMap((n) => parse(n.embedded_regional, L.max_issued).junta);
+  const base = { shown: p.junta.map((j) => j.raw), national_numbers: p.national.map((n) => n.raw),
+    ctc: p.other.some((o) => o.kind === "CTC_procedure_ref"), register_date: L.register_lastUpdateData };
+  if (!p.junta.length) {
+    // Same "possibly exempt" rules as the city figures (classify.py): don't call these "no number".
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room" || HOTELISH.test(page.property_type || "")) exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (p.national.length) exempt.push("national_only");
+    if (p.exempt_text && /seasonal|temporada/i.test(p.exempt_text)) exempt.push("seasonal_claim");
+    if (RURAL.test(page.property_type || "")) exempt.push("rural");
+    if (exempt.length) return { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt };
+    return { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  const place = norm(page.location || "");
+  // Does the advert's location line name this municipality? null when the advert gives no location.
+  const sameMuni = (mun) => (place ? place.includes(norm(mun)) : null);
+  let best = null;
+  for (const j of p.junta) {
+    let hit = null;
+    for (const [key, variant] of variants(j)) {
+      if (L.cancelled[key]) { hit = { key, variant, cancelled: L.cancelled[key] }; break; }
+      const rec = L.codes[key];
+      if (!rec) continue;
+      // Prefer a correction that lands where the advert is (by pin distance, else by the advert's stated town).
+      const d = page.lat != null && rec[1] != null ? haversine(page.lat, page.lon, rec[1], rec[2]) : null;
+      const here = d != null ? d <= THRESHOLD_M || (sameMuni(rec[0]) ?? d <= OTHER_PLACE_M) : sameMuni(rec[0]) === true;
+      if (!hit || (here && !hit.here)) hit = { key, variant, rec, here };
+      if (here) break;
+    }
+    const r = { j, hit };
+    if (hit?.cancelled) r.v = 3;
+    else if (hit?.rec) {
+      const [mun, lat, lon, group] = hit.rec;
+      r.dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      r.muni = mun;
+      const same = sameMuni(mun);
+      r.other_place = r.dist != null ? r.dist > THRESHOLD_M && !(same ?? r.dist <= OTHER_PLACE_M) : same === false;
+      r.far = !r.other_place && r.dist != null && r.dist > THRESHOLD_M;
+      r.shared = group === "C" ? (L.shared[hit.key] || 0) : 0; // only whole-dwelling ('Completa') VUTs
+      r.v = r.other_place ? 2 : r.far ? 1 : 0;
+    } else r.v = j.malformed ? 5 : 4;
+    if (!best || r.v < best.v) best = r;
+  }
+  const { j, hit } = best;
+  const res = { ...base, code: j.raw, key: hit?.key || j.key, corrected: !!(hit && hit.variant !== "exact"),
+    licence: hit?.key ? licenceOf(hit.key) : null, licence_muni: best.muni || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    const shared = best.shared > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: best.shared };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place" };
+  if (best.v === 3) return { ...res, verdict: "NOT_VALID", reason: "cancelled", cancel_date: hit.cancelled.date };
+  if (best.v === 4) return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
+  return { ...res, verdict: "NOT_VALID", reason: "malformed", problems: j.problems };
+}
+
+export default async (req, context) => {
+  const url = new URL(req.url);
+  const L = lookup();
+  const ip = clientIp(req, context);
+
+  // A number typed in by hand: no advert page, so no location checks.
+  const code = (url.searchParams.get("code") || "").slice(0, 80);
+  if (code) {
+    if (rateLimited(ip, 60)) return json(429, { error: "rate_limited" });
+    return json(200, { mode: "code", checked_at: new Date().toISOString(), ...assess({ registration_raw: code }, L) });
+  }
+
+  const ad = parseAdvertUrl(url.searchParams.get("url") || url.searchParams.get("id"));
+  if (!ad) return json(400, { error: "bad_url" });
+  const c = CACHE.get(ad.url);
+  if (c && Date.now() - c.at < 6 * 3600 * 1000) return json(200, { ...c.body, cached: true });
+  if (rateLimited(ip, 20)) return json(429, { error: "rate_limited" });
+  let res;
+  try {
+    res = await fetch(ad.url, { headers: { "user-agent": UA, "accept-language": "es-ES,es;q=0.9,en;q=0.8" } });
+  } catch {
+    return json(502, { error: "unreachable", platform: ad.platform });
+  }
+  const meta = { mode: "url", platform: ad.platform, listing_url: ad.url, checked_at: new Date().toISOString() };
+  if (res.status === 404 || res.status === 410) return json(200, { ...meta, verdict: "REMOVED", reason: "removed" });
+  if (res.status !== 200) return json(200, { ...meta, verdict: "UNREADABLE", reason: "blocked", http: res.status });
+  const html = await res.text();
+  const page = ad.platform === "airbnb" ? extractPage(html) : extractBooking(html);
+  if (!page.page_ok) return json(200, { ...meta, verdict: "UNREADABLE", reason: "unreadable" });
+  const body = { ...meta, title: page.title, location: page.location, room_type: page.room_type,
+    pin: page.lat != null ? [page.lat, page.lon] : null, ...assess(page, L, ad.platform === "airbnb" ? ad.id : null) };
+  CACHE.set(ad.url, { at: Date.now(), body });
+  return json(200, body);
+};
