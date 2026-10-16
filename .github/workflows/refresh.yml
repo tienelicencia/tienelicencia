@@ -23,7 +23,7 @@ concurrency:
 jobs:
   sources:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 300   # the first run in a new repository downloads everything (Catastro: ~100 municipalities)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -119,7 +119,12 @@ jobs:
           restore-keys: rta-cache-
       - name: Build site data
         working-directory: pipeline
-        run: python site_build.py build
+        run: |
+          if [ ! -f cache/register/register_meta.json ]; then
+            echo "::error::No register in the cache: the 'sources' job didn't finish (see its log). Run the workflow again."
+            exit 1
+          fi
+          python site_build.py build
       - name: Tests
         run: |
           cd pipeline && python -m unittest discover -s tests && cd ..
