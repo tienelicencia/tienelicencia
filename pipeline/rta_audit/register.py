@@ -96,7 +96,8 @@ def fetch(cache_dir, force=False):
     tmp = data_path + ".part"
     # The Junta's server sometimes drops this ~330 MB download part-way: retry, and if it keeps failing
     # keep yesterday's copy (lastUpdateData isn't advanced, so the next run tries again).
-    for attempt in range(4):
+    tries = 4 if os.path.exists(data_path) else 8   # no previous copy to fall back on: try harder
+    for attempt in range(tries):
         try:
             r = http.get(f"{API}/all", params={"format": "json"}, timeout=1800, stream=True)
             with open(tmp, "wb") as fh:
@@ -106,8 +107,8 @@ def fetch(cache_dir, force=False):
             break
         except Exception as e:  # noqa: BLE001 — network drop, truncated or invalid file
             print(f"register download attempt {attempt + 1} failed: {e}")
-            if attempt < 3:
-                time.sleep(30 * 2 ** attempt)
+            if attempt < tries - 1:
+                time.sleep(min(300, 30 * 2 ** attempt))
     else:
         if os.path.exists(data_path):
             print("register download failed; keeping the previous copy")

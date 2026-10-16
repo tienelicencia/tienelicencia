@@ -31,7 +31,7 @@ jobs:
           python-version: "3.11"
       - run: pip install requests openpyxl
       - name: Restore data cache (register, snapshots, barrios, Catastro, INE)
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: pipeline/cache
           key: rta-cache-${{ github.run_id }}
@@ -40,6 +40,19 @@ jobs:
         working-directory: pipeline
         continue-on-error: true   # a source being down shouldn't stop the run: build from the cached copies
         run: python site_build.py refresh
+      - name: Check we have a register
+        run: |
+          if [ ! -f pipeline/cache/register/register_meta.json ]; then
+            echo "::error::No Junta register downloaded or cached: see 'Refresh sources' above."
+            exit 1
+          fi
+          du -sh pipeline/cache/* || true
+      # Save only a complete cache, so a failed download never replaces a good copy
+      - name: Save data cache
+        uses: actions/cache/save@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}
 
   recheck:
     needs: sources
