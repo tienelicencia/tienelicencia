@@ -24,9 +24,11 @@
 
   function cols() {
     const k = S.subareas.kind;
+    const withListings = S.subareas.rows.some((r) => r.listings);   // barrios, and Mallorca's municipalities
+    const mapLink = A.has_barrios;
     const first = { barrio: L("Barrio", "Barrio"), municipality: L("Municipio", "Municipality"), locality: L("Código postal", "Postcode") }[k];
     const c = [
-      { key: "name", label: first, text: true, cell: (r) => k === "barrio" ? `<a href="${areaHref(slug, "mapa")}?barrio=${r.id}">${esc(r.name)}</a>`
+      { key: "name", label: first, text: true, cell: (r) => mapLink ? `<a href="${areaHref(slug, "mapa")}?barrio=${r.id}">${esc(r.name)}</a>`
           : esc(k === "locality" ? `${r.name}${r.locality ? " · " + r.locality : ""}` : r.name) },
       { key: "vut", label: L("Viviendas turísticas registradas", "Registered tourist flats"), cell: (r) => fmt(r.vut) },
     ];
@@ -34,11 +36,11 @@
       c.push({ key: "homes", label: L("Viviendas (Catastro)", "Homes (Catastro)"), cell: (r) => r.homes ? fmt(r.homes) : "—", sm: true });
       c.push({ key: "vut_share", label: L("% registradas", "% registered"), cell: (r) => pct(r.vut_share, "brand", k === "barrio") });
     } else c.push({ key: "places", label: L("Plazas", "Guest places"), cell: (r) => fmt(r.places) });
-    if (k === "municipality") {
+    if (k === "municipality" && S.subareas.rows.some((r) => r.ine_homes != null)) {
       c.push({ key: "ine_homes", label: L("Anunciadas (INE)", "Advertised (INE)"), cell: (r) => r.ine_homes != null ? fmt(r.ine_homes) : "—", sm: true });
       c.push({ key: "ine_pct", label: L("% anunciadas (INE)", "% advertised (INE)"), cell: (r) => pct(r.ine_pct, "adv") });
     }
-    if (k === "barrio") {
+    if (withListings) {
       c.push({ key: "airbnb_entire", label: L("Anuncios Airbnb (vivienda completa)", "Airbnb listings (entire home)"), cell: (r) => fmt(r.airbnb_entire || 0), sm: true });
       c.push({ key: "airbnb_share", label: L("% anunciadas en Airbnb", "% advertised on Airbnb"), cell: (r) => pct(r.airbnb_share, "adv") });
       c.push({ key: "not_valid_pct", label: L("Anuncios sin nº válido", "Listings with no valid no."), cell: (r) => r.not_valid_pct != null ? `${Math.round(r.not_valid_pct)}%` : "—" });
@@ -67,6 +69,9 @@
     $("#rank-lede").innerHTML = k === "barrio"
       ? L("Viviendas turísticas registradas y anuncios de Airbnb como porcentaje de todas las viviendas de cada barrio. Pulsa una columna para ordenar; pulsa un barrio para verlo en el mapa.",
         "Registered tourist flats and Airbnb listings as a share of all homes in each barrio. Click a column to sort; click a barrio to see it on the map.")
+      : k === "municipality" && A.has_listings
+        ? L("Viviendas turísticas registradas y anuncios de Airbnb como porcentaje de todas las viviendas de cada municipio. Pulsa una columna para ordenar; pulsa un municipio para verlo en el mapa.",
+          "Registered tourist flats and Airbnb listings as a share of all homes in each municipality. Click a column to sort; click a municipality to see it on the map.")
       : k === "municipality"
         ? L("Viviendas turísticas registradas en la Junta y anunciadas en plataformas (INE) como porcentaje de todas las viviendas de cada municipio. Pulsa una columna para ordenar.",
           "Tourist flats registered with the Junta and advertised on platforms (INE) as a share of all homes in each municipality. Click a column to sort.")

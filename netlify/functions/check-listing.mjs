@@ -102,6 +102,8 @@ const licenceOf = (key) => {
 // ---- Coverage: we only check numbers against registers we have (today: Andalucía).
 // Where a listing is: Airbnb's location line names the region ("Málaga, Andalucía, España"); else the map pin.
 const COVERED = [
+  // Mallorca only: the location line says "Illes Balears" for Menorca and Ibiza too, so the pin decides when there is one
+  { id: "mallorca", name: "Mallorca", words: /mallorca|balear/i, pinOnly: true, inside: (la, lo) => la > 39.2 && la < 40.0 && lo > 2.3 && lo < 3.5 },
   { id: "barcelona", name: "Barcelona", words: /^\s*barcelona\b/i, inside: (la, lo) => la > 41.32 && la < 41.47 && lo > 2.05 && lo < 2.23 },
   { id: "andalucia", name: "Andalucía", words: /andaluc/i,
   // rough outline of Andalucía (lat/lon box minus Murcia/Extremadura corners is close enough as a fallback)
@@ -109,12 +111,12 @@ const COVERED = [
 // Other regions' number formats, so a typed number from elsewhere gets "not covered yet" rather than "invalid"
 const OTHER_FORMATS = [
   [/(?<![A-Z0-9])HUT[A-Z]{1,2}[\s\-_/.]*\d/i, "Catalunya"], [/(?<![A-Z0-9])VT-?\d{2,7}-?[VACS](?![A-Z0-9])/i, "Comunitat Valenciana"],
-  [/(?<![A-Z0-9])E?[BLV]I\d{3,6}|(?<![A-Z0-9])ESS\d{4,6}/i, "Euskadi"], [/(?<![A-Z0-9])ETV[\s\-_/]*\d|(?<![A-Z0-9])VT\/\d+/i, "Illes Balears"],
+  [/(?<![A-Z0-9])E?[BLV]I\d{3,6}|(?<![A-Z0-9])ESS\d{4,6}/i, "Euskadi"],
   [/(?<![A-Z0-9])VT-\d{1,6}(?![A-Z0-9-])/i, "Comunidad de Madrid"]];
 export function coverage(page) {
   const loc = page.location || "";
   if (loc) {
-    const c = COVERED.find((r) => r.words.test(loc));
+    const c = COVERED.find((r) => r.words.test(loc) && !(r.pinOnly && page.lat != null && !r.inside(page.lat, page.lon)));
     return c ? { covered: true, region: c.name, id: c.id } : { covered: false, place: loc.split(",")[0].trim(), region: loc.split(",").slice(-2, -1)[0]?.trim() || null };
   }
   if (page.lat != null) {
@@ -158,6 +160,58 @@ export function assessCat(page, L, listingId = null) {
       const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
       const other = mun && mun !== "Barcelona" && (page.lat != null || page.location);
       r = { k, mun, dist, group, v: other ? 2 : dist != null && dist > THRESHOLD_M ? 1 : 0 };
+    }
+    if (!best || r.v < best.v) best = r;
+  }
+  const res = { ...base, code: best.k, key: best.k, licence: licenceOf(best.k), licence_muni: best.mun || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    if (page.room_type && page.room_type !== "Entire home/apt" && best.group === "C") return { ...res, verdict: "VALID_TYPE_MISMATCH", reason: "type_mismatch" };
+    const shared = (L.shared[best.k] || 0) > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: L.shared[best.k] || 0 };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place" };
+  return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
+}
+
+// ---- Mallorca: ETV/1234, ETVPL/…, ETV60/…, VT/… (and hotel H/…, AT/…, AG/…) against the Consell de Mallorca registers
+// (same rules as pipeline/rta_audit/baleares.py). The national number ends with the regional one plus a check digit.
+const BAL_RE = /(?<![A-Z0-9])(ETV60|ETVPL|ETV|ET|VT|ABT|AG|AT|TI|HA|HR|HO|HS|H|CA|CE|EH)[\s\-_.]*\/\s*0*(\d{1,6})(?![0-9])|(?<![A-Z0-9])(ETV60|ETVPL|ETV)[\s\-_.]*0*(\d{1,6})(?![0-9])/gi;   // no bare "VT-12345": that's Valencia's format
+const balKeyOf = (p, n) => `${p.toUpperCase() === "ET" ? "ETV" : p.toUpperCase()}/${+n}`;
+const balMuni = (s) => norm(s).replace(/^PALMA DE MALLORCA$/, "PALMA");
+export function assessBal(page, L, listingId = null) {
+  const text = (page.registration_raw || "").replace(/<br\s*\/?>/gi, " | ");
+  const NAT = /(?<![A-Z0-9])ES[A-Z]{4}\d{10,}[0-9A-Z/\-]*/gi;
+  const national = [...text.matchAll(NAT)].map((m) => m[0]);
+  const rest = text.replace(NAT, " ");
+  let keys = [...new Set([...rest.matchAll(BAL_RE)].map((m) => balKeyOf(m[1] || m[3], m[2] || m[4])))];
+  if (!keys.length) keys = [...new Set(national.map((n) => /(ETV60|ETVPL|ETV|ET|VT)\/?(\d{2,7})$/i.exec(n.toUpperCase()))
+    .filter(Boolean).map((m) => balKeyOf(m[1], m[2].slice(0, -1))))];
+  const base = { shown: keys, national_numbers: national, register_date: L.register_lastUpdateData, region: "Illes Balears" };
+  const B = L.bal || {};
+  if (!keys.length) {
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room") exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (national.length) exempt.push("national_only");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  const place = balMuni((page.location || "").split(",")[0]);
+  let best = null;
+  for (const k of keys) {
+    const rec = B[k];
+    let r;
+    if (!rec) r = { k, v: 4 };
+    else {
+      const [mun, lat, lon, group] = rec;
+      const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      // The location line names a town, which may be a village inside the municipality (Port de Pollença): only call it
+      // another place when it is also well away from the registered point.
+      const same = place ? place.includes(balMuni(mun)) || balMuni(mun).includes(place) : null;
+      const v = /^(CE|EH)\//.test(k) || dist == null || dist <= THRESHOLD_M ? 0 : !same && dist > OTHER_PLACE_M ? 2 : 1;
+      r = { k, mun, dist, group, v };
     }
     if (!best || r.v < best.v) best = r;
   }
@@ -247,8 +301,9 @@ export default async (req, context) => {
   if (code) {
     if (rateLimited(ip, 60)) return json(429, { error: "rate_limited" });
     const isCat = CAT_RE.test(code); CAT_RE.lastIndex = 0;
-    const res = isCat ? assessCat({ registration_raw: code }, L) : assess({ registration_raw: code }, L);
-    const other = !isCat && !res.shown.length && otherRegion(code);   // e.g. a Valencian VT- number typed in
+    const isBal = !isCat && BAL_RE.test(code); BAL_RE.lastIndex = 0;
+    const res = isCat ? assessCat({ registration_raw: code }, L) : isBal ? assessBal({ registration_raw: code }, L) : assess({ registration_raw: code }, L);
+    const other = !isCat && !isBal && !res.shown.length && otherRegion(code);   // e.g. a Valencian VT- number typed in
     if (other) return json(200, { mode: "code", checked_at: new Date().toISOString(), verdict: "NOT_COVERED", reason: "not_covered",
       region: other, code, register_date: L.register_lastUpdateData });
     return json(200, { mode: "code", checked_at: new Date().toISOString(), ...res });
@@ -278,7 +333,7 @@ export default async (req, context) => {
         register_date: L.register_lastUpdateData }
     : { ...meta, title: page.title, location: page.location, room_type: page.room_type,
         pin: page.lat != null ? [page.lat, page.lon] : null,
-        ...(cov.id === "barcelona" ? assessCat : assess)(page, L, ad.platform === "airbnb" ? ad.id : null) };
+        ...({ barcelona: assessCat, mallorca: assessBal }[cov.id] || assess)(page, L, ad.platform === "airbnb" ? ad.id : null) };
   CACHE.set(ad.url, { at: Date.now(), body });
   return json(200, body);
 };

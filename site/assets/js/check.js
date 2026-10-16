@@ -73,17 +73,27 @@
     const j = last, out = $("#check-result");
     const code = `<b>${esc(j.code || "")}</b>`;
     const d = j.distance_m != null ? fmt(Math.round(j.distance_m / 10) * 10) : null;
+    // The register the number was checked against (Andalucía unless the result says otherwise)
+    const RG = { Catalunya: { reg_es: "Registre de Turisme de Catalunya", reg_en: "Catalan Tourism Register", of_es: "de la Generalitat", of_en: "Generalitat",
+        example: "HUTB-012345", search: "/barcelona", search_es: "nuestro buscador de Barcelona", search_en: "our Barcelona search" },
+      "Illes Balears": { reg_es: "registro turístico del Consell de Mallorca", reg_en: "Consell de Mallorca tourism register", of_es: "del Consell de Mallorca", of_en: "Consell de Mallorca",
+        example: "ETV/1234", search: "/mallorca", search_es: "nuestro buscador de Mallorca", search_en: "our Mallorca search" } }[j.region]
+      || { reg_es: "Registro de Turismo de Andalucía", reg_en: "Andalusian Tourism Register", of_es: "de la Junta", of_en: "Junta", andalucia: true,
+        example: "VUT/MA/12345", search: "/provincia", search_es: "nuestro buscador de la provincia", search_en: "our province search" };
     const typed = j.mode === "code";
     const V = {
       valid: ["ok", ICON.check, typed ? L(`${code} está en el registro`, `${code} is in the register`) : L(`${code} está en el registro y coincide con la ubicación`, `${code} is in the register and matches the location`),
         typed ? L("Comprueba que la dirección de abajo coincide con la del anuncio.", "Check that the address below matches the advert.")
           : L(`La vivienda registrada está a unos ${d ?? "?"} m de la ubicación del anuncio (las ubicaciones de las plataformas son aproximadas).`, `The registered flat is about ${d ?? "?"} m from the advert's location (platform locations are approximate).`)],
-      shared: ["shared", ICON.info, L(`${code} es real, pero la usan ${fmt(j.shared_count)} anfitriones distintos`, `${code} is real, but ${fmt(j.shared_count)} different hosts use it`),
+      shared: ["shared", ICON.info, j.region === "Illes Balears" ? L(`${code} es real, pero aparece en anuncios de ${fmt(j.shared_count)} lugares distintos`, `${code} is real, but appears on listings in ${fmt(j.shared_count)} different places`)
+        : L(`${code} es real, pero la usan ${fmt(j.shared_count)} anfitriones distintos`, `${code} is real, but ${fmt(j.shared_count)} different hosts use it`),
         L("Es la licencia de una sola vivienda completa y aparece en anuncios de vivienda completa de varios anfitriones, así que no puede ser válida para todos. Este anuncio puede ser el legítimo.",
           "It's the licence for a single whole dwelling and appears on entire-home listings from several hosts, so it can't be valid for all of them. This listing may be the genuine one.")],
       type_mismatch: ["warn", ICON.warn, L(`${code} existe, pero es una licencia para la vivienda completa`, `${code} exists, but it's a whole-home licence`),
-        L("Este anuncio alquila una habitación. Para alquilar habitaciones hace falta una inscripción «por habitaciones»: la licencia mostrada no encaja con lo que se anuncia.",
-          "This advert lets a room. Letting rooms needs a “by rooms” registration: the licence shown doesn't fit what's advertised.")],
+        RG.andalucia ? L("Este anuncio alquila una habitación. Para alquilar habitaciones hace falta una inscripción «por habitaciones»: la licencia mostrada no encaja con lo que se anuncia.",
+          "This advert lets a room. Letting rooms needs a “by rooms” registration: the licence shown doesn't fit what's advertised.")
+          : L("Este anuncio alquila una habitación, y aquí la normativa no permite alquilar habitaciones con una licencia de vivienda turística: la licencia mostrada no encaja con lo que se anuncia.",
+            "This advert lets a room, and the rules here don't allow letting rooms under a tourist-let licence: the licence shown doesn't fit what's advertised.")],
       far: ["warn", ICON.warn, L(`${code} existe, pero está registrada a ${d} m del anuncio`, `${code} exists, but is registered ${d} m from the advert`),
         L("Las plataformas muestran una ubicación aproximada y algunas direcciones del registro están mal situadas en el mapa, así que dejamos 800 m de margen. Más allá, la licencia puede ser de otra vivienda del mismo municipio, o la ubicación puede estar mal.",
           "Platforms show an approximate location and some register addresses are misplaced on the map, so we allow 800 m. Beyond that, the licence may belong to another flat in the same town, or a location may be wrong.")],
@@ -96,24 +106,25 @@
           "We searched for the exact number and its usual variants. We don't know why it's missing: we only see what the register publishes today. The registration may have been closed or cancelled, the number in the advert may have a typo, or it may be very recent.")],
       malformed: ["bad", ICON.x, L(`${code} no es un número de registro válido`, `${code} is not a valid registration number`),
         L("Tiene un formato incorrecto y ninguna corrección razonable coincide con el registro.", "It's malformed and no reasonable correction matches the register.")],
-      possibly_exempt: ["neutral", ICON.info, L("El anuncio no muestra un número de la Junta, pero puede no necesitarlo", "The advert shows no Junta number, but may not need one"),
+      possibly_exempt: ["neutral", ICON.info, L(`El anuncio no muestra un número ${RG.of_es}, pero puede no necesitarlo`, `The advert shows no ${RG.of_en} number, but may not need one`),
         [L("Parece estar en uno de los casos que no cuentan como viviendas turísticas o tienen otro registro:", "It looks like one of the cases that don't count as tourist flats or have a different registration:"),
           (j.exempt || []).map((x) => ({
             hotel: L("es un hotel u hostal (tienen otro tipo de registro)", "it's a hotel or hostel (they have a different registration)"),
-            long_stay: L("su estancia mínima es de 60 noches o más (alquiler de temporada)", "its minimum stay is 60 nights or more (a seasonal let)"),
+            long_stay: (() => { const n = { Catalunya: 32, "Illes Balears": 31 }[j.region] || 60;
+              return L(`su estancia mínima es de ${n} noches o más (alquiler de temporada)`, `its minimum stay is ${n} nights or more (a seasonal let)`); })(),
             national_only: L("muestra solo un número nacional (ES…)", "it shows only a national (ES…) number"),
             seasonal_claim: L("dice ser un alquiler de temporada", "it says it's a seasonal let"),
             rural: L("es un alojamiento rural", "it's a rural property") }[x])).filter(Boolean).join("; ") + ".",
           L("No lo contamos como «sin número válido». Si crees que sí debería tenerlo, puedes comunicarlo.", "We don't count it as “no valid number”. If you think it should have one, you can still report it.")].join(" ")],
-      no_number: ["bad", ICON.x, L("El anuncio no muestra ningún número de registro de la Junta", "The advert doesn't display any Junta registration number"),
+      no_number: ["bad", ICON.x, L(`El anuncio no muestra ningún número de registro ${RG.of_es}`, `The advert doesn't display any ${RG.of_en} registration number`),
         [L("Las viviendas turísticas en Andalucía deben mostrar su número (p. ej. VUT/MA/12345) en todos los anuncios.", "Tourist flats in Andalucía must show their number (e.g. VUT/MA/12345) in every advert."),
           j.ctc ? L("Muestra una referencia «CTC», que es de un trámite, no un número de registro.", "It shows a 'CTC' reference, which is an application number, not a registration.") : "",
-          j.national_numbers?.length ? L("Muestra un número nacional (ES…), pero no el de la Junta. El registro nacional fue anulado por el Tribunal Supremo en mayo de 2026.", "It shows a national (ES…) number but no Junta number. The national register was annulled by the Supreme Court in May 2026.") : "",
+          j.national_numbers?.length ? L(`Muestra un número nacional (ES…), pero no el ${RG.of_es}. El registro nacional fue anulado por el Tribunal Supremo en mayo de 2026.`, `It shows a national (ES…) number but no ${RG.of_en} number. The national register was annulled by the Supreme Court in May 2026.`) : "",
           L("Algunos alojamientos están exentos (estancias de más de dos meses, hoteles): compruébalo antes de comunicarlo.", "Some lets are exempt (stays over two months, hotels): check before reporting.")].filter(Boolean).join(" ")],
       not_covered: ["neutral", ICON.info,
         j.place || j.region ? L(`Todavía no cubrimos ${esc(j.place || j.region)}`, `We don't cover ${esc(j.place || j.region)} yet`) : L("Todavía no cubrimos esta zona", "We don't cover this area yet"),
-        [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía y Barcelona${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
-            `We can only check numbers against the official register of the areas we cover (so far, Andalucía and Barcelona${j.region ? `; this looks like ${esc(j.region)}` : ""}).`),
+        [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía, Barcelona y Mallorca${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
+            `We can only check numbers against the official register of the areas we cover (so far, Andalucía, Barcelona and Mallorca${j.region ? `; this looks like ${esc(j.region)}` : ""}).`),
           j.shown_text ? L(`El anuncio muestra: <code>${esc(j.shown_text)}</code>.`, `The advert shows: <code>${esc(j.shown_text)}</code>.`) : "",
           `<a href="/contacto?${new URLSearchParams({ tipo: "zona", ref: j.place || j.region || j.code || "" })}">${L("Pídenos que lleguemos a esta zona →", "Ask us to cover this area →")}</a>`].filter(Boolean).join(" ")],
       removed: ["neutral", ICON.info, L("Este anuncio ya no existe", "This advert no longer exists"), L("La plataforma devuelve que el anuncio ha sido retirado.", "The platform says the advert has been removed.")],
@@ -142,25 +153,25 @@
     const report = bad ? `<h4 class="h3" style="font-size:16px;margin:20px 0 6px">${L("Qué puedes hacer", "What you can do")}</h4>
       <ul>
         ${j.platform ? `<li>${L("Comunicarlo a la plataforma:", "Report it to the platform:")} <a href="${REPORT[j.platform]}" target="_blank" rel="noopener">${j.platform === "airbnb" ? "Airbnb" : "Booking.com"}</a>.</li>` : ""}
-        <li>${L("Escribir al buzón contra la clandestinidad turística de la Junta en Málaga:", "Write to the Junta's tourism inbox for unregistered lets in Málaga:")} <a href="mailto:${JUNTA_BUZON}">${JUNTA_BUZON}</a></li>
+        ${RG.andalucia ? `<li>${L("Escribir al buzón contra la clandestinidad turística de la Junta en Málaga:", "Write to the Junta's tourism inbox for unregistered lets in Málaga:")} <a href="mailto:${JUNTA_BUZON}">${JUNTA_BUZON}</a></li>` : ""}
         <li>${L("Incluye el enlace, el número que muestra, la fecha de hoy y una captura de pantalla.", "Include the link, the number it shows, today's date and a screenshot.")}</li>
       </ul><p class="small"><a href="/metodologia#denunciar">${L("Todos los canales para comunicarlo →", "All the ways to report it →")}</a></p>` : "";
     const ctx = new URLSearchParams({ tipo: "correccion", ...(j.listing_url ? { anuncio: j.listing_url } : {}), ...(j.code ? { numero: j.code } : {}) });
     const host = ["bad", "warn", "shared", "neutral"].includes(tone) && !["removed", "blocked", "unreadable", "not_covered"].includes(j.reason)
       ? `<details class="host-help" style="margin-top:18px"><summary><b>${L("¿Es tu anuncio? Cómo resolverlo", "Is this your listing? How to fix it")}</b></summary>
         <ol style="margin:10px 0 0">
-          <li>${L("Busca tu número en el Registro de Turismo de Andalucía (", "Look up your number in the Andalusian Tourism Register (")}<a href="/provincia">${L("nuestro buscador de la provincia", "our province search")}</a>${L(" o el ", " or the ")}<a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">${L("registro abierto de la Junta", "Junta's open register")}</a>).</li>
-          <li>${L("Compáralo con tu resolución de inscripción y corrige el número en la plataforma si no coincide (debe aparecer completo, p. ej. VUT/MA/12345).", "Compare it with your registration decision (resolución de inscripción) and correct it on the platform if it differs (it must appear in full, e.g. VUT/MA/12345).")}</li>
-          <li>${L("Si tu vivienda ya no aparece en el registro, consulta su estado en la Delegación Territorial de Turismo de Málaga.", "If your property no longer appears in the register, ask the Junta's tourism office in Málaga (Delegación Territorial de Turismo) about its status.")}</li>
+          <li>${L(`Busca tu número en el ${RG.reg_es} (`, `Look up your number in the ${RG.reg_en} (`)}<a href="${RG.search}">${L(RG.search_es, RG.search_en)}</a>${RG.andalucia ? `${L(" o el ", " or the ")}<a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">${L("registro abierto de la Junta", "Junta's open register")}</a>` : ""}).</li>
+          <li>${L(`Compáralo con tu resolución de inscripción y corrige el número en la plataforma si no coincide (debe aparecer completo, p. ej. ${RG.example}).`, `Compare it with your registration decision (resolución de inscripción) and correct it on the platform if it differs (it must appear in full, e.g. ${RG.example}).`)}</li>
+          ${RG.andalucia ? `<li>${L("Si tu vivienda ya no aparece en el registro, consulta su estado en la Delegación Territorial de Turismo de Málaga.", "If your property no longer appears in the register, ask the Junta's tourism office in Málaga (Delegación Territorial de Turismo) about its status.")}</li>` : ""}
           <li>${L("Cuando el número correcto esté en el registro y en el anuncio, esta web se actualiza sola en unos días.", "Once the right number is in the register and on the advert, this site updates by itself within a few days.")}</li>
         </ol></details>` : "";
     // Share this result: the link re-runs the same check for whoever opens it (so it's always current).
     const q = j.mode === "code" ? { code: j.code || $("#check-input").value.trim() } : { url: j.listing_url };
     const shareUrl = `https://tienelicencia.com/comprobar?${new URLSearchParams(q)}`;
-    const shareText = typed ? ({ ok: L(`${j.code} está en el Registro de Turismo de Andalucía`, `${j.code} is in the Andalusian Tourism Register`),
-      bad: L(`${j.code || q.code} no es un número válido del Registro de Turismo de Andalucía`, `${j.code || q.code} isn't a valid Andalusian Tourism Register number`) }[tone]
-      || L("He comprobado este número de registro", "I checked this registration number")) : { ok: L(`Este anuncio muestra un número que está en el Registro de Turismo de Andalucía (${j.code || ""})`, `This advert shows a number that's in the Andalusian Tourism Register (${j.code || ""})`),
-      bad: L("Este anuncio no muestra un número de registro válido de la Junta de Andalucía", "This advert doesn't show a valid Junta de Andalucía registration number") }[tone]
+    const shareText = typed ? ({ ok: L(`${j.code} está en el ${RG.reg_es}`, `${j.code} is in the ${RG.reg_en}`),
+      bad: L(`${j.code || q.code} no es un número válido del ${RG.reg_es}`, `${j.code || q.code} isn't a valid ${RG.reg_en} number`) }[tone]
+      || L("He comprobado este número de registro", "I checked this registration number")) : { ok: L(`Este anuncio muestra un número que está en el ${RG.reg_es} (${j.code || ""})`, `This advert shows a number that's in the ${RG.reg_en} (${j.code || ""})`),
+      bad: L(`Este anuncio no muestra un número de registro válido ${RG.of_es}`, `This advert doesn't show a valid ${RG.of_en} registration number`) }[tone]
       || L("He comprobado el número de registro de este anuncio", "I checked this advert's registration number");
     const share = !["removed", "blocked", "unreadable", "not_covered"].includes(j.reason) && (j.listing_url || q.code)
       ? `<div class="check-share">${TL.shareButton({ url: shareUrl, text: `${shareText} · tienelicencia.com`, content: `check_${j.reason}` })}

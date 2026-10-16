@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, assessCat, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, assessBal, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -75,6 +75,20 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(assessCat({ registration_raw: "HUTB-000000" }, lookup()).reason, "not_in_register");
   assert.equal(assessCat({ registration_raw: "ESFCTU000008058000039706000000000000000HUTB-002062349" }, lookup()).key, "HUTB-002062");
   assert.equal(coverage({ lat: 37.39, lon: -5.99 }).covered, true);
+  // Mallorca: ETV numbers against the Consell de Mallorca registers; Menorca and Ibiza aren't covered
+  assert.equal(coverage({ location: "Sóller, Illes Balears, España", lat: 39.77, lon: 2.71 }).id, "mallorca");
+  assert.equal(coverage({ location: "Eivissa, Illes Balears, España", lat: 38.91, lon: 1.43 }).covered, false);
+  assert.equal(coverage({ location: "Maó, Illes Balears, España", lat: 39.89, lon: 4.26 }).covered, false);
+  const etv = lookup().bal["ETV/10070"];
+  assert.equal(assessBal({ registration_raw: "Mallorca - Regional registration number<br />ETV/10070", lat: etv[1], lon: etv[2], room_type: "Entire home/apt", location: "Alcúdia" }, lookup()).verdict.startsWith("VALID"), true);
+  assert.equal(assessBal({ registration_raw: "ETV/10070", lat: etv[1], lon: etv[2], room_type: "Private room", location: "Alcúdia" }, lookup()).reason, "type_mismatch");
+  assert.equal(assessBal({ registration_raw: "ETV/10070", lat: 39.57, lon: 2.65, room_type: "Entire home/apt", location: "Palma" }, lookup()).reason, "other_place");
+  assert.equal(assessBal({ registration_raw: "ETV/999999" }, lookup()).reason, "not_in_register");
+  assert.equal(assessBal({ registration_raw: "ESFCTU00000703500012345600000000000000000ETV/100700" }, lookup()).key, "ETV/10070");
+  assert.equal(assessBal({ registration_raw: "" }, lookup()).reason, "no_number");
+  assert.ok(looksLikeCode("ETV/10070") && findCode("ETV/10070").rows.length > 0);
+  assert.ok(findAddress("Carrer Miramar 10", "mallorca").length > 0);
+  assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");
   assert.equal(otherRegion("VUT/MA/12345"), null);

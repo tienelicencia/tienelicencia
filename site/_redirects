@@ -42,6 +42,9 @@
 /barcelona                /area.html  200
 /barcelona/mapa           /mapa.html  200
 /barcelona/zonas          /zonas.html  200
+/mallorca                 /area.html  200
+/mallorca/mapa            /mapa.html  200
+/mallorca/zonas           /zonas.html  200
 /marbella                 /area.html  200
 /marbella/mapa            /mapa.html  200
 /marbella/zonas           /zonas.html  200

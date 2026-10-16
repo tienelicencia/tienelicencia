@@ -85,7 +85,7 @@
       <a class="card area-card" href="${areaHref(a.slug)}">
         <div class="art" data-preview="${a.slug}"></div>
         <div class="body">
-          <span class="kind">${t(`area_kind_${a.kind === "province" || a.kind === "region" ? a.kind : "city"}`)}</span>
+          <span class="kind">${t(`area_kind_${["province", "region", "island"].includes(a.kind) ? a.kind : "city"}`)}</span>
           <h3>${esc(name(a.name))}</h3>
           <div class="stats">
             <div><b>${fmt(a.vut)}</b><span>${t("regs")}</span></div>
@@ -107,7 +107,7 @@
           <a class="go" href="/contacto?${new URLSearchParams({ tipo: "zona", ref: n })}">${L("Avísame / pídela", "Tell me / ask for it")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</a>
         </div>
       </div>`).join(""));
-    const live = A.areas.filter((a) => a.kind === "city").map((a) => esc(name(a.name).replace(/ \(.*\)/, "")));
+    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "island").map((a) => esc(name(a.name).replace(/ \(.*\)/, "")));
     const soon = TL.COMING.filter(([s]) => !have.has(s)).map(([, n]) => esc(n));
     document.getElementById("coverage-line").innerHTML = L(`<b>Disponible:</b> ${live.join(", ")} y toda Andalucía. <b>Próximamente:</b> ${soon.join(", ")}.`,
       `<b>Available:</b> ${live.join(", ")} and all of Andalucía. <b>Coming soon:</b> ${soon.join(", ")}.`);

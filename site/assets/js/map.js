@@ -65,7 +65,7 @@
     $("#map-share").innerHTML = TL.shareButton({ url: viewUrl(), text: L(`Mapa de viviendas turísticas · ${name(area.name)}`, `Tourist-flat map · ${name(area.name)}`) + " · tienelicencia.com", content: "map_view" });
     const btn = (v, es, en) => `<button type="button" data-v="${v}" aria-pressed="${view === v}">${L(es, en)}</button>`;
     $("#layers").innerHTML = `<div class="seg" role="group">${btn("licences", "Licencias", "Licences")}${area.homes && !area.census ? btn("share", "% viviendas", "% homes") : ""}
-        ${area.has_listings ? btn("problems", "Sin nº", "No number") + btn("barrios", "Barrios", "Barrios") : ""}</div>
+        ${area.has_listings ? btn("problems", "Sin nº", "No number") + btn("barrios", SUB().many, SUB().many) : ""}</div>
         <p class="layer-help">${help()}</p>`;
     document.querySelectorAll("#layers [data-v]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.v)));
     $("#legend").innerHTML = `<button class="legend-btn" type="button"><i></i>${L("Leyenda", "Legend")}</button><div class="legend-body">${legend()}</div>`;
@@ -93,8 +93,11 @@
         "Registered tourist flats as a share of all homes in each area (Catastro). Indicative."),
       problems: L("Porcentaje de anuncios de Airbnb que no muestran un número válido, por zona. Solo zonas con 10 anuncios o más; nunca anuncios individuales.",
         "Share of Airbnb listings not showing a valid number, by area. Only areas with 10+ listings; never individual listings."),
-      barrios: L("Porcentaje de anuncios sin número válido por barrio oficial. Pulsa un barrio para ver sus datos.",
-        "Share of listings without a valid number by official barrio. Tap a barrio for its figures."),
+      barrios: area.subareas === "municipality"
+        ? L("Porcentaje de anuncios sin número válido por municipio. Pulsa un municipio para ver sus datos.",
+          "Share of listings without a valid number by municipality. Tap a municipality for its figures.")
+        : L("Porcentaje de anuncios sin número válido por barrio oficial. Pulsa un barrio para ver sus datos.",
+          "Share of listings without a valid number by official barrio. Tap a barrio for its figures."),
     }[view];
   }
   function legend() {
@@ -116,7 +119,7 @@
         <span><i style="background:#2e7d5b"></i>${L("Número válido", "Valid number")}</span><span><i style="background:#9aa3b0"></i>${L("Posiblemente exento", "Possibly exempt")}</span></div>
       <p class="tiny muted" style="margin:6px 0 0">${L("Al acercarte, cada punto es un anuncio, colocado al azar dentro de su zona de ~150 m: no marca dónde está.",
         "Zoom in and each dot is a listing, placed at random inside its ~150 m area: it doesn't mark where the listing is.")}</p>`;
-    return `<div class="legend-title">${L("Anuncios sin número válido, por barrio", "Listings without a valid number, by barrio")}</div>${ramp(RAMP, ["0%", "15%", "25%", "35%", "45%+"])}`;
+    return `<div class="legend-title">${area.subareas === "municipality" ? L("Anuncios sin número válido, por municipio", "Listings without a valid number, by municipality") : L("Anuncios sin número válido, por barrio", "Listings without a valid number, by barrio")}</div>${ramp(RAMP, ["0%", "15%", "25%", "35%", "45%+"])}`;
   }
 
   /** Link to exactly what's on screen: position, zoom, layer, selection. */
@@ -322,6 +325,10 @@
     sheet(true, "detail");
   }
   let selBarrio = null;
+  // Mallorca's sub-areas are municipalities; everywhere else with Airbnb data, official barrios
+  const SUB = () => area.subareas === "municipality"
+    ? { one: L("Municipio", "Municipality"), many: L("Municipios", "Municipalities"), the: L("del municipio", "in this municipality") }
+    : { one: "Barrio", many: "Barrios", the: L("del barrio", "in this barrio") };
   function barrioDetail(p) {
     if (selBarrio != null) map.setFeatureState({ source: "barrios", id: selBarrio }, { sel: false });
     selBarrio = p.id;
@@ -330,14 +337,14 @@
     map.getSource("sel").setData({ type: "FeatureCollection", features: [] });
     const has = p.not_valid_pct != null;
     TL.track("map_select", { select_type: "barrio", area: slug, place: p.name });
-    $("#p-detail").innerHTML = `<div class="detail"><div class="eyebrow"><span>Barrio</span><button class="x" type="button" data-close aria-label="Cerrar">${ICON.close}</button></div>
+    $("#p-detail").innerHTML = `<div class="detail"><div class="eyebrow"><span>${SUB().one}</span><button class="x" type="button" data-close aria-label="Cerrar">${ICON.close}</button></div>
       <h2>${esc(p.name)}</h2>
       <div class="point-share" style="margin:4px 0 10px">${TL.shareButton({ url: `https://tienelicencia.com/${slug}/mapa?barrio=${p.id}`,
-        text: L(`${p.name} (${area.slug === "sevilla" ? "Sevilla" : "Málaga"}): ${p.vut_share != null ? `el ${pc(p.vut_share)} de las viviendas son turísticas registradas` : `${p.vut} viviendas turísticas registradas`}`,
-          `${p.name} (${area.slug === "sevilla" ? "Sevilla" : "Málaga"}): ${p.vut_share != null ? `${pc(p.vut_share)} of homes are registered tourist flats` : `${p.vut} registered tourist flats`}`) + " · tienelicencia.com",
+        text: L(`${p.name} (${name(area.name).replace(/ \(.*\)/, "")}): ${p.vut_share != null ? `el ${pc(p.vut_share)} de las viviendas son turísticas registradas` : `${p.vut} viviendas turísticas registradas`}`,
+          `${p.name} (${name(area.name).replace(/ \(.*\)/, "")}): ${p.vut_share != null ? `${pc(p.vut_share)} of homes are registered tourist flats` : `${p.vut} registered tourist flats`}`) + " · tienelicencia.com",
         content: "map_barrio" })}</div>
-      ${p.vut_share != null ? `<p class="sub">${L(`<b>${pc(p.vut_share)}</b> de las viviendas del barrio son turísticas registradas (${fmt(p.vut)} de ${fmt(p.homes)}; indicativo)${area.cap && p.vut_share > area.cap ? `, por encima del límite del ${area.cap}&nbsp;% que usa el Ayuntamiento` : ""}.`,
-        `<b>${pc(p.vut_share)}</b> of homes in this barrio are registered tourist flats (${fmt(p.vut)} of ${fmt(p.homes)}; indicative)${area.cap && p.vut_share > area.cap ? `, above the ${area.cap}% limit the council uses` : ""}.`)}</p>` : ""}
+      ${p.vut_share != null ? `<p class="sub">${L(`<b>${pc(p.vut_share)}</b> de las viviendas ${SUB().the} son turísticas registradas (${fmt(p.vut)} de ${fmt(p.homes)}; indicativo)${area.cap && p.vut_share > area.cap ? `, por encima del límite del ${area.cap}&nbsp;% que usa el Ayuntamiento` : ""}.`,
+        `<b>${pc(p.vut_share)}</b> of homes ${SUB().the} are registered tourist flats (${fmt(p.vut)} of ${fmt(p.homes)}; indicative)${area.cap && p.vut_share > area.cap ? `, above the ${area.cap}% limit the council uses` : ""}.`)}</p>` : ""}
       <div class="figs"><div><b>${fmt(p.vut)}</b><span>${L("viviendas registradas", "registered flats")}</span></div><div><b>${fmt(p.listings)}</b><span>${L("anuncios", "listings")}</span></div>
         ${has ? `<div><b style="color:var(--bad)">${Math.round(p.not_valid_pct)}%</b><span>${L("sin número válido", "no valid number")}</span></div>` : ""}</div>
       ${has ? `<table class="flats"><tbody>
@@ -362,8 +369,8 @@
   function barrioList() {
     const feats = barData?.features || [];
     const top = feats.map((f) => f.properties).filter((p) => p.not_valid_pct != null).sort((a, b) => b.listings - a.listings).slice(0, 10);
-    $("#p-detail").innerHTML = `<div class="detail"><div class="legend-title">${L("Barrios con más anuncios", "Barrios with most listings")}</div>
-      <table class="flats"><thead><tr><th>Barrio</th><th class="n">${L("Anuncios", "Listings")}</th><th class="n">${L("Sin nº", "No no.")}</th></tr></thead><tbody>
+    $("#p-detail").innerHTML = `<div class="detail"><div class="legend-title">${area.subareas === "municipality" ? L("Municipios con más anuncios", "Municipalities with most listings") : L("Barrios con más anuncios", "Barrios with most listings")}</div>
+      <table class="flats"><thead><tr><th>${SUB().one}</th><th class="n">${L("Anuncios", "Listings")}</th><th class="n">${L("Sin nº", "No no.")}</th></tr></thead><tbody>
       ${top.map((p) => `<tr><td><a href="#" data-bar="${p.id}">${esc(p.name)}</a></td><td class="n">${fmt(p.listings)}</td><td class="n">${Math.round(p.not_valid_pct)}%</td></tr>`).join("")}</tbody></table></div>`;
     document.querySelectorAll("[data-bar]").forEach((a) => (a.onclick = (e) => {
       e.preventDefault();

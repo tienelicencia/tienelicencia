@@ -33,8 +33,9 @@ def building_id(key):
 
 
 def muni_key(name):
-    """'VÉLEZ-MÁLAGA' / 'VELEZ MALAGA' → 'VELEZMALAGA' (register and Catastro spell municipalities differently)."""
-    return re.sub(r"[^A-Z]", "", unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().upper())
+    """'VÉLEZ-MÁLAGA' / 'VELEZ MALAGA' → 'VELEZMALAGA' (register and Catastro spell municipalities differently).
+    Ç is dropped, not made C: Catastro writes POLLENÇA as 'POLLEN A'."""
+    return re.sub(r"[^A-Z]", "", unicodedata.normalize("NFKD", (name or "").replace("Ç", "").replace("ç", "")).encode("ascii", "ignore").decode().upper())
 
 
 def street_name(road):

@@ -160,7 +160,10 @@ def code_key(code):
     if m:
         return normalise_key(m.group(1), m.group(2), m.group(3))
     k = re.match(r"^(HUTB|HB|ATB)-?0*(\d{1,6})$", c)   # Catalonia (already in its key form, HUTB-012345)
-    return f"{k.group(1)}-{int(k.group(2)):06d}" if k else None
+    if k:
+        return f"{k.group(1)}-{int(k.group(2)):06d}"
+    b = re.match(r"^(ETV60|ETVPL|ETV|VT|ABT|AG|AT|TI|HA|HR|HO|HS|H|CA)/0*(\d{1,6})$", c)   # Mallorca (ETV/1234)
+    return f"{b.group(1)}/{int(b.group(2))}" if b else None
 
 
 def build_index(records):

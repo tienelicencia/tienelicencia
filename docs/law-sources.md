@@ -379,3 +379,131 @@ tourist accommodation).
      nights**. 60–62 can already exceed two months, so it stays conservative; 63 or more always does. Catalonia stays
      at ≥ 32 either way (Decret 75/2020 art. 221-1.2).
    - Not confirmed: the original 2016 wording of art. 1.2. We relied on the 2024 BOJA text, which is the one in force.
+
+## Mallorca (Illes Balears) (checked 17 Oct 2026)
+The whole island is one area. Items marked "verified" were read in the BOE consolidated text of Ley 8/2012 (last
+update published 13 Jun 2026, in force 14 Jun 2026), the BOE/BOIB text of Decreto-ley 4/2025, the BOE text of Ley
+4/2026, or the BOIB HTML notices cited. "Press" means not checked against an official text. Terms: ETV = estada
+turística en habitatge (the Ley 8/2012 "estancia turística en vivienda", ETH in Palma documents).
+https://www.boe.es/buscar/act.php?id=BOE-A-2012-10610
+
+1. **The number in every advert (verified).** Ley 8/2012, de 19 de julio, del turismo de las Illes Balears
+   (BOIB núm. 106, 21 Jul 2012).
+   - **Art. 28.3.a, last paragraph** (wording given by Ley 6/2017): "Toda la publicidad de estas viviendas tiene que
+     incorporar el número de inscripción turística de la vivienda." Art. 28.3.a also makes advertising a home without
+     a DRIAT (or without meeting the requirements) "oferta ilegal". Both the owner of the medium ("página web o
+     cualquier otro", under Ley 34/2002) and whoever inserts the advert are responsible.
+   - **Platforms: yes.** Art. 120.j (muy grave, added by DL 3/2022 / Ley 3/2022): channel owners or operators who
+     market, advertise or host booking content for homes on any island that have no DRIAT "o sin hacer constar el
+     número de inscripción turística". "Canales de oferta turística" (art. 3.n) expressly include internet
+     intermediation channels.
+   - Art. 23.7: until the number is issued, the DRIAT entry-register number may be shown instead. Art. 15.k: users
+     have the right to know the number. Art. 27: island registers (in Mallorca, the Consell de Mallorca's).
+2. **Whole dwelling only, not rooms (verified).**
+   - Art. 49: the activity covers "la totalidad de una vivienda residencial, por periodos de corta duración".
+   - Art. 50.15: stays "son incompatibles con la formalización de contratos por habitaciones o con la coincidencia en
+     la misma vivienda de personas usuarias que hayan formalizado contratos diferentes" (without prejudice to a
+     possible future rule on rooms; none found). Art. 50.22.b repeats the ban on different contracts at the same time.
+   - **Only exception, main residence (ETV60):** art. 50.20 lets the residents live there alongside the guests,
+     "siempre que este hecho se indique claramente en toda la publicidad". It is still one contract for the dwelling,
+     not letting rooms to separate guests. So an Airbnb "private room" listing can only match an ETV60 (host
+     present); against an ETV, ETVPL or VT it doesn't fit the registered activity.
+3. **Duration: a tourist stay is 30 nights at most (verified).**
+   - Art. 50.13 (wording given by Decreto-ley 4/2025, art. 2.3, in force 16 Apr 2025): stays are "por días o
+     semanas, sin que una estancia pueda ser superior a un mes. A estos efectos se tiene que entender que se supera
+     el mes cuando se superan las treinta noches." So 31 nights or more is outside the tourist definition.
+   - Presumption (art. 50.14): marketing is presumed tourist if offered "en condiciones de uso inmediato, por
+     periodos de corta duración" unless the owner proves another purpose. Art. 28.2: homes without a DRIAT may not use
+     channels "de los cuales se desprenda una finalidad turística" (infraction under art. 119.ad).
+   - Art. 50.20 ("alquiler de vivienda principal"): an individual's own main residence, single- or multi-family, for
+     **at most 60 days a year**. The months must be declared in the DRIAT (art. 50.22.a). Valid five years,
+     renewable. Only in zones expressly declared apt for this modality.
+4. **Register codes (Consell de Mallorca open data, downloaded 17 Oct 2026; 16,924 rows, all "Alta").**
+   - Dataset: "Habitatges turístics Mallorca" (datos.gob.es, modified 7 Sep 2026; CSV/GeoJSON at
+     intranet.caib.es/opendatacataleg/files/dataset/habitatges_turistics_mallorca/).
+     https://datos.gob.es/es/catalogo/a04003003-habitatges-turistics-mallorca
+   - **ETV** (12,623): "Estada turística en habitatge (ETV)". Single-family types (aïllat, entre mitgeres,
+     aparellat). Mostly year-round.
+   - **ETVPL** (2,126): ETV in a multi-family building (column "ETV plurifamiliar": pisos, shared plot, aparellat).
+     None in Palma. The datos.gob description glosses it as "zona de plazas limitadas"; the data shows it is the
+     plurifamiliar class. Five-year validity (art. 50.3 and 50.22.c).
+   - **ETV60** (150): "ETV amb limitació d'ús" with a "Mesos de comercialització" field (e.g. July–August). This is
+     the art. 50.20 main-residence modality, 60 days a year. **An ETV60 listing that is bookable all year is not
+     inside its registration**; we can still only say the number is valid, not that the dates are.
+   - **VT** (1,882): "Habitatge turístic de vacances", the old pre-2012 regime (start dates 2007–2014).
+   - Also listed: CE (comercialitzador d'estades, 100) and EH (empresari d'habitatge, 43). These are operators, not
+     dwellings, so their number is not a dwelling's registration.
+   - Tourist establishments (H, HA, AT, AG, TI, ABT…) are a separate Consell register; not re-checked here.
+5. **Mallorca zoning and the cap on places.**
+   - **2018 zoning (verified, BOIB núm. 93, 28 Jul 2018, edicto 8026):** Pleno of the Consell de Mallorca,
+     27 Jul 2018, final approval of the "delimitación provisional de las zonas aptas" (Mallorca excluding Palma;
+     Ley 8/2012 art. 75.3). Summary table: Z1.1 mature coastal areas only ETV60 (uni/pluri); Z1.2 s'Arenal de
+     Llucmajor only ETV60 single-family; Z2.1 other coastal areas and Z4.1 other inland areas all modalities; Z2.2
+     Platges de Muro, Z4.2 Marratxí and Z4.3 Muro year-round single-family only; Z2.3 Port de Sóller and Z3
+     vulnerable inland areas only ETV60; protected rural land no new registrations (unless the PIAT/PTI allows);
+     common rural land single-family plus ETV60; exclusion zone Casetes des Capellans (Muro).
+     https://www.caib.es/eboibfront/es/2018/10851/612007/aprobacion-definitiva-de-la-delimitacion-provision
+   - **PIAT de Mallorca:** final approval by the Pleno on 9 Jul 2020, BOIB núm. 126, 16 Jul 2020, in force 17 Jul 2020,
+     with a cap of 430,000 tourist places. Source: a later BOIB notice (2020/210) and press; we did not open the PIAT
+     text. A 2024 plan to cut the cap to ~412,000 has no final approval found. Press (Feb 2026): the Consell is not
+     pursuing the cut for now because of the regional freeze.
+   - **Freeze on new places (verified):** Ley 3/2022 DA 1ª.1, as reworded by DL 4/2025 art. 1.1, suspends buying
+     places from the places body and exchanges between private parties in Mallorca, Ibiza and Formentera (narrow
+     exceptions: change of use, 1-for-1 transfers after a definitive closure). This lasts until the Consell
+     re-evaluates carrying capacity (PIAT/PTI or a plenary agreement on a "techo"). Since an ETV needs places
+     (art. 50.22.e), in practice new registrations come only from transfers or the temporary pools (DL 4/2025 DT 2ª).
+6. **Decreto-ley 4/2025, de 11 de abril** ("contra la oferta ilegal…"; BOIB núm. 46, 15 Apr 2025; in force
+   16 Apr 2025; convalidated, Resolución 8 May 2025, BOIB-i-2025-90100; BOE-A-2025-14462). Verified:
+   - **DA 2ª, ban in multi-family buildings across the Balearics:** "no se permite en todo el ámbito de las Illes
+     Balears la presentación de nuevas declaraciones responsables … relativas a viviendas sometidas al régimen de
+     propiedad horizontal". Exceptions: semi-detached ("adosadas", "emparejadas") and, since **Ley 4/2026, de 11 de
+     junio, DF 22ª** (BOIB núm. 74, 13 Jun 2026; in force 14 Jun 2026; BOE-A-2026-15579), detached houses sharing a
+     plot. Main-residence lets (ETV60) are excluded from the ban. Existing ETVPL registrations are unaffected.
+   - Art. 50.13: the 30-night definition (see 3). Higher fines (see 9). Councils can order immediate cessation
+     and impose coercive fines (art. 7, 128 bis).
+7. **Palma (inside the Mallorca area, own zoning under art. 75.3).**
+   - 2018: Pleno 26 Jul 2018 final approval of Palma's provisional zoning, BOIB núm. 93, 28 Jul 2018 (seen in the
+     BOIB index; text not opened). Press and the 2026 notice agree that it banned tourist lets in flats citywide and
+     allowed only single-family homes in some zones. The open data agrees: 0 ETVPL in Palma.
+   - **2026: whole municipality closed (verified).** Exp. PA2025-0006, change to PG23 Normas 4.2.1, 4.2.2 and 4.2.4.
+     Initial approval Pleno 26 Feb 2026 (public information BOIB núm. 31, 10 Mar 2026); **final approval Pleno
+     28 May 2026; published BOIB núm. 81, 27 Jun 2026** (edicto 6493, pp. 35104–35107). Norma 4.2.4.1: "La totalidad
+     del municipio de Palma se determina como zona única no apta a los efectos de comercialización de las estancias
+     turísticas en viviendas de uso residencial." It also removes the planned 374 new places, bars renewing
+     non-permanent ETVs and bars moving existing places elsewhere. It caps ETV places at the existing 2,436 (Palma
+     Capital) + 595 (Platja de Palma). The notice gives no separate entry-into-force date. It doesn't mention
+     ETV60, but the norm covers all "estancias turísticas en viviendas", and art. 50.20 requires an apt zone too.
+     https://www.caib.es/eboibfront/eli/es-ib-01070407/iurb/2026/06/27/(1)/dof/spa/html
+   - So in Palma, any listing without a number created after mid-2026 cannot be newly registered. Existing ETV and
+     VT numbers stay valid.
+8. **RDL 29/2026 and the Balearic definition.** LAU art. 5.e (RDL 29/2026, BOE-A-2026-20823; see "Seasonal-let
+   thresholds" above) leaves the maximum length to the regions, "no podrá en ningún caso superar los treinta y un
+   días". The Balearic 30-night limit (art. 50.13) is within that cap, so the two don't conflict. A stay of exactly
+   31 nights falls in a gap: it is not tourist under Balearic law, and it is not a LAU "vivienda temporal" (which
+   needs more than 31 days). It would be a LAU lease of some other kind. From 32 nights, both laws agree it is not
+   tourist. No Balearic rule adopted in response to RDL 29/2026 found (the BOE consolidated Ley 8/2012 has no change
+   after 13 Jun 2026). Convalidation of RDL 29/2026 still not confirmed (see above). The Balearic 30-night rule
+   applies either way.
+9. **Penalties (verified, art. 123 as amended by DL 4/2025; amount bands since 16 Apr 2025).**
+   - Leve: warning or up to €5,000. Grave: €5,001–50,000. Muy grave: €50,001–500,000.
+   - Advertising/marketing an ETV that doesn't meet the requirements: grave (art. 119.e), fined at €30,001–50,000
+     (art. 123.2).
+   - Advertising/marketing with no DRIAT: grave, art. 119.g, also €30,001–50,000 for homes. It is muy grave where the
+     typology isn't allowed, the zone isn't apt, or no places were bought (art. 120.i).
+   - **Platform** showing a home with no DRIAT or without the number: muy grave (art. 120.j).
+   - Fines can drop 80% if the home is handed over for social/limited-price rent for five years (art. 123.5).
+
+**Seasonal threshold recommendation (Mallorca): treat as "possibly exempt" only with a minimum stay of 31 nights or
+more.** Reason: art. 50.13 says a tourist stay cannot exceed a month, i.e. 30 nights, so a 31-night minimum is
+outside the Balearic definition whatever RDL 29/2026's fate. This is one night lower than Catalonia/Andalucía (≥ 32),
+because the Balearic rule is stricter (30 rather than 31). If the site prefers a single Spain-wide ≥ 32 rule, the
+only difference is listings with exactly a 31-night minimum. ≥ 32 is safe under both laws, but it would label those
+"no valid number" although Balearic law excludes them. Keep the wording "possibly": the art. 50.14 presumption puts
+the burden on the owner, and a minimum stay doesn't prove the purpose. Wording: "possibly exempt: stays over 30
+nights are not tourist stays under Balearic law (Ley 8/2012 art. 50.13)".
+
+**Not confirmed (Mallorca):** the PIAT 2020 BOIB text itself (date/cap from a later BOIB notice and press); whether
+any 2024–26 PIAT amendment on the cap or zoning got final approval (none found); Palma's 2026 change entry-into-force
+date (published 27 Jun 2026, no date in the notice) and whether it was challenged before the TSJIB (two-month
+window ended ~27 Aug 2026); the original wording of art. 50.13 before DL 4/2025; the separate Consell register for
+establishments (H, HA, AT, AG, TI, ABT) and its open-data URL.

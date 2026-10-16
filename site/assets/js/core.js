@@ -15,7 +15,7 @@
       foot_built: "Desarrollado y mantenido sin coste por", foot_updated: "Datos actualizados el",
       foot_disclaimer: "Un número no válido es una discrepancia con el registro: no demuestra por sí solo que la vivienda no tenga permiso.",
       map: "Mapa", summary: "Resumen", check: "Comprobar anuncio", method: "Metodología",
-      search_ph: "Número de licencia (VUT/…) o dirección, p. ej. Calle Feria 70 Sevilla",
+      search_ph: "Número de licencia o dirección, p. ej. Calle Feria 70 Sevilla",
       search_ph_short: "Licencia o dirección", search_btn: "Buscar", filter_ph: "Filtrar por nombre", search_try: "Prueba:", searching: "Buscando en el registro…",
       search_error: "No se ha podido completar la búsqueda. Inténtalo de nuevo.",
       search_short: "Escribe al menos 2 caracteres.",
@@ -43,7 +43,7 @@
       registered_on: "Fecha de alta", municipality: "Municipio", address: "Dirección", unit: "Vivienda", places: "Plazas",
       type: "Tipo", building_label: "Edificio",
       map_report: "¿Algo mal?", more_soon: "Más zonas próximamente", more_ask: "¿Quieres la tuya? Pídenosla",
-      area_kind_city: "Municipio", area_kind_province: "Provincia", area_kind_region: "Comunidad autónoma",
+      area_kind_city: "Municipio", area_kind_province: "Provincia", area_kind_region: "Comunidad autónoma", area_kind_island: "Isla",
       regs: "viviendas turísticas registradas", listings_bad: "de los anuncios de Airbnb no muestran un número válido",
       view_data: "Ver los datos",
     },
@@ -58,7 +58,7 @@
       foot_built: "Built and maintained free of charge by", foot_updated: "Data updated",
       foot_disclaimer: "An invalid number is a mismatch with the register: on its own it doesn't show that a flat lacks a permit.",
       map: "Map", summary: "Summary", check: "Check an advert", method: "Methodology",
-      search_ph: "Licence number (VUT/…) or address, e.g. Calle Feria 70 Sevilla",
+      search_ph: "Licence number or address, e.g. Calle Feria 70 Sevilla",
       search_ph_short: "Licence number or address", search_btn: "Search", filter_ph: "Filter by name", search_try: "Try:", searching: "Searching the register…",
       search_error: "The search didn't complete. Please try again.",
       search_short: "Type at least 2 characters.",
@@ -86,7 +86,7 @@
       registered_on: "Registered", municipality: "Municipality", address: "Address", unit: "Flat", places: "Guest places",
       type: "Type", building_label: "Building",
       map_report: "Something wrong?", more_soon: "More areas coming soon", more_ask: "Want yours? Ask us",
-      area_kind_city: "Municipality", area_kind_province: "Province", area_kind_region: "Region",
+      area_kind_city: "Municipality", area_kind_province: "Province", area_kind_region: "Region", area_kind_island: "Island",
       regs: "registered tourist flats", listings_bad: "of Airbnb listings don't display a valid number",
       view_data: "View the data",
     },
@@ -179,12 +179,12 @@
   // ---------------------------------------------------------------- city picker (header)
   // Cities we're working on: shown as "coming soon" until their area exists in areas.json, then they move to the list.
   const COMING = [["barcelona", "Barcelona"], ["madrid", "Madrid"], ["valencia", "Valencia"], ["bilbao", "Bilbao"],
-    ["donostia", "San Sebastián"], ["palma", "Palma (Mallorca)"]];
+    ["donostia", "San Sebastián"]];
   function cityPicker(A) {
     const sel = document.getElementById("city-pick");
     if (!sel) return;
     const have = new Set(A.areas.map((a) => a.slug));
-    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "region");
+    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "region" || a.kind === "island");
     const cur = currentArea();
     const paint = () => {
       sel.innerHTML = `<option value="">${t("city_all")}</option>
@@ -248,6 +248,7 @@
             <li><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga · datos abiertos</a> (CC BY 4.0)</li>
             <li><a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Generalitat de Catalunya · Registre de Turisme</a></li>
             <li><a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</li>
+            <li><a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Consell de Mallorca · dades obertes</a> (CC BY 4.0)</li>
             <li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</li>
             <li><a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Dirección General del Catastro</a></li>
             <li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> · <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda (SERPAVI)</a></li>
@@ -511,11 +512,12 @@
     }
     return { run, input };
   }
-  const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz" };
+  const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz",
+    "Barcelona": "barcelona" };
   /** Which area's map shows a register row's building: its city, else Málaga province; null elsewhere in Andalucía
       (the Andalucía map shows density only). Data built before "prov" existed is all Málaga province. */
   const AREA_OF_PROV = { MA: "provincia", SE: "provincia-sevilla", CA: "provincia-cadiz", GR: "provincia-granada", AL: "provincia-almeria",
-    CO: "provincia-cordoba", HU: "provincia-huelva", JA: "provincia-jaen" };
+    CO: "provincia-cordoba", HU: "provincia-huelva", JA: "provincia-jaen", IB: "mallorca" };
   const areaOfMuni = (muni, prov) => AREA_OF_MUNI[muni] || AREA_OF_PROV[prov || "MA"] || null;
 
   // ---------------------------------------------------------------- tooltip for charts
