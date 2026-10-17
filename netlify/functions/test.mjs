@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, assessCat, assessBal, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, assessBal, assessEus, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -88,6 +88,19 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(assessBal({ registration_raw: "" }, lookup()).reason, "no_number");
   assert.ok(looksLikeCode("ETV/10070") && findCode("ETV/10070").rows.length > 0);
   assert.ok(findAddress("Carrer Miramar 10", "mallorca").length > 0);
+  // Bilbao, Donostia: Basque numbers against the REATE; the rest of Euskadi isn't covered yet
+  assert.equal(coverage({ location: "Bilbao, País Vasco, España", lat: 43.26, lon: -2.93 }).id, "bilbao");
+  assert.equal(coverage({ location: "Donostia-San Sebastián, Gipuzkoa, España" }).id, "donostia");
+  assert.equal(coverage({ location: "Getxo, País Vasco, España" }).covered, false);
+  const ebi = lookup().eus["EBI00003"];
+  assert.ok(ebi && ebi[1] != null);   // placed from its address
+  assert.equal(assessEus({ registration_raw: "Basque Country - Regional registration number<br />EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Entire home/apt", location: "Bilbao" }, lookup(), null, "Bilbao").verdict.startsWith("VALID"), true);
+  assert.equal(assessEus({ registration_raw: "EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Private room" }, lookup(), null, "Bilbao").reason, "type_mismatch");
+  assert.equal(assessEus({ registration_raw: "EBI00003", lat: 43.32, lon: -1.98, room_type: "Entire home/apt" }, lookup(), null, "Donostia / San Sebastián").reason, "other_place");
+  assert.equal(assessEus({ registration_raw: "ESS99999" }, lookup()).reason, "not_in_register");
+  assert.equal(assessEus({ registration_raw: "ESFCTU0000480200000123450000000000000000EBI000034" }, lookup()).key, "EBI00003");
+  assert.ok(looksLikeCode("EBI00003") && findCode("EBI00003").rows.length > 0);
+  assert.ok(findAddress("Bidebarrieta 7", "bilbao").length > 0);
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");

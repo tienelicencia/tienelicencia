@@ -45,6 +45,12 @@
 /mallorca                 /area.html  200
 /mallorca/mapa            /mapa.html  200
 /mallorca/zonas           /zonas.html  200
+/bilbao                   /area.html  200
+/bilbao/mapa              /mapa.html  200
+/bilbao/zonas             /zonas.html  200
+/donostia                 /area.html  200
+/donostia/mapa            /mapa.html  200
+/donostia/zonas           /zonas.html  200
 /marbella                 /area.html  200
 /marbella/mapa            /mapa.html  200
 /marbella/zonas           /zonas.html  200

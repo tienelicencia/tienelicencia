@@ -77,7 +77,9 @@
     const RG = { Catalunya: { reg_es: "Registre de Turisme de Catalunya", reg_en: "Catalan Tourism Register", of_es: "de la Generalitat", of_en: "Generalitat",
         example: "HUTB-012345", search: "/barcelona", search_es: "nuestro buscador de Barcelona", search_en: "our Barcelona search" },
       "Illes Balears": { reg_es: "registro turístico del Consell de Mallorca", reg_en: "Consell de Mallorca tourism register", of_es: "del Consell de Mallorca", of_en: "Consell de Mallorca",
-        example: "ETV/1234", search: "/mallorca", search_es: "nuestro buscador de Mallorca", search_en: "our Mallorca search" } }[j.region]
+        example: "ETV/1234", search: "/mallorca", search_es: "nuestro buscador de Mallorca", search_en: "our Mallorca search" },
+      Euskadi: { reg_es: "Registro de Empresas y Actividades Turísticas de Euskadi", reg_en: "Basque tourism register (REATE)", of_es: "del Gobierno Vasco", of_en: "Basque Government",
+        example: "EBI01234", search: "/bilbao", search_es: "nuestro buscador de Bilbao", search_en: "our Bilbao search" } }[j.region]
       || { reg_es: "Registro de Turismo de Andalucía", reg_en: "Andalusian Tourism Register", of_es: "de la Junta", of_en: "Junta", andalucia: true,
         example: "VUT/MA/12345", search: "/provincia", search_es: "nuestro buscador de la provincia", search_en: "our province search" };
     const typed = j.mode === "code";
@@ -110,7 +112,7 @@
         [L("Parece estar en uno de los casos que no cuentan como viviendas turísticas o tienen otro registro:", "It looks like one of the cases that don't count as tourist flats or have a different registration:"),
           (j.exempt || []).map((x) => ({
             hotel: L("es un hotel u hostal (tienen otro tipo de registro)", "it's a hotel or hostel (they have a different registration)"),
-            long_stay: (() => { const n = { Catalunya: 32, "Illes Balears": 31 }[j.region] || 60;
+            long_stay: (() => { const n = { Catalunya: 32, "Illes Balears": 31, Euskadi: 32 }[j.region] || 60;
               return L(`su estancia mínima es de ${n} noches o más (alquiler de temporada)`, `its minimum stay is ${n} nights or more (a seasonal let)`); })(),
             national_only: L("muestra solo un número nacional (ES…)", "it shows only a national (ES…) number"),
             seasonal_claim: L("dice ser un alquiler de temporada", "it says it's a seasonal let"),
@@ -123,8 +125,8 @@
           L("Algunos alojamientos están exentos (estancias de más de dos meses, hoteles): compruébalo antes de comunicarlo.", "Some lets are exempt (stays over two months, hotels): check before reporting.")].filter(Boolean).join(" ")],
       not_covered: ["neutral", ICON.info,
         j.place || j.region ? L(`Todavía no cubrimos ${esc(j.place || j.region)}`, `We don't cover ${esc(j.place || j.region)} yet`) : L("Todavía no cubrimos esta zona", "We don't cover this area yet"),
-        [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía, Barcelona y Mallorca${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
-            `We can only check numbers against the official register of the areas we cover (so far, Andalucía, Barcelona and Mallorca${j.region ? `; this looks like ${esc(j.region)}` : ""}).`),
+        [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía, Barcelona, Mallorca, Bilbao y San Sebastián${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
+            `We can only check numbers against the official register of the areas we cover (so far, Andalucía, Barcelona, Mallorca, Bilbao and San Sebastián${j.region ? `; this looks like ${esc(j.region)}` : ""}).`),
           j.shown_text ? L(`El anuncio muestra: <code>${esc(j.shown_text)}</code>.`, `The advert shows: <code>${esc(j.shown_text)}</code>.`) : "",
           `<a href="/contacto?${new URLSearchParams({ tipo: "zona", ref: j.place || j.region || j.code || "" })}">${L("Pídenos que lleguemos a esta zona →", "Ask us to cover this area →")}</a>`].filter(Boolean).join(" ")],
       removed: ["neutral", ICON.info, L("Este anuncio ya no existe", "This advert no longer exists"), L("La plataforma devuelve que el anuncio ha sido retirado.", "The platform says the advert has been removed.")],

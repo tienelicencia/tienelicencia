@@ -33,7 +33,7 @@
       { key: "vut", label: L("Viviendas turísticas registradas", "Registered tourist flats"), cell: (r) => fmt(r.vut) },
     ];
     if (k !== "locality") {
-      c.push({ key: "homes", label: L("Viviendas (Catastro)", "Homes (Catastro)"), cell: (r) => r.homes ? fmt(r.homes) : "—", sm: true });
+      c.push({ key: "homes", label: A.census ? L("Viviendas (censo)", "Homes (census)") : L("Viviendas (Catastro)", "Homes (Catastro)"), cell: (r) => r.homes ? fmt(r.homes) : "—", sm: true });
       c.push({ key: "vut_share", label: L("% registradas", "% registered"), cell: (r) => pct(r.vut_share, "brand", k === "barrio") });
     } else c.push({ key: "places", label: L("Plazas", "Guest places"), cell: (r) => fmt(r.places) });
     if (k === "municipality" && S.subareas.rows.some((r) => r.ine_homes != null)) {

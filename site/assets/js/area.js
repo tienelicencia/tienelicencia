@@ -56,6 +56,26 @@
       "Since April 2025 <b>no new tourist lets are accepted in apartment blocks</b> anywhere in the Balearics, and buying new tourist places is frozen in Mallorca (Decree-law 4/2025).",
       "In 2026 Palma declared <b>the whole municipality unsuitable</b> for new tourist lets (BOIB no. 81, 27 June 2026); existing registrations remain valid.",
       "A tourist stay can't exceed <b>30 nights</b>; stays of 31 nights or more fall outside (art. 50.13)."]),
+    bilbao: () => L([
+      "Toda vivienda turística (E…) o habitación en vivienda particular (L…) debe estar inscrita en el registro turístico de Euskadi (REATE) y <b>mostrar su número en toda la publicidad</b> (Ley 13/2016, art. 24.7; Decreto 101/2018, art. 20). Las plataformas deben comprobarlo y mostrarlo.",
+      "Desde el 30 de diciembre de 2025 <b>no se pueden inscribir nuevas viviendas ni habitaciones turísticas</b> en las zonas de mercado residencial tensionado (Ley 6/2025), y Bilbao lo es.",
+      "Desde 2018 el plan urbanístico solo admite viviendas turísticas en planta baja o primera, salvo con acceso independiente. Una nueva modificación (zonas de alta concentración, una por edificio) tiene aprobación provisional desde junio de 2026; aún no está en vigor.",
+      "Se presume uso turístico si la vivienda se anuncia en canales turísticos o acoge estancias de <b>31 días o menos</b> dos o más veces al año (Decreto 101/2018, art. 2.4)."],
+    [
+      "Every tourist flat (E…) or room in a private home (L…) must be in the Basque tourism register (REATE) and <b>display its number in all advertising</b> (Law 13/2016, art. 24.7; Decree 101/2018, art. 20). Platforms must check and display it.",
+      "Since 30 December 2025 <b>no new tourist flats or rooms can be registered</b> in stressed housing-market zones (Law 6/2025), and Bilbao is one.",
+      "Since 2018 the city plan only allows tourist flats on the ground or first floor, unless they have their own entrance. A new change (high-concentration zones, one per building) has had provisional approval since June 2026; it isn't in force yet.",
+      "Tourist use is presumed if the home is advertised on tourist channels or hosts stays of <b>31 days or less</b> twice or more a year (Decree 101/2018, art. 2.4)."]),
+    donostia: () => L([
+      "Toda vivienda turística (E…) o habitación en vivienda particular (L…) debe estar inscrita en el registro turístico de Euskadi (REATE) y <b>mostrar su número en toda la publicidad</b> (Ley 13/2016, art. 24.7; Decreto 101/2018, art. 20). Las plataformas deben comprobarlo y mostrarlo.",
+      "Desde el 30 de diciembre de 2025 <b>no se pueden inscribir nuevas viviendas ni habitaciones turísticas</b> en las zonas de mercado residencial tensionado (Ley 6/2025), y San Sebastián lo es.",
+      "La Parte Vieja no admite nuevas viviendas turísticas desde 2020, y el Ayuntamiento suspendió las nuevas licencias en 2023 (prorrogado en 2024). La nueva regulación de usos de alojamiento se aprobó definitivamente el 29 de enero de 2026.",
+      "Se presume uso turístico si la vivienda se anuncia en canales turísticos o acoge estancias de <b>31 días o menos</b> dos o más veces al año (Decreto 101/2018, art. 2.4)."],
+    [
+      "Every tourist flat (E…) or room in a private home (L…) must be in the Basque tourism register (REATE) and <b>display its number in all advertising</b> (Law 13/2016, art. 24.7; Decree 101/2018, art. 20). Platforms must check and display it.",
+      "Since 30 December 2025 <b>no new tourist flats or rooms can be registered</b> in stressed housing-market zones (Law 6/2025), and San Sebastián is one.",
+      "The old town (Parte Vieja) has accepted no new tourist flats since 2020, and the council suspended new licences in 2023 (extended in 2024). The new rules on lodging uses got final approval on 29 January 2026.",
+      "Tourist use is presumed if the home is advertised on tourist channels or hosts stays of <b>31 days or less</b> twice or more a year (Decree 101/2018, art. 2.4)."]),
     granada: () => L([
       "Desde julio de 2025, las viviendas turísticas no pueden superar el <b>10&nbsp;% por zona</b>. En <b>Albaicín, Centro-Sagrario, Realejo-San Matías y Fígares</b>, que ya lo superan, no se autorizan nuevas.",
       "Desde enero de 2025 están suspendidas las licencias de <b>cambio de uso</b> para nuevas viviendas turísticas mientras se tramita un cambio del PGOU.",
@@ -113,6 +133,8 @@
       sevilla: ["VUT/SE/00624", "Calle Feria 70", "Santa Cruz"],
       barcelona: ["HUTB-002062", "Carrer de Sants 387", "Sagrada Família"],
       mallorca: ["ETV/10070", "Carrer Miramar 10 Alcúdia", "Sóller"],
+      bilbao: ["EBI00003", "Bidebarrieta 7", "Abando"],
+      donostia: ["ESS00009", "Zarautz 27", "Gros"],
       granada: ["VUT/GR/00283", "Calle Reyes Católicos 13", "Albaicín"],
       cordoba: ["VUT/CO/01464", "Calle Cardenal González 8", "Judería"],
       cadiz: ["VUT/CA/00615", "Calle Sagasta 97", "La Viña"],
@@ -193,8 +215,8 @@
       point("proporcion", L("% de viviendas", "% of homes"),
         `<span class="big brand">${pctS(R.vut_share)}</span><span class="pill warn">${L("Indicativo", "Indicative")}</span>`,
         L(`de las viviendas de ${esc(name(area.name))} están registradas como turísticas`, `of homes in ${esc(name(area.name))} are registered as tourist flats`),
-        `<p>${L(`<b>${fmt(R.vut)}</b> viviendas registradas en ${RG.by_es}${R.ine_homes != null ? ` y <b>${fmt(R.ine_homes)}</b> anunciadas en las tres grandes plataformas,` : ""} sobre unas ${fmt(R.homes)} viviendas según ${area.kind === "region" ? "el censo (INE)" : "el Catastro"}.`,
-          `<b>${fmt(R.vut)}</b> flats registered with ${RG.by_en}${R.ine_homes != null ? ` and <b>${fmt(R.ine_homes)}</b> advertised on the three big platforms,` : ""} out of about ${fmt(R.homes)} homes ${area.kind === "region" ? "in the census (INE)" : "in the Catastro"}.`)}
+        `<p>${L(`<b>${fmt(R.vut)}</b> viviendas registradas en ${RG.by_es}${R.ine_homes != null ? ` y <b>${fmt(R.ine_homes)}</b> anunciadas en las tres grandes plataformas,` : ""} sobre unas ${fmt(R.homes)} viviendas según ${area.kind === "region" || area.census ? "el censo (INE)" : "el Catastro"}.`,
+          `<b>${fmt(R.vut)}</b> flats registered with ${RG.by_en}${R.ine_homes != null ? ` and <b>${fmt(R.ine_homes)}</b> advertised on the three big platforms,` : ""} out of about ${fmt(R.homes)} homes ${area.kind === "region" || area.census ? "in the census (INE)" : "in the Catastro"}.`)}
          ${R.ine_homes != null ? L(" Las dos cifras miden cosas distintas: una vivienda registrada puede no estar anunciándose (o anunciarse en otro sitio), y una anunciada puede no estar registrada.",
           " The two measure different things: a registered flat may not be advertised (or advertised elsewhere), and an advertised one may not be registered.") : ""}
          ${over8.length ? L(` <b>${fmt(over8.length)} barrios superan el ${CAP}&nbsp;%</b> de viviendas registradas, el límite que usa el Ayuntamiento${COUNCIL_OVER ? ` (con su propio recuento identifica ${COUNCIL_OVER})` : ""}.`,

@@ -99,33 +99,25 @@ def fetch(cache_dir, force=False):
     count = http.get(f"{API}/count", timeout=60).json()
     t0 = time.time()
     tmp = data_path + ".part"
-    # The Junta's server sometimes drops this ~330 MB download part-way: retry, and if it keeps failing
-    # keep yesterday's copy (lastUpdateData isn't advanced, so the next run tries again).
-    tries = 4 if os.path.exists(data_path) else 8   # no previous copy to fall back on: try harder
-    for attempt in range(tries):
-        try:
-            r = http.get(f"{API}/all", params={"format": "json"}, timeout=1800, stream=True)
-            with open(tmp, "wb") as fh:
-                for chunk in r.iter_content(1 << 20):
-                    fh.write(chunk)
-            json.load(open(tmp, encoding="utf-8"))   # must be complete, valid JSON
-            break
-        except Exception as e:  # noqa: BLE001 — network drop, truncated or invalid file
-            print(f"register download attempt {attempt + 1} failed: {e}")
-            if attempt < tries - 1:
-                time.sleep(min(300, 30 * 2 ** attempt))
-    else:
+    # The Junta's server drops this ~330 MB download part-way, often from cloud runners. The file sits behind a redirect
+    # on storage that accepts range requests, so fetch it in pieces and retry only the piece that failed; if it keeps
+    # failing, keep yesterday's copy (lastUpdateData isn't advanced, so the next run tries again).
+    try:
+        r, url, size = download_ranges(f"{API}/all?format=json", tmp)
+        json.load(open(tmp, encoding="utf-8"))   # must be complete, valid JSON
+    except Exception as e:  # noqa: BLE001 — network drop, truncated or invalid file
+        print(f"register download failed: {e}")
         if os.path.exists(data_path):
-            print("register download failed; keeping the previous copy")
+            print("keeping the previous copy")
             old["checked_at"] = datetime.now(timezone.utc).isoformat()
             return old
-        raise RuntimeError("register download failed and there is no previous copy")
+        raise RuntimeError("register download failed and there is no previous copy") from e
     os.replace(tmp, data_path)
     meta = {
         "lastUpdateData": last,
         "downloaded_at": datetime.now(timezone.utc).isoformat(),
         "download_seconds": round(time.time() - t0, 1),
-        "final_url": r.url,
+        "final_url": url,
         "etag": r.headers.get("etag"),
         "last_modified": r.headers.get("last-modified"),
         "bytes": os.path.getsize(data_path),
@@ -133,6 +125,45 @@ def fetch(cache_dir, force=False):
     }
     json.dump(meta, open(meta_path, "w"), indent=2, ensure_ascii=False)
     return meta
+
+
+def download_ranges(api_url, tmp, max_minutes=100, max_stalls=12):
+    """Download api_url (following its redirect) into tmp. The server cuts connections after a few MB (Oct 2026: every
+    1–4 MB, curl and Python alike), but its storage accepts range requests: so keep every byte that arrived and ask for
+    the rest from there ("Range: bytes=<pos>-"), until the file is complete. A partial tmp of the same file is resumed.
+    Gives up after max_stalls attempts in a row with no progress, or max_minutes. Returns (response, final url, size)."""
+    h = http.head(api_url, timeout=120)
+    url, size = h.url, int(h.headers.get("content-length") or 0)
+    if not size:
+        raise IOError("no content-length: can't resume this download")
+    pos = os.path.getsize(tmp) if os.path.exists(tmp) and os.path.getsize(tmp) <= size else 0
+    t0, r, stalls, drops = time.time(), None, 0, 0
+    with open(tmp, "r+b" if pos else "wb") as fh:
+        fh.seek(pos)
+        fh.truncate()
+        while pos < size:
+            if time.time() - t0 > max_minutes * 60:
+                raise TimeoutError(f"stopped after {max_minutes} min at {pos >> 20} of {size >> 20} MB")
+            before = pos
+            try:
+                r = http.get(url, headers={"Range": f"bytes={pos}-", "Accept-Encoding": "identity"}, timeout=120,
+                             ok_status=(206,), retries=1, stream=True)
+                if r.status_code != 206:
+                    raise IOError(f"HTTP {r.status_code} instead of a range")
+                for chunk in r.iter_content(1 << 16):
+                    fh.write(chunk)
+                    pos += len(chunk)
+            except Exception as e:  # noqa: BLE001 — the expected connection drop; carry on from pos
+                drops += 1
+                if pos == before:
+                    stalls += 1
+                    if stalls >= max_stalls:
+                        raise IOError(f"no progress after {stalls} tries at {pos >> 20} MB: {e}") from e
+                    time.sleep(min(120, 5 * 2 ** stalls))
+            if pos > before:
+                stalls = 0
+    print(f"register: {size >> 20} MB in {round(time.time() - t0)} s ({drops} reconnections)")
+    return r, url, size
 
 
 def adopt_existing(cache_dir, path, last_update, downloaded_at, headers=None):
@@ -163,7 +194,10 @@ def code_key(code):
     if k:
         return f"{k.group(1)}-{int(k.group(2)):06d}"
     b = re.match(r"^(ETV60|ETVPL|ETV|VT|ABT|AG|AT|TI|HA|HR|HO|HS|H|CA)/0*(\d{1,6})$", c)   # Mallorca (ETV/1234)
-    return f"{b.group(1)}/{int(b.group(2))}" if b else None
+    if b:
+        return f"{b.group(1)}/{int(b.group(2))}"
+    e = re.match(r"^([ELHPTBKXC])(BI|SS|VI)0*(\d{1,5})$", c)   # Euskadi (EBI00123)
+    return f"{e.group(1)}{e.group(2)}{int(e.group(3)):05d}" if e else None
 
 
 def build_index(records):

@@ -507,3 +507,179 @@ any 2024–26 PIAT amendment on the cap or zoning got final approval (none found
 date (published 27 Jun 2026, no date in the notice) and whether it was challenged before the TSJIB (two-month
 window ended ~27 Aug 2026); the original wording of art. 50.13 before DL 4/2025; the separate Consell register for
 establishments (H, HA, AT, AG, TI, ABT) and its open-data URL.
+
+## Bilbao and Donostia/San Sebastián (Euskadi) (checked 17 Oct 2026)
+"Verified" means read in the BOE consolidated text of Ley 13/2016 (last update published 29 Dec 2025), the BOE text
+of Ley 6/2025, the BOPV HTML of Decreto 101/2018 and Decreto 52/2025, the BOE tense-zone resolutions, or the council
+documents cited (bilbao.eus press PDF, donostia.eus plenary dictámenes). "Press" means not checked against an official
+text. Terms: vivienda para uso turístico (VUT; register letter **E**) and habitaciones en viviendas particulares para
+uso turístico (Bilbao/Donostia planning documents call these HUT; register letter **L**). Register: Registro de
+Empresas y Actividades Turísticas de Euskadi (REATE). Province codes BI/SS/VI and the other letters (H, P, T, B, K/X, C)
+come from the open data; no legal text defines the code format.
+https://www.boe.es/buscar/act.php?id=BOE-A-2016-8346
+
+1. **The number in every advert (verified).**
+   - **Ley 13/2016, de 28 de julio, de Turismo** (BOPV núm. 152, 11 Aug 2016; BOE-A-2016-8346; in force 31 Aug 2016).
+     Art. 24.7: tourist businesses "deberán incluir en todo tipo de publicidad que los anuncie, … canal de oferta
+     turística …, su número de identificación en el Registro de Empresas y Actividades Turísticas de Euskadi".
+     Art. 27.1: advertising or marketing "por cualquier medio" without the declaración responsable "tendrá la
+     consideración de oferta ilegal o actividad clandestina". Art. 27.2: advertising stays in any unregistered type of
+     lodging is illegal offer. Art. 53.6 / 54.1: letting without the declaration is clandestine.
+   - **Decreto 101/2018, de 3 de julio, de viviendas y habitaciones de viviendas particulares para uso turístico**
+     (BOPV núm. 143, 26 Jul 2018; in force the next day). **Art. 20.1:** "En todo acto de promoción, comercialización o
+     facilitación del alojamiento en viviendas o habitaciones se hará constar el número de la inscripción en el
+     Registro de Empresas y Actividades Turísticas de Euskadi." Art. 20.4: same duty for the host in advertising,
+     invoices and any channel. Art. 7.1: the REATE number is assigned per dwelling on filing the declaración
+     responsable.
+     https://www.euskadi.eus/web01-bopv/es/bopv2/datos/2018/07/1803822a.shtml
+   - **Platforms: yes.** Decreto 101/2018 art. 20.2: tourist offer channels "deberán verificar que éstas disponen del
+     correspondiente número de inscripción … e insertarlo en todas las actuaciones". Art. 20.3: the Basque tourism
+     directorate orders both hosts and channels to stop any activity shown without the number. Art. 2.3.c defines
+     channels to include internet intermediation channels. Ley 13/2016 art. 94.2 (grave): mediating in services that
+     are clandestine.
+   - **Amendments.** **Decreto 52/2025, de 25 de febrero** (BOPV núm. 53, 18 Mar 2025; in force the next day) only
+     repeals Disposición Adicional Primera (which had excluded rural-area flats and rooms); rural ones registered
+     before had six months to adapt. Nothing in it touches arts. 1–3, 7, 20. No later amendment of Decreto 101/2018
+     found. https://www.euskadi.eus/web01-bopv/es/bopv2/datos/2025/03/2501233a.shtml
+2. **Definition and presumption of tourist use (verified).**
+   - Decreto 101/2018 art. 2.4: activity is presumed habitual (so the decree applies) when **either** "a) Que se
+     realice publicidad o comercialización de las viviendas a través de un canal de oferta turística" **or** "b) Que
+     se facilite alojamiento por un período de tiempo continuo igual o inferior a 31 días, dos o más veces dentro del
+     mismo año." Ley 13/2016 arts. 53.7 and 54.7 say the same for flats and rooms.
+   - Art. 2.1: the decree does not apply to lets under the LAU. But art. 2.2 presumes, unless proven otherwise, that
+     the let is **not** an LAU let, and art. 2.3 adds that when the let is marketed through a tourist offer channel
+     "el alojamiento se sujetará imperativamente a lo dispuesto por este Decreto". Ley 13/2016 art. 53.5: tourist
+     activity exists when it cannot be shown the contract follows the LAU.
+   - So Basque law sets **no maximum length** for a tourist stay. 31 days is only the second limb of a presumption,
+     and the first limb (any Airbnb-type channel) catches every listing we check.
+3. **E and L registrations; letting by rooms (verified, last bullet is our reading).**
+   - **E, whole dwelling:** Decreto 101/2018 art. 1.2: a VUT is offered or let "en su totalidad". Art. 12.2: needs a
+     kitchen, bathroom and a sleeping room.
+   - **L, rooms in the host's home:** art. 1.3 ("por habitaciones"). Art. 3.2: only an individual can hold it, and they
+     must be "empadronada y tener su residencia efectiva en la vivienda" for as long as the activity lasts (breach is
+     grave, art. 3.3). Ley 13/2016 art. 54.1: "Se considera vivienda particular el lugar de residencia efectiva de la
+     persona titular"; art. 54.3: one holder may not offer rooms in more than one dwelling. Art. 12.3: at least one
+     tourist bedroom separate from the residents' ones. Art. 7.2: one registration per dwelling, listing the rooms
+     offered.
+   - Both types: at most **8 places** including residents (art. 13.3).
+   - **Can an E flat be let by rooms?** Not within its registration. Art. 7.2 registers each dwelling "en una de las
+     figuras alojativas, bien como vivienda para uso turístico, bien como alojamiento en habitaciones", and the E figure
+     is the whole dwelling. Letting rooms needs the L figure, which needs the host living there. No article names
+     "E let by rooms" as an infraction; the nearest is art. 94.5 Ley 13/2016 (changing the registered conditions
+     without a new declaration, grave). Site rule: an Airbnb "private room" listing showing an E number doesn't match
+     the registered activity; an "entire home" listing showing an L number doesn't either (the host must live there).
+4. **Penalties (verified, Ley 13/2016 arts. 93–95, 100).**
+   - Leve: warning or up to €10,000. Grave: €10,001–100,000. Muy grave: €100,001–600,000 (art. 100.1). Reincidence
+     +100% (art. 100.2).
+   - **Advertising without the REATE number:** grave, art. 94.25: "Realizar publicidad de empresas o de
+     establecimientos turísticos sin hacer constar su número de inscripción …, una vez notificado el mismo por la
+     Administración turística". So it only applies after the number has been notified, i.e. to registered hosts.
+   - **Advertising/letting with no registration at all:** clandestine activity, grave, art. 94.1 (with art. 27).
+     Platforms mediating it: art. 94.2.
+   - Decreto 101/2018 art. 26: leve infractions by hosts get a warning if there is no reincidence or aggravating factor.
+5. **New: no new flats or rooms in tense housing zones (verified).**
+   - **Ley 6/2025, de 11 de diciembre, de Medidas Urgentes en materia de Vivienda, Suelo y Urbanismo** (BOPV núm. 250,
+     29 Dec 2025; in force 30 Dec 2025; BOE-A-2026-1256), art. 7, rewrites Ley 13/2016 art. 20.4: in zones declared
+     "zonas de mercado residencial tensionado", "se aplicará una suspensión automática del ejercicio de la actividad
+     de nuevas viviendas y habitaciones de uso turístico, que se mantendrá durante toda la vigencia de dicha
+     declaración, lo cual supondrá su no inscripción en el Registro". https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-1256
+   - **Donostia/San Sebastián:** declared by Orden de 2 de mayo de 2025 (BOPV núm. 96, 23 May 2025); published in
+     BOE núm. 181, 29 Jul 2025 (BOE-A-2025-15728); valid three years from the day after, so to about **30 Jul 2028**.
+   - **Bilbao:** declared by Orden de 21 de agosto de 2025 (BOPV núm. 167, 4 Sep 2025); BOE núm. 261, 30 Oct 2025
+     (BOE-A-2025-21901); valid to about **31 Oct 2028**.
+   - So since 30 Dec 2025 no new E or L number can be issued in either city, whatever the local plan says. Existing
+     registrations are not mentioned in the text and stay valid. We found no Basque Government notice on how REATE
+     applies it.
+   - **New Ley de Turismo (press + euskadi.eus news, 25 Feb 2026):** an anteproyecto would ban VUTs in tense zones,
+     protected housing and non-buildable land, make new registrations renewable every five years, and tighten platform
+     duties and fines. Only at the public-comment stage; **no bill in Parliament found** as of 17 Oct 2026.
+     https://www.euskadi.eus/gobierno-vasco/-/noticia/2026/aumentan-limitaciones-viviendas-turisticas-y-requisitos-plataformas-anteproyecto-ley-turismo/
+6. **Bilbao planning rules.**
+   - **2018 PGOU change (official secondary):** Pleno 25 Jan 2018 final approval of the "modificación pormenorizada del
+     PGOU … regulación del uso del alojamiento turístico", BOB 13 Feb 2018 (dates from CNMC/AVC reports; BOB not
+     opened). Initial approval by the Junta de Gobierno 25 Oct 2017 (BOB 31 Oct 2017) suspended licences for new tourist
+     lodging (AVC report 251). VUTs became an equipment use (uso 3, situación 7.1) and, per the CNMC, are limited to
+     **ground or first floor** of residential buildings when they lack an independent entrance, and always below the
+     residential floors when they have one. Rooms (L) are treated as residential use (AVC). A TSJPV challenge existed;
+     outcome not found.
+     https://www.euskadi.eus/contenidos/informacion/informes/es_informes/adjuntos/251_INFORME_ORDENACION_URBANA_BILBAO_web_es.pdf
+   - **Suspension (verified, bilbao.eus news 14 Jan 2025):** since **30 Oct 2024** the council suspended "informes de
+     conformidad para nuevos registros de HUT y VUT en el REATE". Press (EITB, Nov 2024): for at most one year, BOB
+     published; whether it continued after initial approval not confirmed. Now superseded in practice by the
+     tense-zone suspension (item 5).
+   - **New PGOU change "alojamientos turísticos y viviendas colectivas":** initial approval Pleno **Jan 2025**,
+     public information until 18 Mar 2025; **provisional approval Pleno 25 Jun 2026** (verified, bilbao.eus press PDF
+     25 Jun 2026: "se remitirá a continuación a la Comisión de Ordenación del Territorio del Gobierno Vasco para su
+     informe"). The COTPV dossier is **2HI-060/26-P03-A** (Bizkaia section, session 5 of 2026; agenda document seen,
+     outcome not found). **No final approval found** as of 17 Oct 2026, so it is not in force.
+     https://www.bilbao.eus/cs/Satellite?c=BIO_Noticia_FA&cid=1279249383142&language=es&pageid=1279190880027&pagename=Bilbaonet%2FBIO_Noticia_FA%2FBIO_Noticia
+   - Content (initial-approval press release, 30 Jan 2025, plus COTPV summary): a high-concentration zone (**ZACAT**:
+     the COTPV document lists AB.01 Abandoibarra, AB.02 Ensanche, AB.03 Estación Abando, UR-02 Matiko-Uribarri, IB-01
+     Etxebarria, IB-02 Casco Viejo, IB.03.1 Bilbao La Vieja, BZ.06 Olabeaga; press says ten areas, threshold 2.01
+     tourist flats per 100 homes). In the ZACAT: rooms (HUT) treated like flats as an economic activity, only "en la
+     planta más baja destinada a viviendas", "acceso independiente y con recorrido accesible", "un alojamiento
+     turístico por edificio". Rest of the city: lowest residential floor, accessible but no independent entrance, no
+     cap. The June 2026 version adjusted ground-floor rules and exceptions (details not published in the release).
+     The "own street entrance" rule is therefore **proposed, not in force**.
+   - No moratorium beyond the above.
+7. **Donostia/San Sebastián planning rules.**
+   - **2018 ordinance (press/secondary):** Ordenanza reguladora del uso de vivienda turística y de alquiler de
+     habitaciones, in force 27 Mar 2018: zones A (saturated, incl. Parte Vieja, no new VUTs), B (limited, e.g. one per
+     building with common access), C. **Annulled by the TSJPV** (reported Jan 2020); its core moved into the PGOU.
+   - **Parte Vieja closed (verified):** PGOU change to the Norma Particular CE.03 Parte Vieja; initial approval Pleno
+     24 May 2018 (with a two-year suspension), provisional 21 Feb 2019, **final approval Pleno 28 May 2020**. It bans
+     hotel uses on upper floors of "a.10 Residencial de casco antiguo" plots, including flats let whole or "por
+     habitaciones, para usos de alojamiento turístico".
+     https://www.donostia.eus/secretaria/AsuntosPleno.nsf/vResolutivaId/4EE5F9BC9F1EF4C3C12585680045D097/$file/AD_MPGOU_CE.03_Parte_Vieja.pdf
+   - **Suspension 2023–2026 (verified, final-approval dictamen):** Pleno 30 Mar 2023 suspension, BOG 18 Apr 2023
+     (in force 19 Apr 2023, one year per the council's open-data page). Initial approval of the "Modificación del PGOU
+     referente a los usos de hospedaje" (exp. MPGOU-2023-0003), **Pleno 21 Mar 2024**, with a **two-year suspension**
+     of licences for lodging uses on residential, industrial, tertiary and equipment plots across urban land.
+     TSJPV judgment 493/2025 of 11 Nov 2025 (rec. 177/2025, Gestión Mugitegi) **upheld a challenge to that 2024
+     suspension**; the council dropped its Supreme Court cassation (Pleno 29 Jan 2026) and continues an "autonómico"
+     cassation. Effect beyond that party not confirmed.
+   - **2026 change in force (approved):** provisional approval Pleno 30 Jan 2025; COTPV **favourable report, session
+     3/2025, 8 May 2025**; **final approval Pleno 29 Jan 2026** (articles 9, 11–16, 26, 28, 33–38, 46, 59, 60, 62 of the
+     Normas Generales). Divides the city into Zona 1 and Zona 2. Press (naiz, 29 Jan 2026): Zona 1 = Centro, Alde
+     Zaharra, Gros, Antiguo and Ibaeta, no new tourist flats, rooms or other lodging on residential plots; Zona 2 only
+     new hotels on non-residential plots. Council open data: the plan "blinda el uso residencial frente al turístico".
+     BOG publication of the normas (needed for entry into force, Ley 2/2006 art. 89) **not found**.
+     https://www.donostia.eus/secretaria/AsuntosPleno.nsf/vResolutivaId/FB5417D9544FB532C1258D800046B7D8/$file/DIL_AD_MPGOU_Usos_de_Hospedaje_ZD_SIN.pdf
+   - The COTPV number "3HI-003/25" in our brief was **not confirmed**; the dictamen gives only the session (3/2025).
+   - In practice: no new VUT/HUT licences anywhere in Donostia since 2023 (suspension, then the 2026 plan), plus the
+     regional tense-zone ban since 30 Dec 2025.
+   - Council open data: "Censo de viviendas y habitaciones de uso turístico" (VUT/HUT, capacity; weekly, modified
+     11 Oct 2026). https://www.donostia.eus/datosabiertos/catalogo/censo-viviendas-turisticas
+8. **RDL 29/2026 and the seasonal threshold.**
+   - LAU art. 5.e (RDL 29/2026, see "Seasonal-let thresholds") caps a tourist let at 31 days; a "vivienda temporal"
+     lease is over 31 days. Basque law sets no maximum length (item 2), so there is no conflict: from 8 Oct 2026, a stay
+     of 32 nights or more is not a tourist let under national civil law, and the Basque 31-day presumption (art. 2.4.b)
+     doesn't reach it either.
+   - But art. 2.4.a / 2.3 still presume tourist use for anything marketed on a tourist channel. A long minimum stay
+     makes exemption plausible, not certain.
+   - No Basque rule adopted in response to RDL 29/2026 found. Convalidation of RDL 29/2026 still not confirmed.
+   - **Recommendation: "possibly exempt" only with a minimum stay of ≥ 32 nights** (matches `SEASONAL_NIGHTS = 32` in
+     `pipeline/rta_audit/euskadi.py`). Wording: "possibly exempt: stays over 31 days are outside the Basque presumption
+     (Decreto 101/2018 art. 2.4.b) and are not tourist lets under national law (RDL 29/2026, pending validation)".
+     If the RDL lapses, keep ≥ 32 (the 31-day presumption is the only duration line in Basque law), but the case is
+     weaker because art. 2.3 applies to any listing on a tourist channel.
+9. **Reporting channels.**
+   - **Basque Government, "Buzón contra el fraude en las viviendas para uso turístico"** (Dirección de Turismo y
+     Hostelería; anonymous; needs the full address and an email; covers Ley 13/2016 infractions in flats and rooms;
+     the directorate checks REATE and opens proceedings):
+     https://www.euskadi.eus/interaccion_ciudadania/buzon-viviendas-turisticas-ilegales/web01-tramite/es/
+     Form: https://www.euskadi.eus/web01-sedeform/es/x43kToolkitWar/form/fdp?procedureId=1114101&tipoPresentacion=1&language=es
+     (for other tourist businesses the page links to the general tourism complaints tools).
+   - **Ayuntamiento de Donostia:** no dedicated VUT form found. General "Buzón de la ciudadanía":
+     https://www.donostia.eus/ataria/es/web/nirekarpeta/buzon-sugerencias ; phone 010 / (+34) 943 481 000.
+   - **Ayuntamiento de Bilbao:** no dedicated VUT form found; a 2024 plenary amendment asked the council to publicise
+     "los canales ya disponibles" (press). Phone 010. Not listed on the site until a current URL is verified.
+   - Tense-zone portal (Basque housing department) has its own complaints mailbox for illegal tourist flats (press /
+     portal menu, URL not checked): https://eremutentsionatua.euskadi.eus/webzte00-municipios/es/
+   - Platforms: as in "Reporting channels" above.
+
+**Not confirmed (Euskadi):** BOB reference and current effect of Bilbao's 2018 PGOU change and its TSJPV challenge;
+the BOB notice and end date of Bilbao's Oct 2024 suspension; the COTPV report on Bilbao's 2026 change and any final
+approval; the BOG publication (entry into force) of Donostia's 29 Jan 2026 change and its zone map; the reach of TSJPV
+judgment 493/2025; how REATE applies the Ley 6/2025 tense-zone suspension (and whether it blocks changes of holder);
+progress of the new Ley de Turismo; a dedicated Bilbao or Donostia reporting form; RDL 29/2026 convalidation.

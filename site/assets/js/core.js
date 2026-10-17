@@ -249,6 +249,7 @@
             <li><a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Generalitat de Catalunya · Registre de Turisme</a></li>
             <li><a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</li>
             <li><a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Consell de Mallorca · dades obertes</a> (CC BY 4.0)</li>
+            <li><a href="https://opendata.euskadi.eus/" target="_blank" rel="noopener">Gobierno Vasco · Open Data Euskadi</a> (CC BY 4.0)</li>
             <li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</li>
             <li><a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Dirección General del Catastro</a></li>
             <li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> · <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda (SERPAVI)</a></li>
@@ -513,11 +514,11 @@
     return { run, input };
   }
   const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz",
-    "Barcelona": "barcelona" };
+    "Barcelona": "barcelona", "Bilbao": "bilbao", "Donostia / San Sebastián": "donostia" };
   /** Which area's map shows a register row's building: its city, else Málaga province; null elsewhere in Andalucía
       (the Andalucía map shows density only). Data built before "prov" existed is all Málaga province. */
   const AREA_OF_PROV = { MA: "provincia", SE: "provincia-sevilla", CA: "provincia-cadiz", GR: "provincia-granada", AL: "provincia-almeria",
-    CO: "provincia-cordoba", HU: "provincia-huelva", JA: "provincia-jaen", IB: "mallorca" };
+    CO: "provincia-cordoba", HU: "provincia-huelva", JA: "provincia-jaen", IB: "mallorca" };   // (Bizkaia, Gipuzkoa: only their cities)
   const areaOfMuni = (muni, prov) => AREA_OF_MUNI[muni] || AREA_OF_PROV[prov || "MA"] || null;
 
   // ---------------------------------------------------------------- tooltip for charts

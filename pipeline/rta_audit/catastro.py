@@ -11,6 +11,7 @@ indicative and won't exactly match a council's own count of "viviendas familiare
 import json
 import os
 import re
+import time
 import zipfile
 from datetime import datetime, timezone
 
@@ -68,7 +69,7 @@ def parse_zip(path):
     return out
 
 
-def ensure(cache_dir, munis, prov="29", recheck_days=7):
+def ensure(cache_dir, munis, prov="29", recheck_days=7, deadline=None):
     """Download/refresh the given municipalities [(code, name)] when Catastro publishes a new file (checked at most
     every `recheck_days`). The zip is deleted after parsing; only the compact JSON is kept. Returns {code: parcels}."""
     d = os.path.join(cache_dir, "catastro")
@@ -76,6 +77,9 @@ def ensure(cache_dir, munis, prov="29", recheck_days=7):
     out, now = {}, datetime.now(timezone.utc)
     for code, name in munis:
         jp = os.path.join(d, f"{code}.json")
+        if deadline and time.time() > deadline and not os.path.exists(jp):
+            print(f"catastro: time budget used; {code} {name} next run")
+            continue
         url = ZIP.format(prov=prov, code=code, name=name)
         cached = json.load(open(jp)) if os.path.exists(jp) else None
         if cached and cached.get("checked_at") and (now - datetime.fromisoformat(cached["checked_at"])).days < recheck_days:

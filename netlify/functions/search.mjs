@@ -8,7 +8,8 @@ export const config = { path: "/api/search" };
 
 export function looksLikeCode(q) {
   return /^\s*(HUTB|ATB|VUT|VFT|VTF|VTAR|CTR|CR|A|H)\s*[-/_.\s]*[A-Z]{0,2}\s*[-/_.\s]*\d/i.test(q) || /^\s*\d{1,6}\s*$/.test(q)
-    || /^\s*(ETV60|ETVPL|ETV|VT|ABT|AG|AT|TI|HA|HR|HO|HS)\s*[-/_.\s]*\d/i.test(q);   // Mallorca
+    || /^\s*(ETV60|ETVPL|ETV|VT|ABT|AG|AT|TI|HA|HR|HO|HS)\s*[-/_.\s]*\d/i.test(q)   // Mallorca
+    || /^\s*[ELHPTBKXC]\s*[-/_.\s]*(BI|SS|VI)\s*[-/_.\s]*\d/i.test(q);   // Euskadi
 }
 
 export default async (req, context) => {
