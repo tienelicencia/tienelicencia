@@ -17,7 +17,10 @@ const THRESHOLD_M = 800;    // platform pin shift (up to ~150 m) + register geoc
 const OTHER_PLACE_M = 3000; // only used when the advert doesn't say which town it's in
 const HOTELISH = /hotel|hostel|aparthotel|boutique|bed and breakfast|guesthouse|pension/i;
 const RURAL = /rural|cortijo|finca|farm/i;
-let LONG_STAY;
+let LONG_STAY, SEASONAL_SHORT;
+// A "seasonal let" claim counts only if the listing's minimum stay backs it up (or isn't known): the build lists the
+// listings whose recorded minimum stay is shorter than their region's seasonal threshold.
+const seasonalOk = (L, id) => { SEASONAL_SHORT ??= new Set(L.seasonal_short || []); return !(id && SEASONAL_SHORT.has(String(id))); };
 
 export const config = { path: "/api/check" };
 
@@ -153,7 +156,7 @@ export function assessCat(page, L, listingId = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -201,7 +204,7 @@ export function assessBal(page, L, listingId = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   const place = balMuni((page.location || "").split(",")[0]);
@@ -251,7 +254,7 @@ export function assessEus(page, L, listingId = null, home = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -299,7 +302,7 @@ export function assessVlc(page, L, listingId = null) {
     if (page.room_type === "Hotel room" || VLC_OTHER.test(rest)) exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -349,7 +352,7 @@ export function assessCan(page, L, listingId = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -403,7 +406,7 @@ export function assessMur(page, L, listingId = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -452,7 +455,7 @@ export function assessAra(page, L, listingId = null) {
     if (page.room_type === "Hotel room") exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (national.length) exempt.push("national_only");
-    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
   }
   let best = null;
@@ -485,7 +488,7 @@ export function assess(page, L, listingId = null) {
     if (page.room_type === "Hotel room" || HOTELISH.test(page.property_type || "")) exempt.push("hotel");
     if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
     if (p.national.length) exempt.push("national_only");
-    if (p.exempt_text && /seasonal|temporada/i.test(p.exempt_text)) exempt.push("seasonal_claim");
+    if (p.exempt_text && /seasonal|temporada/i.test(p.exempt_text) && seasonalOk(L, listingId)) exempt.push("seasonal_claim");
     if (RURAL.test(page.property_type || "")) exempt.push("rural");
     if (exempt.length) return { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt };
     return { ...base, verdict: "NOT_VALID", reason: "no_number" };

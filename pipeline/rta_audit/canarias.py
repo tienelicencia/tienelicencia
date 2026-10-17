@@ -12,6 +12,7 @@ import csv
 import io
 import re
 
+from .classify import seasonal_claim
 from .register import haversine_m
 
 LOCATION_THRESHOLD_M = 800
@@ -152,7 +153,7 @@ def classify(raw, lat, lon, room_type, min_nights, idx, home="Las Palmas De Gran
     except ValueError:
         long_stay = False
     if long_stay or room_type == "Hotel room" or p["national"] \
-            or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada", p["exempt_text"])):
+            or seasonal_claim(p["exempt_text"], min_nights, SEASONAL_NIGHTS):
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}
 

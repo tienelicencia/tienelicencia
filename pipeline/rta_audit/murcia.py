@@ -12,6 +12,7 @@ Letting rooms is allowed (Decreto 256/2019, art. 2.2.b), so room listings aren't
 import html as _html
 import re
 
+from .classify import seasonal_claim
 from .register import haversine_m
 
 LOCATION_THRESHOLD_M = 800
@@ -162,7 +163,8 @@ def classify(raw, lat, lon, room_type, min_nights, idx):
     except ValueError:
         long_stay = False
     if long_stay or room_type == "Hotel room" or p["national"] \
-            or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada|apartamento|apartment|hotel", p["exempt_text"])):
+            or seasonal_claim(p["exempt_text"], min_nights, SEASONAL_NIGHTS) \
+            or (p["exempt_text"] and re.search(r"(?i)apartamento|apartment|hotel", p["exempt_text"])):
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}
 

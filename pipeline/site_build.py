@@ -13,6 +13,7 @@ import csv
 import gzip
 import json
 import os
+import re
 import sqlite3
 import sys
 import time
@@ -606,10 +607,106 @@ RANKING = [("Madrid", "28079", None, None), ("Barcelona", "08019", "barcelona", 
            ("Sevilla", "41091", "sevilla", None), ("Zaragoza", "50297", "zaragoza", None), ("Málaga", "29067", "malaga", None),
            ("Murcia", "30030", "murcia", None), ("Palma", "07040", "mallorca", "Palma de Mallorca"),
            ("Las Palmas de Gran Canaria", "35016", "laspalmas", None), ("Bilbao", "48020", "bilbao", None)]
-MIN_SAMPLE_PUBLISH = 300   # a town sample's share is shown once this many listings were checked
+MIN_SAMPLE_PUBLISH = 300
+PEAK_M = 1000           # the ranking's "most affected area": the 1 km circle with the most Airbnb listings per home
+PEAK_MIN_HOMES = 3000   # …among circles with at least this many homes (so a beach or a park with a few homes doesn't win)
+BUILDING_MIN_HOMES, BUILDING_SHARE = 4, 25   # apartment buildings (4+ homes) where registered tourist flats are 25%+ of homes
+MIN_LINKED = 0.8        # a measure that needs register coordinates or Catastro links is shown only above this coverage
 
 
-def ranking(I, summaries, conc, built):
+SNAP_M = 25   # a registered flat with coordinates but no cadastral reference belongs to the Catastro building within this
+
+
+def building_shares(homes, ref_muni, ref_pts, mks, vut_recs, agg_ids):
+    """Apartment buildings (BUILDING_MIN_HOMES+ homes in the Catastro) in these municipalities, and how many have registered
+    tourist flats making up BUILDING_SHARE% or more of their homes. Each flat is linked to its Catastro building by
+    cadastral reference (or address), else by snapping its coordinates to the nearest building within SNAP_M. Shown only
+    where most flats link; otherwise we'd undercount."""
+    grid = defaultdict(list)
+    for ref, (la, lo) in ref_pts.items():
+        if ref_muni.get(ref) in mks and homes.get(ref):
+            grid[(round(la * 2000), round(lo * 2000))].append((la, lo, ref))   # ~50 m cells
+    per, linked = Counter(), 0
+    for x in vut_recs:
+        ref = agg_ids.get(id(x))
+        if not (ref and homes.get(ref)) and x.get("lat") is not None:
+            cy, cx, best = round(x["lat"] * 2000), round(x["lon"] * 2000), (SNAP_M, None)
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    for la, lo, rf in grid.get((cy + dy, cx + dx), ()):
+                        d = register.haversine_m(x["lat"], x["lon"], la, lo)
+                        if d < best[0]:
+                            best = (d, rf)
+            ref = best[1]
+        if ref and homes.get(ref):
+            per[ref] += 1
+            linked += 1
+    if not vut_recs or linked / len(vut_recs) < MIN_LINKED:
+        return {"buildings_linked_pct": round(100 * linked / len(vut_recs)) if vut_recs else None}
+    total = sum(1 for ref, dw in homes.items() if dw >= BUILDING_MIN_HOMES and ref_muni.get(ref) in mks)
+    hit = sum(1 for ref, n in per.items() if homes[ref] >= BUILDING_MIN_HOMES and 100 * n / homes[ref] >= BUILDING_SHARE)
+    return {"buildings_linked_pct": round(100 * linked / len(vut_recs)), "apartment_buildings": total, "buildings_over_share": hit,
+            "buildings_over_share_pct": round(100 * hit / total, 2) if total else None, "building_share_threshold": BUILDING_SHARE}
+
+
+def _cells(pts, size):
+    """{(i, j): total} on a size-metre grid; pts [(lat, lon, weight)]."""
+    g = defaultdict(float)
+    for la, lo, w in pts:
+        g[(round(la * 111320 / size), round(lo * 111320 * 0.78 / size))] += w
+    return g
+
+
+def peak_metrics(home_pts, listing_pts, reg_pts, reg_total, place_of=None):
+    """The 1 km circle (PEAK_M) with the most Airbnb listings per 100 homes, among circles with PEAK_MIN_HOMES+ homes:
+    its listings per 100 homes, its share of homes registered as tourist flats (if most of the register has coordinates)
+    and where it is. Grid of 100 m cells; candidate centres every 200 m wherever there are listings."""
+    if not home_pts or not listing_pts:
+        return {}
+    size, r = 100, PEAK_M // 100
+    H = _cells(home_pts, size)
+    Lc = _cells([(la, lo, 1) for la, lo in listing_pts], size)
+    R = _cells([(la, lo, 1) for la, lo in reg_pts], size)
+    offs = [(di, dj) for di in range(-r, r + 1) for dj in range(-r, r + 1) if di * di + dj * dj <= r * r]
+    best = None
+    for (i, j) in {(i - i % 2, j - j % 2) for (i, j) in Lc}:
+        h = sum(H.get((i + di, j + dj), 0) for di, dj in offs)
+        if h < PEAK_MIN_HOMES:
+            continue
+        n = sum(Lc.get((i + di, j + dj), 0) for di, dj in offs)
+        if best is None or n / h > best[0]:
+            best = (n / h, i, j, h, n)
+    if not best:
+        return {}
+    _, i, j, h, n = best
+    la, lo = i * size / 111320, j * size / (111320 * 0.78)
+    out = {"peak_listings_per_100_homes": round(100 * n / h, 1), "peak_homes": round(h), "peak_lat": round(la, 4), "peak_lon": round(lo, 4),
+           "peak_radius_m": PEAK_M}
+    if reg_total and len(reg_pts) / reg_total >= MIN_LINKED:
+        out["peak_registered_pct"] = round(100 * sum(R.get((i + di, j + dj), 0) for di, dj in offs) / h, 1)
+    if place_of:
+        out["peak_place"] = place_of(la, lo)
+    return out
+
+
+def census_home_points(barrios, barrio_homes, around, span=0.08):
+    """For census cities (no Catastro): each barrio's homes spread evenly over its area, as weighted points on a ~60 m grid."""
+    step, cells, grid = 0.0006, defaultdict(int), []
+    la0, lo0 = around
+    y = la0 - span
+    while y <= la0 + span:
+        x = lo0 - span * 1.3
+        while x <= lo0 + span * 1.3:
+            bid = barrios.lookup(y, x)[0]
+            if bid is not None:
+                cells[bid] += 1
+                grid.append((y, x, bid))
+            x += step
+        y += step
+    return [(y, x, barrio_homes.get(bid, 0) / cells[bid]) for y, x, bid in grid if cells[bid]]
+
+
+def ranking(I, summaries, conc, built, extra=None):
     """Tourist-housing pressure in Spain's ten largest cities. What residents see: tourist homes advertised (INE, all
     platforms, de-duplicated) as a share of all homes, split by our checks into those showing a valid registration number
     and those that don't; plus licences registered and concentration. Score = advertised share relative to the highest."""
@@ -619,7 +716,8 @@ def ranking(I, summaries, conc, built):
         if not m.get("pct"):
             continue
         S = summaries.get(slug) or {}
-        r = {"name": name_, "ine": code, "slug": slug if slug and not row_name else None, "area": slug,
+        r = {**((extra or {}).get("palma" if row_name else slug) or {}),
+             "name": name_, "ine": code, "slug": slug if slug and not row_name else None, "area": slug,
              "advertised_pct": m["pct"], "advertised_homes": int(m["homes"]), "census_homes": ine_census_homes(m)}
         nv, src = None, None
         if row_name:   # a municipality inside a wider area (Palma in Mallorca): its sub-area row
@@ -643,11 +741,19 @@ def ranking(I, summaries, conc, built):
             r.update(no_valid_number_pct=nv, no_valid_number_source=src,
                      advertised_no_number_pct=round(m["pct"] * nv / 100, 2), advertised_with_number_pct=round(m["pct"] * (1 - nv / 100), 2))
         out.append(r)
-    top = max(x["advertised_pct"] for x in out) if out else 1
+    # Pressure score: the average of two measures every city has, each as a share of the highest city (= 100):
+    #   how much — tourist homes advertised as a share of all homes (INE, city-wide);
+    #   how concentrated — Airbnb listings per 100 homes in the city's most affected 1 km circle.
+    # A city still missing the second (not yet covered) is scored on the first alone, and flagged.
+    tops = {k: max((x[k] for x in out if x.get(k) is not None), default=None) for k in ("advertised_pct", "peak_listings_per_100_homes")}
     for r in out:
-        r["score"] = round(100 * r["advertised_pct"] / top)
-    out.sort(key=lambda r: -r["advertised_pct"])
-    return {"built_at": built, "ine_period": I.get("period"), "cities": out}
+        parts = {k: 100 * r[k] / tops[k] for k in tops if r.get(k) is not None and tops[k]}
+        r["score_parts"] = {k: round(v) for k, v in parts.items()}
+        r["score"] = round(sum(parts.values()) / len(parts))
+        r["score_partial"] = len(parts) < len(tops)
+    out.sort(key=lambda r: -r["score"])
+    return {"built_at": built, "ine_period": I.get("period"), "peak_radius_m": PEAK_M, "peak_min_homes": PEAK_MIN_HOMES,
+            "building_min_homes": BUILDING_MIN_HOMES, "building_share": BUILDING_SHARE, "cities": out}
 
 
 def ine_mallorca(I):
@@ -829,13 +935,15 @@ def cmd_build(a):
                 print(f"{A['slug']}: no barrio outlines ({e}); built without barrios this time")
 
     # ---- dwellings per building (Catastro): indicative "share of homes"
-    homes, muni_homes, parcel_pts, muni_prov = {}, Counter(), defaultdict(list), {}
+    homes, muni_homes, parcel_pts, muni_prov, ref_muni, ref_pts = {}, Counter(), defaultdict(list), {}, {}, {}
     for code, c in catastro.load_cached(CACHE).items():
         mk = buildings.muni_key(c["name"])
         muni_prov[mk] = code[:2]
         for ref, (dw, la, lo, _res) in c["parcels"].items():
             if dw:
                 homes[ref] = dw
+                ref_muni[ref] = mk
+                ref_pts[ref] = (la, lo)
                 muni_homes[mk] += dw
                 parcel_pts[mk].append((la, lo, dw))
 
@@ -905,7 +1013,7 @@ def cmd_build(a):
         json.dump(obj, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
     barrio_rent, city_rent, ryears = serpavi_barrios(BAR["malaga"], parcel_pts) if "malaga" in BAR else ({}, None, None)   # SERPAVI sections: Málaga only for now
-    areas_out, hist_areas, hist_listings, listing_stats, conc, summaries = [], {}, {}, None, {}, {}
+    areas_out, hist_areas, hist_listings, listing_stats, conc, summaries, rk_extra = [], {}, {}, None, {}, {}, {}
     for A in AREAS:
         barrios = BAR.get(A["slug"])
         _rows, a_snap, out, removed, by_key = LIST.get(A["slug"], (None, None, [], 0, {}))
@@ -1073,6 +1181,26 @@ def cmd_build(a):
             summary["rent"] = rent
         w(f"{A['slug']}/summary.json", summary)
         summaries[A["slug"]] = summary
+        # ---- ranking extras (Spain's ten largest cities): the most affected 1 km circle, and buildings
+        rk_slugs = ["palma"] if A["slug"] == "mallorca" else [A["slug"]] if any(x[2] == A["slug"] for x in RANKING) else []
+        for rs_ in rk_slugs:
+            palma = rs_ == "palma"
+            vut_m = [x for x in vut_a if not palma or (x.get("municipalities") or "") == "PALMA"]
+            mk_ = {buildings.muni_key("PALMA")} if palma else mks
+            hp = [p_ for m_ in mk_ for p_ in parcel_pts.get(m_, ())]
+            if not hp and A.get("census") and barrios is not None:
+                cen = A["center"][::-1]
+                hp = census_home_points(barrios, {p_["id"]: p_.get("homes") or 0 for p_ in summary["subareas"]["rows"]}, cen)
+            if A["listings"]:
+                lp = [(o["lat"], o["lon"]) for o in out if not palma or (barrios and barrios.lookup(o["lat"], o["lon"])[1] == "Palma de Mallorca")]
+            elif A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
+                lp = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
+            else:
+                lp = []
+            place_of = (lambda la, lo, b=barrios: b.lookup(la, lo)[1]) if barrios is not None and not palma else None
+            rk = peak_metrics(hp, lp, [(x["lat"], x["lon"]) for x in vut_m if x.get("lat") is not None], len(vut_m), place_of)
+            rk.update(building_shares(homes, ref_muni, ref_pts, mk_, vut_m, agg_ids))
+            rk_extra[rs_] = rk
         write_csv(os.path.join(SITE_DATA, A["slug"], "zonas.csv"), summary["subareas"]["rows"])
         hist_areas[A["slug"]] = reg["vut"]
         areas_out.append({k: A[k] for k in ("slug", "name", "kind", "center", "zoom", "hex_m", "subareas")} | {
@@ -1085,7 +1213,7 @@ def cmd_build(a):
 
     built = now()
     w("areas.json", {"built_at": built, "areas": areas_out})
-    w("ranking.json", ranking(I, summaries, conc, built))
+    w("ranking.json", ranking(I, summaries, conc, built, rk_extra))
 
     # ---- history (one point per build day)
     hp = os.path.join(SITE_DATA, "history.json")
@@ -1121,6 +1249,10 @@ def cmd_build(a):
                    # (Andalucía: 60+ nights; Catalonia: more than 31 days is seasonal)
                    "long_stay": sorted(r["id"] for slug_, (rs, *_) in LIST.items() for r in rs
                                        if int(r["minimum_nights"] or 0) >= REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
+                   # listings that say "seasonal" but whose recorded minimum stay is shorter: the claim doesn't count
+                   "seasonal_short": sorted(r["id"] for slug_, (rs, *_) in LIST.items() for r in rs
+                                            if r["minimum_nights"] and re.search(r"(?i)(exempt|exento)[^<|]*(seasonal|temporada)", r["license"] or "")
+                                            and int(r["minimum_nights"]) < REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
                    # Catalonia (province of Barcelona): HUTB/HB/ATB numbers → [municipality, lat, lon, group]
                    "cat": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
                                "C" if k.startswith("HUTB") else ""] for k, v in CAT.items()},

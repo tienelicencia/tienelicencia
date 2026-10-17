@@ -28,7 +28,8 @@ class ValenciaTests(unittest.TestCase):
                                     39.4701, -0.3761, "Entire home/apt", "2", IDX)["key"], "CV-VUT0052177-V")
         self.assertEqual(self.cat(""), "NO_CODE_IN_SCOPE")
         self.assertEqual(self.cat("HV-1234"), "NO_CODE_POSSIBLY_EXEMPT")   # hotel register: not open, not checked
-        self.assertEqual(self.cat("Exempt - seasonal rental"), "NO_CODE_POSSIBLY_EXEMPT")
+        self.assertEqual(self.cat("Exempt - seasonal rental", mn=""), "NO_CODE_POSSIBLY_EXEMPT")
+        self.assertEqual(self.cat("Exempt - seasonal rental", mn="2"), "NO_CODE_IN_SCOPE")
         self.assertEqual(self.cat("", mn=str(V.SEASONAL_NIGHTS)), "NO_CODE_POSSIBLY_EXEMPT")
 
 

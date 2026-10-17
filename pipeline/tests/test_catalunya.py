@@ -39,7 +39,10 @@ class ClassifyTests(unittest.TestCase):
         self.assertEqual(self.cat(""), "NO_CODE_IN_SCOPE")
         self.assertEqual(self.cat("", mn="32"), "NO_CODE_POSSIBLY_EXEMPT")
         self.assertEqual(self.cat("", mn="31"), "NO_CODE_IN_SCOPE")   # 31 days is still a tourist stay
-        self.assertEqual(self.cat("Barcelona - Regional registration number<br />Exempt - seasonal rental"), "NO_CODE_POSSIBLY_EXEMPT")
+        seasonal = "Barcelona - Regional registration number<br />Exempt - seasonal rental"
+        self.assertEqual(self.cat(seasonal, mn=""), "NO_CODE_POSSIBLY_EXEMPT")
+        self.assertEqual(self.cat(seasonal, mn="3"), "NO_CODE_IN_SCOPE")
+        self.assertEqual(self.cat(seasonal, mn="32"), "NO_CODE_POSSIBLY_EXEMPT")
 
 
 if __name__ == "__main__":

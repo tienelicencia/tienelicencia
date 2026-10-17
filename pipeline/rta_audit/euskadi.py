@@ -12,6 +12,7 @@ import json
 import re
 
 from .buildings import muni_key
+from .classify import seasonal_claim
 from .register import haversine_m
 
 LOCATION_THRESHOLD_M = 800      # same as everywhere else
@@ -151,7 +152,7 @@ def classify(raw, lat, lon, room_type, min_nights, idx, listing_muni):
         long_stay = int(min_nights or 0) >= SEASONAL_NIGHTS
     except ValueError:
         long_stay = False
-    if long_stay or room_type == "Hotel room" or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada", p["exempt_text"])) \
+    if long_stay or room_type == "Hotel room" or seasonal_claim(p["exempt_text"], min_nights, SEASONAL_NIGHTS) \
             or p["national"]:
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}

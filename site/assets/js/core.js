@@ -9,7 +9,8 @@
       privacy: "Privacidad y cookies", legal: "Aviso legal", cookies: "Preferencias de cookies",
       strip: "Servicio de información independiente con datos abiertos oficiales.",
       strip_b: "No es una web oficial de ninguna administración.",
-      foot_about: "Un recurso gratuito para quienes viven en Andalucía, empezando por Málaga y Sevilla: qué viviendas turísticas están registradas y qué anuncios no muestran un número válido, con datos abiertos y verificables. Sin publicidad ni fines comerciales.",
+      foot_about: "Un recurso gratuito para vecinos y vecinas de toda España: qué viviendas turísticas están registradas y qué anuncios no muestran un número válido, con datos abiertos y verificables. Sin publicidad ni fines comerciales.",
+      foot_registers: "Registros de turismo:", foot_all_sources: "Todas las fuentes y licencias →",
       foot_contact: "Contacto y correcciones", foot_code: "Código abierto (GitHub)", foot_press: "Prensa y datos",
       foot_areas: "Zonas", foot_tools: "Herramientas", foot_sources: "Fuentes de datos",
       foot_built: "Desarrollado y mantenido sin coste por", foot_updated: "Datos actualizados el",
@@ -52,7 +53,8 @@
       privacy: "Privacy & cookies", legal: "Legal notice", cookies: "Cookie settings",
       strip: "An independent public-information service built on official open data.",
       strip_b: "Not an official website of any administration.",
-      foot_about: "A free resource for people in Andalucía, starting with Málaga and Seville: which tourist flats are registered and which adverts don't display a valid number, from open, verifiable data. No advertising, no commercial purpose.",
+      foot_about: "A free resource for residents across Spain: which tourist flats are registered and which adverts don't display a valid number, from open, verifiable data. No advertising, no commercial purpose.",
+      foot_registers: "Tourism registers:", foot_all_sources: "All sources and licences →",
       foot_contact: "Contact and corrections", foot_code: "Open source (GitHub)", foot_press: "Press and data",
       foot_areas: "Areas", foot_tools: "Tools", foot_sources: "Data sources",
       foot_built: "Built and maintained free of charge by", foot_updated: "Data updated",
@@ -238,26 +240,27 @@
       f.outerHTML = `<footer class="site-footer"><div class="wrap">
         <div class="foot-grid">
           <div><a class="brand" href="/">${LOGO}${WORD}</a><p data-t="foot_about"></p><p class="tiny" data-t="foot_disclaimer"></p></div>
-          <div><h2 data-t="foot_areas"></h2><ul id="foot-areas"></ul>
-            <h2 style="margin-top:24px" data-t="foot_tools"></h2>
-            <ul><li><a href="/comprobar" data-t="nav_check"></a></li><li><a href="/metodologia" data-t="nav_method"></a></li>
-              <li><a href="/preguntas" data-t="nav_faq"></a></li><li><a href="/metodologia#prensa" data-t="foot_press"></a></li>
-              <li><a href="/contacto" data-t="foot_contact"></a></li>
-              <li><a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener" data-t="foot_code"></a></li></ul></div>
-          <div><h2 data-t="foot_sources"></h2><ul>
-            <li><a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Junta de Andalucía · Open RTA</a></li>
-            <li><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga · datos abiertos</a> (CC BY 4.0)</li>
-            <li><a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Generalitat de Catalunya · Registre de Turisme</a></li>
-            <li><a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</li>
-            <li><a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Consell de Mallorca · dades obertes</a> (CC BY 4.0)</li>
-            <li><a href="https://opendata.euskadi.eus/" target="_blank" rel="noopener">Gobierno Vasco · Open Data Euskadi</a> (CC BY 4.0)</li>
-            <li><a href="https://dadesobertes.gva.es/" target="_blank" rel="noopener">Generalitat Valenciana · dades obertes</a> (CC BY 4.0)</li>
-            <li><a href="https://datos.canarias.es/" target="_blank" rel="noopener">Gobierno de Canarias · datos abiertos</a> · <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a> · <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a></li>
-            <li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</li>
-            <li><a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Dirección General del Catastro</a></li>
-            <li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> · <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda (SERPAVI)</a></li>
-            <li><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a> · <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a></li>
-          </ul></div>
+          <div><h2 data-t="foot_areas"></h2><ul class="foot-areas" id="foot-areas"></ul></div>
+          <div><h2 data-t="foot_tools"></h2>
+            <ul><li><a href="/ranking" data-t="nav_rank"></a></li><li><a href="/comprobar" data-t="nav_check"></a></li>
+              <li><a href="/metodologia" data-t="nav_method"></a></li><li><a href="/preguntas" data-t="nav_faq"></a></li>
+              <li><a href="/metodologia#prensa" data-t="foot_press"></a></li><li><a href="/contacto" data-t="foot_contact"></a></li>
+              <li><a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener" data-t="foot_code"></a></li></ul>
+            <h2 style="margin-top:26px" data-t="foot_sources"></h2>
+            <p class="foot-sources"><span data-t="foot_registers"></span>
+              <a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Andalucía</a> ·
+              <a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Catalunya</a> ·
+              <a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Mallorca</a> ·
+              <a href="https://dadesobertes.gva.es/" target="_blank" rel="noopener">C. Valenciana</a> ·
+              <a href="https://opendata.euskadi.eus/" target="_blank" rel="noopener">Euskadi</a> ·
+              <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Aragón</a> ·
+              <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Murcia</a> ·
+              <a href="https://datos.canarias.es/" target="_blank" rel="noopener">Canarias</a>.
+              <a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> ·
+              <a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Catastro</a> ·
+              <a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> ·
+              <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>.
+              <a href="/metodologia#fuentes" data-t="foot_all_sources"></a></p></div>
         </div>
         <div class="foot-base">
           <span class="built-by"><span data-t="foot_built"></span> <a href="${SHIFTED_LABS}" target="_blank" rel="noopener">Shifted Labs</a></span>
@@ -269,7 +272,8 @@
       getJSON("/data/areas.json").then((A) => {
         cityPicker(A);
         const paint = () => {
-          document.getElementById("foot-areas").innerHTML = A.areas.filter((a) => a.kind !== "province").map((a) => `<li><a href="${areaHref(a.slug)}">${esc(name(a.name))}</a></li>`).join("");
+          document.getElementById("foot-areas").innerHTML = A.areas.filter((a) => a.kind !== "province")
+            .map((a) => `<li><a href="${areaHref(a.slug)}">${esc(name(a.name).replace(/ \((ciudad|city)\)$/, ""))}</a></li>`).join("");
           document.getElementById("foot-updated").textContent = `${t("foot_updated")} ${date(A.built_at)}`;
         };
         paint();

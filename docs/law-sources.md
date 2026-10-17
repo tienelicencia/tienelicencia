@@ -351,8 +351,10 @@ tourist accommodation).
    - **New DA 12ª LAU** (21st amendment): the LAU is civil law (CE 149.1.8ª) and leaves the regions' housing powers
      intact. Its rules on temporary and room lets are "sin perjuicio" of regional rules. The text does not mention
      regional tourism powers.
-   - Art. 20: adverts must show the "códigos alfanuméricos de ámbito municipal o autonómico relativos a las viviendas
-     de uso turístico". The regional code is still the identifier.
+   - Art. 20.2.c requires the identifier in adverts only "cuando proceda". The mention of "códigos alfanuméricos de
+     ámbito municipal o autonómico relativos a las viviendas de uso turístico" is in the preamble, not the article
+     (corrected 17 Oct 2026, see the Madrid section). So the duty to show a regional code comes from each region's own
+     law, not from the RDL.
    - The RDL does not amend Andalusian law (no mention of Andalucía). Read together:
      - From 8 Oct 2026, national civil law treats any stay of 32 nights or more as a LAU lease, not a tourist let.
      - Decreto 28/2016 has not been amended and still brings stays of 32 nights up to two months within the VUT rules.
@@ -1205,3 +1207,124 @@ https://www.boe.es/buscar/act.php?id=BOE-A-2025-26358
    page): electronic tourism complaints, Decreto 77/2022.
    https://sede.gobiernodecanarias.org/sede/procedimientos_servicios/tramites/6638
    We found no dedicated form for unregistered VV; that complaint form is the general route.
+
+## Madrid (Comunidad de Madrid) (checked 17 Oct 2026)
+"Verified" means read in the BOCM PDFs of Decreto 79/2014 (BOCM núm. 180, 31 Jul 2014, BOCM-20140731-1), Decreto 29/2019
+(BOCM núm. 87, 12 Apr 2019, BOCM-20190412-1) and Decreto 27/2026 (BOCM núm. 80, 6 Apr 2026, BOCM-20260406-1); the BOE
+consolidated text of Ley 1/1999 (BOE-A-1999-12089, last update published 15 Jun 2026); the BOE texts cited; the
+poderjudicial.es note cited; or the datos.comunidad.madrid catalogue (CKAN API, 17 Oct 2026). "Press" means not checked
+against an official text. Term: vivienda de uso turístico (VUT). Register: Registro de Empresas Turísticas (REM), kept by
+the Dirección General de Turismo y Hostelería. Numbers look like **VT-1234** ("signatura"; no legal text defines the format).
+**Correction to the 16 Oct notes:** Decreto 27/2026 does **not** replace Decreto 79/2014. It amends it (no derogatory
+provision). The advert-number duty was not dropped in 2026: it had already gone in 2018 (see 1).
+
+1. **The number in adverts: no Madrid rule requires it (verified).**
+   - **Original rule, annulled.** Decreto 79/2014 art. 17.5 (VUT) and art. 11.3 (apartamentos turísticos): REM inscription
+     after the declaración responsable, "debiendo constar en toda forma de publicidad el número de referencia de su
+     inscripción en el citado Registro". https://www.bocm.es/boletin/CM_Orden_BOCM/2014/07/31/BOCM-20140731-1.PDF
+   - **Tribunal Supremo, Sala 3ª, sentencia 1741/2018, 10 Dec 2018** (ECLI:ES:TS:2018:4084; Asociación Madrid Aloja)
+     annulled art. 17.5. Reasoning (CGPJ note, 12 Dec 2018): the Comunidad's own lawyer accepted that REM inscription is
+     voluntary, so requiring its number in all advertising is unjustified and contrary to Ley 17/2009. Judgment text not
+     opened; number and date confirmed by the Decreto 29/2019 preamble ("cuyo número de referencia debía constar en toda
+     forma de publicidad"). Earlier, TSJ Madrid sentencia 302/2016 annulled the 5-night minimum in art. 17.3.
+     https://www.poderjudicial.es/cgpj/es/Poder-Judicial/Noticias-Judiciales/El-Tribunal-Supremo-anula-dos-requisitos-del-Decreto-de-2014-que-regula-los-apartamentos-de-uso-turistico-en-la-Comunidad-de-Madrid
+   - **Decreto 29/2019, de 9 de abril** (BOCM núm. 87, 12 Apr 2019; in force 13 Apr 2019) rewrote arts. 11 and 17
+     **without** the publicity clause. New art. 17.3: inscription "se realizará, en su caso, en la forma y con los efectos
+     determinados en el artículo 23 de la Ley 1/1999". https://www.bocm.es/boletin/CM_Orden_BOCM/2019/04/12/BOCM-20190412-1.PDF
+   - **Decreto 27/2026, de 25 de marzo, del Consejo de Gobierno, por el que se modifica el Decreto 79/2014, de 10 de julio,
+     del Consejo de Gobierno, por el que se regulan los apartamentos turísticos y las viviendas de uso turístico de la
+     Comunidad de Madrid** (BOCM núm. 80, 6 Apr 2026; in force 20 days after publication, so **26 Apr 2026**, DF 2ª).
+     It rewrites arts. 2, 5, 7, 10, 11, 14, 15, 17, 17 bis and 18, and adds 11 bis, 17 ter and 17 quáter. None of them
+     mentions publicidad, anuncios or plataformas, or the number. New art. 17.2 keeps the 2019 wording ("se realizará,
+     en su caso"). The words "publicidad" and "plataforma" appear only in the preamble.
+     https://www.bocm.es/boletin/CM_Orden_BOCM/2026/04/06/BOCM-20260406-1.PDF
+   - **Ley 1/1999 de Ordenación del Turismo, art. 23.2** (unchanged since Ley 8/2009): the REM "será público y la
+     inscripción en el mismo tendrá carácter voluntario". What is compulsory is the declaración responsable (art. 21.1;
+     Decreto 79/2014 art. 17.1). Offering without one is muy grave (art. 59.a), fined €30,001–300,000 (art. 61.1.b). No
+     article of the law requires the number in adverts. The only "publicidad" infractions are generic: art. 57.g (leve)
+     and art. 58.i (grave, misleading advertising). Art. 57.c (leve) covers missing "distintivos"; the door plaque is
+     Decreto 79/2014 art. 20, not amended (the model is an image annex, now anexo II; we did not check whether it shows the
+     number). Fines: leve up to €3,000; grave €3,001–30,000. https://www.boe.es/buscar/act.php?id=BOE-A-1999-12089
+   - **Pending reform, not law.** Anteproyecto amending Ley 1/1999. Consulta pública 27 Jun–18 Jul 2025; still an
+     "anteproyecto" in the Asamblea bulletins (BOAM núm. 143, 26 Feb 2026, and núm. 148, 1 Apr 2026). An undated draft
+     Consejo de Gobierno acuerdo (expediente 2026) on comunidad.madrid has new art. 23.3: inscription "se practicará de
+     oficio", in order to comply with Reglamento (UE) 2024/1028 and RD 1312/2024 (its preamble). Even this draft has no
+     advert-number clause. The BOE consolidated Ley 1/1999 shows no such change (the 15 Jun 2026 update is Ley 2/2026 art.
+     6, about planning reports only). An earlier 2022 anteproyecto was archived ("carencia de tiempo material").
+     https://www.comunidad.madrid/transparencia/sites/default/files/acuerdo_.pdf
+   - **National law: unclear.** RDL 29/2026 art. 20.2.c (BOE-A-2026-20823): every "oferta o publicidad de
+     arrendamiento" must include "El número, código o título identificativo de la unidad arrendada, cuando proceda". The
+     "códigos alfanuméricos de ámbito municipal o autonómico relativos a las viviendas de uso turístico" example is in
+     the **preamble (exposición de motivos)**, not in the article. (The "Seasonal-let thresholds" section quotes it as if
+     it were art. 20.) In Madrid, where inscription is voluntary, "cuando proceda" is arguable. The RDL also needs to be
+     convalidated (see "Seasonal-let thresholds").
+   - **Site consequence (our reading).** In Madrid a listing without a VT number is not, on that ground alone, in breach
+     of any regional rule we found. Keep the neutral wording ("doesn't display a valid number"), and say on the Madrid page
+     that showing it is not compulsory under regional law. A displayed VT number that matches the REM still means the flat
+     is registered.
+2. **National register and EU Regulation 2024/1028 (verified).**
+   - **STS of 19 May 2026** (Sala 3ª, Sección 3ª, rec. 1/143/2025, Generalitat Valenciana; fallo published in «BOE» núm.
+     139, 8 Jun 2026, BOE-A-2026-12300; the BOE entry gives no judgment number, and "620/2026" comes from our earlier notes
+     and press). It annuls "los preceptos ... referidos al procedimiento de registro único de arrendamientos y la
+     obligación de la inscripción en el Registro de la Propiedad o en el de Bienes Muebles para obtener un numero de
+     registro que permita ofrecer los servicios de alquiler de alojamientos de corta duración a través de las plataformas
+     en línea": arts. 5, 8, 9, 10, 12.b–c, DA 2ª, and art. 1, art. 2.f/i/j, art. 6 and DF 1ª in part. The rest stands
+     ("Desestimar el recurso en todo lo demás"), including the ventanilla única. https://www.boe.es/buscar/doc.php?id=BOE-A-2026-12300
+   - **Reglamento (UE) 2024/1028** (DOUE-L-2024-80593), applicable **from 20 May 2026** (art. 19), directly applicable.
+     - Art. 3: a "procedimiento de registro" is one by which hosts must give information "al objeto de obtener un número de
+       registro que les permita ofrecer servicios ... a través de plataformas".
+     - Art. 4.1: any national, regional or local registration procedure must comply. Art. 4.2: a procedure is compulsory
+       only where the state requires platforms to transmit data. Art. 4.3.h: hosts must tell the platform whether the
+       unit is subject to a procedure and, if so, give the number.
+     - Art. 7.1.b: when the host declares that the unit is in such a zone, the platform must make sure the host provides
+       the number before the listing goes live and shows it "claramente ... como parte de su anuncio". Art. 7.1.c:
+       platforms must make reasonable efforts to spot-check validity.
+     https://www.boe.es/buscar/doc.php?id=DOUE-L-2024-80593
+   - **Effect in Madrid: unclear (our reading).** The EU duty to show a number exists only where a "procedimiento de
+     registro" applies. Madrid's REM inscription is voluntary and, since 2018, is not a condition for advertising, so it
+     arguably does not meet the art. 3 definition. The national procedure that did is annulled. The government's own
+     draft bill wants inscription de oficio to "cumplir con el Reglamento (UE) 2024/1028", which suggests it sees a gap.
+     We found no official Madrid or Ministry statement naming the VT number as the Regulation's registration number,
+     and no list under art. 13.1.a.
+3. **Register (verified on datos.comunidad.madrid, 17 Oct 2026).**
+   - "Alojamientos turísticos de la Comunidad de Madrid" (DG Turismo y Hostelería; CC BY; "Cobertura geográfica: TODA la
+     Comunidad de Madrid"; weekly; CSV/JSON last modified 12 Oct 2026). It holds 8,639 rows of all types. **6,186 VUT**
+     rows (type "VIVIENDAS DE USO TU ", all signatura VT-…) in **136 municipalities**. Madrid city has **4,806**. No
+     status or date columns. https://datos.comunidad.madrid/dataset/alojamientos_turisticos
+   - Second dataset: "Declaraciones responsables de actividad de viviendas de uso turístico ... presentadas" (monthly,
+     modified 14 Oct 2026; monthly history ZIP from 2025). Its description says these VUT filed the declaración "Sin
+     inscripción en el Registro de Empresas Turísticas". It has **1,164 rows** (Madrid city 1,113), with an address but no
+     number (only "VT"). These flats are lawfully declared but have no VT number to show.
+     https://datos.comunidad.madrid/dataset/declaraciones_actividad_viviendas_uso_turistico
+   - **No municipal number scheme found.** Decreto 27/2026 art. 17 ter.4 lets councils limit VUT per building, area or
+     period, but gives them no register. In Madrid city, the council's control is a planning permit (item 4), not a
+     public code. Not checked: every one of the 179 councils.
+4. **Madrid city planning (verified, except where marked press).**
+   - **Plan Reside** = Modificación del PGOU 1997 "para la mejora del uso residencial" (exp. 135-2024-00206), approved
+     definitively by the Consejo de Gobierno on 27 Aug 2025 (BOCM núm. 211, 4 Sep 2025). Normas published in BOCM núm.
+     226, 22 Sep 2025 (BOCM-20250922-47); in effect from then (press: Garrigues, Uría). It replaces, for the centre, the
+     2019 Plan Especial de Hospedaje.
+     - New NN.UU. art. 7.6.3 bis (APE 00.01 Centro Histórico): VUT in residential buildings only as a whole-building
+       "uso alternativo" in buildings listed at protection level 3. The licence lapses after 15 years and the building
+       returns to housing.
+     - Listed levels 1–2 need a plan especial de protección. Prohibited in unbuilt plots and unlisted buildings.
+     - Art. 7.6.3.4: separate access always. Art. 7.6.3.2: VUT must also meet the housing conditions.
+     - Outside the centre, residential buildings: hospedaje only in floors below ground, ground and first floor (press
+       summary of the same BOCM text; not reread).
+     https://www.bocm.es/boletin/CM_Orden_BOCM/2025/09/22/BOCM-20250922-47.PDF
+   - **How the licence relates to the VT number.** The VUT is "hospedaje", which needs a licencia urbanística
+     (Ordenanza 6/2022 art. 34 and anexo I, as cited in DGSJFP Resolución 24 Oct 2025, BOE-A-2026-4181, «BOE» núm. 48,
+     23 Feb 2026). Decreto 79/2014 art. 17 bis.d (2026 wording): the declaración responsable gives "el número y fecha del
+     título habilitante urbanístico municipal". The REM does not publish this, so **a VT number does not prove the city
+     licence**. The Resolution also records the council's indefinite suspension of new VUT hospedaje licences (as the
+     appellant described it). https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-4181
+   - Press only: about 13,400 VUT in the city in May 2026 (INE-based), against about 4,800 VT in the register. Not
+     checked: any court challenge to Plan Reside or Decreto 27/2026.
+5. **Duration threshold (verified).**
+   - Madrid sets **no minimum or maximum stay**. Decreto 79/2014 art. 2.b (2026 wording) defines a VUT by marketing "en
+     canales de oferta turística", let "en su totalidad", "de forma habitual", "sin carácter de residencia permanente".
+     Art. 2.c: the activity is habitual once the declaración is filed "y se publicita por cualquier medio".
+   - The old 5-night minimum (art. 17.3) was annulled in 2016. The old "three months a year" habitualidad test (art. 3.2)
+     was dropped by Decreto 29/2019.
+   - So the only line is national: RDL 29/2026, LAU art. 5.e, 31-day cap. Site rule: "possibly exempt" at **≥ 32 nights**
+     while the RDL is in force. If it lapses, Madrid has no regional threshold to fall back on.

@@ -181,7 +181,9 @@
               pero no puede ser válido para todos ellos. Solo lo marcamos si esos anuncios son de dos o más anfitriones distintos: un mismo anfitrión que anuncia
               dos veces la misma vivienda no cuenta.</li>
             <li><b>Posiblemente exentos.</b> Los anuncios sin número de la Junta que parecen hoteles o alojamientos rurales, exigen estancias de 60 noches o más,
-              se declaran de temporada o solo muestran un número nacional se cuentan aparte y no como «sin número válido».</li>
+              se declaran de temporada o solo muestran un número nacional se cuentan aparte y no como «sin número válido». (En otras comunidades, el umbral
+              de estancia es el de su normativa: ver <a href="#ley">normativa por zona</a>.) Un anuncio que se declara «de temporada» solo cuenta como posiblemente
+              exento si su estancia mínima llega a ese umbral, o si no la conocemos: uno que se dice de temporada y admite reservas de dos noches, no.</li>
           </ol>
           <p>Usamos la última lectura en directo de cada anuncio si tiene menos de 45 días; si no, el texto de la instantánea de Inside Airbnb.
             Los anuncios retirados desde la instantánea no se cuentan, pero los seguimos revisando por si vuelven. Un anuncio nuevo (o uno retirado y publicado de nuevo con
@@ -203,7 +205,9 @@
               be valid for all of them. We only flag it when those listings come from two or more different hosts: one host listing the same flat twice
               doesn't count.</li>
             <li><b>Possibly exempt.</b> Listings with no Junta number that look like hotels or rural lets, require stays of 60 nights or more, claim to be
-              seasonal lets or only show a national number are counted separately, not as “no valid number”.</li>
+              seasonal lets or only show a national number are counted separately, not as “no valid number”. (In other regions, the stay threshold is the one in their rules: see <a href="#ley">the law by area</a>.) A listing that calls itself a
+              "seasonal let" only counts as possibly exempt if its minimum stay reaches that threshold, or we don't know it: one that says it's seasonal and takes
+              two-night bookings doesn't.</li>
           </ol>
           <p>We use each listing's latest live reading if it's under 45 days old; otherwise the Inside Airbnb snapshot text. Listings removed since
             the snapshot are not counted, but we keep re-checking them in case they come back. A new listing (or one removed and re-posted under a new reference)
@@ -373,6 +377,83 @@
           of how many tourist flats each barrio has, so we don't publish that comparison: the data doesn't let us attribute the rise to each area's tourist flats.</p>
 
         <!-- ------------------------------------------------------------------ -->
+        <h2 id="ranking"><span lang="es">Ranking de ciudades</span><span lang="en">City ranking</span></h2>
+        <div lang="es">
+          <p>El <a href="/ranking">ranking</a> compara las diez ciudades más pobladas de España (padrón del INE): Madrid, Barcelona, Valencia, Sevilla, Zaragoza, Málaga,
+            Murcia, Palma, Las Palmas de Gran Canaria y Bilbao. Mide la <b>presión de la vivienda turística</b>: cuánta vivienda se dedica al alquiler turístico y cuánto
+            se concentra. Aparte, muestra cuántos anuncios no muestran un número de registro válido.</p>
+          <h3>Puntuación de presión turística (0–100)</h3>
+          <p>Es la media de dos medidas que tenemos para todas las ciudades. Cada una se expresa respecto a la ciudad más alta en esa medida (que vale 100), así que
+            la puntuación compara ciudades entre sí: 50 significa la mitad que la ciudad más afectada, no «la mitad de lo admisible».</p>
+          <ul>
+            <li><b>Cantidad:</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo sobre el total de viviendas del municipio, según la estadística experimental
+              del INE (sin duplicados entre plataformas). Es la misma fuente para todas las ciudades y cuenta lo que se anuncia, tenga registro o no.</li>
+            <li><b>Concentración:</b> anuncios de Airbnb por cada 100 viviendas en el <b>círculo de 1&nbsp;km más afectado</b> de la ciudad. Probamos centros cada 200&nbsp;m
+              allí donde hay anuncios y nos quedamos con el que tiene más anuncios por vivienda, entre los círculos con al menos 3.000 viviendas (para que una playa o un
+              parque con pocas viviendas no gane). Usamos la zona más afectada, y no el «centro histórico», porque cada ciudad lo define de una manera y porque en algunas
+              el turismo se concentra fuera de él (en Las Palmas, junto a Las Canteras). Los anuncios salen de Inside Airbnb o, donde no hay datos, de nuestra propia lista
+              de anuncios de Airbnb; las viviendas, del Catastro (o del censo de 2021 repartido por barrios, en el País Vasco).</li>
+          </ul>
+          <p>Si a una ciudad le falta la medida de concentración (porque aún no la cubrimos), su puntuación usa solo la cantidad y se marca con un asterisco.</p>
+          <h3>Lo que se muestra junto a la puntuación</h3>
+          <ul>
+            <li><b>Anuncios sin número válido:</b> la parte de los anuncios de Airbnb que no muestran un número que esté en el registro autonómico, sobre <b>todos</b> los
+              anuncios (sin quitar los posiblemente exentos, para que ningún umbral regional favorezca a una ciudad). En Zaragoza, Murcia y Las Palmas sale de una muestra
+              aleatoria de 400 anuncios revisados uno a uno. Se puede ordenar el ranking por esta columna; no forma parte de la puntuación de presión.</li>
+            <li><b>Barra:</b> la cantidad anunciada, dividida en la parte que muestra un número válido y la que no (aplicando a la cifra del INE el porcentaje de nuestras
+              comprobaciones). La marca vertical son las viviendas con licencia turística registrada sobre el total: puede ser más que lo anunciado, porque una vivienda
+              registrada puede no estar anunciándose.</li>
+            <li><b>Edificios:</b> edificios de pisos (4 viviendas o más en el Catastro) en los que las viviendas turísticas registradas son el 25&nbsp;% o más. Solo donde
+              podemos situar en su edificio al menos el 80&nbsp;% de las viviendas registradas (por referencia catastral, dirección o coordenadas a menos de 25&nbsp;m);
+              si no, no lo mostramos para no quedarnos cortos.</li>
+          </ul>
+          <h3>Límites</h3>
+          <ul>
+            <li>El INE solo cuenta los anuncios que cumplen la definición de vivienda turística de cada comunidad, y eso cambia entre regiones. En Palma, por ejemplo,
+              cuenta muchas menos viviendas que anuncios encontramos en Airbnb.</li>
+            <li>Los anuncios de Airbnb incluyen habitaciones y pueden duplicar una misma vivienda; el INE quita duplicados. Por eso las dos medidas no se suman.</li>
+            <li>Las fechas no coinciden del todo: INE (semestral), Inside Airbnb (trimestral), nuestras muestras y registros (diarios o semanales). Cada cifra indica su fecha.</li>
+            <li>Una puntuación más alta no significa que haya más incumplimiento, sino más vivienda dedicada al turismo. Para eso está la columna de anuncios sin número válido.</li>
+          </ul>
+        </div>
+        <div lang="en">
+          <p>The <a href="/ranking">ranking</a> compares Spain's ten most populated cities (INE register): Madrid, Barcelona, Valencia, Seville, Zaragoza, Málaga, Murcia,
+            Palma, Las Palmas de Gran Canaria and Bilbao. It measures <b>tourist-housing pressure</b>: how much housing goes to tourist lets and how concentrated it is.
+            Separately, it shows how many listings don't display a valid registration number.</p>
+          <h3>Tourist-pressure score (0–100)</h3>
+          <p>It's the average of two measures we have for every city. Each is expressed relative to the highest city on that measure (= 100), so the score compares cities
+            with each other: 50 means half the most affected city, not "half of what's acceptable".</p>
+          <ul>
+            <li><b>Amount:</b> tourist homes advertised on Airbnb, Booking and Vrbo as a share of all homes in the municipality, from the INE's experimental statistic
+              (de-duplicated across platforms). Same source for every city; it counts what's advertised, registered or not.</li>
+            <li><b>Concentration:</b> Airbnb listings per 100 homes in the city's <b>most affected 1 km circle</b>. We try centres every 200 m wherever there are listings
+              and keep the one with the most listings per home, among circles with at least 3,000 homes (so a beach or a park with few homes doesn't win). We use the most
+              affected area rather than the "historic centre" because each city defines that differently and in some the tourism sits elsewhere (in Las Palmas, by Las
+              Canteras). Listings come from Inside Airbnb or, where there's none, our own list of Airbnb listings; homes from the Catastro (or the 2021 census spread
+              over barrios, in the Basque Country).</li>
+          </ul>
+          <p>If a city is missing the concentration measure (not covered yet), its score uses amount alone and is marked with an asterisk.</p>
+          <h3>What's shown next to the score</h3>
+          <ul>
+            <li><b>Listings without a valid number:</b> the share of Airbnb listings not showing a number that's in the regional register, out of <b>all</b> listings
+              (possibly exempt ones are not removed, so no regional threshold favours a city). In Zaragoza, Murcia and Las Palmas it comes from a random sample of 400
+              listings checked one by one. The ranking can be sorted by it; it isn't part of the pressure score.</li>
+            <li><b>Bar:</b> the advertised amount, split into the part showing a valid number and the part that doesn't (applying our checks' percentage to the INE figure).
+              The vertical mark is homes with a registered tourist licence as a share of all homes: it can exceed what's advertised, since a registered flat may not be
+              advertised.</li>
+            <li><b>Buildings:</b> apartment buildings (4+ homes in the Catastro) where registered tourist flats are 25% or more of homes. Only where we can place at least
+              80% of registered flats in their building (by cadastral reference, address or coordinates within 25 m); otherwise we don't show it, so as not to undercount.</li>
+          </ul>
+          <h3>Limits</h3>
+          <ul>
+            <li>The INE only counts listings that meet each region's definition of a tourist home, and that varies. In Palma, for example, it counts far fewer homes than
+              the listings we find on Airbnb.</li>
+            <li>Airbnb listings include rooms and can duplicate a home; the INE removes duplicates. So the two measures don't add up.</li>
+            <li>Dates don't fully match: INE (twice a year), Inside Airbnb (quarterly), our samples and registers (daily or weekly). Each figure gives its date.</li>
+            <li>A higher score means more housing given over to tourism, not more non-compliance. That's what the listings-without-a-valid-number column is for.</li>
+          </ul>
+        </div>
+
         <h2 id="privacidad"><span lang="es">Privacidad</span><span lang="en">Privacy</span></h2>
         <div lang="es">
           <ul>

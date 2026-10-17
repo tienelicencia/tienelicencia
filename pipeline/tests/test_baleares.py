@@ -46,7 +46,9 @@ class ClassifyTests(unittest.TestCase):
         self.assertEqual(self.cat(""), "NO_CODE_IN_SCOPE")
         self.assertEqual(self.cat("", mn="31"), "NO_CODE_POSSIBLY_EXEMPT")   # a tourist stay is at most 30 nights
         self.assertEqual(self.cat("", mn="30"), "NO_CODE_IN_SCOPE")
-        self.assertEqual(self.cat("Mallorca - Regional registration number<br />Exempt - seasonal rental"), "NO_CODE_POSSIBLY_EXEMPT")
+        seasonal = "Mallorca - Regional registration number<br />Exempt - seasonal rental"
+        self.assertEqual(self.cat(seasonal, mn=""), "NO_CODE_POSSIBLY_EXEMPT")    # minimum stay not known: benefit of the doubt
+        self.assertEqual(self.cat(seasonal, mn="3"), "NO_CODE_IN_SCOPE")          # "seasonal" but takes 3-night stays
         self.assertEqual(self.cat("", room="Hotel room"), "NO_CODE_POSSIBLY_EXEMPT")
 
     def test_whole_home_group(self):

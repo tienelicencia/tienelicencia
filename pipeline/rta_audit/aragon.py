@@ -16,6 +16,8 @@ import re
 import zipfile
 import xml.etree.ElementTree as ET
 
+from .classify import seasonal_claim
+
 SEASONAL_NIGHTS = 32   # tourist use presumed for stays of a month or less (Decreto 1/2023, art. 4.3); see docs/law-sources.md
 URL = "https://aplicaciones.aragon.es/wturpub/informes/exportarActividadesTuristicasExcel?tipoExportacion=exportarVUT"
 NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
@@ -134,7 +136,8 @@ def classify(raw, lat, lon, room_type, min_nights, idx):
     except ValueError:
         long_stay = False
     if long_stay or room_type == "Hotel room" or p["national"] \
-            or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada|apartamento|apartment|hotel", p["exempt_text"])):
+            or seasonal_claim(p["exempt_text"], min_nights, SEASONAL_NIGHTS) \
+            or (p["exempt_text"] and re.search(r"(?i)apartamento|apartment|hotel", p["exempt_text"])):
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}
 

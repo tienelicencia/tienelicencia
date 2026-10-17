@@ -70,6 +70,17 @@ def type_problem(rec, room_type):
     return None
 
 
+
+def seasonal_claim(exempt_text, min_nights, threshold):
+    """A listing that says it's a seasonal (non-tourist) let counts as possibly exempt only if its minimum stay backs that
+    up: at least the region's seasonal threshold, or not known. A "seasonal" listing that takes 2-night bookings doesn't."""
+    if not (exempt_text and re.search(r"(?i)seasonal|temporada", exempt_text)):
+        return False
+    try:
+        return not min_nights or int(min_nights) >= threshold
+    except (TypeError, ValueError):
+        return True
+
 def classify(view, index, official, max_issued, home="MÁLAGA"):
     """view: dict with registration_raw, lat, lon, room_type, property_type, min_nights. home: the listings' municipality
     as the register spells it ("MÁLAGA", "SEVILLA").
@@ -178,7 +189,7 @@ def classify(view, index, official, max_issued, home="MÁLAGA"):
         exempt_reasons.append("national_type_non_tourist")
     # "Exempt – tourist apartment" in the national slot exempts from the national register only;
     # a seasonal-rental claim is a claim to be outside tourist-rental rules altogether.
-    if p["exempt_text"] and re.search(r"(?i)seasonal|temporada", p["exempt_text"]):
+    if seasonal_claim(p["exempt_text"], view.get("min_nights"), 60):
         exempt_reasons.append(f"claims_exempt:{p['exempt_text'][:40]}")
     if re.search(r"(?i)rural|cortijo|finca", pt):
         exempt_reasons.append("rural_property_type")

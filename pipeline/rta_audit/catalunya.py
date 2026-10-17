@@ -8,6 +8,7 @@ the Ajuntament's open data adds coordinates and barri for each HUTB. We never re
 import csv
 import re
 
+from .classify import seasonal_claim
 from .register import haversine_m
 
 LOCATION_THRESHOLD_M = 800      # same as Andalucía
@@ -144,7 +145,7 @@ def classify(raw, lat, lon, room_type, min_nights, idx, home="Barcelona"):
         long_stay = int(min_nights or 0) >= SEASONAL_NIGHTS
     except ValueError:
         long_stay = False
-    if long_stay or room_type == "Hotel room" or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada", p["exempt_text"])) \
+    if long_stay or room_type == "Hotel room" or seasonal_claim(p["exempt_text"], min_nights, SEASONAL_NIGHTS) \
             or p["national"]:
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}
