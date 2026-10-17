@@ -1,0 +1,68 @@
+name: 3 · Build site
+
+# Rebuilds the site data from the latest data cache ("1 · Sources") and the latest checks ("2 · Airbnb checks", in the
+# private state repository), runs the tests and commits the aggregate data here; Netlify redeploys on the commit.
+# Runs after either of them finishes, and once a day as a fallback. A failure here loses nothing upstream: just run it again.
+on:
+  workflow_run:
+    workflows: ["1 · Sources", "2 · Airbnb checks"]
+    types: [completed]
+  schedule:
+    - cron: "30 11 * * *"   # 11:30 UTC daily fallback
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: true   # a newer build has everything an older queued one would
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Private state (per-listing checks, town samples, hand-collected notes)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.STATE_REPO || 'tienelicencia/tienelicencia-state' }}
+          ssh-key: ${{ secrets.STATE_DEPLOY_KEY }}
+          path: state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests openpyxl
+      - name: Restore data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}
+          restore-keys: rta-cache-
+      - name: Build site data
+        working-directory: pipeline
+        run: |
+          if [ ! -f cache/register/register_meta.json ]; then
+            echo "::error::No data cache yet: run '1 · Sources' first."
+            exit 1
+          fi
+          python site_build.py build
+      - name: Tests
+        run: |
+          cd pipeline && python -m unittest discover -s tests && cd ..
+          node netlify/functions/test.mjs
+      - name: Commit
+        run: |
+          git config user.name "licencemap-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add site/data netlify/functions/data   # aggregate data only; per-listing state lives in the private repo
+          git diff --cached --quiet && exit 0
+          git commit -m "Data refresh $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 10
+          done
+          exit 1

@@ -1,0 +1,51 @@
+name: 1 · Sources
+
+# Downloads the open government data every day: the Junta register (only when it changed), the other regions' registers,
+# Inside Airbnb's listing files, barrios and address points, INE and the Catastro (with a time budget: a first full
+# download continues on the next run). Saves them to the shared data cache that "2 · Airbnb checks" and "3 · Build site"
+# restore. Commits nothing. A source that is down keeps yesterday's copy.
+on:
+  schedule:
+    - cron: "17 3 * * *"   # 03:17 UTC daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sources
+  cancel-in-progress: false
+
+jobs:
+  sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests openpyxl
+      - name: Restore data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}
+          restore-keys: rta-cache-
+      - name: Refresh sources
+        working-directory: pipeline
+        continue-on-error: true   # each source is handled on its own; a failure keeps the cached copy
+        run: python site_build.py refresh
+      - name: Check we have a register
+        run: |
+          if [ ! -f pipeline/cache/register/register_meta.json ]; then
+            echo "::error::No Junta register downloaded or cached: see 'Refresh sources' above."
+            exit 1
+          fi
+          du -sh pipeline/cache/* || true
+      # Save only a cache with a register, so a failed first download never replaces a good copy
+      - name: Save data cache
+        uses: actions/cache/save@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}

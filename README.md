@@ -25,7 +25,7 @@ Questions, corrections and suggestions: [tienelicencia.com/contacto](https://tie
 | `pipeline/site_build.py` | `refresh` (download sources), `recheck` (live-check Airbnb listings), `sample` (a town's random sample), `build` (write `site/data`). Areas are defined in `AREAS`. |
 | `pipeline/rta_audit/` | Number parsing and matching (`codes.py`, `classify.py`), register, Catastro, INE, Inside Airbnb, Airbnb search. |
 | `docs/law-sources.md` | The legal research behind the "law by area" sections, with official sources. |
-| `.github/workflows/` | The daily refresh (one job per city) and the quarterly town samples. |
+| `.github/workflows/` | `1 · Sources` (daily open-data downloads into a shared cache), `2 · Airbnb checks` (daily re-checks per city, quarterly town samples; results to the private state repo) and `3 · Build site` (rebuilds and commits the site data after either). |
 
 The method in plain language, with its limits: [tienelicencia.com/metodologia](https://tienelicencia.com/metodologia).
 

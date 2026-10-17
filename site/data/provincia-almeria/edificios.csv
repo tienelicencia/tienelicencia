@@ -5,12 +5,12 @@ Madrid 9,Pulpi,134,671
 Ciudad de Alicante 6,Vera,122,595
 Califato 5,Mojacar,104,494
 España 2,Pulpi,90,415
-Sotavento 2,Vera,88,426
+Sotavento 2,Vera,89,432
 Pintor Morales 2,Mojacar,86,342
 Mirador de la Marina 2,Mojacar,83,350
 Ciudad de Tarragona 3,Vera,81,314
 Tortuga Boba 3,Vera,70,220
-Moro Manco 1,Mojacar,65,312
+Moro Manco 1,Mojacar,66,316
 Lisboa 2,Pulpi,62,306
 Del Descubrimiento 5,Vera,59,280
 Arquitecto Julian Laguna 35,"Ejido, el",59,256
@@ -18,17 +18,17 @@ Las Higueras 95,Vicar,56,237
 Europa 7,Pulpi,56,297
 Alcazaba 115,Vera,53,277
 Juan Sebastian el Cano 72,Vera,53,203
-Cortijos del Sotillo E1-1,Nijar,52,316
 Torre Bahia 1,Roquetas de Mar,51,159
+Cortijos del Sotillo E1-1,Nijar,50,308
 Ciudad de Alicante 1,Vera,49,242
 Clara Campoamor 7,Mojacar,49,251
 Madrid 8,Pulpi,49,213
 Del Generalife 2,Vera,48,223
 Del Mediterraneo 409,Mojacar,47,276
 Tortuga Boba 5,Vera,46,158
-Del Mulhacen 1,Vera,45,228
 Ciudad de Cadiz 9,Roquetas de Mar,44,235
 Playa Paraiso 1,Roquetas de Mar,44,161
+Del Mulhacen 1,Vera,44,224
 Viena 2,Pulpi,43,204
 Islas Canarias 9,Vera,43,200
 Juan Sebastian el Cano 72,Vera,40,147
@@ -147,6 +147,7 @@ Eucalipto 5,Roquetas de Mar,14,64
 De las Gaviotas 49,Roquetas de Mar,14,51
 Costa del Sol 26,Almería,14,54
 Vista Alegre 2,Garrucha,14,79
+Ancla 20,Nijar,14,87
 Europa 9,Pulpi,14,71
 Poniente 2,Nijar,13,58
 Costa Levante 5,Mojacar,13,83
@@ -169,7 +170,6 @@ Valle del Sol 1,Vera,13,72
 Carlos Iii 432,Roquetas de Mar,13,73
 Nuñez de Balboa 8,Vera,13,49
 Vera Colina 1,Vera,13,48
-Ancla 20,Nijar,13,81
 De los Castaños 2,Roquetas de Mar,12,56
 Duende 9,Mojacar,12,81
 Marques de Chavarri 32,Mojacar,12,55
@@ -191,7 +191,7 @@ Del Mediterraneo 227,Mojacar,11,46
 Rio Abajo 1,Mojacar,11,49
 Palomares 24,Vera,11,73
 Del Mediterraneo 159,Mojacar,11,41
-Islas Canarias 1,Vera,11,49
+Islas Canarias 1,Vera,11,48
 Cala Chica 2,Nijar,11,46
 Ancla 40,Nijar,11,53
 Jesus de Perceval 23,Mojacar,11,57
