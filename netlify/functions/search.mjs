@@ -12,7 +12,8 @@ export function looksLikeCode(q) {
     || /^\s*[ELHPTBKXC]\s*[-/_.\s]*(BI|SS|VI)\s*[-/_.\s]*\d/i.test(q)   // Euskadi
     || /^\s*(CV\s*[-_\s]*)?VUT?\s*[-_\s]*\d/i.test(q)   // Comunitat Valenciana
     || /^\s*VV\s*[-_\s]*\d/i.test(q)   // Canarias
-    || /^\s*(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*\d/i.test(q);   // Región de Murcia
+    || /^\s*(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*\d/i.test(q)   // Región de Murcia
+    || /^\s*VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*\d/i.test(q);   // Aragón
 }
 
 export default async (req, context) => {

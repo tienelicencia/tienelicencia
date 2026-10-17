@@ -69,11 +69,11 @@
       "Toda vivienda de uso turístico debe estar inscrita en el Registro de Turismo de Aragón y <b>mostrar su número en toda la publicidad</b> (Decreto 1/2023, art. 17.2).",
       "Se presume uso turístico si se anuncia en canales turísticos o la estancia es de <b>un mes o menos</b> (art. 4.3). No se puede alquilar por habitaciones.",
       "Desde el 3 de abril de 2025, una nueva vivienda turística en un edificio con comunidad de propietarios necesita su aprobación expresa.",
-      "El registro de Aragón no tiene datos abiertos con coordenadas y sus condiciones de uso son restrictivas: aquí solo comprobamos números y publicamos totales."],
+      "El registro de Aragón no publica coordenadas y muchas direcciones no llevan número de portal, así que en Zaragoza no hay mapa de viviendas registradas; sí se pueden buscar por número o dirección."],
     ["Every tourist flat must be in the Aragón Tourism Register and <b>display its number in all advertising</b> (Decree 1/2023, art. 17.2).",
       "Tourist use is presumed if the home is advertised on tourist channels or the stay is <b>a month or less</b> (art. 4.3). Letting by the room isn't allowed.",
       "Since 3 April 2025, a new tourist flat in a building with an owners' community needs the community's express approval.",
-      "Aragón's register isn't open data with coordinates and its terms of use are restrictive: here we only check numbers and publish totals."]),
+      "Aragón's register has no coordinates and many addresses lack a street number, so there's no map of registered flats in Zaragoza; you can still search them by number or address."]),
     murcia: () => L([
       "Toda vivienda de uso turístico debe estar inscrita en el registro turístico de la Región de Murcia y <b>mostrar su número en toda la publicidad</b> (Decreto 256/2019, art. 6.6). Desde el 4 de noviembre de 2026, anunciar sin número es infracción grave (Ley 3/2026).",
       "Se permite alquilar por habitaciones si el titular vive en la vivienda.",
@@ -167,6 +167,7 @@
       mallorca: ["ETV/10070", "Carrer Miramar 10 Alcúdia", "Sóller"],
       valencia: ["CV-VUT0044553-V", "Calle Paz 29", "Russafa"],
       bilbao: ["EBI00003", "Bidebarrieta 7", "Abando"],
+      zaragoza: ["VU-ZA-19-112", "César Augusto", "50004"],
       murcia: ["VV.MU.6254-1", "Sucina", "30001"],
       laspalmas: ["VV-35-1-0000750", "Calle Luis Morote 42", "35007"],
       donostia: ["ESS00009", "Zarautz 27", "Gros"],
@@ -176,8 +177,8 @@
       andalucia: ["VUT/GR/00283", "Calle Sagasta 97 Cádiz", "Nerja"],
       provincia: ["VUT/MA/86284", "Avenida del Gamonal Benalmádena", "29780 Nerja"] }[slug] });
     for (const a of [$("#map-teaser"), $("#cta-map")]) a.href = areaHref(slug, "mapa");
-    if (area.restricted) {   // register used for totals only (Zaragoza): no address search, no map of flats
-      for (const el of [$("#area-search").parentElement, $("#map-teaser"), document.querySelector(".cta-band")]) el.style.display = "none";
+    if (area.has_map === false) {   // a register without coordinates (Zaragoza): nothing to put on a map
+      for (const el of [$("#map-teaser"), document.querySelector(".cta-band")]) el.style.display = "none";
     }
     getJSON(`/data/${slug}/preview.json`).then((pts) => TL.preview($("#map-teaser"), pts, { mode: area.has_listings ? "licences" : "licences", pad: 12,
       q: slug === "provincia" || slug === "andalucia" ? [.01, .99] : [.06, .94] }));
@@ -311,7 +312,9 @@
       point("sin-numero", L("Sin número válido", "No valid number"), `<span class="big bad">${pctStr(v.NOT_VALID, n)}</span>`,
         L(`de los anuncios (${fmt(v.NOT_VALID)}) no muestran un número de registro válido de ${RG.by_es}`, `of listings (${fmt(v.NOT_VALID)}) don't display a valid registration number from ${RG.by_en}`),
         `<p>${L("La mayoría simplemente no muestra ningún número. Otros muestran uno que no está en el registro hoy (no sabemos por qué: puede haberse dado de baja o tener una errata) o que pertenece a otro municipio. Es una discrepancia con el registro, <b>no demuestra por sí sola que la vivienda no tenga permiso</b>.",
-          "Most simply show no number at all. Others show one that isn't in the register today (we don't know why: it may have been closed or have a typo) or that belongs to another town. It's a mismatch with the register and <b>doesn't on its own show that a flat lacks a permit</b>.")}</p>`,
+          "Most simply show no number at all. Others show one that isn't in the register today (we don't know why: it may have been closed or have a typo) or that belongs to another town. It's a mismatch with the register and <b>doesn't on its own show that a flat lacks a permit</b>.")}</p>
+         ${LS.need_number_not_valid_pct != null ? `<p>${L(`Si solo contamos los anuncios que necesitan número (sin los ${fmt(v.POSSIBLY_EXEMPT)} posiblemente exentos), <b>el ${String(LS.need_number_not_valid_pct).replace(".", ",")}&nbsp;% no muestra uno válido</b>.`,
+           `Counting only listings that need a number (leaving out the ${fmt(v.POSSIBLY_EXEMPT)} possibly exempt), <b>${LS.need_number_not_valid_pct}% don't display a valid one</b>.`)}</p>` : ""}`,
         bar([[L("No muestran número", "No number shown"), b.no_number, COLORS.no_number],
           [L("Número fuera del registro", "Number not in the register"), b.not_in_register + (b.cancelled || 0), COLORS.not_in_register],
           [L("Licencia de otro municipio", "Another town's licence"), b.other_town, COLORS.other_town]], v.NOT_VALID, true), srcAirbnb);

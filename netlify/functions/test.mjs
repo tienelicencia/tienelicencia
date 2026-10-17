@@ -68,52 +68,66 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(coverage({ location: "Barcelona, Cataluña, España" }).id, "barcelona");
   assert.equal(coverage({ lat: 41.39, lon: 2.17 }).id, "barcelona");
   assert.equal(coverage({ location: "Girona, Cataluña, España" }).covered, false);
-  // Barcelona: HUTB numbers against the Generalitat register
-  const bcn = lookup().cat["HUTB-002062"];
-  assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Entire home/apt", location: "Barcelona" }, lookup()).reason, "valid");
-  assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Private room", location: "Barcelona" }, lookup()).reason, "type_mismatch");
-  assert.equal(assessCat({ registration_raw: "HUTB-000000" }, lookup()).reason, "not_in_register");
-  assert.equal(assessCat({ registration_raw: "ESFCTU000008058000039706000000000000000HUTB-002062349" }, lookup()).key, "HUTB-002062");
+  if (Object.keys(lookup().cat || {}).length) {   // (skipped when this region's data didn't download)
+    // Barcelona: HUTB numbers against the Generalitat register
+    const bcn = lookup().cat["HUTB-002062"];
+    assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Entire home/apt", location: "Barcelona" }, lookup()).reason, "valid");
+    assert.equal(assessCat({ registration_raw: "HUTB-002062", lat: bcn[1], lon: bcn[2], room_type: "Private room", location: "Barcelona" }, lookup()).reason, "type_mismatch");
+    assert.equal(assessCat({ registration_raw: "HUTB-000000" }, lookup()).reason, "not_in_register");
+    assert.equal(assessCat({ registration_raw: "ESFCTU000008058000039706000000000000000HUTB-002062349" }, lookup()).key, "HUTB-002062");
+  }
   assert.equal(coverage({ lat: 37.39, lon: -5.99 }).covered, true);
   // Mallorca: ETV numbers against the Consell de Mallorca registers; Menorca and Ibiza aren't covered
   assert.equal(coverage({ location: "Sóller, Illes Balears, España", lat: 39.77, lon: 2.71 }).id, "mallorca");
   assert.equal(coverage({ location: "Eivissa, Illes Balears, España", lat: 38.91, lon: 1.43 }).covered, false);
   assert.equal(coverage({ location: "Maó, Illes Balears, España", lat: 39.89, lon: 4.26 }).covered, false);
-  const etv = lookup().bal["ETV/10070"];
-  assert.equal(assessBal({ registration_raw: "Mallorca - Regional registration number<br />ETV/10070", lat: etv[1], lon: etv[2], room_type: "Entire home/apt", location: "Alcúdia" }, lookup()).verdict.startsWith("VALID"), true);
-  assert.equal(assessBal({ registration_raw: "ETV/10070", lat: etv[1], lon: etv[2], room_type: "Private room", location: "Alcúdia" }, lookup()).reason, "type_mismatch");
-  assert.equal(assessBal({ registration_raw: "ETV/10070", lat: 39.57, lon: 2.65, room_type: "Entire home/apt", location: "Palma" }, lookup()).reason, "other_place");
-  assert.equal(assessBal({ registration_raw: "ETV/999999" }, lookup()).reason, "not_in_register");
-  assert.equal(assessBal({ registration_raw: "ESFCTU00000703500012345600000000000000000ETV/100700" }, lookup()).key, "ETV/10070");
-  assert.equal(assessBal({ registration_raw: "" }, lookup()).reason, "no_number");
-  assert.ok(looksLikeCode("ETV/10070") && findCode("ETV/10070").rows.length > 0);
-  assert.ok(findAddress("Carrer Miramar 10", "mallorca").length > 0);
+  if (lookup().bal?.["ETV/10070"]) {   // (skipped when this region's data didn't download)
+    const etv = lookup().bal["ETV/10070"];
+    assert.equal(assessBal({ registration_raw: "Mallorca - Regional registration number<br />ETV/10070", lat: etv[1], lon: etv[2], room_type: "Entire home/apt", location: "Alcúdia" }, lookup()).verdict.startsWith("VALID"), true);
+    assert.equal(assessBal({ registration_raw: "ETV/10070", lat: etv[1], lon: etv[2], room_type: "Private room", location: "Alcúdia" }, lookup()).reason, "type_mismatch");
+    assert.equal(assessBal({ registration_raw: "ETV/10070", lat: 39.57, lon: 2.65, room_type: "Entire home/apt", location: "Palma" }, lookup()).reason, "other_place");
+    assert.equal(assessBal({ registration_raw: "ETV/999999" }, lookup()).reason, "not_in_register");
+    assert.equal(assessBal({ registration_raw: "ESFCTU00000703500012345600000000000000000ETV/100700" }, lookup()).key, "ETV/10070");
+    assert.equal(assessBal({ registration_raw: "" }, lookup()).reason, "no_number");
+    assert.ok(looksLikeCode("ETV/10070") && findCode("ETV/10070").rows.length > 0);
+    assert.ok(findAddress("Carrer Miramar 10", "mallorca").length > 0);
+  }
   // Bilbao, Donostia: Basque numbers against the REATE; the rest of Euskadi isn't covered yet
   assert.equal(coverage({ location: "Bilbao, País Vasco, España", lat: 43.26, lon: -2.93 }).id, "bilbao");
   assert.equal(coverage({ location: "Donostia-San Sebastián, Gipuzkoa, España" }).id, "donostia");
   assert.equal(coverage({ location: "Getxo, País Vasco, España" }).covered, false);
-  const ebi = lookup().eus["EBI00003"];
-  assert.ok(ebi && ebi[1] != null);   // placed from its address
-  assert.equal(assessEus({ registration_raw: "Basque Country - Regional registration number<br />EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Entire home/apt", location: "Bilbao" }, lookup(), null, "Bilbao").verdict.startsWith("VALID"), true);
-  assert.equal(assessEus({ registration_raw: "EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Private room" }, lookup(), null, "Bilbao").reason, "type_mismatch");
-  assert.equal(assessEus({ registration_raw: "EBI00003", lat: 43.32, lon: -1.98, room_type: "Entire home/apt" }, lookup(), null, "Donostia / San Sebastián").reason, "other_place");
-  assert.equal(assessEus({ registration_raw: "ESS99999" }, lookup()).reason, "not_in_register");
-  assert.equal(assessEus({ registration_raw: "ESFCTU0000480200000123450000000000000000EBI000034" }, lookup()).key, "EBI00003");
-  assert.ok(looksLikeCode("EBI00003") && findCode("EBI00003").rows.length > 0);
-  assert.ok(findAddress("Bidebarrieta 7", "bilbao").length > 0);
+  if (lookup().eus?.["EBI00003"]) {   // (skipped when this region's data didn't download)
+    const ebi = lookup().eus["EBI00003"];
+    assert.ok(ebi);   // (its coordinates come from the councils' address points, when those downloaded)
+    assert.equal(assessEus({ registration_raw: "Basque Country - Regional registration number<br />EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Entire home/apt", location: "Bilbao" }, lookup(), null, "Bilbao").verdict.startsWith("VALID"), true);
+    assert.equal(assessEus({ registration_raw: "EBI00003", lat: ebi[1], lon: ebi[2], room_type: "Private room" }, lookup(), null, "Bilbao").reason, "type_mismatch");
+    if (ebi[1] != null) assert.equal(assessEus({ registration_raw: "EBI00003", lat: 43.32, lon: -1.98, room_type: "Entire home/apt" }, lookup(), null, "Donostia / San Sebastián").reason, "other_place");
+    assert.equal(assessEus({ registration_raw: "ESS99999" }, lookup()).reason, "not_in_register");
+    assert.equal(assessEus({ registration_raw: "ESFCTU0000480200000123450000000000000000EBI000034" }, lookup()).key, "EBI00003");
+    assert.ok(looksLikeCode("EBI00003") && findCode("EBI00003").rows.length > 0);
+    assert.ok(findAddress("Bidebarrieta 7", "bilbao").length > 0);
+  }
   // Valencia, Murcia, Las Palmas
   assert.equal(coverage({ location: "València, Comunidad Valenciana, España" }).id, "valencia");
   assert.equal(coverage({ location: "Murcia, Región de Murcia, España" }).id, "murcia");
   assert.equal(coverage({ location: "Las Palmas de Gran Canaria, Canarias, España" }).id, "laspalmas");
-  const vk = Object.keys(lookup().vlc).find((k) => lookup().vlc[k][0] && /VAL/i.test(lookup().vlc[k][0]) && lookup().vlc[k][1]);
-  const vr = lookup().vlc[vk];
-  assert.equal(assessVlc({ registration_raw: vk.replace(/^CV-VUT0*(\d+)-V$/, "VT-$1-V"), lat: vr[1], lon: vr[2], room_type: "Entire home/apt" }, lookup()).verdict.startsWith("VALID"), true);
-  assert.equal(assessVlc({ registration_raw: "VT-9999999-V" }, lookup()).reason, "not_in_register");
-  assert.equal(assessVlc({ registration_raw: "HV-1234" }, lookup()).reason, "possibly_exempt");
-  assert.equal(assessMur({ registration_raw: "VV MU 6254-1" }, lookup()).key, "VV.MU.6254-1");
-  assert.equal(assessMur({ registration_raw: "VV.MU.6254" }, lookup()).key, "VV.MU.6254-1");   // the filing alone
-  assert.equal(assessCan({ registration_raw: "VV-35-10022236" }, lookup()).key, "VV-35-1-0022236");
-  assert.ok(findCode("VV.MU.6254-1").rows.length > 0 && findCode("VV-35-1-0000750").rows.length > 0 && findAddress("Luis Morote 42", "laspalmas").length > 0 && findAddress("Sucina", "murcia").length > 0);
+  if (Object.values(lookup().vlc || {}).some((v) => v[1] != null)) {   // (skipped when this region's data didn't download)
+    const vk = Object.keys(lookup().vlc).find((k) => lookup().vlc[k][0] && /VAL/i.test(lookup().vlc[k][0]) && lookup().vlc[k][1]);
+    const vr = lookup().vlc[vk];
+    assert.equal(assessVlc({ registration_raw: vk.replace(/^CV-VUT0*(\d+)-V$/, "VT-$1-V"), lat: vr[1], lon: vr[2], room_type: "Entire home/apt" }, lookup()).verdict.startsWith("VALID"), true);
+    assert.equal(assessVlc({ registration_raw: "VT-9999999-V" }, lookup()).reason, "not_in_register");
+    assert.equal(assessVlc({ registration_raw: "HV-1234" }, lookup()).reason, "possibly_exempt");
+  }
+  if (lookup().mur?.["VV.MU.6254-1"]) {   // (skipped when this region's data didn't download)
+    assert.equal(assessMur({ registration_raw: "VV MU 6254-1" }, lookup()).key, "VV.MU.6254-1");
+    assert.equal(assessMur({ registration_raw: "VV.MU.6254" }, lookup()).key, "VV.MU.6254-1");   // the filing alone
+  }
+  if (Object.keys(lookup().can || {}).length) {   // (skipped when this region's data didn't download)
+    assert.equal(assessCan({ registration_raw: "VV-35-10022236" }, lookup()).key, "VV-35-1-0022236");
+  }
+  if (lookup().mur?.["VV.MU.6254-1"] && lookup().can?.["VV-35-1-0000750"]) {   // (skipped when this region's data didn't download)
+    assert.ok(findCode("VV.MU.6254-1").rows.length > 0 && findCode("VV-35-1-0000750").rows.length > 0 && findAddress("Luis Morote 42", "laspalmas").length > 0 && findAddress("Sucina", "murcia").length > 0);
+  }
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");

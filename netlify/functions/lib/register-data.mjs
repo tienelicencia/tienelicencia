@@ -50,7 +50,9 @@ const codeKey = (code) => {
   if (v) return `CV-VUT${v[1].padStart(7, "0")}-${v[2]}`;
   if (/^(VV|VT|EMR|CR|HR|H|A|E|AT)-(\d{2})?-(\d)?-\d{7}$/.test(c)) return c;   // Canarias (VV-35-1-0012345)
   const u = /^(VV|A|AR|H|CT|ALB)\.MU\.0*(\d+)(?:-(\d+))?$/.exec(c);   // Región de Murcia (VV.MU.6415-1)
-  return u ? `${u[1]}.MU.${+u[2]}${u[3] ? `-${+u[3]}` : ""}` : null;
+  if (u) return `${u[1]}.MU.${+u[2]}${u[3] ? `-${+u[3]}` : ""}`;
+  const z = /^VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$/.exec(c);   // Aragón: VU-ZA-18-101 → ZA-18-101
+  return z ? `${z[1]}-${z[2]}-${+z[3]}` : null;
 };
 /** A Mallorca number typed in (ETV/1234, ETVPL 12345, H/123…) → its key, else null. */
 export const balKey = (q) => {
@@ -212,6 +214,9 @@ export function findCode(q) {
   if (ck) return { query: q, key: ck, variant: "exact", rows: (S.byKey.get(ck) || []).map(publicRow) };
   const bk = !/^\s*[A-Z]+\s*\/\s*[A-Z]{2}\s*\//i.test(q) && balKey(q);   // Mallorca (not a Junta code like H/MA/123)
   if (bk) return { query: q, key: bk, variant: "exact", rows: (S.byKey.get(bk) || []).map(publicRow) };
+  // Aragón (VU-ZA-18-101); Andalusian codes like VUT/HU/01234 use slashes, so a slash means it isn't one
+  const az = /(?<![A-Z0-9])VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*(\d{2})[\s\-_./]*0*(\d{1,5})(?![0-9])/i.exec(String(q || ""));
+  if (az && !String(q).includes("/")) { const k = `${az[1].toUpperCase()}-${az[2]}-${+az[3]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
   const uk = murKey(q);
   if (uk) return { query: q, key: uk, variant: "exact", rows: (S.byKey.get(uk) || []).map(publicRow) };
   const gk = canKey(q);

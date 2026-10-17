@@ -5,8 +5,10 @@ Numbers: VU-ZA-18-101 (2015–2024: province, year of registration, serial) and 
 year + serial is unique, so the VU/VUT prefix and leading zeros are ignored. Hosts write VU-ZA18101, VUZA-18-101…; the
 national number (ESFCTU…) ends with the regional number plus one digit.
 Register: the Gobierno de Aragón's register app exports every active tourist flat in Aragón as one xlsx (no coordinates,
-and most addresses lack a street number). Its legal notice limits reuse, so we only use it to check numbers and publish
-totals: no addresses, no map points, no number lookup. We never read the name, phone, email or web columns.
+and most addresses lack a street number). Aragón Open Data lists its tourism registers under CC BY 4.0; the app's own
+legal notice mentions personal use. This is a free, non-commercial public-interest tool, so we republish number and
+address as for every other region (see the note on the methodology page) and will remove it if Aragón asks. We never read
+the name, phone, email or web columns.
 Letting by rooms isn't allowed (Decreto 1/2023, art. 3), so a room listing showing a flat's number is flagged.
 """
 import io
@@ -51,7 +53,7 @@ def _read_xlsx(raw):
 
 
 def fetch(cache_dir):
-    """Download the register; keep only number, province and locality (never names, contacts or addresses)."""
+    """Download the register; keep only number, province, locality, address and postcode (never names or contacts)."""
     import csv
     import os
     from . import http
@@ -62,12 +64,14 @@ def fetch(cache_dir):
         rows = _read_xlsx(http.get(URL, timeout=300).content)
         head = [h.strip().lower() for h in rows[0]]
         i_sig, i_prov, i_loc = head.index("signatura"), head.index("provincia"), head.index("localidad")
-        body = [[r[i_sig], r[i_prov], r[i_loc]] for r in rows[1:] if len(r) > i_sig]
+        i_dir, i_cp = head.index("dirección"), head.index("c.p.")
+        body = [[r[i_sig], r[i_prov], r[i_loc], r[i_dir] if len(r) > i_dir else "", r[i_cp] if len(r) > i_cp else ""]
+                for r in rows[1:] if len(r) > i_sig]
         if len(body) < 1000:
             raise ValueError(f"unexpected file ({len(body)} rows)")
         with open(p, "w", encoding="utf-8", newline="") as fh:
             w = csv.writer(fh)
-            w.writerow(["signatura", "provincia", "localidad"])
+            w.writerow(["signatura", "provincia", "localidad", "direccion", "cp"])
             w.writerows(body)
     except Exception as e:  # noqa: BLE001
         print("aragon: register download failed, keeping previous copy:", e)
@@ -85,7 +89,8 @@ def load_register(path):
             m = re.match(r"VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$", (r.get("signatura") or "").strip().upper())
             if m:
                 loc = (r.get("localidad") or "").strip().upper()
-                idx[key(*m.groups())] = {"zaragoza": loc in ZARAGOZA, "locality": loc}
+                idx[key(*m.groups())] = {"zaragoza": loc in ZARAGOZA and (r.get("provincia") or "").strip().upper() == "ZARAGOZA", "locality": loc, "code": r["signatura"].strip().upper(),
+                                         "address": " ".join((r.get("direccion") or "").split()), "postcode": r.get("cp")}
     return idx
 
 
@@ -132,3 +137,20 @@ def classify(raw, lat, lon, room_type, min_nights, idx):
             or (p["exempt_text"] and re.search(r"(?i)seasonal|temporada|apartamento|apartment|hotel", p["exempt_text"])):
         return {"category": "NO_CODE_POSSIBLY_EXEMPT", "key": None}
     return {"category": "NO_CODE_IN_SCOPE", "key": None}
+
+
+def as_register_records(idx, name="ZARAGOZA"):
+    """Zaragoza's flats in the same shape as Junta register records (search only: the register has no coordinates)."""
+    out = []
+    for k, v in idx.items():
+        if not v["zaragoza"]:
+            continue
+        addr = re.sub(r"\s+(ZARAGOZA|%s)$" % "|".join(map(re.escape, ZARAGOZA)), "", v.get("address") or "")
+        m = re.match(r"^(.*?),\s*(\d+\s*[A-Z]?)\b(.*)$", addr)
+        out.append({"registration_code": v["code"], "objects_type_id": "Vivienda de uso turístico", "group": "Completa",
+                    "municipalities": name, "provinces": "ZARAGOZA", "lat": None, "lon": None,
+                    "road_name": m.group(1) if m else addr, "km_num": m.group(2).replace(" ", "") if m else None,
+                    "floor": (m.group(3).strip(" ,") or None) if m else None, "door": None, "staircase": None, "block": None,
+                    "portal": None, "postal_code": v.get("postcode") or None, "locality": v["locality"].title(), "tot_gen_places": None,
+                    "registration_date": "", "domicile_complement": None, "catastral_ref": None})
+    return out

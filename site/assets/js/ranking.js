@@ -30,6 +30,7 @@
         `<span><b>${pc(c.advertised_pct, 2)}</b> ${L("de las viviendas, anunciadas como turísticas", "of homes advertised for tourist stays")}</span>`,
         split ? `<span><b>${pc(c.no_valid_number_pct, 0)}</b> ${L("de los anuncios sin número válido", "of listings without a valid number")}${c.no_valid_number_source === "sample" ? ` <span class="muted">(${L("muestra", "sample")})</span>` : ""}</span>`
           : `<span class="muted">${L("Anuncios sin número válido: pendiente", "Listings without a valid number: pending")}</span>`,
+        c.need_number_not_valid_pct != null ? `<span><b>${pc(c.need_number_not_valid_pct, 0)}</b> ${L("de los que necesitan número, sin uno válido", "of those that need a number, without a valid one")}</span>` : "",
         c.registered_pct != null ? `<span><b>${pc(c.registered_pct, 2)}</b> ${L("con licencia registrada", "with a registered licence")}</span>` : "",
         c.concentration_pct != null ? `<span><b>${pc(c.concentration_pct)}</b> ${L("de las viviendas en zonas con más del 10 % turísticas", "of homes in areas over 10% tourist flats")}${c.concentration_basis === "barrio" ? ` <span class="muted">(${L("por barrio", "by barrio")})</span>` : ""}</span>` : "",
       ].filter(Boolean).join("");

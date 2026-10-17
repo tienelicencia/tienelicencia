@@ -206,7 +206,10 @@ def code_key(code):
     if g:
         return c
     u = re.match(r"^(VV|A|AR|H|CT|ALB)\.MU\.0*(\d+)(?:-(\d+))?$", c)   # Región de Murcia (VV.MU.6415-1)
-    return f"{u.group(1)}.MU.{int(u.group(2))}" + (f"-{int(u.group(3))}" if u.group(3) else "") if u else None
+    if u:
+        return f"{u.group(1)}.MU.{int(u.group(2))}" + (f"-{int(u.group(3))}" if u.group(3) else "")
+    z = re.match(r"^VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$", c)   # Aragón (VU-ZA-18-101): key without the VU/VUT prefix
+    return f"{z.group(1)}-{z.group(2)}-{int(z.group(3))}" if z else None
 
 
 def build_index(records):
