@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        city: [malaga, sevilla, barcelona, mallorca, bilbao, donostia]
+        city: [malaga, sevilla, barcelona, mallorca, valencia, bilbao, donostia]
     steps:
       - uses: actions/checkout@v4
         with:

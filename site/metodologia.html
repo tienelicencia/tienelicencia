@@ -90,8 +90,8 @@
                 <span lang="en">Every published entry in the Andalusian Tourism Register: number, type, address, coordinates, guest places and registration date. We don't use holders' names or contact details.</span></td>
               <td><span lang="es">Diaria (solo se descarga si cambia)</span><span lang="en">Daily (downloaded only when it changes)</span></td></tr>
             <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</td>
-              <td><span lang="es">Instantánea de todos los anuncios de Airbnb en los municipios de Málaga, Sevilla, Barcelona, Bilbao y San Sebastián y en toda la isla de Mallorca: ubicación aproximada, tipo y el texto del número de registro.</span>
-                <span lang="en">Snapshot of every Airbnb listing in the municipalities of Málaga, Seville, Barcelona, Bilbao and San Sebastián and across the island of Mallorca: approximate location, type and the registration-number text.</span></td>
+              <td><span lang="es">Instantánea de todos los anuncios de Airbnb en los municipios de Málaga, Sevilla, Barcelona, Valencia, Bilbao y San Sebastián y en toda la isla de Mallorca: ubicación aproximada, tipo y el texto del número de registro.</span>
+                <span lang="en">Snapshot of every Airbnb listing in the municipalities of Málaga, Seville, Barcelona, Valencia, Bilbao and San Sebastián and across the island of Mallorca: approximate location, type and the registration-number text.</span></td>
               <td><span lang="es">Trimestral</span><span lang="en">Quarterly</span></td></tr>
             <tr><td><b><span lang="es">Verificación propia de cada anuncio</span><span lang="en">Our own check of every listing</span></b></td>
               <td><span lang="es">Nuestros servidores visitan cada anuncio de Airbnb, como lo haría cualquier visitante y sin iniciar sesión, y leen el número de registro que muestra ese día.</span>
@@ -129,6 +129,16 @@
             <tr><td><a href="https://opendata.euskadi.eus/catalogo/-/viviendas-y-habitaciones-de-vivienda-particular-para-uso-turistico-en-euskadi/" target="_blank" rel="noopener">Gobierno Vasco · Open Data Euskadi</a></td>
               <td><span lang="es">Bilbao y San Sebastián: viviendas y habitaciones turísticas inscritas en el REATE (número, dirección, plazas) y los demás alojamientos turísticos. No usamos teléfonos, correos, webs ni nombres comerciales.</span>
                 <span lang="en">Bilbao and San Sebastián: tourist flats and rooms in the REATE register (number, address, guest places) and other tourist accommodation. We don't use phone numbers, emails, websites or trade names.</span></td>
+              <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr><td><a href="https://dadesobertes.gva.es/dataset/tur-gestur-vt" target="_blank" rel="noopener">Generalitat Valenciana · Viviendas turísticas</a> (CC BY 4.0)</td>
+              <td><span lang="es">Valencia: todas las viviendas turísticas inscritas (número, dirección, referencia catastral, plazas). No usamos nombres comerciales ni webs.</span>
+                <span lang="en">Valencia: every registered tourist flat (number, address, cadastral reference, guest places). We don't use trade names or websites.</span></td>
+              <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr><td><a href="https://datos.canarias.es/catalogos/general/dataset/establecimientos-extrahoteleros-de-tipologia-vivienda-vacacional-inscritos-en-el-registro" target="_blank" rel="noopener">Gobierno de Canarias · Registro General Turístico</a> ·
+              <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a> ·
+              <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a></td>
+              <td><span lang="es">Las Palmas, Murcia y Zaragoza: los números de registro válidos para comprobar los anuncios de nuestras muestras. De Aragón solo usamos el número y la localidad. No usamos nombres, teléfonos, correos ni webs.</span>
+                <span lang="en">Las Palmas, Murcia and Zaragoza: valid registration numbers, to check the listings in our samples. From Aragón we only use the number and locality. We don't use names, phones, emails or websites.</span></td>
               <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
             <tr><td><a href="https://www.geobilbao.eus/" target="_blank" rel="noopener">Ayuntamiento de Bilbao · GeoBilbao</a> (CC BY 3.0 ES) ·
               <a href="https://www.donostia.eus/datosabiertos" target="_blank" rel="noopener">Ayuntamiento de Donostia · datos abiertos</a> (CC BY-SA 3.0)</td>
@@ -251,20 +261,21 @@
 
         <h3 id="muestras"><span lang="es">Otros municipios: estimación por muestra</span><span lang="en">Other towns: estimates from a sample</span></h3>
         <div lang="es">
-          <p>Inside Airbnb solo publica la lista de anuncios de Málaga y Sevilla. Para <b>Marbella, Granada, Córdoba y Cádiz</b> hacemos nuestra propia
-            lista a partir de las páginas públicas de búsqueda de Airbnb: dividimos el municipio en cuadrículas del mapa hasta que cada una muestra todos
-            sus anuncios, quitamos duplicados y nos quedamos con los que están dentro del municipio (según la vivienda registrada más cercana).</p>
+          <p>Inside Airbnb no publica la lista de anuncios de todos los municipios. Para <b>Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia y Las Palmas de Gran Canaria</b>
+            hacemos nuestra propia lista a partir de las páginas públicas de búsqueda de Airbnb: dividimos el municipio en cuadrículas del mapa hasta que cada una muestra todos
+            sus anuncios, quitamos duplicados y nos quedamos con los que están dentro del municipio (en Andalucía, según la vivienda registrada más cercana; fuera, a menos de
+            250&nbsp;m de un edificio residencial del municipio según el Catastro).</p>
           <p>De esa lista elegimos <b>1.000 anuncios al azar</b> y revisamos cada uno en directo, con las mismas reglas que en Málaga y Sevilla. Con 1.000
             anuncios, el porcentaje real está, con un 95&nbsp;% de confianza, a unos <b>±3 puntos</b> de la estimación; en cada página damos el intervalo exacto.
             En Málaga comprobamos que una muestra así da prácticamente la misma cifra que revisar todos los anuncios.</p>
           <p>Límites: la estimación es del municipio entero, no por barrios; Airbnb no muestra la estancia mínima en el anuncio, así que no podemos
-            descontar los alquileres de temporada largos; y un anuncio sin ninguna fecha disponible puede no aparecer en la búsqueda. Rehacemos la lista
+            descontar los alquileres de temporada largos; con menos anuncios revisados (al menos 300) el intervalo es más ancho, y lo indicamos; y un anuncio sin ninguna fecha disponible puede no aparecer en la búsqueda. Rehacemos la lista
             cada trimestre.</p>
         </div>
         <div lang="en">
-          <p>Inside Airbnb only publishes listing lists for Málaga and Sevilla. For <b>Marbella, Granada, Córdoba and Cádiz</b> we build our own list from
-            Airbnb's public search pages: we split the municipality into map squares until each shows all its listings, remove duplicates and keep those
-            inside the municipality (by the nearest registered flat).</p>
+          <p>Inside Airbnb doesn't publish listing lists for every town. For <b>Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia and Las Palmas de Gran Canaria</b>
+            we build our own list from Airbnb's public search pages: we split the municipality into map squares until each shows all its listings, remove duplicates and keep
+            those inside the municipality (in Andalucía, by the nearest registered flat; elsewhere, within 250 m of one of the town's residential buildings in the Catastro).</p>
           <p>From that list we pick <b>1,000 listings at random</b> and check each one live, with the same rules as in Málaga and Sevilla. With 1,000
             listings the true share is, with 95% confidence, within about <b>±3 points</b> of the estimate; each page gives the exact interval. In Málaga we
             checked that such a sample gives practically the same figure as checking every listing.</p>
@@ -382,8 +393,8 @@
 
         <!-- ------------------------------------------------------------------ -->
         <h2 id="ley"><span lang="es">Normativa por zona</span><span lang="en">The law by area</span></h2>
-        <p lang="es">Resumen informativo, no asesoramiento jurídico. Revisado el 11 de octubre de 2026 (Sevilla, Granada, Córdoba y Cádiz, el 16 de octubre; Barcelona, Mallorca, Bilbao y San Sebastián, el 17 de octubre); consulta siempre la fuente oficial.</p>
-        <p lang="en">An informative summary, not legal advice. Checked on 11 October 2026 (Seville, Granada, Córdoba and Cádiz on 16 October; Barcelona, Mallorca, Bilbao and San Sebastián on 17 October); always consult the official source.</p>
+        <p lang="es">Resumen informativo, no asesoramiento jurídico. Revisado el 11 de octubre de 2026 (Sevilla, Granada, Córdoba y Cádiz, el 16 de octubre; Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia y Las Palmas, el 17 de octubre); consulta siempre la fuente oficial.</p>
+        <p lang="en">An informative summary, not legal advice. Checked on 11 October 2026 (Seville, Granada, Córdoba and Cádiz on 16 October; Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia and Las Palmas on 17 October); always consult the official source.</p>
 
         <h3 id="ley-andalucia">Andalucía</h3>
         <div class="law">
@@ -790,6 +801,91 @@
             offered ready to use for short periods (art. 50.14).</p>
         </div>
 
+        <h3 id="ley-valencia"><span lang="es">Valencia (Comunitat Valenciana)</span><span lang="en">Valencia (Valencian Community)</span></h3>
+        <p lang="es">En Valencia usamos el registro de viviendas turísticas de la Generalitat Valenciana (datos abiertos). Su número tiene la forma <code>CV-VUT0012345-V</code>; los anuncios
+          suelen mostrar la forma antigua <code>VT-12345-V</code>, que es el mismo número. El registro no publica coordenadas: situamos cada vivienda en su parcela del Catastro por su
+          referencia catastral. Hoteles y apartamentos turísticos están en otros registros que no son datos abiertos, así que esos anuncios cuentan como posiblemente exentos.</p>
+        <p lang="en">In Valencia we use the Generalitat Valenciana's open register of tourist flats. Its numbers look like <code>CV-VUT0012345-V</code>; listings often show the older
+          <code>VT-12345-V</code>, which is the same number. The register has no coordinates: we place each flat on its Catastro parcel using its cadastral reference. Hotels and tourist
+          apartments are in other registers that aren't open data, so those listings count as possibly exempt.</p>
+        <div class="law">
+          <h3><span lang="es">Número y ubicación en toda la publicidad</span><span lang="en">Number and location in all advertising</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>La publicidad debe incluir el número de inscripción y la ubicación exacta (Ley 15/2018, art. 19.1.b; Decreto 10/2021, art. 33.2). Las plataformas deben exigir un número válido (art. 62.2).</li>
+            <li>Anunciar una vivienda inscrita sin su número es grave (art. 92.16, de 10.001 a 100.000&nbsp;€); anunciarla sin inscripción, muy grave (art. 93.1, de 100.001 a 600.000&nbsp;€).</li>
+          </ul>
+          <ul lang="en">
+            <li>Advertising must include the registration number and the exact location (Law 15/2018, art. 19.1.b; Decree 10/2021, art. 33.2). Platforms must require a valid number (art. 62.2).</li>
+            <li>Advertising a registered flat without its number is serious (art. 92.16, €10,001–100,000); advertising it without registration, very serious (art. 93.1, €100,001–600,000).</li>
+          </ul>
+          <p class="src-list"><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2019-1281" target="_blank" rel="noopener"><span lang="es">Ley 15/2018 (texto consolidado)</span><span lang="en">Law 15/2018 (consolidated text)</span></a></p>
+        </div>
+        <div class="law">
+          <h3><span lang="es">10 días o menos, y nunca por habitaciones</span><span lang="en">10 days or less, never by the room</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <p lang="es" style="margin:0">Es vivienda turística la que se cede por 10 días o menos al mismo huésped; desde 11 días no lo es (art. 65.1 y 65.3.a), y no se puede alquilar por habitaciones (art. 65.3.b).
+            Por eso marcamos como <b>posiblemente exentos</b> los anuncios sin número con una estancia mínima de 11 noches o más. En Valencia son muchos: unos 1.500 anuncios piden entre 11 y 30 noches.</p>
+          <p lang="en" style="margin:0">A tourist flat is one let for 10 days or less to the same guest; from 11 days it isn't (art. 65.1 and 65.3.a), and it can't be let by the room (art. 65.3.b).
+            So we mark listings without a number as <b>possibly exempt</b> if the minimum stay is 11 nights or more. There are many in Valencia: about 1,500 listings ask for 11 to 30 nights.</p>
+        </div>
+        <div class="law">
+          <h3><span lang="es">Límite del 2&nbsp;% por barrio</span><span lang="en">2% cap per barrio</span> <span class="status inforce"><span lang="es">En vigor desde mayo de 2026</span><span lang="en">In force since May 2026</span></span></h3>
+          <p lang="es" style="margin:0">La modificación del plan urbanístico aprobada el 31/03/2026 (BOP nº 82, 04/05/2026) limita las viviendas turísticas al 2&nbsp;% de las viviendas de cada barrio y distrito,
+            y en edificios residenciales solo admite planta baja o primera con acceso independiente. Ciutat Vella queda fuera, con su propio plan. Su entrada en vigor puso fin a la moratoria de 2024.</p>
+          <p lang="en" style="margin:0">The city plan change approved on 31/03/2026 (BOP no. 82, 04/05/2026) caps tourist flats at 2% of homes in each barrio and district, and in residential
+            buildings only allows the ground or first floor with a separate entrance. Ciutat Vella is excluded, with its own plan. Its entry into force ended the 2024 moratorium.</p>
+        </div>
+
+        <h3 id="ley-zaragoza"><span lang="es">Zaragoza (Aragón)</span><span lang="en">Zaragoza (Aragón)</span></h3>
+        <p lang="es">Inside Airbnb no cubre Zaragoza: estimamos el porcentaje con una muestra aleatoria de anuncios que comprobamos uno a uno (ver <a href="#muestras">muestras</a>). Los números se comprueban en el Registro de Turismo de Aragón (<code>VU-ZA-18-101</code>, <code>VUT-ZA-25-0015</code>). Sus condiciones de uso son restrictivas, así que solo publicamos totales: ni direcciones ni mapa de viviendas.</p>
+        <p lang="en">Inside Airbnb doesn't cover Zaragoza: we estimate the share from a random sample of listings checked one by one (see <a href="#muestras">samples</a>). Numbers are checked against the Aragón Tourism Register (<code>VU-ZA-18-101</code>, <code>VUT-ZA-25-0015</code>). Its terms of use are restrictive, so we only publish totals: no addresses and no map of flats.</p>
+        <div class="law">
+          <h3><span lang="es">Lo esencial</span><span lang="en">Key points</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>Número en toda la publicidad: Decreto 1/2023, art. 17.2. No mostrarlo es leve (texto refundido de la Ley de Turismo, art. 83.3); operar sin declaración responsable, grave (art. 84.1).</li>
+            <li>Se presume uso turístico con estancias de un mes o menos (art. 4.3): posiblemente exentos desde 32 noches. No se puede alquilar por habitaciones.</li>
+            <li>No hemos encontrado límites municipales ni moratoria en Zaragoza (revisado el 17/10/2026).</li>
+          </ul>
+          <ul lang="en">
+            <li>The number in all advertising: Decree 1/2023, art. 17.2. Not showing it is minor (consolidated Tourism Law, art. 83.3); operating without a declaración responsable, serious (art. 84.1).</li>
+            <li>Tourist use is presumed for stays of a month or less (art. 4.3): possibly exempt from 32 nights. Letting by the room isn't allowed.</li>
+            <li>We found no city limits or moratorium in Zaragoza (checked 17/10/2026).</li>
+          </ul>
+        </div>
+
+        <h3 id="ley-murcia"><span lang="es">Murcia (Región de Murcia)</span><span lang="en">Murcia (Region of Murcia)</span></h3>
+        <p lang="es">Inside Airbnb no cubre Murcia: estimamos el porcentaje con una <a href="#muestras">muestra</a>. Los números (<code>VV.MU.6415-1</code>) se comprueban en los listados del registro turístico regional (ITREM), que se actualizan a diario; cada vivienda se sitúa en su parcela del Catastro.</p>
+        <p lang="en">Inside Airbnb doesn't cover Murcia: we estimate the share from a <a href="#muestras">sample</a>. Numbers (<code>VV.MU.6415-1</code>) are checked against the regional tourism register's listings (ITREM), updated daily; each flat is placed on its Catastro parcel.</p>
+        <div class="law">
+          <h3><span lang="es">Lo esencial</span><span lang="en">Key points</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>Número en toda la publicidad: Decreto 256/2019, art. 6.6. Desde el 4/11/2026, anunciar sin número es grave (Ley 3/2026, nuevo art. 48.13 de la Ley 12/2013), de 1.001 a 10.000&nbsp;€.</li>
+            <li>No hay un número de noches en la norma murciana: posiblemente exentos desde 32 noches (alquiler de temporada según la ley estatal). Se permite alquilar habitaciones si el titular vive allí.</li>
+            <li>Muchas viviendas turísticas del municipio están en pedanías con urbanizaciones de golf (Sucina, Baños y Mendigo, Corvera).</li>
+          </ul>
+          <ul lang="en">
+            <li>The number in all advertising: Decree 256/2019, art. 6.6. From 4/11/2026, advertising without it is serious (Law 3/2026, new art. 48.13 of Law 12/2013), €1,001–10,000.</li>
+            <li>Murcian rules set no number of nights: possibly exempt from 32 nights (seasonal let under national law). Rooms may be let if the holder lives there.</li>
+            <li>Many of the municipality's tourist flats are in outlying districts with golf resorts (Sucina, Baños y Mendigo, Corvera).</li>
+          </ul>
+        </div>
+
+        <h3 id="ley-laspalmas"><span lang="es">Las Palmas de Gran Canaria (Canarias)</span><span lang="en">Las Palmas de Gran Canaria (Canary Islands)</span></h3>
+        <p lang="es">Inside Airbnb no cubre Las Palmas: estimamos el porcentaje con una <a href="#muestras">muestra</a>. Los números (<code>VV-35-1-0012345</code>: 35 provincia, 1 Gran Canaria) se comprueban en el Registro General Turístico de Canarias (datos abiertos). Aceptamos las erratas habituales (sin guiones, VT por VV, sin provincia ni isla) si el número existe.</p>
+        <p lang="en">Inside Airbnb doesn't cover Las Palmas: we estimate the share from a <a href="#muestras">sample</a>. Numbers (<code>VV-35-1-0012345</code>: 35 province, 1 Gran Canaria) are checked against the Canary Islands tourism register (open data). We accept the usual slips (no hyphens, VT for VV, no province or island) if the number exists.</p>
+        <div class="law">
+          <h3><span lang="es">Lo esencial</span><span lang="en">Key points</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>Número en toda la publicidad: Ley 6/2025, art. 8.6, y Decreto 113/2015, art. 7.3. Anunciar sin número es muy grave (Ley 7/1995, art. 75.16), de 30.001 a 300.000&nbsp;€.</li>
+            <li>Se presume uso turístico si se anuncia en canales turísticos o la estancia es de 31 días o menos (Ley 7/2026): posiblemente exentos desde 32 noches. La prohibición de alquilar habitaciones fue anulada por los tribunales.</li>
+            <li>Una nueva vivienda vacacional necesita que el planeamiento la permita expresamente (Ley 6/2025, art. 7.7.c); las existentes pueden seguir al menos cinco años.</li>
+          </ul>
+          <ul lang="en">
+            <li>The number in all advertising: Law 6/2025, art. 8.6, and Decree 113/2015, art. 7.3. Advertising without it is very serious (Law 7/1995, art. 75.16), €30,001–300,000.</li>
+            <li>Tourist use is presumed if advertised on tourist channels or for stays of 31 days or less (Law 7/2026): possibly exempt from 32 nights. The ban on letting rooms was struck down by the courts.</li>
+            <li>A new holiday home needs express permission in the local plan (Law 6/2025, art. 7.7.c); existing ones may continue for at least five years.</li>
+          </ul>
+        </div>
+
         <h3 id="ley-euskadi"><span lang="es">Bilbao y San Sebastián (Euskadi)</span><span lang="en">Bilbao and San Sebastián (Basque Country)</span></h3>
         <p lang="es">En Bilbao y San Sebastián usamos el Registro de Empresas y Actividades Turísticas de Euskadi (REATE), del Gobierno Vasco. Una vivienda turística tiene un número
           con la forma <code>EBI01234</code> o <code>ESS01234</code> (E = vivienda completa; BI = Bizkaia, SS = Gipuzkoa); una habitación en vivienda particular, <code>LBI…</code> o <code>LSS…</code>.
@@ -883,6 +979,9 @@
             <tr><td><b>Gobierno Vasco</b><br><a href="https://www.euskadi.eus/interaccion_ciudadania/buzon-viviendas-turisticas-ilegales/web01-tramite/es/" target="_blank" rel="noopener"><span lang="es">Buzón de viviendas turísticas ilegales</span><span lang="en">Illegal tourist flats inbox</span></a></td>
               <td><span lang="es">Bilbao y San Sebastián: viviendas o habitaciones turísticas que se anuncian sin inscripción. Admite comunicaciones anónimas.</span>
                 <span lang="en">Bilbao and San Sebastián: tourist flats or rooms advertised without registration. Anonymous reports are accepted.</span></td></tr>
+            <tr><td><b>Generalitat Valenciana</b><br><a href="https://sede.gva.es/es/detall-tramit?id_proc=1915" target="_blank" rel="noopener"><span lang="es">Denuncia en materia de turismo</span><span lang="en">Tourism complaint</span></a></td>
+              <td><span lang="es">Valencia: viviendas turísticas que se anuncian sin inscripción o sin su número.</span>
+                <span lang="en">Valencia: tourist flats advertised without registration or without their number.</span></td></tr>
             <tr><td><a href="https://www.airbnb.com/neighbors" target="_blank" rel="noopener">Airbnb</a> · <a href="https://www.booking.com/content-moderation-policy/reporting-content-on-booking.html" target="_blank" rel="noopener">Booking.com</a></td>
               <td><span lang="es">Cada plataforma tiene su formulario para anuncios que incumplen la normativa local.</span>
                 <span lang="en">Each platform has a form for adverts that break local rules.</span></td></tr>

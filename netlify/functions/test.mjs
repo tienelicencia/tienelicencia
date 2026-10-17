@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, assessCat, assessBal, assessEus, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, assessBal, assessEus, assessVlc, assessCan, assessMur, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -101,6 +101,19 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   assert.equal(assessEus({ registration_raw: "ESFCTU0000480200000123450000000000000000EBI000034" }, lookup()).key, "EBI00003");
   assert.ok(looksLikeCode("EBI00003") && findCode("EBI00003").rows.length > 0);
   assert.ok(findAddress("Bidebarrieta 7", "bilbao").length > 0);
+  // Valencia, Murcia, Las Palmas
+  assert.equal(coverage({ location: "València, Comunidad Valenciana, España" }).id, "valencia");
+  assert.equal(coverage({ location: "Murcia, Región de Murcia, España" }).id, "murcia");
+  assert.equal(coverage({ location: "Las Palmas de Gran Canaria, Canarias, España" }).id, "laspalmas");
+  const vk = Object.keys(lookup().vlc).find((k) => lookup().vlc[k][0] && /VAL/i.test(lookup().vlc[k][0]) && lookup().vlc[k][1]);
+  const vr = lookup().vlc[vk];
+  assert.equal(assessVlc({ registration_raw: vk.replace(/^CV-VUT0*(\d+)-V$/, "VT-$1-V"), lat: vr[1], lon: vr[2], room_type: "Entire home/apt" }, lookup()).verdict.startsWith("VALID"), true);
+  assert.equal(assessVlc({ registration_raw: "VT-9999999-V" }, lookup()).reason, "not_in_register");
+  assert.equal(assessVlc({ registration_raw: "HV-1234" }, lookup()).reason, "possibly_exempt");
+  assert.equal(assessMur({ registration_raw: "VV MU 6254-1" }, lookup()).key, "VV.MU.6254-1");
+  assert.equal(assessMur({ registration_raw: "VV.MU.6254" }, lookup()).key, "VV.MU.6254-1");   // the filing alone
+  assert.equal(assessCan({ registration_raw: "VV-35-10022236" }, lookup()).key, "VV-35-1-0022236");
+  assert.ok(findCode("VV.MU.6254-1").rows.length > 0 && findCode("VV-35-1-0000750").rows.length > 0 && findAddress("Luis Morote 42", "laspalmas").length > 0 && findAddress("Sucina", "murcia").length > 0);
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");

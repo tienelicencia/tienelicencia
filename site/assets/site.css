@@ -536,3 +536,33 @@ table.rank .rank-i { color: var(--muted); width: 36px; font-size: 13px; }
   .site-nav a { padding: 8px 8px; font-size: 14.5px; }
   .city-pick select { max-width: 160px; }
 }
+
+/* ---------------------------------------------------------------- city ranking */
+.rk-legend { margin: 8px 0 18px; }
+.rk { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.rk-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 96px; gap: 6px 20px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.rk-pos { font: 600 22px/1 var(--serif); color: var(--muted); padding-top: 4px; }
+.rk-name { font: 600 clamp(19px, 2.2vw, 23px)/1.2 var(--serif); margin: 0 0 10px; }
+.rk-name a { color: var(--ink); text-decoration: none; }
+.rk-name a:hover { text-decoration: underline; }
+.rk-score { text-align: right; }
+.rk-score b { display: block; font: 700 clamp(32px, 4vw, 44px)/1 var(--sans); letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--brand); }
+.rk-score span { font-size: 12px; color: var(--muted); }
+.rk-bar { position: relative; height: 18px; display: flex; gap: 2px; background: var(--surface-2); border-radius: 0 5px 5px 0; max-width: 640px; }
+.rk-bar > i { display: block; height: 100%; }
+.rk-bar > i:last-of-type { border-radius: 0 5px 5px 0; }
+.rk-bar .lic { background: var(--brand-2); }
+.rk-bar .unl { background: var(--bad); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.28) 0 2px, transparent 2px 6px); }
+.rk-bar .pend { background: var(--line-2); }
+.rk-bar .reg { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); border-radius: 1px; }
+.rk-facts { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 10px; font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.rk-facts b { color: var(--ink); }
+.rk-facts .muted { color: var(--muted); }
+.rk-notes { margin: 18px 0 48px; max-width: 80ch; }
+.rk-notes p { margin: 0 0 8px; }
+.legend i.unl { background: var(--bad); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.28) 0 2px, transparent 2px 6px); }
+.legend i.tick { width: 2px; height: 14px; border-radius: 1px; background: var(--ink); }
+@media (max-width: 640px) {
+  .rk-row { grid-template-columns: 30px minmax(0, 1fr) 64px; gap: 4px 12px; }
+  .rk-pos { font-size: 18px; }
+}

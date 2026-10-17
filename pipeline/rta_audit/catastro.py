@@ -45,9 +45,9 @@ def parse_zip(path):
                 if not chunk:
                     break
                 buf += chunk.decode("utf-8", "ignore")
-                if zone is None:   # the file's grid: EPSG 25830 (Andalucía) or 25831 (Catalonia)
-                    zm = re.search(r"EPSG:+258(\d\d)", buf)
-                    zone = int(zm.group(1)) if zm else None
+                if zone is None:   # the file's grid: EPSG 25830 (most of Spain), 25831 (Catalonia, Balearics), 4083/32628 (Canarias)
+                    zm = re.search(r"EPSG:+(258(\d\d)|4083|326(\d\d))", buf)
+                    zone = None if not zm else int(zm.group(2) or zm.group(3) or 28)
                 last = 0
                 for m in _FEATURE.finditer(buf):
                     ref, body = m.group(1)[:14], m.group(2)

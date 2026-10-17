@@ -104,6 +104,9 @@ const licenceOf = (key) => {
 const COVERED = [
   // Mallorca only: the location line says "Illes Balears" for Menorca and Ibiza too, so the pin decides when there is one
   { id: "mallorca", name: "Mallorca", words: /mallorca|balear/i, pinOnly: true, inside: (la, lo) => la > 39.2 && la < 40.0 && lo > 2.3 && lo < 3.5 },
+  { id: "murcia", name: "Murcia", region: "Región de Murcia", words: /^\s*murcia\b/i, inside: (la, lo) => la > 37.80 && la < 38.10 && lo > -1.35 && lo < -0.95 },
+  { id: "laspalmas", name: "Las Palmas de Gran Canaria", region: "Canarias", words: /^\s*las palmas( de gran canaria)?\b/i, inside: (la, lo) => la > 28.03 && la < 28.18 && lo > -15.52 && lo < -15.38 },
+  { id: "valencia", name: "Valencia", region: "Comunitat Valenciana", words: /^\s*val(e|è)ncia\b/i, inside: (la, lo) => la > 39.40 && la < 39.52 && lo > -0.43 && lo < -0.30 },
   { id: "bilbao", name: "Bilbao", region: "Euskadi", words: /^\s*bilbao\b/i, inside: (la, lo) => la > 43.21 && la < 43.29 && lo > -3.00 && lo < -2.87 },
   { id: "donostia", name: "San Sebastián", region: "Euskadi", words: /^\s*(donostia|san sebasti)/i, inside: (la, lo) => la > 43.27 && la < 43.34 && lo > -2.05 && lo < -1.92 },
   { id: "barcelona", name: "Barcelona", words: /^\s*barcelona\b/i, inside: (la, lo) => la > 41.32 && la < 41.47 && lo > 2.05 && lo < 2.23 },
@@ -274,6 +277,156 @@ export function assessEus(page, L, listingId = null, home = null) {
   return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
 }
 
+// ---- Valencia: CV-VUT0012345-V / VT-12345-V against the Generalitat's register (same rules as pipeline/rta_audit/valencia.py).
+// Hotel and tourist-apartment numbers (HV-, AT-) are in registers that aren't open: possibly exempt, not "invalid".
+const VLC_RE = /(?<![A-Z0-9])(?:CV[\s\-_]*)?(VUT|VT)[\s\-_/.]*0*(\d{1,7})(?:[\s\-_/.]*(CS|V|A)(?![A-Z]))?/gi;
+const VLC_OTHER = /(?<![A-Z0-9])(?:CV[\s\-_]*)?(AT|HV|HA|HCS|APT)[\s\-_/.]*0*\d{1,7}/i;
+const vlcKeyOf = (n, p) => `CV-VUT${String(+n).padStart(7, "0")}-${p.toUpperCase()}`;
+export function assessVlc(page, L, listingId = null) {
+  const text = (page.registration_raw || "").replace(/<br\s*\/?>/gi, " | ");
+  const NAT = /(?<![A-Z0-9])ES[A-Z]{4}\d{10,}[0-9A-Z/\-]*/gi;
+  const national = [...text.matchAll(NAT)].map((m) => m[0]);
+  const rest = text.replace(NAT, " ");
+  const V = L.vlc || {};
+  let nums = [...rest.matchAll(VLC_RE)].map((m) => [m[2], m[3]]);
+  if (!nums.length) nums = national.flatMap((n) => [...n.toUpperCase().matchAll(/(?:CV-?)?VU?T-?0*(\d{1,7})-?(CS|V|A)?/g)].map((m) => [m[1], m[2]]));
+  const keys = [...new Set(nums.map(([n, p]) => p ? vlcKeyOf(n, p) : (["V", "A", "CS"].map((q) => vlcKeyOf(n, q)).find((k) => V[k]) || vlcKeyOf(n, "V"))))];
+  const base = { shown: keys, national_numbers: national, register_date: L.register_lastUpdateData, region: "Comunitat Valenciana" };
+  if (!keys.length) {
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room" || VLC_OTHER.test(rest)) exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (national.length) exempt.push("national_only");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  let best = null;
+  for (const k of keys) {
+    const rec = V[k];
+    let r;
+    if (!rec) r = { k, v: 4 };
+    else {
+      const [mun, lat, lon, group] = rec;
+      const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      const other = mun && norm(mun) !== "VALENCIA" && (page.lat != null || page.location);
+      r = { k, mun, dist, group, v: other ? 2 : dist != null && dist > THRESHOLD_M ? 1 : 0 };
+    }
+    if (!best || r.v < best.v) best = r;
+  }
+  const res = { ...base, code: best.k, key: best.k, licence: licenceOf(best.k), licence_muni: best.mun || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    if (page.room_type && page.room_type !== "Entire home/apt" && best.group === "C") return { ...res, verdict: "VALID_TYPE_MISMATCH", reason: "type_mismatch" };
+    const shared = (L.shared[best.k] || 0) > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: L.shared[best.k] || 0 };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place" };
+  return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
+}
+
+// ---- Las Palmas de Gran Canaria: VV-35-1-0012345 against the Registro General Turístico de Canarias (pipeline/rta_audit/canarias.py).
+// Hosts drop hyphens, leave out the province/island, or write VT for VV; the national number ends with the digits plus a check digit.
+const CAN_RE = /(?<![A-Z0-9])(VV|VT|EMR|CR|HR|H|A|E|AT)((?:[\s\-_./]*\d){7,12})(?![0-9])/gi;
+const canKeyOf = (typ, digits) => digits.length >= 10 ? `${typ.toUpperCase()}-${digits.slice(0, 2)}-${digits[2]}-${digits.slice(3, 10)}`
+  : digits.length >= 7 ? `${typ.toUpperCase()}---${digits.slice(-7)}` : null;
+export function assessCan(page, L, listingId = null) {
+  const text = (page.registration_raw || "").replace(/<br\s*\/?>/gi, " | ");
+  const NAT = /(?<![A-Z0-9])ES[A-Z]{4}\d{10,}[0-9A-Z/\-]*/gi;
+  const national = [...text.matchAll(NAT)].map((m) => m[0]);
+  const rest = text.replace(NAT, " ");
+  let keys = [...new Set([...rest.matchAll(CAN_RE)].map((m) => canKeyOf(m[1], m[2].replace(/\D/g, ""))).filter(Boolean))];
+  if (!keys.length) keys = [...new Set(national.map((n) => /(VV|VT|EMR|CR|HR|H|A|E|AT)-?(\d{2})-?(\d)-?(\d{7})\d?$/i.exec(n.toUpperCase()))
+    .filter(Boolean).map((m) => `${m[1]}-${m[2]}-${m[3]}-${m[4]}`))];
+  const base = { shown: keys, national_numbers: national, register_date: L.register_lastUpdateData, region: "Canarias" };
+  const C = L.can || {}, SH = L.can_short || {};
+  const find = (k) => C[k] ? k : (() => { const typ = k.split("-")[0], num = k.slice(-7);
+    for (const tt of typ === "VT" ? [typ, "VV"] : [typ]) if (SH[`${tt}-${num}`]) return SH[`${tt}-${num}`]; return null; })();
+  if (!keys.length) {
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room") exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (national.length) exempt.push("national_only");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  let best = null;
+  for (const k0 of keys) {
+    const k = find(k0), rec = k && C[k];
+    let r;
+    if (!rec) r = { k: k0, v: 4 };
+    else {
+      const [mun, lat, lon] = rec;
+      const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      const other = mun && norm(mun) !== "LAS PALMAS DE GRAN CANARIA";
+      r = { k, mun, dist, v: dist != null && dist <= THRESHOLD_M ? 0 : other ? 2 : dist != null ? 1 : 0 };
+    }
+    if (!best || r.v < best.v) best = r;
+  }
+  const res = { ...base, code: best.k, key: best.k, licence: licenceOf(best.k), licence_muni: best.mun || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    const shared = (L.shared[best.k] || 0) > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: L.shared[best.k] || 0 };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place" };
+  return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
+}
+
+// ---- Murcia: VV.MU.6415-1 (and A.MU, H.MU, AR.MU…) against the ITREM register (pipeline/rta_audit/murcia.py).
+const MUR_RE = /(?<![A-Z0-9])(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*0*(\d{1,5})(?:[\s.\-_]+(\d{1,4}))?(?![0-9])/gi;
+const murKeyOf = (p, n, k) => `${p.toUpperCase()}.MU.${+n}${k ? `-${+k}` : ""}`;
+export function assessMur(page, L, listingId = null) {
+  const text = (page.registration_raw || "").replace(/<br\s*\/?>/gi, " | ");
+  const NAT = /(?<![A-Z0-9])ES[A-Z]{4}[0-9A-Z]{10,}[0-9A-Z/.\-]*/gi;
+  const national = [...text.matchAll(NAT)].map((m) => m[0]);
+  const rest = text.replace(NAT, " ");
+  let keys = [...new Set([...rest.matchAll(MUR_RE)].map((m) => murKeyOf(m[1], m[2], m[3])))];
+  if (!keys.length) keys = [...new Set(national.map((n) => /(VV|AR|A)[\s.\-_]*MU[\s.\-_]*0*(\d{1,5})(?:[\s.\-_]+(\d{1,4}))?$/i.exec(n.toUpperCase()))
+    .filter(Boolean).map((m) => m[3] && m[3].length > 1 ? murKeyOf(m[1], m[2], m[3].slice(0, -1)) : !m[3] && m[2].length > 1 ? murKeyOf(m[1], m[2].slice(0, -1)) : murKeyOf(m[1], m[2], m[3])))];
+  const base = { shown: keys, national_numbers: national, register_date: L.register_lastUpdateData, region: "Región de Murcia" };
+  const M = L.mur || {}, F = L.mur_filing || {};
+  // As pipeline/rta_audit/murcia.py: the filing alone, filing and flat run together, or a check digit on the flat
+  const find = (k) => {
+    if (M[k]) return k;
+    const [base, flat] = k.split("-");
+    if (flat && flat.length > 1 && M[`${base}-${flat.slice(0, -1)}`]) return `${base}-${flat.slice(0, -1)}`;
+    if (!flat) { const i = base.lastIndexOf("."), pre = base.slice(0, i), num = base.slice(i + 1);
+      for (const cut of [1, 2]) if (num.length > cut && M[`${pre}.${+num.slice(0, -cut)}-${+num.slice(-cut)}`]) return `${pre}.${+num.slice(0, -cut)}-${+num.slice(-cut)}`; }
+    return F[base] || null;
+  };
+  if (!keys.length) {
+    LONG_STAY ??= new Set(L.long_stay || []);
+    const exempt = [];
+    if (page.room_type === "Hotel room") exempt.push("hotel");
+    if (listingId && LONG_STAY.has(String(listingId))) exempt.push("long_stay");
+    if (national.length) exempt.push("national_only");
+    if (/(exempt|exento)[^|]*(seasonal|temporada)/i.test(text)) exempt.push("seasonal_claim");
+    return exempt.length ? { ...base, verdict: "POSSIBLY_EXEMPT", reason: "possibly_exempt", exempt } : { ...base, verdict: "NOT_VALID", reason: "no_number" };
+  }
+  let best = null;
+  for (const k0 of keys) {
+    const k = find(k0) || k0, rec = M[k];
+    let r;
+    if (!rec) r = { k, v: 4 };
+    else {
+      const [mun, lat, lon] = rec;
+      const dist = page.lat != null && lat != null ? Math.round(haversine(page.lat, page.lon, lat, lon)) : null;
+      r = { k, mun: mun || null, dist, v: !mun ? 2 : dist != null && dist > THRESHOLD_M ? 1 : 0 };
+    }
+    if (!best || r.v < best.v) best = r;
+  }
+  const res = { ...base, code: best.k, key: best.k, licence: licenceOf(best.k), licence_muni: best.mun || null, distance_m: best.dist ?? null };
+  if (best.v === 0) {
+    const shared = (L.shared[best.k] || 0) > 1 && page.room_type === "Entire home/apt";
+    return { ...res, verdict: shared ? "VALID_CODE_SHARED" : "VALID", reason: shared ? "shared" : "valid", shared_count: L.shared[best.k] || 0 };
+  }
+  if (best.v === 1) return { ...res, verdict: "VALID_LOCATION_MISMATCH", reason: "far" };
+  if (best.v === 2) return { ...res, verdict: "NOT_VALID", reason: "other_place", licence_muni: "Región de Murcia" };
+  return { ...res, verdict: "NOT_VALID", reason: "not_in_register" };
+}
+
 export function assess(page, L, listingId = null) {
   const p = parse(page.registration_raw || "", L.max_issued);
   // Only a national number shown, with the Junta code at its tail (…0000VUT/MA/117055): check that code.
@@ -351,9 +504,13 @@ export default async (req, context) => {
     const isCat = CAT_RE.test(code); CAT_RE.lastIndex = 0;
     const isBal = !isCat && BAL_RE.test(code); BAL_RE.lastIndex = 0;
     const isEus = !isCat && !isBal && EUS_RE.test(code); EUS_RE.lastIndex = 0;
+    const isMur = /(?<![A-Z0-9])(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*\d/i.test(code);
+    const isCan = !isMur && /(?<![A-Z0-9])VV[\s\-_./]*\d/i.test(code);
+    const isVlc = !isCan && !isCat && !isBal && !isEus && /(?<![A-Z0-9])(?:CV[\s\-_]*)?VUT|(?<![A-Z0-9])VT[\s\-_]*\d{1,7}[\s\-_]*(CS|V|A)(?![A-Z0-9])/i.test(code);
     const res = isCat ? assessCat({ registration_raw: code }, L) : isBal ? assessBal({ registration_raw: code }, L)
-      : isEus ? assessEus({ registration_raw: code }, L) : assess({ registration_raw: code }, L);
-    const other = !isCat && !isBal && !isEus && !res.shown.length && otherRegion(code);   // e.g. a Valencian VT- number typed in
+      : isEus ? assessEus({ registration_raw: code }, L) : isMur ? assessMur({ registration_raw: code }, L) : isCan ? assessCan({ registration_raw: code }, L)
+      : isVlc ? assessVlc({ registration_raw: code }, L) : assess({ registration_raw: code }, L);
+    const other = !isCat && !isBal && !isEus && !isVlc && !isCan && !isMur && !res.shown.length && otherRegion(code);   // e.g. a Valencian VT- number typed in
     if (other) return json(200, { mode: "code", checked_at: new Date().toISOString(), verdict: "NOT_COVERED", reason: "not_covered",
       region: other, code, register_date: L.register_lastUpdateData });
     return json(200, { mode: "code", checked_at: new Date().toISOString(), ...res });
@@ -383,7 +540,7 @@ export default async (req, context) => {
         register_date: L.register_lastUpdateData }
     : { ...meta, title: page.title, location: page.location, room_type: page.room_type,
         pin: page.lat != null ? [page.lat, page.lon] : null,
-        ...({ barcelona: assessCat, mallorca: assessBal, bilbao: assessEus, donostia: assessEus }[cov.id] || assess)(page, L, ad.platform === "airbnb" ? ad.id : null,
+        ...({ barcelona: assessCat, mallorca: assessBal, bilbao: assessEus, donostia: assessEus, valencia: assessVlc, laspalmas: assessCan, murcia: assessMur }[cov.id] || assess)(page, L, ad.platform === "airbnb" ? ad.id : null,
           { bilbao: "Bilbao", donostia: "Donostia / San Sebastián" }[cov.id]) };
   CACHE.set(ad.url, { at: Date.now(), body });
   return json(200, body);

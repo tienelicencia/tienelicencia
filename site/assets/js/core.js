@@ -5,7 +5,7 @@
   const SHIFTED_LABS = "https://shiftedlabs.ai";
   const STR = {
     es: {
-      nav_areas: "Zonas", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú", city_label: "Elige tu zona", city_all: "Toda España", city_avail: "Disponibles", city_soon: "Próximamente", soon: "próximamente",
+      nav_areas: "Zonas", nav_rank: "Ranking", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú", city_label: "Elige tu zona", city_all: "Toda España", city_avail: "Disponibles", city_soon: "Próximamente", soon: "próximamente",
       privacy: "Privacidad y cookies", legal: "Aviso legal", cookies: "Preferencias de cookies",
       strip: "Servicio de información independiente con datos abiertos oficiales.",
       strip_b: "No es una web oficial de ninguna administración.",
@@ -48,7 +48,7 @@
       view_data: "Ver los datos",
     },
     en: {
-      nav_areas: "Areas", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu", city_label: "Choose your area", city_all: "All of Spain", city_avail: "Available", city_soon: "Coming soon", soon: "coming soon",
+      nav_areas: "Areas", nav_rank: "Ranking", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu", city_label: "Choose your area", city_all: "All of Spain", city_avail: "Available", city_soon: "Coming soon", soon: "coming soon",
       privacy: "Privacy & cookies", legal: "Legal notice", cookies: "Cookie settings",
       strip: "An independent public-information service built on official open data.",
       strip_b: "Not an official website of any administration.",
@@ -179,7 +179,7 @@
   // ---------------------------------------------------------------- city picker (header)
   // Cities we're working on: shown as "coming soon" until their area exists in areas.json, then they move to the list.
   const COMING = [["barcelona", "Barcelona"], ["madrid", "Madrid"], ["valencia", "Valencia"], ["bilbao", "Bilbao"],
-    ["donostia", "San Sebastián"]];
+    ["donostia", "San Sebastián"], ["zaragoza", "Zaragoza"], ["murcia", "Murcia"], ["laspalmas", "Las Palmas de Gran Canaria"]];
   function cityPicker(A) {
     const sel = document.getElementById("city-pick");
     if (!sel) return;
@@ -214,6 +214,7 @@
         <nav class="site-nav" id="site-nav" aria-label="Principal">
           <label class="city-pick"><span class="sr-only" data-t="city_label"></span><select id="city-pick" data-t-aria="city_label"></select></label>
           <a href="/#zonas" data-t="nav_areas" ${page === "home" || page === "area" || page === "map" ? 'aria-current="page"' : ""}></a>
+          <a href="/ranking" data-t="nav_rank" ${page === "ranking" ? 'aria-current="page"' : ""}></a>
           <a href="/comprobar" data-t="nav_check" ${page === "check" ? 'aria-current="page"' : ""}></a>
           <a href="/metodologia" data-t="nav_method" ${page === "method" ? 'aria-current="page"' : ""}></a>
           <a href="/preguntas" data-t="nav_faq" ${page === "faq" ? 'aria-current="page"' : ""}></a>
@@ -250,6 +251,8 @@
             <li><a href="https://opendata-ajuntament.barcelona.cat/" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</li>
             <li><a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Consell de Mallorca · dades obertes</a> (CC BY 4.0)</li>
             <li><a href="https://opendata.euskadi.eus/" target="_blank" rel="noopener">Gobierno Vasco · Open Data Euskadi</a> (CC BY 4.0)</li>
+            <li><a href="https://dadesobertes.gva.es/" target="_blank" rel="noopener">Generalitat Valenciana · dades obertes</a> (CC BY 4.0)</li>
+            <li><a href="https://datos.canarias.es/" target="_blank" rel="noopener">Gobierno de Canarias · datos abiertos</a> · <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a> · <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a></li>
             <li><a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</li>
             <li><a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Dirección General del Catastro</a></li>
             <li><a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> · <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda (SERPAVI)</a></li>
@@ -514,7 +517,8 @@
     return { run, input };
   }
   const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz",
-    "Barcelona": "barcelona", "Bilbao": "bilbao", "Donostia / San Sebastián": "donostia" };
+    "Barcelona": "barcelona", "Bilbao": "bilbao", "Donostia / San Sebastián": "donostia", "Valencia": "valencia",
+    "Murcia": "murcia", "Las Palmas de Gran Canaria": "laspalmas" };
   /** Which area's map shows a register row's building: its city, else Málaga province; null elsewhere in Andalucía
       (the Andalucía map shows density only). Data built before "prov" existed is all Málaga province. */
   const AREA_OF_PROV = { MA: "provincia", SE: "provincia-sevilla", CA: "provincia-cadiz", GR: "provincia-granada", AL: "provincia-almeria",

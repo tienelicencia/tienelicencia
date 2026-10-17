@@ -11,7 +11,7 @@ on:
     inputs:
       towns:
         description: "Towns (JSON list)"
-        default: '["marbella", "granada", "cordoba", "cadiz"]'
+        default: '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]'
       n:
         description: "Sample size per town"
         default: "1000"
@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        town: ${{ fromJSON(github.event.inputs.towns || '["marbella", "granada", "cordoba", "cadiz"]') }}
+        town: ${{ fromJSON(github.event.inputs.towns || '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]') }}
     steps:
       - uses: actions/checkout@v4
         with:

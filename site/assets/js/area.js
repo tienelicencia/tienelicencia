@@ -56,6 +56,38 @@
       "Since April 2025 <b>no new tourist lets are accepted in apartment blocks</b> anywhere in the Balearics, and buying new tourist places is frozen in Mallorca (Decree-law 4/2025).",
       "In 2026 Palma declared <b>the whole municipality unsuitable</b> for new tourist lets (BOIB no. 81, 27 June 2026); existing registrations remain valid.",
       "A tourist stay can't exceed <b>30 nights</b>; stays of 31 nights or more fall outside (art. 50.13)."]),
+    valencia: () => L([
+      "Toda vivienda turística debe estar inscrita en el Registro de Turismo de la Comunitat Valenciana y <b>mostrar su número y su ubicación exacta en toda la publicidad</b> (Ley 15/2018, art. 19.1.b). Las plataformas deben pedir un número válido (art. 62.2).",
+      "Una vivienda turística se alquila <b>por 10 días o menos</b> al mismo huésped; las estancias de 11 días o más no lo son (art. 65). No se puede alquilar por habitaciones.",
+      "Desde mayo de 2026, el plan urbanístico limita las viviendas turísticas al <b>2&nbsp;% de las viviendas de cada barrio</b>, solo en planta baja o primera con acceso propio en edificios residenciales. Ciutat Vella tiene un régimen propio.",
+      "Las inscripciones valen cinco años y requieren un informe municipal de compatibilidad urbanística."],
+    ["Every tourist flat must be in the Valencian Tourism Register and <b>display its number and exact location in all advertising</b> (Law 15/2018, art. 19.1.b). Platforms must ask for a valid number (art. 62.2).",
+      "A tourist flat is let <b>for 10 days or less</b> to the same guest; stays of 11 days or more aren't tourist lets (art. 65). Letting by the room isn't allowed.",
+      "Since May 2026 the city plan caps tourist flats at <b>2% of homes in each barrio</b>, only on the ground or first floor with their own entrance in residential buildings. Ciutat Vella has its own rules.",
+      "Registrations last five years and need a council planning-compatibility report."]),
+    zaragoza: () => L([
+      "Toda vivienda de uso turístico debe estar inscrita en el Registro de Turismo de Aragón y <b>mostrar su número en toda la publicidad</b> (Decreto 1/2023, art. 17.2).",
+      "Se presume uso turístico si se anuncia en canales turísticos o la estancia es de <b>un mes o menos</b> (art. 4.3). No se puede alquilar por habitaciones.",
+      "Desde el 3 de abril de 2025, una nueva vivienda turística en un edificio con comunidad de propietarios necesita su aprobación expresa.",
+      "El registro de Aragón no tiene datos abiertos con coordenadas y sus condiciones de uso son restrictivas: aquí solo comprobamos números y publicamos totales."],
+    ["Every tourist flat must be in the Aragón Tourism Register and <b>display its number in all advertising</b> (Decree 1/2023, art. 17.2).",
+      "Tourist use is presumed if the home is advertised on tourist channels or the stay is <b>a month or less</b> (art. 4.3). Letting by the room isn't allowed.",
+      "Since 3 April 2025, a new tourist flat in a building with an owners' community needs the community's express approval.",
+      "Aragón's register isn't open data with coordinates and its terms of use are restrictive: here we only check numbers and publish totals."]),
+    murcia: () => L([
+      "Toda vivienda de uso turístico debe estar inscrita en el registro turístico de la Región de Murcia y <b>mostrar su número en toda la publicidad</b> (Decreto 256/2019, art. 6.6). Desde el 4 de noviembre de 2026, anunciar sin número es infracción grave (Ley 3/2026).",
+      "Se permite alquilar por habitaciones si el titular vive en la vivienda.",
+      "La ley murciana no fija un número de noches: tratamos como posiblemente exentas las estancias mínimas de 32 noches o más (alquiler de temporada según la ley estatal)."],
+    ["Every tourist flat must be in the Region of Murcia tourism register and <b>display its number in all advertising</b> (Decree 256/2019, art. 6.6). From 4 November 2026, advertising without the number is a serious infringement (Law 3/2026).",
+      "Letting by the room is allowed if the holder lives in the home.",
+      "Murcian law sets no number of nights: we treat minimum stays of 32 nights or more as possibly exempt (seasonal lets under national law)."]),
+    laspalmas: () => L([
+      "Toda vivienda vacacional debe estar inscrita en el Registro General Turístico de Canarias y <b>mostrar su número en toda la publicidad</b> (Ley 6/2025, art. 8.6). Anunciar sin número es muy grave (Ley 7/1995, art. 75.16).",
+      "Desde la Ley 6/2025, una nueva vivienda vacacional necesita que el planeamiento la permita expresamente; las existentes pueden seguir al menos cinco años.",
+      "Se presume uso turístico si se anuncia en canales turísticos o la estancia es de <b>31 días o menos</b> (Ley 7/2026). El alquiler por habitaciones no está prohibido."],
+    ["Every holiday home must be in the Canary Islands tourism register and <b>display its number in all advertising</b> (Law 6/2025, art. 8.6). Advertising without it is very serious (Law 7/1995, art. 75.16).",
+      "Since Law 6/2025, a new holiday home needs express permission in the local plan; existing ones may continue for at least five years.",
+      "Tourist use is presumed if the home is advertised on tourist channels or the stay is <b>31 days or less</b> (Law 7/2026). Letting by the room isn't banned."]),
     bilbao: () => L([
       "Toda vivienda turística (E…) o habitación en vivienda particular (L…) debe estar inscrita en el registro turístico de Euskadi (REATE) y <b>mostrar su número en toda la publicidad</b> (Ley 13/2016, art. 24.7; Decreto 101/2018, art. 20). Las plataformas deben comprobarlo y mostrarlo.",
       "Desde el 30 de diciembre de 2025 <b>no se pueden inscribir nuevas viviendas ni habitaciones turísticas</b> en las zonas de mercado residencial tensionado (Ley 6/2025), y Bilbao lo es.",
@@ -133,7 +165,10 @@
       sevilla: ["VUT/SE/00624", "Calle Feria 70", "Santa Cruz"],
       barcelona: ["HUTB-002062", "Carrer de Sants 387", "Sagrada Família"],
       mallorca: ["ETV/10070", "Carrer Miramar 10 Alcúdia", "Sóller"],
+      valencia: ["CV-VUT0044553-V", "Calle Paz 29", "Russafa"],
       bilbao: ["EBI00003", "Bidebarrieta 7", "Abando"],
+      murcia: ["VV.MU.6254-1", "Sucina", "30001"],
+      laspalmas: ["VV-35-1-0000750", "Calle Luis Morote 42", "35007"],
       donostia: ["ESS00009", "Zarautz 27", "Gros"],
       granada: ["VUT/GR/00283", "Calle Reyes Católicos 13", "Albaicín"],
       cordoba: ["VUT/CO/01464", "Calle Cardenal González 8", "Judería"],
@@ -141,6 +176,9 @@
       andalucia: ["VUT/GR/00283", "Calle Sagasta 97 Cádiz", "Nerja"],
       provincia: ["VUT/MA/86284", "Avenida del Gamonal Benalmádena", "29780 Nerja"] }[slug] });
     for (const a of [$("#map-teaser"), $("#cta-map")]) a.href = areaHref(slug, "mapa");
+    if (area.restricted) {   // register used for totals only (Zaragoza): no address search, no map of flats
+      for (const el of [$("#area-search").parentElement, $("#map-teaser"), document.querySelector(".cta-band")]) el.style.display = "none";
+    }
     getJSON(`/data/${slug}/preview.json`).then((pts) => TL.preview($("#map-teaser"), pts, { mode: area.has_listings ? "licences" : "licences", pad: 12,
       q: slug === "provincia" || slug === "andalucia" ? [.01, .99] : [.06, .94] }));
     const paint = () => render(area, S, M, A);
@@ -184,8 +222,10 @@
     const other = Object.values(R.other || {}).reduce((a, b) => a + b, 0);
     point("registradas", L("Registradas", "Registered"), `<span class="big brand">${fmt(R.vut)}</span>`,
       L(`viviendas turísticas inscritas en ${esc(name(area.name))}`, `tourist flats registered in ${esc(name(area.name))}`),
-      `<p>${L(`Suman <b>${fmt(R.vut_places)} plazas</b> en <b>${fmt(R.buildings_with_vut)} edificios</b>. ${R.vut_rooms ? `${fmt(R.vut_rooms)} se alquilan por habitaciones. ` : ""}Además hay ${fmt(other)} hoteles, apartamentos turísticos y otros alojamientos registrados.`,
-        `They add up to <b>${fmt(R.vut_places)} guest places</b> in <b>${fmt(R.buildings_with_vut)} buildings</b>. ${R.vut_rooms ? `${fmt(R.vut_rooms)} are let by the room. ` : ""}There are also ${fmt(other)} hotels, tourist apartments and other registered establishments.`)}</p>`,
+      area.restricted ? `<p>${L(`Según el ${RG.es}. Sus condiciones de uso no permiten republicar el listado, así que aquí solo damos el total y lo usamos para comprobar los números de los anuncios.`,
+        `According to the ${RG.en}. Its terms of use don't allow republishing the list, so here we only give the total and use it to check the numbers listings show.`)}</p>`
+      : `<p>${L(`Suman <b>${fmt(R.vut_places)} plazas</b> en <b>${fmt(R.buildings_with_vut)} edificios</b>. ${R.vut_rooms ? `${fmt(R.vut_rooms)} se alquilan por habitaciones. ` : ""}${other ? `Además hay ${fmt(other)} hoteles, apartamentos turísticos y otros alojamientos registrados.` : ""}`,
+        `They add up to <b>${fmt(R.vut_places)} guest places</b> in <b>${fmt(R.buildings_with_vut)} buildings</b>. ${R.vut_rooms ? `${fmt(R.vut_rooms)} are let by the room. ` : ""}${other ? `There are also ${fmt(other)} hotels, tourist apartments and other registered establishments.` : ""}`)}</p>`,
       "", srcReg);
 
     // Andalucía: one card per province (each has its own page and building-level map)
@@ -229,8 +269,13 @@
               <div class="cmp-row"><span class="cmp-lab">${L(`Anunciadas en Airbnb, Booking o Vrbo (INE, ${period})`, `Advertised on Airbnb, Booking or Vrbo (INE, ${period})`)}</span>
                 <span class="track"><span class="fill adv" style="width:${(100 * R.ine_pct / mx).toFixed(1)}%"></span></span><b>${pctS(R.ine_pct)}</b></div>
               <p class="small" style="margin:10px 0 0">${R.ine_pct < R.vut_share
-                ? L(`Es decir, de cada 100 viviendas, unas ${Math.round(R.vut_share)} tienen registro turístico pero solo unas ${Math.round(R.ine_pct)} se anuncian ahora en las grandes plataformas. El resto puede estar sin uso turístico, alquilarse de otra forma o anunciarse en otras webs, y podría empezar a anunciarse sin pedir un permiso nuevo.`,
-                  `In other words, of every 100 homes about ${Math.round(R.vut_share)} hold a tourist registration but only about ${Math.round(R.ine_pct)} are advertised on the big platforms right now. The rest may not be in tourist use, may be let another way or advertised elsewhere, and could start advertising without any new permission.`)
+                ? (() => {   // "of every 100 homes, about 1 … only about 1" reads oddly: use 1,000 when both round the same
+                    const per = Math.round(R.vut_share) === Math.round(R.ine_pct) ? 1000 : 100, a = Math.round(R.vut_share * per / 100), b = Math.round(R.ine_pct * per / 100);
+                    if (R.ine_pct >= 0.9 * R.vut_share) return L(`Es decir, se anuncian casi tantas viviendas como hay registradas: unas ${b} de cada ${fmt(per)}. Que las cifras se parezcan no significa que sean las mismas viviendas: parte de las registradas puede no anunciarse y parte de las anunciadas puede no estar registrada.`,
+                      `In other words, almost as many homes are advertised as are registered: about ${b} in every ${fmt(per)}. Similar figures don't mean they're the same homes: some registered flats may not be advertised and some advertised ones may not be registered.`);
+                    return L(`Es decir, de cada ${fmt(per)} viviendas, unas ${a} tienen registro turístico pero solo unas ${b} se anuncian ahora en las grandes plataformas. El resto puede estar sin uso turístico, alquilarse de otra forma o anunciarse en otras webs, y podría empezar a anunciarse sin pedir un permiso nuevo.`,
+                      `In other words, of every ${fmt(per)} homes about ${a} hold a tourist registration but only about ${b} are advertised on the big platforms right now. The rest may not be in tourist use, may be let another way or advertised elsewhere, and could start advertising without any new permission.`);
+                  })()
                 : L("Se anuncian más viviendas de las que están registradas: parte de los anuncios no tiene registro.", "More homes are advertised than registered: some adverts have no registration.")}</p></div>`;
           })() : ""}
          <p class="small muted">${L("Indicativo, no exhaustivo: el Catastro cuenta todas las viviendas (también vacías y segundas residencias); el INE solo cubre Airbnb, Booking y Vrbo; y por barrios solo tenemos Airbnb.",
@@ -318,7 +363,7 @@
       ${LS ? `<th class="n hide-sm">${L("Anuncios", "Listings")}</th><th class="n">${L("Sin nº válido", "No valid no.")}</th><th class="hide-sm"></th>`
         : `<th class="n hide-sm">${L("Plazas", "Places")}</th><th class="hide-sm"></th>`}</tr>`;
     const list = LS ? [...rows].filter((r) => r.listings > 0).sort((a, b) => b.listings - a.listings) : rows;
-    point("donde", L("Dónde", "Where"), `<span class="big brand">${share}%</span>`,
+    if (top) point("donde", L("Dónde", "Where"), `<span class="big brand">${share}%</span>`,
       L(`de las viviendas turísticas están en ${sub.kind === "barrio" ? "el barrio " : sub.kind === "locality" ? "el código postal " : ""}${subName(top)}`,
         `of tourist flats are in ${sub.kind === "barrio" ? "the barrio of " : sub.kind === "locality" ? "postcode " : ""}${subName(top)}`),
       LS ? `<p>${L(`${sub.kind === "municipality" ? "Por municipios" : "Por barrios"}, el porcentaje de anuncios sin número válido va del ${Math.round(Math.min(...withPct.map((r) => r.not_valid_pct)))}% al ${Math.round(Math.max(...withPct.map((r) => r.not_valid_pct)))}%. Solo mostramos el porcentaje donde hay al menos ${M.min_listings_area} anuncios.`,
@@ -379,13 +424,13 @@
         bar([[L("No muestran número", "No number shown"), bd.no_number, COLORS.no_number],
           [L("Número fuera del registro", "Number not in the register"), bd.not_in_register, COLORS.not_in_register],
           [L("Licencia de otro municipio", "Another town's licence"), bd.other_town, COLORS.other_town]], nv, true),
-        L(`Fuente: muestra aleatoria de anuncios de Airbnb revisados por tienelicencia.com (lista del ${TL.date(SM.frame_date)}), comprobados en el Registro de Turismo de Andalucía. <a href="/metodologia#muestras">Cómo lo hacemos</a>.`,
-          `Source: random sample of Airbnb listings checked by tienelicencia.com (list of ${TL.date(SM.frame_date)}), checked against the Andalusian Tourism Register. <a href="/metodologia#muestras">How we do it</a>.`));
+        L(`Fuente: muestra aleatoria de anuncios de Airbnb revisados por tienelicencia.com (lista del ${TL.date(SM.frame_date)}), comprobados en el ${RG.es}. <a href="/metodologia#muestras">Cómo lo hacemos</a>.`,
+          `Source: random sample of Airbnb listings checked by tienelicencia.com (list of ${TL.date(SM.frame_date)}), checked against the ${RG.en}. <a href="/metodologia#muestras">How we do it</a>.`));
     } else if (!LS && SM) {
       point("anuncios", L("Anuncios", "Listings"), `<span class="big" style="font-size:40px">${L("En curso", "In progress")}</span>`,
         L(`estamos revisando una muestra de anuncios de ${esc(name(area.name))}`, `we're checking a sample of listings in ${esc(name(area.name))}`),
-        `<p>${L(`Hemos encontrado ${fmt(SM.frame)} anuncios de Airbnb en el municipio y estamos revisando 1.000 elegidos al azar: ${fmt(SM.checked)} hasta ahora. Publicaremos la estimación cuando haya al menos 300.`,
-          `We found ${fmt(SM.frame)} Airbnb listings in the municipality and are checking 1,000 chosen at random: ${fmt(SM.checked)} so far. We'll publish the estimate once there are at least 300.`)}</p>`);
+        `<p>${L(`Hemos encontrado ${fmt(SM.frame)} anuncios de Airbnb en el municipio y estamos revisando ${fmt(SM.sample)} elegidos al azar: ${fmt(SM.checked)} hasta ahora. Publicaremos la estimación cuando haya al menos 300.`,
+          `We found ${fmt(SM.frame)} Airbnb listings in the municipality and are checking ${fmt(SM.sample)} chosen at random: ${fmt(SM.checked)} so far. We'll publish the estimate once there are at least 300.`)}</p>`);
     } else if (!LS) point("anuncios", L("Anuncios", "Listings"), `<span class="big" style="font-size:40px">${L("En preparación", "In preparation")}</span>`,
       L("aún no tenemos el análisis de anuncios de esta zona", "we don't have the listing analysis for this area yet"),
       `<p>${L("Para Málaga capital partimos de la lista completa de anuncios de Airbnb que publica Inside Airbnb y verificamos cada uno. Para Marbella y el resto de la provincia no existe esa lista abierta, así que estamos preparando la nuestra. Mientras tanto, el porcentaje de viviendas anunciadas (INE) de arriba sí cubre esta zona, y puedes comprobar cualquier anuncio concreto.",

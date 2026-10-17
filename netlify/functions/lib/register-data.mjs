@@ -27,13 +27,14 @@ const STREET_TYPES = new Set(["C", "CL", "CALLE", "AV", "AVD", "AVDA", "AVENIDA"
   "URB", "URBANIZACION", "CTRA", "CARRETERA", "CAMINO", "PASAJE", "ALAMEDA", "N", "NO", "NUM", "NUMERO"]);
 const STOP = new Set(["DE", "DEL", "LA", "LAS", "EL", "LOS", "Y", "THE"]);
 const AREA_MUNI = { malaga: "MALAGA", marbella: "MARBELLA", sevilla: "SEVILLA", granada: "GRANADA", cordoba: "CORDOBA", cadiz: "CADIZ",
-  barcelona: "BARCELONA", bilbao: "BILBAO", donostia: "DONOSTIA SAN SEBASTIAN" };
+  barcelona: "BARCELONA", bilbao: "BILBAO", donostia: "DONOSTIA SAN SEBASTIAN", valencia: "VALENCIA",
+  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA" };
 const AREA_PROV = { provincia: "MA", "provincia-sevilla": "SE", "provincia-cadiz": "CA", "provincia-granada": "GR",
   "provincia-almeria": "AL", "provincia-cordoba": "CO", "provincia-huelva": "HU", "provincia-jaen": "JA", mallorca: "IB" };   // "andalucia" = everything
 /** Does a register row (or street/barrio entry with _muni/prov) belong to this area? */
 const inArea = (r, area) => AREA_MUNI[area] ? r._muni === AREA_MUNI[area]
   : AREA_PROV[area] && r.prov ? r.prov === AREA_PROV[area] : true;   // (data built before "prov" existed: no filter)
-const POSTCODE = /^(04|07|08|11|14|18|20|21|23|29|41|48)\d{3}$/;   // provinces we cover
+const POSTCODE = /^(04|07|08|11|14|18|20|21|23|29|30|35|41|46|48|50)\d{3}$/;   // provinces we cover
 const BARRIO_ALIASES = { SOHO: "ENSANCHE CENTRO" };
 const codeKey = (code) => {
   const c = String(code || "").trim().toUpperCase();
@@ -44,7 +45,12 @@ const codeKey = (code) => {
   const b = /^(ETV60|ETVPL|ETV|VT|ABT|AG|AT|TI|HA|HR|HO|HS|H|CA)\/0*(\d{1,6})$/.exec(c);   // Mallorca: ETV/1234
   if (b) return `${b[1]}/${+b[2]}`;
   const e = /^([ELHPTBKXC])(BI|SS|VI)0*(\d{1,5})$/.exec(c);   // Euskadi (EBI00123)
-  return e ? `${e[1]}${e[2]}${e[3].padStart(5, "0")}` : null;
+  if (e) return `${e[1]}${e[2]}${e[3].padStart(5, "0")}`;
+  const v = /^CV-VUT0*(\d{1,7})-(A|V|CS)$/.exec(c);   // Comunitat Valenciana
+  if (v) return `CV-VUT${v[1].padStart(7, "0")}-${v[2]}`;
+  if (/^(VV|VT|EMR|CR|HR|H|A|E|AT)-(\d{2})?-(\d)?-\d{7}$/.test(c)) return c;   // Canarias (VV-35-1-0012345)
+  const u = /^(VV|A|AR|H|CT|ALB)\.MU\.0*(\d+)(?:-(\d+))?$/.exec(c);   // Región de Murcia (VV.MU.6415-1)
+  return u ? `${u[1]}.MU.${+u[2]}${u[3] ? `-${+u[3]}` : ""}` : null;
 };
 /** A Mallorca number typed in (ETV/1234, ETVPL 12345, H/123…) → its key, else null. */
 export const balKey = (q) => {
@@ -60,6 +66,24 @@ export const eusKey = (q) => {
   if (!m) return null;
   const n = m[3].length === 6 ? m[3].slice(0, 5) : m[3];
   return `${m[1].toUpperCase()}${m[2].toUpperCase()}${String(+n).padStart(5, "0")}`;
+};
+/** A Valencian number typed in (CV-VUT0012345-V, VT-12345-V, VT12345V) → its key (province V if left out), else null. */
+export const vlcKey = (q) => {
+  const m = /(?<![A-Z0-9])(?:CV[\s\-_]*)?(VUT|VT)[\s\-_/.]*0*(\d{1,7})(?:[\s\-_/.]*(CS|V|A)(?![A-Z]))?/i.exec(String(q || ""));
+  if (!m || (m[1].toUpperCase() === "VT" && !m[3] && !/CV/i.test(q))) return null;   // a bare VT-123 could be Madrid's
+  return `CV-VUT${m[2].padStart(7, "0")}-${(m[3] || "V").toUpperCase()}`;
+};
+/** A Canarian number typed in (VV-35-1-0012345, VV3510012345, VV-35-10012345) → its key, else null. */
+export const canKey = (q) => {
+  const m = /(?<![A-Z0-9])(VV)((?:[\s\-_./]*\d){7,12})(?![0-9])/i.exec(String(q || ""));
+  if (!m) return null;
+  const d = m[2].replace(/\D/g, "");
+  return d.length >= 10 ? `VV-${d.slice(0, 2)}-${d[2]}-${d.slice(3, 10)}` : `VV---${d.slice(-7)}`;
+};
+/** A Murcian number typed in (VV.MU.6415-1, VV MU 6415-1, VVMU6415.1) → its key, else null. */
+export const murKey = (q) => {
+  const m = /(?<![A-Z0-9])(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*0*(\d{1,5})(?:[\s.\-_]+(\d{1,4}))?(?![0-9])/i.exec(String(q || ""));
+  return m ? `${m[1].toUpperCase()}.MU.${+m[2]}${m[3] ? `-${+m[3]}` : ""}` : null;
 };
 export const catKey = (q) => { const m = /(?<![A-Z0-9])(HUTB|HB|ATB)[\s\-_/.]*0*(\d{1,6})(?![0-9])/i.exec(String(q || "")); return m ? `${m[1].toUpperCase()}-${m[2].padStart(6, "0")}` : null; };
 const cleanNum = (n) => String(n || "").toUpperCase().replace(/^0+(?=\w)/, "");
@@ -188,6 +212,13 @@ export function findCode(q) {
   if (ck) return { query: q, key: ck, variant: "exact", rows: (S.byKey.get(ck) || []).map(publicRow) };
   const bk = !/^\s*[A-Z]+\s*\/\s*[A-Z]{2}\s*\//i.test(q) && balKey(q);   // Mallorca (not a Junta code like H/MA/123)
   if (bk) return { query: q, key: bk, variant: "exact", rows: (S.byKey.get(bk) || []).map(publicRow) };
+  const uk = murKey(q);
+  if (uk) return { query: q, key: uk, variant: "exact", rows: (S.byKey.get(uk) || []).map(publicRow) };
+  const gk = canKey(q);
+  if (gk) { const L2 = lookup(); const k2 = S.byKey.has(gk) ? gk : (L2.can_short || {})[`VV-${gk.slice(-7)}`] || gk;
+    return { query: q, key: k2, variant: "exact", rows: (S.byKey.get(k2) || []).map(publicRow) }; }
+  const vk = !/^\s*VUT\s*\/\s*[A-Z]{2}\s*\//i.test(q) && vlcKey(q);   // (not a Junta VUT/MA/… code)
+  if (vk) return { query: q, key: vk, variant: "exact", rows: (S.byKey.get(vk) || []).map(publicRow) };
   const ek = eusKey(q);
   if (ek) return { query: q, key: ek, variant: "exact", rows: (S.byKey.get(ek) || []).map(publicRow) };
   const p = parse(q, L.max_issued);

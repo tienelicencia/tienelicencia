@@ -197,7 +197,16 @@ def code_key(code):
     if b:
         return f"{b.group(1)}/{int(b.group(2))}"
     e = re.match(r"^([ELHPTBKXC])(BI|SS|VI)0*(\d{1,5})$", c)   # Euskadi (EBI00123)
-    return f"{e.group(1)}{e.group(2)}{int(e.group(3)):05d}" if e else None
+    if e:
+        return f"{e.group(1)}{e.group(2)}{int(e.group(3)):05d}"
+    v = re.match(r"^CV-VUT0*(\d{1,7})-(A|V|CS)$", c)   # Comunitat Valenciana (CV-VUT0012345-V)
+    if v:
+        return f"CV-VUT{int(v.group(1)):07d}-{v.group(2)}"
+    g = re.match(r"^(VV|VT|EMR|CR|HR|H|A|E|AT)-(\d{2})?-(\d)?-(\d{7})$", c)   # Canarias (VV-35-1-0012345)
+    if g:
+        return c
+    u = re.match(r"^(VV|A|AR|H|CT|ALB)\.MU\.0*(\d+)(?:-(\d+))?$", c)   # Región de Murcia (VV.MU.6415-1)
+    return f"{u.group(1)}.MU.{int(u.group(2))}" + (f"-{int(u.group(3))}" if u.group(3) else "") if u else None
 
 
 def build_index(records):
