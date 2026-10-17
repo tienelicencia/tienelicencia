@@ -249,6 +249,7 @@
             <h2 style="margin-top:26px" data-t="foot_sources"></h2>
             <p class="foot-sources"><span data-t="foot_registers"></span>
               <a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Andalucía</a> ·
+              <a href="https://datos.comunidad.madrid/dataset/alojamientos_turisticos" target="_blank" rel="noopener">Madrid</a> ·
               <a href="https://analisi.transparenciacatalunya.cat/" target="_blank" rel="noopener">Catalunya</a> ·
               <a href="https://intranet.caib.es/opendatacataleg/" target="_blank" rel="noopener">Mallorca</a> ·
               <a href="https://dadesobertes.gva.es/" target="_blank" rel="noopener">C. Valenciana</a> ·
@@ -522,7 +523,7 @@
   }
   const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz",
     "Barcelona": "barcelona", "Bilbao": "bilbao", "Donostia / San Sebastián": "donostia", "Valencia": "valencia",
-    "Murcia": "murcia", "Las Palmas de Gran Canaria": "laspalmas" };
+    "Murcia": "murcia", "Las Palmas de Gran Canaria": "laspalmas", "Madrid": "madrid" };
   /** Which area's map shows a register row's building: its city, else Málaga province; null elsewhere in Andalucía
       (the Andalucía map shows density only). Data built before "prov" existed is all Málaga province. */
   const AREA_OF_PROV = { MA: "provincia", SE: "provincia-sevilla", CA: "provincia-cadiz", GR: "provincia-granada", AL: "provincia-almeria",

@@ -28,13 +28,13 @@ const STREET_TYPES = new Set(["C", "CL", "CALLE", "AV", "AVD", "AVDA", "AVENIDA"
 const STOP = new Set(["DE", "DEL", "LA", "LAS", "EL", "LOS", "Y", "THE"]);
 const AREA_MUNI = { malaga: "MALAGA", marbella: "MARBELLA", sevilla: "SEVILLA", granada: "GRANADA", cordoba: "CORDOBA", cadiz: "CADIZ",
   barcelona: "BARCELONA", bilbao: "BILBAO", donostia: "DONOSTIA SAN SEBASTIAN", valencia: "VALENCIA",
-  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA" };
+  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA", madrid: "MADRID" };
 const AREA_PROV = { provincia: "MA", "provincia-sevilla": "SE", "provincia-cadiz": "CA", "provincia-granada": "GR",
   "provincia-almeria": "AL", "provincia-cordoba": "CO", "provincia-huelva": "HU", "provincia-jaen": "JA", mallorca: "IB" };   // "andalucia" = everything
 /** Does a register row (or street/barrio entry with _muni/prov) belong to this area? */
 const inArea = (r, area) => AREA_MUNI[area] ? r._muni === AREA_MUNI[area]
   : AREA_PROV[area] && r.prov ? r.prov === AREA_PROV[area] : true;   // (data built before "prov" existed: no filter)
-const POSTCODE = /^(04|07|08|11|14|18|20|21|23|29|30|35|41|46|48|50)\d{3}$/;   // provinces we cover
+const POSTCODE = /^(04|07|08|11|14|18|20|21|23|28|29|30|35|41|46|48|50)\d{3}$/;   // provinces we cover
 const BARRIO_ALIASES = { SOHO: "ENSANCHE CENTRO" };
 const codeKey = (code) => {
   const c = String(code || "").trim().toUpperCase();
@@ -52,7 +52,9 @@ const codeKey = (code) => {
   const u = /^(VV|A|AR|H|CT|ALB)\.MU\.0*(\d+)(?:-(\d+))?$/.exec(c);   // Región de Murcia (VV.MU.6415-1)
   if (u) return `${u[1]}.MU.${+u[2]}${u[3] ? `-${+u[3]}` : ""}`;
   const z = /^VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$/.exec(c);   // Aragón: VU-ZA-18-101 → ZA-18-101
-  return z ? `${z[1]}-${z[2]}-${+z[3]}` : null;
+  if (z) return `${z[1]}-${z[2]}-${+z[3]}`;
+  const md = /^(VT|HM|AM|TR|HH|HR|AR|CM|CH|HS)-0*(\d{1,6})$/.exec(c);   // Comunidad de Madrid (VT-12345)
+  return md ? `${md[1]}-${+md[2]}` : null;
 };
 /** A Mallorca number typed in (ETV/1234, ETVPL 12345, H/123…) → its key, else null. */
 export const balKey = (q) => {
@@ -217,6 +219,8 @@ export function findCode(q) {
   // Aragón (VU-ZA-18-101); Andalusian codes like VUT/HU/01234 use slashes, so a slash means it isn't one
   const az = /(?<![A-Z0-9])VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*(\d{2})[\s\-_./]*0*(\d{1,5})(?![0-9])/i.exec(String(q || ""));
   if (az && !String(q).includes("/")) { const k = `${az[1].toUpperCase()}-${az[2]}-${+az[3]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
+  const md = /^\s*(VT|HM|AM|TR|HH)[\s\-_.]*0*(\d{1,6})\s*$/i.exec(String(q || ""));   // Madrid's bare VT-12345
+  if (md) { const k = `${md[1].toUpperCase()}-${+md[2]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
   const uk = murKey(q);
   if (uk) return { query: q, key: uk, variant: "exact", rows: (S.byKey.get(uk) || []).map(publicRow) };
   const gk = canKey(q);

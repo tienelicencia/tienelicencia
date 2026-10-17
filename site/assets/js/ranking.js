@@ -44,7 +44,7 @@
         c.peak_listings_per_100_homes != null
           ? `<span><b>${num(c.peak_listings_per_100_homes)}</b> ${L("anuncios por cada 100 viviendas en su kilómetro más afectado", "listings per 100 homes in its most affected kilometre")}${where}</span>`
           : `<span class="muted">${L("Zona más afectada: pendiente", "Most affected area: pending")}</span>`,
-        split ? `<span><b>${pc(c.no_valid_number_pct, 0)}</b> ${L("de los anuncios sin número válido", "of listings without a valid number")}${c.no_valid_number_source === "sample" ? ` <span class="muted">(${L("muestra", "sample")})</span>` : ""}</span>`
+        split ? `<span><b>${pc(c.no_valid_number_pct, 0)}</b> ${L("de los anuncios sin número válido", "of listings without a valid number")}${c.no_valid_number_source === "sample" ? ` <span class="muted">(${L("muestra", "sample")})</span>` : ""}${c.number_required === false ? ` <span class="muted">(${L("no es obligatorio mostrarlo", "showing it isn't required")})</span>` : ""}</span>`
           : `<span class="muted">${L("Anuncios sin número válido: pendiente", "Listings without a valid number: pending")}</span>`,
         c.registered_pct != null ? `<span><b>${pc(c.registered_pct, 2)}</b> ${L("de las viviendas con licencia turística", "of homes hold a tourist licence")}</span>` : "",
         c.buildings_over_share != null ? `<span><b>${fmt(c.buildings_over_share)}</b> ${L(`edificios de pisos con un ${R.building_share} % o más de viviendas turísticas`, `apartment buildings where ${R.building_share}%+ of homes are tourist flats`)} <span class="muted">(${pc(c.buildings_over_share_pct, 1)})</span></span>` : "",

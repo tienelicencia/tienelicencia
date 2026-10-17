@@ -7,8 +7,8 @@ from . import http
 
 INDEX = "https://insideairbnb.com/get-the-data/"
 BASE = "https://data.insideairbnb.com/spain/{region}/{city}/{date}/{path}"
-REGION = {"malaga": "andaluc%C3%ADa", "sevilla": "andaluc%C3%ADa", "barcelona": "catalonia", "mallorca": "islas-baleares", "euskadi": "pv", "valencia": "vc"}   # Inside Airbnb's folders
-REGION_RE = {"malaga": "andaluc[^/]*", "sevilla": "andaluc[^/]*", "barcelona": "catalonia", "mallorca": "islas-baleares", "euskadi": "pv", "valencia": "vc"}
+REGION = {"malaga": "andaluc%C3%ADa", "sevilla": "andaluc%C3%ADa", "barcelona": "catalonia", "mallorca": "islas-baleares", "euskadi": "pv", "valencia": "vc", "madrid": "comunidad-de-madrid"}   # Inside Airbnb's folders
+REGION_RE = {"malaga": "andaluc[^/]*", "sevilla": "andaluc[^/]*", "barcelona": "catalonia", "mallorca": "islas-baleares", "euskadi": "pv", "valencia": "vc", "madrid": "comunidad-de-madrid"}
 
 
 def _dir(cache_dir, city):

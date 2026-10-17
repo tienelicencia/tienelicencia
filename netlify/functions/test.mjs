@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, assessCat, assessBal, assessEus, assessVlc, assessCan, assessMur, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, assessBal, assessEus, assessVlc, assessCan, assessMur, assessMad, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -127,6 +127,15 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
   }
   if (lookup().mur?.["VV.MU.6254-1"] && lookup().can?.["VV-35-1-0000750"]) {   // (skipped when this region's data didn't download)
     assert.ok(findCode("VV.MU.6254-1").rows.length > 0 && findCode("VV-35-1-0000750").rows.length > 0 && findAddress("Luis Morote 42", "laspalmas").length > 0 && findAddress("Sucina", "murcia").length > 0);
+  }
+  if (Object.keys(lookup().mad || {}).length) {   // Madrid: showing the number isn't required, and the result says so
+    assert.equal(coverage({ location: "Madrid, Comunidad de Madrid, España" }).id, "madrid");
+    const mk = Object.keys(lookup().mad).find((k) => k.startsWith("VT-") && lookup().mad[k][0] === "Madrid" && lookup().mad[k][1] != null);
+    const mr = lookup().mad[mk];
+    assert.equal(assessMad({ registration_raw: `Madrid - Regional registration number<br />${mk}`, lat: mr[1], lon: mr[2], room_type: "Entire home/apt" }, lookup()).verdict.startsWith("VALID"), true);
+    const none = assessMad({ registration_raw: "" }, lookup());
+    assert.equal(none.reason, "no_number"); assert.equal(none.number_required, false);
+    assert.equal(assessVlc({ registration_raw: "VT-12345-V" }, lookup()).region, "Comunitat Valenciana");   // Valencia's VT- keeps its -V
   }
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");

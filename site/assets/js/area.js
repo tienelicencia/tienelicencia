@@ -88,6 +88,15 @@
     ["Every holiday home must be in the Canary Islands tourism register and <b>display its number in all advertising</b> (Law 6/2025, art. 8.6). Advertising without it is very serious (Law 7/1995, art. 75.16).",
       "Since Law 6/2025, a new holiday home needs express permission in the local plan; existing ones may continue for at least five years.",
       "Tourist use is presumed if the home is advertised on tourist channels or the stay is <b>31 days or less</b> (Law 7/2026). Letting by the room isn't banned."]),
+    madrid: () => L([
+      "En la Comunidad de Madrid <b>no es obligatorio mostrar el número de registro en los anuncios</b>: el Tribunal Supremo anuló esa obligación en 2018 (STS 1741/2018) porque inscribirse en el registro es voluntario.",
+      "Lo obligatorio es presentar una <b>declaración responsable</b> antes de alquilar; operar sin ella es muy grave (de 30.001 a 300.000&nbsp;€).",
+      "En la ciudad, el Plan Reside (BOCM 22/09/2025) solo admite viviendas turísticas en planta baja o primera con acceso propio, o en edificios completos en el centro. La licencia urbanística municipal es distinta del número autonómico.",
+      "La normativa madrileña no fija un número de noches: tratamos como posiblemente exentas las estancias mínimas de 32 noches o más (ley estatal)."],
+    ["In the Comunidad de Madrid <b>adverts don't have to show the registration number</b>: the Supreme Court annulled that duty in 2018 (STS 1741/2018) because joining the register is voluntary.",
+      "What's compulsory is filing a <b>declaración responsable</b> before letting; operating without one is very serious (€30,001–300,000).",
+      "In the city, Plan Reside (BOCM 22/09/2025) only allows tourist flats on the ground or first floor with their own entrance, or in whole buildings in the centre. The council's planning licence is separate from the regional number.",
+      "Madrid's rules set no number of nights: we treat minimum stays of 32 nights or more as possibly exempt (national law)."]),
     bilbao: () => L([
       "Toda vivienda turística (E…) o habitación en vivienda particular (L…) debe estar inscrita en el registro turístico de Euskadi (REATE) y <b>mostrar su número en toda la publicidad</b> (Ley 13/2016, art. 24.7; Decreto 101/2018, art. 20). Las plataformas deben comprobarlo y mostrarlo.",
       "Desde el 30 de diciembre de 2025 <b>no se pueden inscribir nuevas viviendas ni habitaciones turísticas</b> en las zonas de mercado residencial tensionado (Ley 6/2025), y Bilbao lo es.",
@@ -166,6 +175,7 @@
       barcelona: ["HUTB-002062", "Carrer de Sants 387", "Sagrada Família"],
       mallorca: ["ETV/10070", "Carrer Miramar 10 Alcúdia", "Sóller"],
       valencia: ["CV-VUT0044553-V", "Calle Paz 29", "Russafa"],
+      madrid: ["VT-1234", "Calle de Atocha 20", "Embajadores"],
       bilbao: ["EBI00003", "Bidebarrieta 7", "Abando"],
       zaragoza: ["VU-ZA-19-112", "César Augusto", "50004"],
       murcia: ["VV.MU.6254-1", "Sucina", "30001"],
@@ -313,6 +323,8 @@
         L(`de los anuncios (${fmt(v.NOT_VALID)}) no muestran un número de registro válido de ${RG.by_es}`, `of listings (${fmt(v.NOT_VALID)}) don't display a valid registration number from ${RG.by_en}`),
         `<p>${L("La mayoría simplemente no muestra ningún número. Otros muestran uno que no está en el registro hoy (no sabemos por qué: puede haberse dado de baja o tener una errata) o que pertenece a otro municipio. Es una discrepancia con el registro, <b>no demuestra por sí sola que la vivienda no tenga permiso</b>.",
           "Most simply show no number at all. Others show one that isn't in the register today (we don't know why: it may have been closed or have a typo) or that belongs to another town. It's a mismatch with the register and <b>doesn't on its own show that a flat lacks a permit</b>.")}</p>
+         ${RG.number_required === false ? `<p class="callout">${L("<b>En Madrid no es obligatorio mostrar el número en los anuncios</b>: el Tribunal Supremo anuló esa obligación en 2018, porque inscribirse en el registro es voluntario (lo obligatorio es presentar la declaración responsable). Por eso esta cifra no mide incumplimientos: mide cuántos anuncios <b>no</b> muestran un número del registro, aunque hacerlo sea buena práctica y permita comprobar que la vivienda está registrada.",
+           "<b>In Madrid adverts don't have to show the number</b>: the Supreme Court annulled that duty in 2018, because joining the register is voluntary (what's compulsory is filing a declaración responsable). So this figure doesn't measure breaches: it measures how many listings <b>don't</b> show a registered number, even though doing so is good practice and lets anyone check the flat is registered.")}</p>` : ""}
          ${LS.need_number_not_valid_pct != null ? `<p>${L(`Si solo contamos los anuncios que necesitan número (sin los ${fmt(v.POSSIBLY_EXEMPT)} posiblemente exentos), <b>el ${String(LS.need_number_not_valid_pct).replace(".", ",")}&nbsp;% no muestra uno válido</b>.`,
            `Counting only listings that need a number (leaving out the ${fmt(v.POSSIBLY_EXEMPT)} possibly exempt), <b>${LS.need_number_not_valid_pct}% don't display a valid one</b>.`)}</p>` : ""}`,
         bar([[L("No muestran número", "No number shown"), b.no_number, COLORS.no_number],

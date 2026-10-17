@@ -22,7 +22,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 
 warnings.filterwarnings("ignore")
-from rta_audit import aragon, baleares, buildings, canarias, catastro, catalunya, classify, codes, euskadi, geo, ine, murcia, valencia, live, register, sample, serpavi, snapshot, state  # noqa: E402
+from rta_audit import aragon, baleares, buildings, canarias, catastro, catalunya, classify, codes, euskadi, geo, ine, madrid, murcia, valencia, live, register, sample, serpavi, snapshot, state  # noqa: E402
 
 PIPE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(PIPE)
@@ -65,6 +65,7 @@ def cmd_refresh(a):
         step(f"snapshot {c}", lambda c=c: snapshot.update(CACHE, c))
     step("catalunya", lambda: catalunya.fetch(CACHE))   # Barcelona: Generalitat register (province) + Ajuntament HUT file
     step("baleares", lambda: baleares.fetch(CACHE))     # Mallorca: the Consell de Mallorca's two registers
+    step("madrid", lambda: madrid.fetch(CACHE))         # Madrid: the Comunidad's register and the city's address points
     step("aragon", lambda: aragon.fetch(CACHE))         # Zaragoza: the Registro de Turismo de Aragón (numbers only)
     step("murcia", lambda: murcia.fetch(CACHE))         # Murcia: the ITREM's register listings
     step("canarias", lambda: canarias.fetch(CACHE))     # Las Palmas: the Registro General Turístico de Canarias
@@ -308,6 +309,10 @@ AREAS = [
     {"slug": "mallorca", "name": {"es": "Mallorca", "en": "Mallorca"}, "kind": "island", "region": "baleares",
      "match": lambda x: (x.get("provinces") or "") == "ILLES BALEARS", "listings": True, "barrios": True, "ine": "mallorca",
      "center": [2.99, 39.61], "zoom": 9.3, "hex_m": 200, "subareas": "municipality"},
+    # Comunidad de Madrid: showing the number isn't required there (see rta_audit/madrid.py): same figures, different wording
+    {"slug": "madrid", "name": {"es": "Madrid", "en": "Madrid"}, "kind": "city", "region": "madrid", "home": "MADRID",
+     "match": lambda x: x.get("municipalities") == "MADRID" and x.get("provinces") == "MADRID", "listings": True, "barrios": True,
+     "ine": "28079", "center": [-3.7035, 40.4169], "zoom": 12.6, "hex_m": 90, "subareas": "barrio"},
     # Comunitat Valenciana: the Generalitat's register; see rta_audit/valencia.py
     {"slug": "valencia", "name": {"es": "Valencia", "en": "Valencia"}, "kind": "city", "region": "valencia", "home": "VALENCIA",
      "match": lambda x: x.get("municipalities") == "VALENCIA" and x.get("provinces") == "VALENCIA", "listings": True, "barrios": True,
@@ -368,7 +373,7 @@ CATASTRO_PROVINCE = "29"     # Catastro: every municipality in Málaga province�
 NOT_MALLORCA = {"07002", "07015", "07064", "07037", "07067", "07023", "07032", "07052", "07026", "07024", "07046", "07050",
                 "07048", "07054"}
 CATASTRO_EXTRA = [("41", "SEVILLA"), ("18", "GRANADA"), ("14", "CORDOBA"), ("11", "CADIZ"), ("08", "BARCELONA"), ("46", "VALENCIA"), ("30", "MURCIA"), ("50", "ZARAGOZA"),
-                  ("35", "LAS PALMAS DE GRAN CANARIA")]   # …plus these cities
+                  ("35", "LAS PALMAS DE GRAN CANARIA"), ("28", "MADRID")]   # …plus these cities
 LISTING_CITIES = [A["slug"] for A in AREAS if A["listings"]]
 SNAPSHOT_CITIES = list(dict.fromkeys(A.get("ia", A["slug"]) for A in AREAS if A["listings"]))   # Inside Airbnb's own city names
 
@@ -392,6 +397,9 @@ REGISTERS = {
                   "src": "Generalitat de Catalunya y Ajuntament de Barcelona", "seasonal_nights": 32},
     "valencia": {"es": "Registro de Turismo de la Comunitat Valenciana", "en": "Valencian Tourism Register", "by_es": "la Generalitat Valenciana",
                  "by_en": "the Generalitat Valenciana", "src": "Generalitat Valenciana, dades obertes", "seasonal_nights": valencia.SEASONAL_NIGHTS},
+    "madrid": {"es": "Registro de Empresas Turísticas de la Comunidad de Madrid", "en": "Comunidad de Madrid tourism register",
+               "by_es": "la Comunidad de Madrid", "by_en": "the Comunidad de Madrid", "src": "Comunidad de Madrid, datos abiertos",
+               "seasonal_nights": madrid.SEASONAL_NIGHTS, "number_required": False},
     # (names and thresholds checked against docs/law-sources.md when each region's register is wired in)
     "aragon": {"es": "Registro de Turismo de Aragón", "en": "Aragón Tourism Register", "by_es": "el Gobierno de Aragón",
                "by_en": "the Government of Aragón", "src": "Gobierno de Aragón, Aragón Open Data", "seasonal_nights": 32},
@@ -603,7 +611,7 @@ def ine_region(I):
 
 # Spain's ten largest municipalities (INE population, 1 Jan 2025) for the ranking: (name, INE code, our area slug or None,
 # the municipality's row inside a wider area, e.g. Palma within Mallorca)
-RANKING = [("Madrid", "28079", None, None), ("Barcelona", "08019", "barcelona", None), ("Valencia", "46250", "valencia", None),
+RANKING = [("Madrid", "28079", "madrid", None), ("Barcelona", "08019", "barcelona", None), ("Valencia", "46250", "valencia", None),
            ("Sevilla", "41091", "sevilla", None), ("Zaragoza", "50297", "zaragoza", None), ("Málaga", "29067", "malaga", None),
            ("Murcia", "30030", "murcia", None), ("Palma", "07040", "mallorca", "Palma de Mallorca"),
            ("Las Palmas de Gran Canaria", "35016", "laspalmas", None), ("Bilbao", "48020", "bilbao", None)]
@@ -737,6 +745,8 @@ def ranking(I, summaries, conc, built, extra=None):
             r["registered_pct"] = (S.get("registered") or {}).get("vut_share")
             if slug in conc:
                 r["concentration_pct"], r["concentration_basis"] = conc[slug]
+        if (REGISTERS.get(AREA_REGION.get(slug) or "") or {}).get("number_required") is False:
+            r["number_required"] = False   # Madrid: showing the number isn't required
         if nv is not None:
             r.update(no_valid_number_pct=nv, no_valid_number_source=src,
                      advertised_no_number_pct=round(m["pct"] * nv / 100, 2), advertised_with_number_pct=round(m["pct"] * (1 - nv / 100), 2))
@@ -973,10 +983,14 @@ def cmd_build(a):
     # Murcia: the ITREM listings, flats placed on their Catastro parcel
     MUR = murcia.load_register(os.path.join(CACHE, "murcia"), (catastro.load_cached(CACHE).get("30030") or {}).get("parcels") or {})
     prov += [x for x in murcia.as_register_records(MUR) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
+    # Madrid: the Comunidad's register; city flats placed from the council's address points
+    MAD = madrid.load_register(os.path.join(CACHE, "madrid"))
+    prov += [x for x in madrid.as_register_records(MAD) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Zaragoza: the Aragón register (no coordinates: in search, not on the map)
     ARA = aragon.load_register(os.path.join(CACHE, "aragon", "vut.csv"))
     prov += aragon.as_register_records(ARA)
-    FN = {"aragon": lambda v, r: aragon.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], ARA),
+    FN = {"madrid": lambda v, r: madrid.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], MAD),
+          "aragon": lambda v, r: aragon.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], ARA),
           "murcia": lambda v, r: murcia.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], MUR),
           "valencia": lambda v, r: valencia.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], VLC),
           "canarias": lambda v, r: canarias.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], CAN)}
@@ -1264,6 +1278,9 @@ def cmd_build(a):
                            for k, v in CAN.items() if k != "_short" and v.get("muni") and canarias._same_muni(v["muni"], "Las Palmas De Gran Canaria")
                            or (k != "_short" and k.split("-")[1:3] == ["35", "1"])},
                    "can_short": {s: k for s, k in (CAN.get("_short") or {}).items() if k.split("-")[1:3] in (["35", "1"], ["", ""])},
+                   # Comunidad de Madrid: VT-12345 → [municipality, lat, lon, group]
+                   "mad": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                               "C" if k.startswith("VT") else ""] for k, v in MAD.items()},
                    # Aragón: VU-ZA-18-101 → key ZA-18-101 → [municipality (Zaragoza or other), lat, lon, group]
                    "ara": {k: ["Zaragoza" if v["zaragoza"] else v["locality"].title(), None, None, "C"] for k, v in ARA.items()},
                    # Región de Murcia: VV.MU.6415-1 → [municipality (Murcia or other), lat, lon, group]
@@ -1284,7 +1301,7 @@ def cmd_build(a):
     clean = lambda v: " ".join(str(v).split()) if v not in (None, "", "-") else ""
     srows = []
     MUNI_AREA = {A["home"]: A["slug"] for A in AREAS if A.get("home") and A["slug"] in BAR}   # barrio names in search results
-    PROV_CODE = {"BARCELONA": "B", "ILLES BALEARS": "IB", "BIZKAIA": "BI", "GIPUZKOA": "SS", "VALENCIA": "V", "LAS PALMAS": "GC", "MURCIA": "MU", "ZARAGOZA": "Z", "ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
+    PROV_CODE = {"BARCELONA": "B", "ILLES BALEARS": "IB", "BIZKAIA": "BI", "GIPUZKOA": "SS", "VALENCIA": "V", "LAS PALMAS": "GC", "MURCIA": "MU", "ZARAGOZA": "Z", "MADRID": "M", "ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
                  "MÁLAGA": "MA", "SEVILLA": "SE"}   # the register's own province codes (VUT/MA/…, VUT/HU/…)
     for x in prov:
         srows.append([x["registration_code"], buildings.KIND.get(x.get("objects_type_id"), "?"), (x.get("group") or "")[:1],

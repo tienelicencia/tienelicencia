@@ -209,7 +209,10 @@ def code_key(code):
     if u:
         return f"{u.group(1)}.MU.{int(u.group(2))}" + (f"-{int(u.group(3))}" if u.group(3) else "")
     z = re.match(r"^VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$", c)   # Aragón (VU-ZA-18-101): key without the VU/VUT prefix
-    return f"{z.group(1)}-{z.group(2)}-{int(z.group(3))}" if z else None
+    if z:
+        return f"{z.group(1)}-{z.group(2)}-{int(z.group(3))}"
+    m = re.match(r"^(VT|HM|AM|TR|HH|HR|AR|CM|CH|HS)-0*(\d{1,6})$", c)   # Comunidad de Madrid (VT-12345)
+    return f"{m.group(1)}-{int(m.group(2))}" if m else None
 
 
 def build_index(records):

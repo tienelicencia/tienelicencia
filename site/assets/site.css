@@ -574,3 +574,5 @@ table.rank .rank-i { color: var(--muted); width: 36px; font-size: 13px; }
   .rk-row { grid-template-columns: 30px minmax(0, 1fr) 64px; gap: 4px 12px; }
   .rk-pos { font-size: 18px; }
 }
+
+.callout { background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 0; padding: 12px 14px; color: var(--ink-2); max-width: 70ch; }

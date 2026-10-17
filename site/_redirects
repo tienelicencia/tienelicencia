@@ -64,6 +64,9 @@
 /laspalmas                /area.html  200
 /laspalmas/mapa           /mapa.html  200
 /laspalmas/zonas          /zonas.html  200
+/madrid                   /area.html  200
+/madrid/mapa              /mapa.html  200
+/madrid/zonas             /zonas.html  200
 /marbella                 /area.html  200
 /marbella/mapa            /mapa.html  200
 /marbella/zonas           /zonas.html  200
