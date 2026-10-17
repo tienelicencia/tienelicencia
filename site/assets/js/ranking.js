@@ -42,7 +42,7 @@
       const lines = [
         `<span><b>${pc(c.advertised_pct, 2)}</b> ${L("de todas las viviendas se anuncian como turísticas", "of all homes are advertised for tourist stays")}</span>`,
         c.peak_listings_per_100_homes != null
-          ? `<span><b>${num(c.peak_listings_per_100_homes)}</b> ${L("anuncios por cada 100 viviendas en su kilómetro más afectado", "listings per 100 homes in its most affected kilometre")}${where}</span>`
+          ? `<span><b>${num(c.peak_listings_per_100_homes)}</b> ${L("anuncios por cada 100 viviendas en su kilómetro más afectado", "listings per 100 homes in its most affected kilometre")}${where}${c.peak_registered_pct != null ? `, ${L("donde el", "where")} <b>${pc(c.peak_registered_pct)}</b> ${L("de las viviendas tiene licencia turística", "of homes hold a tourist licence")}` : ""}</span>`
           : `<span class="muted">${L("Zona más afectada: pendiente", "Most affected area: pending")}</span>`,
         split ? `<span><b>${pc(c.no_valid_number_pct, 0)}</b> ${L("de los anuncios sin número válido", "of listings without a valid number")}${c.no_valid_number_source === "sample" ? ` <span class="muted">(${L("muestra", "sample")})</span>` : ""}${c.number_required === false ? ` <span class="muted">(${L("no es obligatorio mostrarlo", "showing it isn't required")})</span>` : ""}</span>`
           : `<span class="muted">${L("Anuncios sin número válido: pendiente", "Listings without a valid number: pending")}</span>`,
