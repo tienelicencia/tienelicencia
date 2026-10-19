@@ -2,7 +2,7 @@ name: 1 · Sources
 
 # Downloads the open government data every day: the Junta register (only when it changed), the other regions' registers,
 # Inside Airbnb's listing files, barrios and address points, INE and the Catastro (with a time budget: a first full
-# download continues on the next run). Saves them to the shared data cache that "2 · Airbnb checks" and "3 · Build site"
+# download continues on the next run). Saves them to the shared data cache that the Airbnb checks and "3 · Build site"
 # restore. Commits nothing. A source that is down keeps yesterday's copy.
 on:
   schedule:
