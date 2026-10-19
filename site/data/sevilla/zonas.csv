@@ -1,26 +1,26 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 Alfalfa,829,3983,3168,26.2,937,578,204,89,25,23,31.3
 Feria,670,2999,3547,18.9,580,342,141,50,19,11,32.9
-Triana Casco Antiguo,630,2931,4225,14.9,531,316,156,30,15,8,35.0
-Arenal,629,3302,2130,29.5,656,397,171,37,13,23,31.7
-Santa Cruz,601,3189,1685,35.7,688,380,182,79,5,17,37.9
-San Bartolomé,576,2807,2359,24.4,637,413,163,32,8,9,30.6
+Triana Casco Antiguo,630,2931,4225,14.9,532,317,156,30,15,8,35.0
+Arenal,629,3302,2130,29.5,655,396,171,37,13,23,31.8
+Santa Cruz,601,3190,1685,35.7,688,379,181,79,7,17,37.8
+San Bartolomé,576,2807,2359,24.4,636,413,162,32,8,9,30.5
 San Gil,504,2139,3930,12.8,370,229,79,26,18,9,28.4
-"Encarnación, Regina",454,2148,2463,18.4,441,252,109,41,13,15,34.0
+"Encarnación, Regina",454,2148,2463,18.4,441,253,109,40,13,15,33.8
 San Vicente,425,2077,3213,13.2,356,205,86,25,9,12,31.2
 Santa Catalina,408,1850,2713,15.0,309,198,68,23,10,5,29.4
-Triana Este,373,1606,7395,5.0,237,147,58,12,6,11,29.5
+Triana Este,373,1606,7395,5.0,236,146,58,12,6,11,29.7
 San Lorenzo,364,1714,2564,14.2,293,167,98,11,7,5,37.2
-San Julián,314,1365,3182,9.9,230,142,54,5,9,6,25.7
+San Julián,314,1365,3182,9.9,230,143,53,5,9,6,25.2
 Museo,269,1431,3044,8.8,306,150,117,21,2,7,45.1
 Triana Oeste,265,1227,8164,3.2,172,93,52,8,2,6,34.9
-Los Remedios,222,1140,11064,2.0,152,98,39,9,0,2,31.6
+Los Remedios,222,1140,11064,2.0,151,97,39,9,0,2,31.8
 San Bernardo,154,851,1917,8.0,107,71,26,4,0,1,28.0
 Nervión,123,636,7515,1.6,86,58,12,10,0,2,25.6
-an Roque,120,622,2272,5.3,112,66,30,3,3,2,29.5
+an Roque,119,620,2272,5.2,112,67,29,3,3,2,28.6
 La Buhaira,89,475,5922,1.5,61,38,7,3,1,3,16.4
 San José Obrero,85,413,4952,1.7,53,36,6,6,2,3,22.6
-"Doctor Barraquer, G. Renfe, Policlínico",79,318,2166,3.6,56,37,12,6,0,0,32.1
+"Doctor Barraquer, G. Renfe, Policlínico",79,317,2166,3.6,56,37,12,6,0,0,32.1
 "León XIII, Los Naranjos",66,311,2988,2.2,41,38,0,1,0,2,2.4
 "Cruz Roja, Capuchinos",61,317,2828,2.2,56,35,16,5,0,0,37.5
 "El Tardón, El Carmen",59,286,3829,1.5,30,21,8,1,0,0,30.0
@@ -35,13 +35,13 @@ Barrio León,38,224,1423,2.7,16,10,5,0,0,1,31.2
 no asignado,38,143,2931,1.3,25,20,2,1,0,0,12.0
 "Tiro de Línea, Santa Genoveva",36,174,2692,1.3,10,,,,,,
 "Carretera de Carmona, María Auxiliadora, Fontanal",33,166,2523,1.3,31,25,5,0,0,1,16.1
-Ciudad Jardín,31,173,1943,1.6,16,9,2,0,1,3,12.5
+Ciudad Jardín,31,173,1943,1.6,16,9,3,0,1,2,18.8
 Pio XII,31,139,2511,1.2,23,13,5,1,1,3,26.1
 Huerta de la Salud,29,149,2132,1.4,32,20,7,2,2,1,28.1
 "Sector Sur, La Palmera, Reina Mercedes",28,161,2957,0.9,32,13,9,0,0,7,28.1
-"San Carlos, Tartessos",26,129,2108,1.2,9,,,,,,
+"San Carlos, Tartessos",26,121,2108,1.2,9,,,,,,
 Bellavista,25,141,8711,0.3,26,11,14,1,0,0,57.7
-El Plantinar,25,115,3443,0.7,9,,,,,,
+El Plantinar,25,114,3443,0.7,9,,,,,,
 El Carmen,20,87,749,2.7,7,,,,,,
 San Pablo A y B,19,81,3700,0.5,8,,,,,,
 San Jerónimo,18,79,5136,0.4,12,,,,,,
