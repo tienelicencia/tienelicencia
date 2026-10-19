@@ -11,7 +11,7 @@
 [[headers]]
   for = "/data/*"
   [headers.values]
-    Cache-Control = "public, max-age=900"
+    Cache-Control = "public, max-age=300"   # short: after a release the scripts update at once, the data within 5 minutes
 
 [[headers]]
   for = "/*"
