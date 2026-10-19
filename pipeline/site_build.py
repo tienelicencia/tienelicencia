@@ -36,6 +36,8 @@ MIN_LISTINGS_HEX = 10    # don't draw problem hexes with fewer listings (privacy
 MIN_HOMES_SHARE = 30     # don't give a "% of homes" for map areas with fewer dwellings (noise)
 MIN_HOMES_BARRIO = 100   # same for barrios in rankings
 LIVE_MAX_AGE_DAYS = 45   # older live checks fall back to snapshot text
+RECHECK_CYCLE_DAYS = 30  # "--budget auto": each city's listings re-checked about once a month
+RECHECK_MAX = 1500       # …at most this many per city per run (~4 h at 9–10 s each)
 
 
 def now():
@@ -93,7 +95,11 @@ def cmd_recheck(a):
     ids = [r["id"] for r in rows]
     STATE = state_path(a.city)
     st = state.load(STATE)
-    todo = state.due(st, ids, a.budget)
+    # "auto": enough to re-check every listing about once a month (RECHECK_CYCLE_DAYS), capped so a job stays well inside
+    # the runner's time limit at ~9 s per listing
+    budget = min(RECHECK_MAX, -(-len(ids) // RECHECK_CYCLE_DAYS)) if a.budget == "auto" else int(a.budget)
+    print(f"{a.city}: {len(ids)} listings, checking {budget} this run")
+    todo = state.due(st, ids, budget)
     blocked, start, tally = 0, time.monotonic(), Counter()
     for n, lid in enumerate(todo, 1):
         if a.max_minutes and time.monotonic() - start > a.max_minutes * 60:
@@ -116,7 +122,8 @@ def cmd_recheck(a):
 # ------------------------------------------------------------------ town samples (no Inside Airbnb data)
 SAMPLE_DIR = os.path.join(REPO, "state", "samples")
 SAMPLE_TOWNS = {"marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"}
-FRAME_MAX_AGE_DAYS = 80   # rebuild the list of a town's listings about once a quarter
+FRAME_MAX_AGE_DAYS = 25   # rebuild the list of a town's listings each monthly run
+SAMPLE_MAX_AGE_DAYS = 25  # …and re-check sampled listings whose last check is older than this
 
 
 def muni_locator(index):
@@ -197,7 +204,12 @@ def cmd_sample(a):
         print(f"frame: {len(inside)} listings in {home} ({len(found) - len(inside)} outside, {len(capped)} capped areas)")
     # Fixed random order (hash of the id): the first N of the list are a simple random sample.
     order = sorted((r[0] for r in S["frame"]), key=lambda i: hashlib.sha1(i.encode()).hexdigest())[:a.n]
-    todo = [i for i in order if i not in S["checks"]]
+    def stale(c):
+        try:
+            return (datetime.now(timezone.utc) - datetime.fromisoformat(c["checked_at"].replace("Z", "+00:00"))).days >= SAMPLE_MAX_AGE_DAYS
+        except (KeyError, ValueError, TypeError):
+            return True
+    todo = [i for i in order if i not in S["checks"] or stale(S["checks"][i])]
     print(f"sample {len(order)} of {len(S['frame'])}: {len(order) - len(todo)} already checked, {len(todo)} to go")
     blocked, tally = 0, Counter()
     for k, lid in enumerate(todo, 1):
@@ -1387,7 +1399,7 @@ def main():
     p.add_argument("--catastro-minutes", type=float, default=120, help="stop Catastro downloads after this long (next run continues)")
     p.set_defaults(f=cmd_refresh)
     p = sp.add_parser("recheck")
-    p.add_argument("--budget", type=int, default=1500)
+    p.add_argument("--budget", default="auto", help='listings to re-check, or "auto" (all of the city about once a month)')
     p.add_argument("--city", default="malaga", choices=LISTING_CITIES, help="which city's listings to re-check")
     p.add_argument("--evidence", action="store_true")
     p.add_argument("--max-minutes", type=float, default=0, help="stop re-checking after this long (0 = no limit)")
