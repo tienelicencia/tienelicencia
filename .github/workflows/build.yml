@@ -1,11 +1,11 @@
 name: 3 · Build site
 
-# Rebuilds the site data from the latest data cache ("1 · Sources") and the latest checks ("2 · Airbnb checks", in the
+# Rebuilds the site data from the latest data cache ("1 · Sources") and the latest checks ("2a"/"2b", in the
 # private state repository), runs the tests and commits the aggregate data here; Netlify redeploys on the commit.
 # Runs after either of them finishes, and once a day as a fallback. A failure here loses nothing upstream: just run it again.
 on:
   workflow_run:
-    workflows: ["1 · Sources", "2 · Airbnb checks"]
+    workflows: ["1 · Sources", "2a · Airbnb re-checks", "2b · Town samples"]
     types: [completed]
   schedule:
     - cron: "30 11 * * *"   # 11:30 UTC daily fallback

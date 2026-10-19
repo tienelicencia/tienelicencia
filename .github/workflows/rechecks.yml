@@ -1,0 +1,69 @@
+name: 2a · Airbnb re-checks
+
+# Cities with Inside Airbnb data: every day after "1 · Sources", re-checks enough of each city's listings on Airbnb to
+# cover all of them about once a month. Politely (one request at a time, 6–12 s apart, no login), one runner per city.
+# Per-listing results go to the private state repository (./state, deploy key); nothing is committed here.
+# "3 · Build site" runs when this finishes.
+on:
+  workflow_run:
+    workflows: ["1 · Sources"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: "Listings to re-check per city: auto (all listings about once a month), a number, or 0 to skip"
+        default: "auto"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rechecks
+  cancel-in-progress: false
+
+jobs:
+  recheck:
+    if: github.event_name == 'workflow_run' || github.event.inputs.budget != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        city: [malaga, sevilla, barcelona, madrid, mallorca, valencia, bilbao, donostia]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Private state (per-listing checks)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.STATE_REPO || 'tienelicencia/tienelicencia-state' }}
+          ssh-key: ${{ secrets.STATE_DEPLOY_KEY }}
+          path: state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests openpyxl
+      - name: Restore data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}
+          restore-keys: rta-cache-
+      - name: Re-check listings on Airbnb (rolling)
+        working-directory: pipeline
+        continue-on-error: true   # if Airbnb blocks, keep what was checked
+        timeout-minutes: 285
+        run: python site_build.py recheck --city ${{ matrix.city }} --budget ${{ github.event.inputs.budget || 'auto' }} --max-minutes 270
+      - name: Save check progress
+        if: always()
+        working-directory: state
+        run: |
+          git config user.name "licencemap-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Listing checks ${{ matrix.city }}"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs && git push && exit 0
+            sleep $((RANDOM % 20 + 10))
+          done
+          exit 1

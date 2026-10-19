@@ -1,0 +1,75 @@
+name: 2b · Town samples
+
+# Towns without Inside Airbnb data (Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia, Las Palmas): rebuild the list of
+# each town's Airbnb listings from Airbnb's map search, then live-check a fixed random sample of it, re-checking entries
+# older than 25 days. Monthly, or on demand. One runner per town; a run that hits the time limit saves its progress and
+# the next one continues. Results go to the private state repository (./state); "3 · Build site" runs when this finishes.
+on:
+  schedule:
+    - cron: "40 4 1 * *"   # the 1st of each month, 04:40 UTC
+  workflow_dispatch:
+    inputs:
+      towns:
+        description: "Towns (JSON list)"
+        default: '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]'
+      n:
+        description: "Sample size per town"
+        default: "1000"
+      refresh_frame:
+        description: "Rebuild the list of a town's listings even if recent (true/false)"
+        default: "false"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: samples
+  cancel-in-progress: false
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        town: ${{ fromJSON(github.event.inputs.towns || '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]') }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Private state (town samples)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.STATE_REPO || 'tienelicencia/tienelicencia-state' }}
+          ssh-key: ${{ secrets.STATE_DEPLOY_KEY }}
+          path: state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests openpyxl
+      - name: Restore data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: pipeline/cache
+          key: rta-cache-${{ github.run_id }}
+          restore-keys: rta-cache-
+      - name: List and check the sample
+        working-directory: pipeline
+        continue-on-error: true   # keep what was checked if Airbnb blocks or time runs out
+        timeout-minutes: 335
+        run: >
+          python site_build.py sample --town ${{ matrix.town }} --n ${{ github.event.inputs.n || '1000' }}
+          --max-minutes 320 ${{ github.event.inputs.refresh_frame == 'true' && '--refresh-frame' || '' }}
+      - name: Save
+        if: always()
+        working-directory: state
+        run: |
+          git config user.name "licencemap-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add samples
+          git diff --cached --quiet && exit 0
+          git commit -m "Town sample ${{ matrix.town }} $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs && git push && exit 0
+            sleep $((RANDOM % 20 + 10))
+          done
+          exit 1
