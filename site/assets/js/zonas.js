@@ -88,8 +88,8 @@
         ? L("Viviendas turísticas registradas y anuncios de Airbnb como porcentaje de todas las viviendas de cada municipio. Pulsa una columna para ordenar; pulsa un municipio para verlo en el mapa.",
           "Registered tourist flats and Airbnb listings as a share of all homes in each municipality. Click a column to sort; click a municipality to see it on the map.")
       : k === "municipality"
-        ? L("Viviendas turísticas registradas en la Junta y anunciadas en plataformas (INE) como porcentaje de todas las viviendas de cada municipio. Pulsa una columna para ordenar.",
-          "Tourist flats registered with the Junta and advertised on platforms (INE) as a share of all homes in each municipality. Click a column to sort.")
+        ? L("Viviendas turísticas registradas en el registro oficial y anunciadas en plataformas (INE) como porcentaje de todas las viviendas de cada municipio. Pulsa una columna para ordenar.",
+          "Tourist flats in the official register and advertised on platforms (INE) as a share of all homes in each municipality. Click a column to sort.")
         : L("Viviendas turísticas registradas por código postal.", "Registered tourist flats by postcode.");
     $("#rank-notes").innerHTML = (k === "barrio" && fr ? L(`No damos porcentajes con menos de 100 viviendas. «Sin nº válido (muestra)»: estimación con los anuncios de la muestra aleatoria situados en el ${unit}, con su intervalo de confianza del 95&nbsp;% en gris; con pocos anuncios revisados el margen es amplio. Un anuncio no es una vivienda: una vivienda puede tener varios.${S.subareas.vut_located === false ? " Al registro le faltan las coordenadas de demasiadas viviendas para repartirlas por zonas (sin datos)." : ""}`,
         `No shares below 100 homes. "No valid no. (sample)": estimate from the random sample's listings located in the ${unit}, with its 95% confidence interval in grey; with few listings checked the margin is wide. A listing isn't a home: one home can have several.${S.subareas.vut_located === false ? " Too many flats in the register have no coordinates to split them by area (no data)." : ""}`)

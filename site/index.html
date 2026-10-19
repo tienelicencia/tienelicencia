@@ -42,6 +42,10 @@
       <p class="lede" lang="en">Check any advert, and see which tourist flats are registered, where they concentrate and how many adverts
         don't display a valid registration number, city by city. Official open data, updated every day.</p>
       <p class="small muted" id="coverage-line" style="margin-top:-6px"></p>
+      <a class="index-cta" href="/ranking" data-track="hero_index">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="6" width="3" height="12" rx="1"/><rect x="16" y="9" width="3" height="9" rx="1"/></svg>
+        <b lang="es">Ver el ranking de las 13 grandes ciudades</b><b lang="en">See the ranking of the 13 largest cities</b>
+        <span class="arrow" aria-hidden="true">→</span></a>
       <div class="hero-actions grid4">
         <a class="action" href="#zonas" data-track="hero_zone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg>
           <span><b lang="es">Ver el resumen de una zona</b><b lang="en">See an area summary</b></span></a>
@@ -52,11 +56,7 @@
         <a class="action" href="#buscar" data-track="hero_search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <span><b lang="es">Buscar una dirección o licencia</b><b lang="en">Search an address or licence</b></span></a>
       </div>
-      <a class="index-cta" href="/ranking" data-track="hero_index">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="6" width="3" height="12" rx="1"/><rect x="16" y="9" width="3" height="9" rx="1"/></svg>
-        <span><b lang="es">Ver el índice de presión de la vivienda turística</b><b lang="en">See the tourist-housing pressure index</b>
-          <small lang="es">Las 13 ciudades de más de 300.000 habitantes, de mayor a menor presión</small><small lang="en">The 13 cities over 300,000 inhabitants, from most to least pressure</small></span>
-        <span class="arrow" aria-hidden="true">→</span></a>
+
     </div>
     <div class="hero-art">
       <div class="card" style="aspect-ratio:1/1;position:relative;overflow:hidden;background:var(--surface-2)" id="hero-map" aria-hidden="true"></div>
@@ -136,12 +136,12 @@
     <div class="steps">
       <div class="step"><div class="n">1</div>
         <h3><span lang="es">El registro oficial</span><span lang="en">The official register</span></h3>
-        <p lang="es">Descargamos cada día el Registro de Turismo de Andalucía en formato abierto: cada vivienda turística inscrita, con su dirección y su número.</p>
-        <p lang="en">Every day we download the Andalusian Tourism Register's open data: every registered tourist flat, with its address and number.</p></div>
+        <p lang="es">Descargamos cada día los registros oficiales de turismo de cada comunidad, en formato abierto: cada vivienda turística inscrita, con su dirección y su número.</p>
+        <p lang="en">Every day we download each region's official tourism register as open data: every registered tourist flat, with its address and number.</p></div>
       <div class="step"><div class="n">2</div>
         <h3><span lang="es">Lo que se anuncia</span><span lang="en">What is advertised</span></h3>
-        <p lang="es">Leemos el número que muestra cada anuncio de Airbnb en Málaga y Sevilla capital y lo buscamos en el registro, teniendo en cuenta los errores de formato habituales.</p>
-        <p lang="en">We read the number each Airbnb listing in Málaga and Seville displays and look it up in the register, allowing for the usual formatting mistakes.</p></div>
+        <p lang="es">Leemos el número que muestra cada anuncio de Airbnb (todos los de cada ciudad, o una muestra aleatoria) y lo buscamos en el registro de su comunidad, teniendo en cuenta los errores de formato habituales.</p>
+        <p lang="en">We read the number each Airbnb listing displays (every listing in a city, or a random sample) and look it up in its region's register, allowing for the usual formatting mistakes.</p></div>
       <div class="step"><div class="n">3</div>
         <h3><span lang="es">Solo por zonas</span><span lang="en">Areas, not people</span></h3>
         <p lang="es">Publicamos los problemas por zonas, nunca anuncio a anuncio. Cualquiera puede comprobar un anuncio concreto y decidir si lo comunica.</p>

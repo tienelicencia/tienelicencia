@@ -34,7 +34,8 @@
     const base = "https://tienelicencia.com";
     const n = H.cities, minPop = fmt(H.min_population);
     const [t1, t2, t3] = H.top;
-    const nv = 100 * H.not_valid / H.assessed, wr = 100 * H.wrong_number / H.not_valid;
+    const nv = 100 * H.not_valid / H.assessed;
+    const oneIn = (share) => Math.max(2, Math.round(1 / share));   // 0.32 → "1 in 3"
     const tb = H.top_barrio, hs = H.hotspot;
     const barrioCities = Object.entries(H.barrios_over_by_area).map(([s, k]) => `${nm(s)} ${fmt(k)}`).join(" · ");
     const S = [
@@ -48,11 +49,12 @@
         L(`Del ${pc(H.registered_min[0], 2)} en ${esc(H.registered_min[1])} al ${pc(H.registered_max[0], 2)} en ${esc(H.registered_max[1])}.`,
           `From ${pc(H.registered_min[0], 2)} in ${esc(H.registered_min[1])} to ${pc(H.registered_max[0], 2)} in ${esc(H.registered_max[1])}.`), "/ranking",
         L(`${pc(H.registered_pct, 2)} de las viviendas de las ${n} mayores ciudades españolas son viviendas turísticas registradas`, `${pc(H.registered_pct, 2)} of homes in Spain's ${n} largest cities are registered tourist flats`)],
-      ["bad", fmt(H.not_valid), L(`anuncios de Airbnb <b>no muestran un número de registro válido</b>: el ${pc(nv, 0)} de los ${fmt(H.assessed)} que hemos comprobado`,
-          `Airbnb listings <b>don't display a valid registration number</b>: ${pc(nv, 0)} of the ${fmt(H.assessed)} we've checked`),
-        L(`${fmt(H.wrong_number)} de ellos (${pc(wr, 0)}) muestran un número que no está en el registro o que es de otro municipio. Sin contar Madrid, donde mostrarlo no es obligatorio.`,
-          `${fmt(H.wrong_number)} of them (${pc(wr, 0)}) show a number that isn't in the register or belongs to another town. Not counting Madrid, where showing it isn't required.`), "/ranking",
-        L(`${fmt(H.not_valid)} anuncios de Airbnb en las mayores ciudades españolas no muestran un número de registro válido`, `${fmt(H.not_valid)} Airbnb listings in Spain's largest cities don't display a valid registration number`)],
+      ["bad", L(`1 de cada ${oneIn(H.not_valid / H.assessed)}`, `1 in ${oneIn(H.not_valid / H.assessed)}`),
+        L(`anuncios de Airbnb <b>no muestra un número de registro válido</b> (el ${pc(nv, 0)} de ${fmt(H.assessed)} comprobados)`,
+          `Airbnb listings <b>doesn't display a valid registration number</b> (${pc(nv, 0)} of ${fmt(H.assessed)} checked)`),
+        L(`Y de los que sí muestran un número, 1 de cada ${oneIn(H.wrong_number / H.with_number)} no está en el registro o es de otro municipio. Sin contar Madrid, donde mostrarlo no es obligatorio.`,
+          `And of those that do show a number, 1 in ${oneIn(H.wrong_number / H.with_number)} isn't in the register or belongs to another town. Not counting Madrid, where showing it isn't required.`), "/ranking",
+        L(`1 de cada ${oneIn(H.not_valid / H.assessed)} anuncios de Airbnb en las mayores ciudades españolas no muestra un número de registro válido`, `1 in ${oneIn(H.not_valid / H.assessed)} Airbnb listings in Spain's largest cities doesn't display a valid registration number`)],
       ["gold", fmt(H.barrios_over), L(`barrios tienen <b>más del ${H.barrio_share}\u00a0% de sus viviendas</b> registradas como turísticas; ${fmt(H.barrios_over_by_area[tb.area] || 0)} están en ${nm(tb.area)}`,
           `barrios have <b>more than ${H.barrio_share}% of their homes</b> registered as tourist flats; ${fmt(H.barrios_over_by_area[tb.area] || 0)} are in ${nm(tb.area)}`),
         L(`En ${esc(tb.name)} llegan al ${pc(tb.share)}. ${barrioCities}. Solo ciudades con mapa de barrios.`,

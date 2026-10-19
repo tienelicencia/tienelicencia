@@ -89,7 +89,7 @@
       "Toda vivienda de uso turístico debe estar inscrita en el Registro de Turismo de Castilla y León y <b>mostrar su número en toda la publicidad</b> (Decreto 3/2017, art. 35.1).",
       "Se puede alquilar por habitaciones: el Tribunal Superior de Justicia de Castilla y León anuló la prohibición (art. 3.2; Orden CYT/1318/2019).",
       "La normativa de Castilla y León no fija un número de noches: tratamos como posiblemente exentas las estancias mínimas de 32 noches o más (ley estatal). Desde el 3 de abril de 2025, una nueva vivienda turística en un edificio con comunidad de propietarios necesita su aprobación.",
-      "El registro de la Junta solo da coordenadas de unas pocas viviendas de Valladolid, así que no hay mapa de viviendas registradas; sí se pueden buscar por número o dirección. No hemos encontrado límites municipales en Valladolid (revisado el 19/10/2026)."],
+      "El registro de la Junta de Castilla y León solo da coordenadas de unas pocas viviendas de Valladolid, así que no hay mapa de viviendas registradas; sí se pueden buscar por número o dirección. No hemos encontrado límites municipales en Valladolid (revisado el 19/10/2026)."],
     ["Every tourist flat must be in the Castilla y León Tourism Register and <b>display its number in all advertising</b> (Decree 3/2017, art. 35.1).",
       "Letting by the room is allowed: the Castilla y León High Court annulled the ban (art. 3.2; Order CYT/1318/2019).",
       "Castilla y León's rules set no number of nights: we treat minimum stays of 32 nights or more as possibly exempt (national law). Since 3 April 2025, a new tourist flat in a building with an owners' community needs the community's approval.",
@@ -494,8 +494,8 @@
           `We found ${fmt(SM.frame)} Airbnb listings in the municipality and are checking ${fmt(SM.sample)} chosen at random: ${fmt(SM.checked)} so far. We'll publish the estimate once there are at least 300.`)}</p>`);
     } else if (!LS) point("anuncios", L("Anuncios", "Listings"), `<span class="big" style="font-size:40px">${L("En preparación", "In preparation")}</span>`,
       L("aún no tenemos el análisis de anuncios de esta zona", "we don't have the listing analysis for this area yet"),
-      `<p>${L("Para Málaga capital partimos de la lista completa de anuncios de Airbnb que publica Inside Airbnb y verificamos cada uno. Para Marbella y el resto de la provincia no existe esa lista abierta, así que estamos preparando la nuestra. Mientras tanto, el porcentaje de viviendas anunciadas (INE) de arriba sí cubre esta zona, y puedes comprobar cualquier anuncio concreto.",
-        "For Málaga city we start from the full list of Airbnb listings published by Inside Airbnb and verify each one. For Marbella and the rest of the province no such open list exists, so we're building our own. Meanwhile, the share of advertised homes (INE) above does cover this area, and you can check any individual advert.")}</p>
+      `<p>${L("En esta zona todavía no analizamos los anuncios uno a uno: lo hacemos en las ciudades, a partir de la lista de Inside Airbnb o de nuestra propia lista de anuncios. Mientras tanto, el porcentaje de viviendas anunciadas (INE) de arriba sí cubre esta zona, y puedes comprobar cualquier anuncio concreto.",
+        "We don't analyse listings one by one in this area yet: we do it in the cities, from Inside Airbnb's list or our own list of listings. Meanwhile, the share of advertised homes (INE) above does cover this area, and you can check any individual advert.")}</p>
         <a class="btn btn-ghost" href="/comprobar">${t("check")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</a>
         <p class="small" style="margin-top:14px"><a href="/contacto?tipo=zona">${L("¿Quieres que el análisis de anuncios llegue a tu municipio? Pídenoslo →", "Want the listing analysis for your town? Ask us →")}</a></p>`);
 

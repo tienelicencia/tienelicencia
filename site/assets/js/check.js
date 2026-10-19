@@ -49,7 +49,7 @@
     out.replaceChildren(box);
     const stop = TL.loading(box, mode === "url"
       ? [L("Abriendo el anuncio en Airbnb…", "Opening the advert on Airbnb…"), L("Leyendo el número de registro que muestra…", "Reading the registration number it shows…"),
-        L("Buscándolo en el Registro de Turismo de Andalucía…", "Looking it up in the Andalusian Tourism Register…"), L("Comparando la ubicación…", "Comparing the location…")]
+        L("Buscándolo en el registro oficial…", "Looking it up in the official register…"), L("Comparando la ubicación…", "Comparing the location…")]
       : [L("Buscando el número en el registro…", "Looking the number up in the register…"), L("Probando variantes de formato…", "Trying format variants…")]);
     try {
       last = await TL.api("check", mode === "url" ? { url: v } : { code: v });
@@ -137,7 +137,7 @@
           : L(`Las viviendas turísticas deben mostrar su número de registro (p. ej. ${RG.example}) en todos los anuncios.`, `Tourist flats must show their registration number (e.g. ${RG.example}) in every advert.`),
           j.ctc ? L("Muestra una referencia «CTC», que es de un trámite, no un número de registro.", "It shows a 'CTC' reference, which is an application number, not a registration.") : "",
           j.national_numbers?.length ? L(`Muestra un número nacional (ES…), pero no el ${RG.of_es}. El registro nacional fue anulado por el Tribunal Supremo en mayo de 2026.`, `It shows a national (ES…) number but no ${RG.of_en} number. The national register was annulled by the Supreme Court in May 2026.`) : "",
-          L("Algunos alojamientos están exentos (estancias de más de dos meses, hoteles): compruébalo antes de comunicarlo.", "Some lets are exempt (stays over two months, hotels): check before reporting.")].filter(Boolean).join(" ")],
+          L("Algunos alojamientos están exentos (hoteles, o alquileres de temporada largos según el plazo de cada comunidad): compruébalo antes de comunicarlo.", "Some lets are exempt (hotels, or long seasonal lets, with each region setting its own length): check before reporting.")].filter(Boolean).join(" ")],
       not_covered: ["neutral", ICON.info,
         j.place || j.region ? L(`Todavía no cubrimos ${esc(j.place || j.region)}`, `We don't cover ${esc(j.place || j.region)} yet`) : L("Todavía no cubrimos esta zona", "We don't cover this area yet"),
         [L(`Solo podemos comprobar números con el registro oficial de las zonas que ya cubrimos (de momento, Andalucía, Madrid, Barcelona, Mallorca, Valencia, Alicante, Bilbao, San Sebastián, Zaragoza, Murcia, Las Palmas de Gran Canaria y Valladolid${j.region ? `; esto parece ${esc(j.region)}` : ""}).`,
@@ -171,7 +171,7 @@
     const report = bad ? `<h4 class="h3" style="font-size:16px;margin:20px 0 6px">${L("Qué puedes hacer", "What you can do")}</h4>
       <ul>
         ${j.platform ? `<li>${L("Comunicarlo a la plataforma:", "Report it to the platform:")} <a href="${REPORT[j.platform]}" target="_blank" rel="noopener">${j.platform === "airbnb" ? "Airbnb" : "Booking.com"}</a>.</li>` : ""}
-        ${RG.andalucia ? `<li>${L("Escribir al buzón contra la clandestinidad turística de la Junta en Málaga:", "Write to the Junta's tourism inbox for unregistered lets in Málaga:")} <a href="mailto:${JUNTA_BUZON}">${JUNTA_BUZON}</a></li>` : ""}
+        ${RG.andalucia ? `<li>${L("Escribir al buzón contra la clandestinidad turística de la Junta en tu provincia", "Write to the Junta's tourism inbox for unregistered lets in your province")} (<a href="/metodologia#denunciar">${L("direcciones por provincia", "addresses by province")}</a>; ${L("Málaga", "Málaga")}: <a href="mailto:${JUNTA_BUZON}">${JUNTA_BUZON}</a>).</li>` : ""}
         <li>${L("Incluye el enlace, el número que muestra, la fecha de hoy y una captura de pantalla.", "Include the link, the number it shows, today's date and a screenshot.")}</li>
       </ul><p class="small"><a href="/metodologia#denunciar">${L("Todos los canales para comunicarlo →", "All the ways to report it →")}</a></p>` : "";
     const ctx = new URLSearchParams({ tipo: "correccion", ...(j.listing_url ? { anuncio: j.listing_url } : {}), ...(j.code ? { numero: j.code } : {}) });
@@ -180,7 +180,7 @@
         <ol style="margin:10px 0 0">
           <li>${L(`Busca tu número en el ${RG.reg_es} (`, `Look up your number in the ${RG.reg_en} (`)}<a href="${RG.search}">${L(RG.search_es, RG.search_en)}</a>${RG.andalucia ? `${L(" o el ", " or the ")}<a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">${L("registro abierto de la Junta", "Junta's open register")}</a>` : ""}).</li>
           <li>${L(`Compáralo con tu resolución de inscripción y corrige el número en la plataforma si no coincide (debe aparecer completo, p. ej. ${RG.example}).`, `Compare it with your registration decision (resolución de inscripción) and correct it on the platform if it differs (it must appear in full, e.g. ${RG.example}).`)}</li>
-          ${RG.andalucia ? `<li>${L("Si tu vivienda ya no aparece en el registro, consulta su estado en la Delegación Territorial de Turismo de Málaga.", "If your property no longer appears in the register, ask the Junta's tourism office in Málaga (Delegación Territorial de Turismo) about its status.")}</li>` : ""}
+          ${RG.andalucia ? `<li>${L("Si tu vivienda ya no aparece en el registro, consulta su estado en la Delegación Territorial de Turismo de tu provincia.", "If your property no longer appears in the register, ask the Junta's tourism office in your province (Delegación Territorial de Turismo) about its status.")}</li>` : ""}
           <li>${L("Cuando el número correcto esté en el registro y en el anuncio, esta web se actualiza sola en unos días.", "Once the right number is in the register and on the advert, this site updates by itself within a few days.")}</li>
         </ol></details>` : "";
     // Share this result: the link re-runs the same check for whoever opens it (so it's always current).

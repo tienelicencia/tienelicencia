@@ -30,7 +30,7 @@ PIPE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(PIPE)
 CACHE = os.environ.get("RTA_CACHE", os.path.join(PIPE, "cache"))
 REG_DIR = os.path.join(CACHE, "register")
-STATE_DIR = os.path.join(REPO, "state")
+STATE_DIR = os.environ.get("TL_STATE") or os.path.join(REPO, "state")   # CI checks the private state repo out here; locally TL_STATE can point at a clone
 SITE_DATA = os.path.join(REPO, "site", "data")
 FN_DATA = os.path.join(REPO, "netlify", "functions", "data")
 MIN_LISTINGS_AREA = 15   # suppress % for barrios with fewer listings
@@ -126,7 +126,7 @@ def cmd_recheck(a):
 
 
 # ------------------------------------------------------------------ town samples (no Inside Airbnb data)
-SAMPLE_DIR = os.path.join(REPO, "state", "samples")
+SAMPLE_DIR = os.path.join(STATE_DIR, "samples")
 SAMPLE_TOWNS = {"marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas", "alicante", "valladolid"}
 FRAME_MAX_AGE_DAYS = 25   # rebuild the list of a town's listings each monthly run
 SAMPLE_MAX_AGE_DAYS = 25  # …and re-check sampled listings whose last check is older than this
@@ -899,7 +899,7 @@ def home_stats(rk, summaries):
     ranked = [c for c in C if c["index"] is not None]
     reg = [c for c in C if c.get("registered") is not None and c.get("census_homes")]
     shares = sorted((c["registered_pct"], c["name"]) for c in reg if c.get("registered_pct") is not None)
-    tot = bad = wrong = 0
+    tot = bad = wrong = shown = 0
     for c in C:
         v = c.get("verification")
         if not v:
@@ -910,6 +910,7 @@ def home_stats(rk, summaries):
         w_ = k["unmatched"] + k["invalid_other_town"] + k["invalid_cancelled"]
         wrong += w_
         bad += w_ + miss
+        shown += k["valid"] + w_   # listings that show a number of their region's register format
     barrios = []
     for slug, S in summaries.items():
         sa = S.get("subareas") or {}
@@ -926,7 +927,7 @@ def home_stats(rk, summaries):
             "registered": sum(c["registered"] for c in reg), "homes": sum(c["census_homes"] for c in reg),
             "registered_pct": round(100 * sum(c["registered"] for c in reg) / sum(c["census_homes"] for c in reg), 2) if reg else None,
             "registered_min": shares[0] if shares else None, "registered_max": shares[-1] if shares else None,
-            "assessed": tot, "not_valid": bad, "wrong_number": wrong,
+            "assessed": tot, "not_valid": bad, "wrong_number": wrong, "with_number": shown,
             "barrio_share": HOME_BARRIO_SHARE, "barrios_over": len(barrios), "barrio_areas": len(by_area),
             "barrios_over_by_area": dict(by_area.most_common()), "top_barrio": top_b,
             "buildings_over": sum(c.get("buildings_over_share") or 0 for c in C), "building_share": BUILDING_SHARE,

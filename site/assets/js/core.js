@@ -20,13 +20,13 @@
       search_ph_short: "Licencia o dirección", search_btn: "Buscar", filter_ph: "Filtrar por nombre", search_try: "Prueba:", searching: "Buscando en el registro…",
       search_error: "No se ha podido completar la búsqueda. Inténtalo de nuevo.",
       search_short: "Escribe al menos 2 caracteres.",
-      res_code_found: "Registrada en el Registro de Turismo de Andalucía",
-      res_code_elsewhere: "Registrada en otra provincia",
+      res_code_found: "Registrada en el registro oficial de turismo",
+      res_code_elsewhere: "Registrada en otra zona",
       res_code_none: "Este número no figura en el registro abierto",
-      res_code_none_p: "Hemos buscado el número exacto y sus variantes habituales (VFT/VUT, ceros, dígito de control). Los registros cancelados desaparecen del registro abierto; unos pocos registros válidos tampoco se publican.",
+      res_code_none_p: "Hemos buscado el número exacto y sus variantes habituales (separadores, ceros, dígito de control). Los registros cancelados desaparecen del registro abierto; unos pocos registros válidos tampoco se publican.",
       res_corrected: "Leído como {key}",
       res_addr_none: "No hay viviendas turísticas registradas que coincidan con esa dirección en esta zona.",
-      res_addr_none_p: "Prueba solo con el nombre de la calle, sin el tipo de vía, o busca en toda la provincia.",
+      res_addr_none_p: "Prueba solo con el nombre de la calle, sin el tipo de vía.",
       res_addr_count: "{n} edificios coinciden", res_addr_count_1: "1 edificio coincide",
       res_addr_other_nums: "No hay registros en ese número exacto; se muestran los de la calle.",
       search_province: "Buscar en toda la provincia",
@@ -64,13 +64,13 @@
       search_ph_short: "Licence number or address", search_btn: "Search", filter_ph: "Filter by name", search_try: "Try:", searching: "Searching the register…",
       search_error: "The search didn't complete. Please try again.",
       search_short: "Type at least 2 characters.",
-      res_code_found: "Registered in the Andalusian Tourism Register",
-      res_code_elsewhere: "Registered in another province",
+      res_code_found: "Registered in the official tourism register",
+      res_code_elsewhere: "Registered in another area",
       res_code_none: "This number is not in the open register",
-      res_code_none_p: "We searched for the exact number and its usual variants (VFT/VUT, zeros, check digit). Cancelled registrations disappear from the open register; a few valid ones are also unpublished.",
+      res_code_none_p: "We searched for the exact number and its usual variants (separators, zeros, check digit). Cancelled registrations disappear from the open register; a few valid ones are also unpublished.",
       res_corrected: "Read as {key}",
       res_addr_none: "No registered tourist flats match that address in this area.",
-      res_addr_none_p: "Try just the street name, without “Calle” or “Avenida”, or search the whole province.",
+      res_addr_none_p: "Try just the street name, without “Calle” or “Avenida”.",
       res_addr_count: "{n} buildings match", res_addr_count_1: "1 building matches",
       res_addr_other_nums: "Nothing registered at that exact number; showing the street.",
       search_province: "Search the whole province",
@@ -221,7 +221,7 @@
         <nav class="site-nav" id="site-nav" aria-label="Principal">
           <label class="city-pick"><span class="sr-only" data-t="city_label"></span><select id="city-pick" data-t-aria="city_label"></select></label>
           <a href="/ranking" class="nav-cta" data-t="nav_rank" ${page === "ranking" ? 'aria-current="page"' : ""}></a>
-          <a href="/#zonas" data-t="nav_areas" ${page === "home" || page === "area" || page === "map" ? 'aria-current="page"' : ""}></a>
+          <a href="/#zonas" data-t="nav_areas" ${page === "area" || page === "map" ? 'aria-current="page"' : ""}></a>
           <a href="/comprobar" data-t="nav_check" ${page === "check" ? 'aria-current="page"' : ""}></a>
           <a href="/metodologia" data-t="nav_method" ${page === "method" ? 'aria-current="page"' : ""}></a>
           <a href="/preguntas" data-t="nav_faq" ${page === "faq" ? 'aria-current="page"' : ""}></a>
@@ -403,8 +403,8 @@
       const url = `https://tienelicencia.com${location.pathname}?${p}${el.id ? `#${el.id}` : ""}`;
       const where = (x) => [addr(x), x.muni].filter(Boolean).join(", ");
       const text = j.kind === "code"
-        ? (r ? (es ? `${r.code} está en el Registro de Turismo de Andalucía: ${where(r)}` : `${r.code} is in the Andalusian Tourism Register: ${where(r)}`)
-          : (es ? `${j.key || j.q} no aparece en el Registro de Turismo de Andalucía` : `${j.key || j.q} isn't in the Andalusian Tourism Register`))
+        ? (r ? (es ? `${r.code} está en el registro oficial de turismo: ${where(r)}` : `${r.code} is in the official tourism register: ${where(r)}`)
+          : (es ? `${j.key || j.q} no aparece en el registro oficial de turismo` : `${j.key || j.q} isn't in the official tourism register`))
         : B.length === 1
           ? (es ? `${B[0].vut} viviendas turísticas registradas en ${B[0].addresses[0]} (${B[0].muni})` : `${B[0].vut} registered tourist flats at ${B[0].addresses[0]} (${B[0].muni})`)
           : (es ? `Viviendas turísticas registradas: «${j.q}»` : `Registered tourist flats: “${j.q}”`);

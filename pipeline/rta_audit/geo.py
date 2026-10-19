@@ -1,5 +1,6 @@
 """Barrio lookup (Ayuntamiento de Málaga open data, EPSG:25830), hexagon binning, building grouping."""
 import json
+import re
 import math
 import os
 
@@ -42,6 +43,17 @@ def _pip(lat, lon, ring):
     return ins
 
 
+# Málaga's barrio file drops most accents ("Centro Historico", "Nueva Malaga"): restore them, whole words only.
+ACCENTS = {w.replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace("Á", "A"): w for w in (
+    "Histórico Jardín Málaga Andrés José Asunción Abadía Río Fátima Bazán Barceló Alegría Ángeles Antón Belén Calderón Cónsul Díaz "
+    "Fábrica Girón Inés Jerónimo Julián María Martín Mediterráneo Mármoles Núcleo Pacífico Pichón Polvorín Rocío Roldán Sánchez "
+    "Suárez Térmica Unión Álamo Cártama Echeverría").split()}
+
+
+def accented(name):
+    return re.sub(r"[A-Za-z]+", lambda m: ACCENTS.get(m.group(0), m.group(0)), name)
+
+
 class Barrios:
     """Barrio polygons from Málaga's open data (EPSG:25830, NOMBARRIO/NUMBARRIO) or an Inside Airbnb
     neighbourhoods.geojson (WGS84, 'neighbourhood'; used for Sevilla, whose 108 neighbourhoods are the city's barrios)."""
@@ -52,7 +64,7 @@ class Barrios:
         for i, f in enumerate(sorted(g["features"], key=lambda f: f["properties"].get("neighbourhood") or ""), 1):
             pr = f["properties"]
             wgs84 = "neighbourhood" in pr
-            name = pr["neighbourhood"] if wgs84 else street_name(pr.get("NOMBARRIO") or "")   # 'Pinares de San Antón', not '… De …'
+            name = pr["neighbourhood"] if wgs84 else accented(street_name(pr.get("NOMBARRIO") or ""))   # 'Pinares de San Antón', not '… De …'
             bid = i if wgs84 else pr.get("NUMBARRIO")
             rings_ll = []
             for rg in _rings(f["geometry"]["coordinates"]):
