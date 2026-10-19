@@ -3,8 +3,8 @@
     "es": "Índice de presión de la vivienda turística",
     "en": "Tourist-housing pressure index"
   },
-  "version": "1.2",
-  "notes": "Weights and severities are index-design choices, not probabilities of illegality. Change them only with a new version. 1.1 (19 Oct 2026): cohort = every municipality over 300,000 inhabitants (13), replacing the hand-picked ten largest plus Alicante. 1.2 (19 Oct 2026): where adverts needn't show the number (Madrid), adverts without one are left out of the registration score (numerator and denominator).",
+  "version": "1.3",
+  "notes": "Weights and severities are index-design choices, not probabilities of illegality. Change them only with a new version. 1.1 (19 Oct 2026): cohort = every municipality over 300,000 inhabitants (13), replacing the hand-picked ten largest plus Alicante. 1.2 (19 Oct 2026): where adverts needn't show the number (Madrid), adverts without one are left out of the registration score (numerator and denominator). 1.3 (19 Oct 2026): concentration circle 500 m radius (1 km across, about 0.8 km²), was 1 km radius; hotspot named after the barrio with most of its listings, else the postcode of most registered flats.",
   "weights": {
     "housing": 0.4,
     "concentration": 0.35,
@@ -14,6 +14,12 @@
     "invalid": 1.0,
     "unmatched": 0.75,
     "missing": 0.35
+  },
+  "concentration": {
+    "radius_m": 500,
+    "min_homes": 3000,
+    "grid_m": 100,
+    "centre_step_m": 200
   },
   "min_assessed": 300,
   "sample_target": 1000,
@@ -81,8 +87,8 @@
         "name": "Palma",
         "ine": "07040",
         "population": 434786,
-        "area": "mallorca",
-        "row": "Palma de Mallorca"
+        "area": "palma",
+        "row": null
       },
       {
         "name": "Las Palmas de Gran Canaria",

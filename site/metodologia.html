@@ -51,11 +51,12 @@
         <li><a href="#comprobacion"><span lang="es">Cómo comprobamos los anuncios</span><span lang="en">How we check adverts</span></a></li>
         <li><a href="#limites"><span lang="es">Qué significa «no válido»</span><span lang="en">What “not valid” means</span></a></li>
         <li><a href="#edificios"><span lang="es">Edificios y direcciones</span><span lang="en">Buildings and addresses</span></a></li>
+        <li><a href="#indice"><span lang="es">Índice de presión</span><span lang="en">Pressure index</span></a></li>
         <li><a href="#privacidad"><span lang="es">Privacidad</span><span lang="en">Privacy</span></a></li>
         <li><a href="#ley"><span lang="es">Normativa por zona</span><span lang="en">The law by area</span></a></li>
         <li><a href="#denunciar"><span lang="es">Cómo comunicar un anuncio</span><span lang="en">How to report an advert</span></a></li>
         <li><a href="#actualizacion"><span lang="es">Actualización y contacto</span><span lang="en">Updates and contact</span></a></li>
-        <li><a href="#prensa"><span lang="es">Prensa y datos</span><span lang="en">Press and data</span></a></li>
+        <li><a href="#prensa"><span lang="es">Prensa y datos abiertos</span><span lang="en">Press and open data</span></a></li>
       </ol></nav>
 
       <article class="prose">
@@ -85,47 +86,36 @@
         <table>
           <thead><tr><th><span lang="es">Fuente</span><span lang="en">Source</span></th><th><span lang="es">Qué usamos</span><span lang="en">What we use</span></th><th><span lang="es">Actualización</span><span lang="en">Refresh</span></th></tr></thead>
           <tbody>
-            <tr><td><a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Junta de Andalucía · Open RTA</a></td>
-              <td><span lang="es">Todas las inscripciones publicadas del Registro de Turismo de Andalucía: número, tipo, dirección, coordenadas, plazas y fecha de alta. No usamos nombres de titulares ni datos de contacto.</span>
-                <span lang="en">Every published entry in the Andalusian Tourism Register: number, type, address, coordinates, guest places and registration date. We don't use holders' names or contact details.</span></td>
-              <td><span lang="es">Diaria (solo se descarga si cambia)</span><span lang="en">Daily (downloaded only when it changes)</span></td></tr>
-            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</td>
-              <td><span lang="es">Instantánea de todos los anuncios de Airbnb en los municipios de Málaga, Sevilla, Barcelona, Valencia, Bilbao y San Sebastián y en toda la isla de Mallorca: ubicación aproximada, tipo y el texto del número de registro.</span>
-                <span lang="en">Snapshot of every Airbnb listing in the municipalities of Málaga, Seville, Barcelona, Valencia, Bilbao and San Sebastián and across the island of Mallorca: approximate location, type and the registration-number text.</span></td>
-              <td><span lang="es">Trimestral</span><span lang="en">Quarterly</span></td></tr>
-            <tr><td><b><span lang="es">Verificación propia de cada anuncio</span><span lang="en">Our own check of every listing</span></b></td>
-              <td><span lang="es">Nuestros servidores visitan cada anuncio de Airbnb, como lo haría cualquier visitante y sin iniciar sesión, y leen el número de registro que muestra ese día.</span>
-                <span lang="en">Our servers visit each Airbnb listing, as any visitor would and without logging in, and read the registration number it shows that day.</span></td>
-              <td><span lang="es">Continua</span><span lang="en">Continuous</span></td></tr>
-            <tr><td><a href="https://www.catastro.hacienda.gob.es/webinspire/index.html" target="_blank" rel="noopener">Catastro · INSPIRE edificios</a></td>
-              <td><span lang="es">Número de viviendas de cada edificio, para calcular qué parte de las viviendas son turísticas.</span>
-                <span lang="en">Number of homes in each building, to work out what share of homes are tourist flats.</span></td>
-              <td><span lang="es">Anual (comprobamos cada semana)</span><span lang="en">Yearly (we check weekly)</span></td></tr>
+            <tr class="src-group"><th colspan="3"><span lang="es">Fuentes nacionales</span><span lang="en">National sources</span></th></tr>
             <tr><td><a href="https://ine.es/experimental/viv_turistica/experimental_viv_turistica.htm" target="_blank" rel="noopener">INE · Viviendas turísticas</a></td>
               <td><span lang="es">Viviendas turísticas anunciadas en Airbnb, Booking y Vrbo por municipio, sin duplicados (estadística experimental).</span>
                 <span lang="en">Tourist homes advertised on Airbnb, Booking and Vrbo per municipality, de-duplicated (experimental statistic).</span></td>
               <td><span lang="es">Semestral</span><span lang="en">Twice a year</span></td></tr>
+            <tr><td><a href="https://www.catastro.hacienda.gob.es/webinspire/index.html" target="_blank" rel="noopener">Catastro · INSPIRE edificios</a></td>
+              <td><span lang="es">Número de viviendas de cada edificio, para calcular qué parte de las viviendas son turísticas.</span>
+                <span lang="en">Number of homes in each building, to work out what share of homes are tourist flats.</span></td>
+              <td><span lang="es">Anual (comprobamos cada semana)</span><span lang="en">Yearly (we check weekly)</span></td></tr>
+            <tr><td><a href="https://www.ine.es/dynt3/inebase/index.htm?padre=517" target="_blank" rel="noopener">INE · Cifras oficiales de población</a></td>
+              <td><span lang="es">Población de cada municipio (1 de enero de 2025, Real Decreto 1117/2025): qué ciudades superan los 300.000 habitantes y entran en el índice.</span>
+                <span lang="en">Population of each municipality (1 January 2025, Royal Decree 1117/2025): which cities exceed 300,000 inhabitants and enter the index.</span></td>
+              <td><span lang="es">Anual</span><span lang="en">Yearly</span></td></tr>
             <tr><td><a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">Ministerio de Vivienda · SERPAVI</a> · <a href="https://ine.es/experimental/ipva/experimental_precios_vivienda_alquiler.htm" target="_blank" rel="noopener">INE · IPVA</a></td>
               <td><span lang="es">Alquiler mediano por m² por sección censal (2011–2024; de momento solo en Málaga capital) y el índice de precios del alquiler por municipio, ambos a partir de declaraciones de la renta.</span>
                 <span lang="en">Median rent per m² by census section (2011–2024; Málaga city only for now) and the rental price index by municipality, both from tax returns.</span></td>
               <td><span lang="es">Anual</span><span lang="en">Yearly</span></td></tr>
-            <tr><td><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga</a> (CC BY 4.0)</td>
-              <td><span lang="es">Límites oficiales de los barrios de Málaga.</span><span lang="en">Official boundaries of Málaga's barrios.</span></td><td>—</td></tr>
-            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · Sevilla (CC BY 4.0)</td>
-              <td><span lang="es">Límites de los 108 barrios de Sevilla (los mismos que usa el Ayuntamiento para su límite del 10&nbsp;%).</span><span lang="en">Boundaries of Seville's 108 barrios (the same ones the council uses for its 10% cap).</span></td><td>—</td></tr>
+            <tr class="src-group"><th colspan="3"><span lang="es">Registros autonómicos de turismo</span><span lang="en">Regional tourism registers</span></th></tr>
+            <tr><td><a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Junta de Andalucía · Open RTA</a></td>
+              <td><span lang="es">Todas las inscripciones publicadas del Registro de Turismo de Andalucía: número, tipo, dirección, coordenadas, plazas y fecha de alta. No usamos nombres de titulares ni datos de contacto.</span>
+                <span lang="en">Every published entry in the Andalusian Tourism Register: number, type, address, coordinates, guest places and registration date. We don't use holders' names or contact details.</span></td>
+              <td><span lang="es">Diaria (solo se descarga si cambia)</span><span lang="en">Daily (downloaded only when it changes)</span></td></tr>
             <tr><td><a href="https://analisi.transparenciacatalunya.cat/Turisme/Registre-de-Turisme-de-Catalunya/t2h3-cgys" target="_blank" rel="noopener">Generalitat de Catalunya · Registre de Turisme</a></td>
               <td><span lang="es">Barcelona: los números de registro válidos (HUTB-…) de la provincia de Barcelona. No usamos nombres ni NIF de titulares.</span>
                 <span lang="en">Barcelona: valid registration numbers (HUTB-…) in Barcelona province. We don't use holders' names or tax IDs.</span></td>
               <td><span lang="es">Mensual</span><span lang="en">Monthly</span></td></tr>
-            <tr><td><a href="https://opendata-ajuntament.barcelona.cat/data/dataset/habitatges-us-turistic" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</td>
-              <td><span lang="es">Barcelona: ubicación y barrio de cada vivienda turística con licencia.</span><span lang="en">Barcelona: location and barri of each licensed tourist flat.</span></td>
-              <td><span lang="es">Trimestral</span><span lang="en">Quarterly</span></td></tr>
             <tr><td><a href="https://datos.gob.es/es/catalogo/a04003003-habitatges-turistics-mallorca" target="_blank" rel="noopener">Consell de Mallorca · Habitatges turístics</a> (CC BY 4.0)</td>
               <td><span lang="es">Mallorca: todas las viviendas turísticas inscritas (ETV, ETVPL, ETV60, VT) y, en un segundo registro, los hoteles, apartamentos turísticos y agroturismos: número, municipio, dirección, plazas y, para la mitad, coordenadas. No usamos los nombres de los titulares ni los nombres comerciales.</span>
                 <span lang="en">Mallorca: every registered tourist let (ETV, ETVPL, ETV60, VT) and, in a second register, hotels, tourist apartments and agrotourism: number, municipality, address, guest places and, for about half, coordinates. We don't use holders' or trade names.</span></td>
               <td><span lang="es">Periódica (comprobamos cada día)</span><span lang="en">Periodic (we check daily)</span></td></tr>
-            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · Mallorca (CC BY 4.0)</td>
-              <td><span lang="es">Límites de los 53 municipios de Mallorca.</span><span lang="en">Boundaries of Mallorca's 53 municipalities.</span></td><td>—</td></tr>
             <tr><td><a href="https://opendata.euskadi.eus/catalogo/-/viviendas-y-habitaciones-de-vivienda-particular-para-uso-turistico-en-euskadi/" target="_blank" rel="noopener">Gobierno Vasco · Open Data Euskadi</a></td>
               <td><span lang="es">Bilbao y San Sebastián: viviendas y habitaciones turísticas inscritas en el REATE (número, dirección, plazas) y los demás alojamientos turísticos. No usamos teléfonos, correos, webs ni nombres comerciales.</span>
                 <span lang="en">Bilbao and San Sebastián: tourist flats and rooms in the REATE register (number, address, guest places) and other tourist accommodation. We don't use phone numbers, emails, websites or trade names.</span></td>
@@ -139,15 +129,28 @@
               <td><span lang="es">Valencia y Alicante: todas las viviendas turísticas inscritas (número, dirección, referencia catastral, plazas). No usamos nombres comerciales ni webs.</span>
                 <span lang="en">Valencia and Alicante: every registered tourist flat (number, address, cadastral reference, guest places). We don't use trade names or websites.</span></td>
               <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
-            <tr><td><a href="https://datos.canarias.es/catalogos/general/dataset/establecimientos-extrahoteleros-de-tipologia-vivienda-vacacional-inscritos-en-el-registro" target="_blank" rel="noopener">Gobierno de Canarias · Registro General Turístico</a> ·
-              <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a> ·
-              <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a> ·
-              <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-turismo-de-castilla-y-leon/" target="_blank" rel="noopener">Junta de Castilla y León · Registro de Turismo</a> (CC BY 4.0)</td>
-              <td><span lang="es">Las Palmas, Murcia, Zaragoza y Valladolid: los alojamientos turísticos inscritos (número, dirección, plazas) para comprobar los anuncios de nuestras muestras. No usamos nombres, teléfonos, correos ni webs.
-                Aragón publica sus registros turísticos en Aragón Open Data con licencia CC BY 4.0, aunque el aviso legal de su aplicación de consulta habla de uso personal. tienelicencia.com es un servicio gratuito y sin fines comerciales, para uso personal e informativo: no vendemos estos datos ni obtenemos beneficio de ellos. Si el Gobierno de Aragón nos pide retirarlos, lo haremos.</span>
-                <span lang="en">Las Palmas, Murcia, Zaragoza and Valladolid: registered tourist accommodation (number, address, guest places), to check the listings in our samples. We don't use names, phones, emails or websites.
-                Aragón publishes its tourism registers on Aragón Open Data under CC BY 4.0, although its lookup app's legal notice mentions personal use. tienelicencia.com is a free, non-commercial service for personal and informational use: we don't sell this data or profit from it. If the Government of Aragón asks us to remove it, we will.</span></td>
+            <tr><td><a href="https://datos.canarias.es/catalogos/general/dataset/establecimientos-extrahoteleros-de-tipologia-vivienda-vacacional-inscritos-en-el-registro" target="_blank" rel="noopener">Gobierno de Canarias · Registro General Turístico</a></td>
+              <td><span lang="es">Las Palmas de Gran Canaria: viviendas vacacionales y demás alojamientos inscritos (número, dirección, plazas). No usamos nombres, teléfonos, correos ni webs.</span>
+                <span lang="en">Las Palmas de Gran Canaria: registered holiday homes and other accommodation (number, address, guest places). We don't use names, phones, emails or websites.</span></td>
               <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr><td><a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a></td>
+              <td><span lang="es">Murcia: viviendas de uso turístico y demás alojamientos inscritos (número, dirección, plazas). No usamos nombres, teléfonos, correos ni webs.</span>
+                <span lang="en">Murcia: registered tourist flats and other accommodation (number, address, guest places). We don't use names, phones, emails or websites.</span></td>
+              <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr><td><a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a></td>
+              <td><span lang="es">Zaragoza: viviendas de uso turístico inscritas (número y dirección). No usamos nombres, teléfonos, correos ni webs. Aragón publica sus registros turísticos en Aragón Open Data con licencia CC BY 4.0, aunque el aviso legal de su aplicación de consulta habla de uso personal. tienelicencia.com es un servicio gratuito y sin fines comerciales, para uso personal e informativo: no vendemos estos datos ni obtenemos beneficio de ellos. Si el Gobierno de Aragón nos pide retirarlos, lo haremos.</span>
+                <span lang="en">Zaragoza: registered tourist flats (number and address). We don't use names, phones, emails or websites. Aragón publishes its tourism registers on Aragón Open Data under CC BY 4.0, although its lookup app's legal notice mentions personal use. tienelicencia.com is a free, non-commercial service for personal and informational use: we don't sell this data or profit from it. If the Government of Aragón asks us to remove it, we will.</span></td>
+              <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr><td><a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-turismo-de-castilla-y-leon/" target="_blank" rel="noopener">Junta de Castilla y León · Registro de Turismo</a> (CC BY 4.0)</td>
+              <td><span lang="es">Valladolid: viviendas de uso turístico, apartamentos turísticos y demás alojamientos inscritos (número, dirección, plazas). No usamos nombres, teléfonos, correos ni webs.</span>
+                <span lang="en">Valladolid: registered tourist flats, tourist apartments and other accommodation (number, address, guest places). We don't use names, phones, emails or websites.</span></td>
+              <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
+            <tr class="src-group"><th colspan="3"><span lang="es">Fuentes municipales</span><span lang="en">City sources</span></th></tr>
+            <tr><td><a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga</a> (CC BY 4.0)</td>
+              <td><span lang="es">Límites oficiales de los barrios de Málaga.</span><span lang="en">Official boundaries of Málaga's barrios.</span></td><td>—</td></tr>
+            <tr><td><a href="https://opendata-ajuntament.barcelona.cat/data/dataset/habitatges-us-turistic" target="_blank" rel="noopener">Ajuntament de Barcelona · Open Data BCN</a> (CC BY 4.0)</td>
+              <td><span lang="es">Barcelona: ubicación y barrio de cada vivienda turística con licencia.</span><span lang="en">Barcelona: location and barri of each licensed tourist flat.</span></td>
+              <td><span lang="es">Trimestral</span><span lang="en">Quarterly</span></td></tr>
             <tr><td><a href="https://www.geobilbao.eus/" target="_blank" rel="noopener">Ayuntamiento de Bilbao · GeoBilbao</a> (CC BY 3.0 ES) ·
               <a href="https://www.donostia.eus/datosabiertos" target="_blank" rel="noopener">Ayuntamiento de Donostia · datos abiertos</a> (CC BY-SA 3.0)</td>
               <td><span lang="es">Límites de los barrios y direcciones postales con coordenadas, para situar en el mapa las viviendas del registro, que se publica sin coordenadas (el Catastro estatal no cubre Euskadi).
@@ -155,14 +158,68 @@
                 <span lang="en">Barrio boundaries and street addresses with coordinates, to place the register's flats on the map; the register has no coordinates (the Spanish Catastro doesn't cover the Basque Country).
                 The San Sebastián barrio boundaries we publish are shared under the same CC BY-SA 3.0 licence.</span></td>
               <td><span lang="es">Mensual</span><span lang="en">Monthly</span></td></tr>
+            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · Sevilla (CC BY 4.0)</td>
+              <td><span lang="es">Límites de los 108 barrios de Sevilla (los mismos que usa el Ayuntamiento para su límite del 10&nbsp;%).</span><span lang="en">Boundaries of Seville's 108 barrios (the same ones the council uses for its 10% cap).</span></td><td>—</td></tr>
+            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · Mallorca (CC BY 4.0)</td>
+              <td><span lang="es">Límites de los 53 municipios de Mallorca.</span><span lang="en">Boundaries of Mallorca's 53 municipalities.</span></td><td>—</td></tr>
+                        <tr><td><a href="https://www.zaragoza.es/sede/portal/datos-abiertos/" target="_blank" rel="noopener">Ayuntamiento de Zaragoza · IDEZar</a></td>
+              <td><span lang="es">Zaragoza: límites de las juntas municipales y vecinales (distritos). Origen de los datos: Ayuntamiento de Zaragoza.</span>
+                <span lang="en">Zaragoza: boundaries of the municipal and neighbourhood boards (districts). Data source: Ayuntamiento de Zaragoza.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://www.valladolid.es/es/datos-abiertos" target="_blank" rel="noopener">Ayuntamiento de Valladolid</a> (CC BY 3.0 ES)</td>
+              <td><span lang="es">Valladolid: límites de barrios. Fuente: Ayuntamiento de Valladolid.</span>
+                <span lang="en">Valladolid: barrio boundaries. Source: Ayuntamiento de Valladolid.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://geoportal.murcia.es/" target="_blank" rel="noopener">Ayuntamiento de Murcia · Geoportal</a></td>
+              <td><span lang="es">Murcia: límites de barrios y pedanías.</span>
+                <span lang="en">Murcia: boundaries of barrios and pedanías.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://guiaurbana.alicante.es/" target="_blank" rel="noopener">Ayuntamiento de Alicante · Guía urbana</a></td>
+              <td><span lang="es">Alicante: límites de barrios.</span>
+                <span lang="en">Alicante: barrio boundaries.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://sit.laspalmasgc.es/" target="_blank" rel="noopener">Ayuntamiento de Las Palmas de Gran Canaria · SIT</a></td>
+              <td><span lang="es">Las Palmas de Gran Canaria: límites de barrios.</span>
+                <span lang="en">Las Palmas de Gran Canaria: barrio boundaries.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://datosabiertos.cordoba.es/" target="_blank" rel="noopener">Ayuntamiento de Córdoba · datos abiertos</a></td>
+              <td><span lang="es">Córdoba: límites de distritos.</span>
+                <span lang="en">Córdoba: district boundaries.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://opendata.granada.org/" target="_blank" rel="noopener">Ayuntamiento de Granada · datos abiertos</a> (CC BY)</td>
+              <td><span lang="es">Granada: zonas de las asociaciones vecinales, como barrios.</span>
+                <span lang="en">Granada: residents' association areas, used as barrios.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr><td><a href="https://geoportal.palma.es/" target="_blank" rel="noopener">Ajuntament de Palma · IDE</a></td>
+              <td><span lang="es">Palma: límites de barrios.</span>
+                <span lang="en">Palma: barri boundaries.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
+            <tr class="src-group"><th colspan="3"><span lang="es">Anuncios</span><span lang="en">Listings</span></th></tr>
+            <tr><td><a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> (CC BY 4.0)</td>
+              <td><span lang="es">Instantánea de todos los anuncios de Airbnb en los municipios de Málaga, Sevilla, Barcelona, Valencia, Bilbao y San Sebastián y en toda la isla de Mallorca (la página de Palma usa los anuncios de Mallorca dentro de la ciudad): ubicación aproximada, tipo y el texto del número de registro.</span>
+                <span lang="en">Snapshot of every Airbnb listing in the municipalities of Málaga, Seville, Barcelona, Valencia, Bilbao and San Sebastián and across the island of Mallorca (Palma's page uses the Mallorca listings inside the city): approximate location, type and the registration-number text.</span></td>
+              <td><span lang="es">Trimestral</span><span lang="en">Quarterly</span></td></tr>
+            <tr><td><b><span lang="es">Listas propias de anuncios</span><span lang="en">Our own listing lists</span></b></td>
+              <td><span lang="es">Alicante, Córdoba, Valladolid, Zaragoza, Murcia, Las Palmas, Granada, Cádiz y Marbella: la lista completa de anuncios de Airbnb de cada ciudad, a partir de las páginas públicas de búsqueda (ver <a href="#muestras">muestras</a>).</span>
+                <span lang="en">Alicante, Córdoba, Valladolid, Zaragoza, Murcia, Las Palmas, Granada, Cádiz and Marbella: each city's complete list of Airbnb listings, from the public search pages (see <a href="#muestras">samples</a>).</span></td>
+              <td><span lang="es">Mensual</span><span lang="en">Monthly</span></td></tr>
+            <tr><td><b><span lang="es">Verificación propia de cada anuncio</span><span lang="en">Our own check of every listing</span></b></td>
+              <td><span lang="es">Nuestros servidores visitan cada anuncio de Airbnb, como lo haría cualquier visitante y sin iniciar sesión, y leen el número de registro que muestra ese día.</span>
+                <span lang="en">Our servers visit each Airbnb listing, as any visitor would and without logging in, and read the registration number it shows that day.</span></td>
+              <td><span lang="es">Continua</span><span lang="en">Continuous</span></td></tr>
+            <tr class="src-group"><th colspan="3"><span lang="es">Otras</span><span lang="en">Other</span></th></tr>
             <tr><td><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · OpenFreeMap</td>
               <td><span lang="es">Mapa base.</span><span lang="en">Base map.</span></td><td>—</td></tr>
+            <tr><td><a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap · Nominatim</a> (ODbL)</td>
+              <td><span lang="es">Nombre del barrio de la zona más afectada del índice, solo donde el registro no tiene coordenadas.</span>
+                <span lang="en">Name of the neighbourhood of the index's most affected area, only where the register has no coordinates.</span></td>
+              <td><span lang="es">—</span><span lang="en">—</span></td></tr>
           </tbody>
         </table>
-        <p lang="es">El registro abierto solo contiene las inscripciones publicadas y <b>no tiene campo de baja</b>: cuando una inscripción se cancela, simplemente desaparece.
-          Hoy analizamos anuncios en Málaga y Sevilla capital, a partir de las listas de Inside Airbnb; para Marbella y el resto de Andalucía no existe esa lista abierta.</p>
-        <p lang="en">The open register only contains published entries and <b>has no cancellation field</b>: when a registration is cancelled it simply disappears.
-          We analyse listings in Málaga and Seville cities, starting from Inside Airbnb's lists; for Marbella and the rest of Andalucía no such open list exists.</p>
+        <p lang="es">El registro abierto de Andalucía solo contiene las inscripciones publicadas y <b>no tiene campo de baja</b>: cuando una inscripción se cancela, simplemente desaparece.
+          Lo mismo ocurre en los demás registros autonómicos: por eso nunca damos por cancelado un número solo porque haya desaparecido.</p>
+        <p lang="en">The Andalusian open register only contains published entries and <b>has no cancellation field</b>: when a registration is cancelled it simply disappears.
+          The same goes for the other regional registers: that's why we never treat a number as cancelled just because it has disappeared.</p>
 
         <!-- ------------------------------------------------------------------ -->
         <h2 id="comprobacion"><span lang="es">Cómo comprobamos los anuncios</span><span lang="en">How we check adverts</span></h2>
@@ -283,7 +340,10 @@
             <b>1.000 anuncios</b>, o todos si el municipio tiene menos; empezamos con 400 en cada ciudad y vamos ampliando. Con 1.000 anuncios, el porcentaje real está,
             con un 95&nbsp;% de confianza, a unos <b>±3 puntos</b> de la estimación (con 400, a unos ±5); en cada página damos el intervalo exacto y el número realmente revisado.
             En Málaga comprobamos que una muestra así da prácticamente la misma cifra que revisar todos los anuncios.</p>
-          <p>Límites: la estimación es del municipio entero, no por barrios; Airbnb no muestra la estancia mínima en el anuncio, así que no podemos
+          <p>Por barrios mostramos los anuncios de nuestra lista completa (y cuántos hay por cada 100 viviendas), las viviendas turísticas registradas solo donde
+            podemos situar al menos el 80&nbsp;% de las del registro, y el porcentaje sin número válido solo en los barrios con al menos 30 anuncios revisados, con su intervalo de
+            confianza del 95&nbsp;%. En Zaragoza y Córdoba usamos distritos, porque no hay límites de barrios publicados.</p>
+          <p>Límites: la estimación principal es de la ciudad entera; Airbnb no muestra la estancia mínima en el anuncio, así que no podemos
             descontar los alquileres de temporada largos; con menos anuncios revisados (al menos 300) el intervalo es más ancho, y lo indicamos; y un anuncio sin ninguna fecha disponible puede no aparecer en la búsqueda. Rehacemos la lista
             cada mes y volvemos a revisar los anuncios cuya última comprobación tiene más de 25 días.</p>
         </div>
@@ -297,7 +357,10 @@
             of them if the municipality has fewer; we start with 400 in each city and enlarge from there. With 1,000 listings the true share is, with 95% confidence, within
             about <b>±3 points</b> of the estimate (with 400, about ±5); each page gives the exact interval and the number actually checked. In Málaga we
             checked that such a sample gives practically the same figure as checking every listing.</p>
-          <p>Limits: the estimate covers the whole municipality, not barrios; Airbnb doesn't show the minimum stay on the listing, so we can't exclude long
+          <p>By barrio we show the listings in our complete list (and how many per 100 homes), registered tourist flats only where we can place at least 80% of the
+            register's, and the share without a valid number only in barrios with at least 30 listings checked, with its 95% confidence interval. In Zaragoza and
+            Córdoba we use districts, because no barrio boundaries are published.</p>
+          <p>Limits: the main estimate is for the whole city; Airbnb doesn't show the minimum stay on the listing, so we can't exclude long
             seasonal lets; with fewer listings checked (at least 300) the interval is wider, and we say so; and a listing with no available dates at all may not appear in search. We rebuild the list every month and re-check listings last checked more than 25 days ago.</p>
         </div>
 
@@ -400,11 +463,13 @@
           <ul>
             <li><b>Viviendas anunciadas (A, 40&nbsp;%):</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo sobre el total de viviendas del municipio, según la
               estadística experimental del INE (sin duplicados entre plataformas). Es la misma fuente para todas las ciudades y cuenta lo que se anuncia, tenga registro o no.</li>
-            <li><b>Concentración (B, 35&nbsp;%):</b> anuncios de Airbnb por cada 100 viviendas en el <b>círculo de 1&nbsp;km más afectado</b> del municipio. Probamos centros
+            <li><b>Concentración (B, 35&nbsp;%):</b> anuncios de Airbnb por cada 100 viviendas en el <b>círculo más afectado de la ciudad</b>, de 1&nbsp;km de diámetro (500&nbsp;m de radio, unas 80 hectáreas: unos diez minutos a pie de lado a lado). Probamos centros
               cada 200&nbsp;m y nos quedamos con el que tiene más anuncios por vivienda, entre los círculos con al menos 3.000 viviendas (para que una playa o un parque con
               pocas viviendas no gane). Usamos la zona más afectada, y no el «centro histórico», porque cada ciudad lo define de una manera. Los anuncios salen de Inside
-              Airbnb o, donde no hay datos, de nuestra propia lista completa de anuncios de Airbnb del municipio; las viviendas, del Catastro (o del censo de 2021 repartido
-              por barrios, en el País Vasco). Son anuncios, no viviendas distintas: incluyen habitaciones y algún duplicado.</li>
+              Airbnb o, donde no hay datos, de nuestra propia lista completa de anuncios de Airbnb de la ciudad; las viviendas, del Catastro (o del censo de 2021 repartido
+              por barrios, en el País Vasco). Son anuncios, no viviendas distintas: incluyen habitaciones y algún duplicado. La zona se nombra por el barrio
+              oficial que concentra más anuncios dentro del círculo; en las ciudades sin mapa de barrios, por el código postal con más viviendas turísticas
+              registradas dentro (y, si el registro no tiene coordenadas, por el barrio de OpenStreetMap en el centro del círculo).</li>
             <li><b>Discrepancias de registro (C, 25&nbsp;%):</b> entre los anuncios evaluados,
               R = 100 × (1,00 × no válidos + 0,75 × sin coincidencia + 0,35 × sin número) ÷ anuncios evaluados.</li>
           </ul>
@@ -439,13 +504,14 @@
             superar 100 si su presión aumenta: 100 es la referencia, no un máximo ni un límite legal. Si las tres ciudades nuevas no pudieran medirse con datos de
             octubre, lo diremos y propondremos otra fecha de base, en lugar de usar datos posteriores como si fueran de octubre.</p>
           <p>Cada mes guardamos una copia con la fecha de cada fuente y el tamaño de cada muestra, para distinguir los cambios reales de los que se deben a ampliar una
-            muestra. La versión del método (ahora 1.2) cambia si cambian los pesos, las gravedades o las ciudades.</p>
+            muestra. La versión del método (ahora 1.3) cambia si cambian los pesos, las gravedades o las ciudades.</p>
           <h3>Muestras y datos que faltan</h3>
           <ul>
             <li>Donde Inside Airbnb publica datos (Madrid, Barcelona, Valencia, Sevilla, Málaga, Palma, Bilbao) evaluamos todos los anuncios. En el resto (Zaragoza,
               Murcia, Las Palmas, Alicante, Córdoba y Valladolid), una <a href="#muestras">muestra aleatoria</a> de nuestra lista completa: el objetivo es 1.000 anuncios, o
               todos si el municipio tiene menos. Mostramos siempre el número realmente evaluado, no el objetivo.</li>
-            <li>Con al menos 300 anuncios evaluados la ciudad recibe índice, marcado como <b>provisional</b> mientras la muestra no llegue a su objetivo. Con menos, o si
+            <li>Con al menos 300 anuncios evaluados la ciudad recibe índice, marcado como <b>provisional</b> mientras la muestra no llegue a su objetivo. Una ciudad con menos de
+              300 anuncios en total (Valladolid tiene unos 255) recibe índice si los revisamos casi todos: es un recuento completo, no una muestra. Con menos, o si
               falta cualquiera de las tres medidas, la ciudad aparece sin índice: nunca estimamos una medida que falta ni repartimos su peso entre las otras.</li>
           </ul>
           <h3>Límites</h3>
@@ -468,11 +534,13 @@
           <ul>
             <li><b>Homes advertised (A, 40%):</b> tourist homes advertised on Airbnb, Booking and Vrbo as a share of all homes in the municipality, from the INE's
               experimental statistic (de-duplicated across platforms). Same source for every city; it counts what's advertised, registered or not.</li>
-            <li><b>Concentration (B, 35%):</b> Airbnb listings per 100 homes in the municipality's <b>most affected 1 km circle</b>. We try centres every 200 m and keep the
+            <li><b>Concentration (B, 35%):</b> Airbnb listings per 100 homes in the city's <b>most affected circle</b>, 1 km across (500 m radius, about 80 hectares: some ten minutes' walk from side to side). We try centres every 200 m and keep the
               one with the most listings per home, among circles with at least 3,000 homes (so a beach or a park with few homes doesn't win). We use the most affected area
               rather than the "historic centre" because each city defines that differently. Listings come from Inside Airbnb or, where there's none, our own complete list
-              of the municipality's Airbnb listings; homes from the Catastro (or the 2021 census spread over barrios, in the Basque Country). These are listings, not
-              distinct homes: they include rooms and some duplicates.</li>
+              of the city's Airbnb listings; homes from the Catastro (or the 2021 census spread over barrios, in the Basque Country). These are listings, not
+              distinct homes: they include rooms and some duplicates. The area is named after the official barrio with the most listings inside the circle; in cities
+              without a barrio map, after the postcode with the most registered tourist flats inside (and, where the register has no coordinates, after the
+              OpenStreetMap neighbourhood at the circle's centre).</li>
             <li><b>Registration discrepancies (C, 25%):</b> among assessed listings,
               R = 100 × (1.00 × invalid + 0.75 × unmatched + 0.35 × missing) ÷ assessed listings.</li>
           </ul>
@@ -506,13 +574,14 @@
             pressure rises: 100 is the reference, not a maximum or a legal limit. If the three new cities can't be measured with October data, we'll say so and propose a
             different baseline date, rather than using later data as if it were October's.</p>
           <p>Each month we keep a copy with each source's date and each sample's size, to tell real changes from those caused by enlarging a sample. The method's version
-            (now 1.2) changes if the weights, severities or cities change.</p>
+            (now 1.3) changes if the weights, severities or cities change.</p>
           <h3>Samples and missing data</h3>
           <ul>
             <li>Where Inside Airbnb publishes data (Madrid, Barcelona, Valencia, Seville, Málaga, Palma, Bilbao) we assess every listing. Elsewhere (Zaragoza, Murcia,
               Las Palmas, Alicante, Córdoba and Valladolid), a <a href="#muestras">random sample</a> of our complete list: the target is 1,000 listings, or all of them if
               the municipality has fewer. We always show the number actually assessed, not the target.</li>
-            <li>With at least 300 assessed listings a city gets an index, marked <b>provisional</b> until its sample reaches the target. With fewer, or if any of the three
+            <li>With at least 300 assessed listings a city gets an index, marked <b>provisional</b> until its sample reaches the target. A city with fewer than 300 listings in all
+              (Valladolid has about 255) gets an index if we check nearly all of them: that's a full count, not a sample. With fewer, or if any of the three
               measures is missing, the city appears without an index: we never estimate a missing measure or share its weight among the others.</li>
           </ul>
           <h3>Limits</h3>
@@ -548,8 +617,8 @@
 
         <!-- ------------------------------------------------------------------ -->
         <h2 id="ley"><span lang="es">Normativa por zona</span><span lang="en">The law by area</span></h2>
-        <p lang="es">Resumen informativo, no asesoramiento jurídico. Revisado el 11 de octubre de 2026 (Sevilla, Granada, Córdoba y Cádiz, el 16 de octubre; Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia y Las Palmas, el 17 de octubre); consulta siempre la fuente oficial.</p>
-        <p lang="en">An informative summary, not legal advice. Checked on 11 October 2026 (Seville, Granada, Córdoba and Cádiz on 16 October; Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia and Las Palmas on 17 October); always consult the official source.</p>
+        <p lang="es">Resumen informativo, no asesoramiento jurídico. Última revisión: 19 de octubre de 2026 (Alicante y Valladolid); Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia, Las Palmas y Madrid, el 17 de octubre; Sevilla, Granada, Córdoba y Cádiz, el 16 de octubre; Málaga y el resto de Andalucía, el 11 de octubre. Consulta siempre la fuente oficial.</p>
+        <p lang="en">An informative summary, not legal advice. Last reviewed: 19 October 2026 (Alicante and Valladolid); Barcelona, Mallorca, Valencia, Bilbao, San Sebastián, Zaragoza, Murcia, Las Palmas and Madrid on 17 October; Seville, Granada, Córdoba and Cádiz on 16 October; Málaga and the rest of Andalucía on 11 October. Always consult the official source.</p>
 
         <h3 id="ley-andalucia">Andalucía</h3>
         <div class="law">
@@ -1222,52 +1291,60 @@
           Each area page shows the date of its data. For corrections, suggestions or comments, use the <a href="/contacto">contact form</a> or write to <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
 
         <!-- ------------------------------------------------------------------ -->
-        <h2 id="prensa"><span lang="es">Prensa y datos</span><span lang="en">Press and data</span></h2>
+        <h2 id="prensa"><span lang="es">Prensa y datos abiertos</span><span lang="en">Press and open data</span></h2>
         <div lang="es">
-          <p>Puedes citar y reutilizar las cifras indicando «Fuente: tienelicencia.com» y la fecha de los datos. Cada cifra de las páginas de zona tiene un botón
-            <b>Compartir</b> con un enlace directo a ella.</p>
+          <p>Todo lo que publicamos es reutilizable: puedes citar las cifras, hacer tus propios gráficos o cruzarlas con otros datos, indicando
+            «Fuente: tienelicencia.com» y la fecha de los datos (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">CC BY 4.0</a>).
+            Cada cifra de las páginas de zona tiene un botón <b>Compartir</b> con un enlace directo a ella.</p>
+          <h3>Qué puedes hacer con los datos</h3>
           <ul>
-            <li><b>Cifras clave:</b> <a href="/malaga">Málaga capital</a> y <a href="/sevilla">Sevilla capital</a> (anuncios sin número válido, viviendas turísticas por barrio, edificios),
-              <a href="/marbella">Marbella</a> y <a href="/provincia">la provincia</a>.</li>
-            <li><b>Tablas descargables (CSV, se abren en Excel):</b> <a href="/data/malaga/zonas.csv" download>barrios de Málaga</a> ·
-              <a href="/data/sevilla/zonas.csv" download>barrios de Sevilla</a> ·
-              <a href="/data/marbella/zonas.csv" download>localidades de Marbella</a> · <a href="/data/provincia/zonas.csv" download>municipios de la provincia</a>.</li>
-            <li><b>Datos completos (JSON):</b> <a href="/data/malaga/summary.json">Málaga</a> · <a href="/data/sevilla/summary.json">Sevilla</a> · <a href="/data/marbella/summary.json">Marbella</a> ·
-              <a href="/data/provincia/summary.json">provincia</a> · <a href="/data/history.json">evolución diaria</a>.</li>
-            <li><b>Fuentes originales:</b> <a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Registro de Turismo de Andalucía (Open RTA)</a>
-              (<a href="https://www.juntadeandalucia.es/ssdigitales/festa/download-pro/dataset-openrta.csv">descarga completa en CSV</a>) ·
-              <a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · <a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">Catastro</a> ·
-              <a href="https://www.ine.es/experimental/viv_turistica/experimental_viv_turistica.htm" target="_blank" rel="noopener">INE, viviendas turísticas</a> ·
-              <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">SERPAVI (alquiler)</a> ·
-              <a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Ayuntamiento de Málaga, datos abiertos</a>.</li>
+            <li><b>Periodistas:</b> comparar ciudades con el <a href="/ranking">índice</a>, seguir su evolución mes a mes o contar la historia de un barrio concreto.</li>
+            <li><b>Asociaciones vecinales y ayuntamientos:</b> ver qué barrios y edificios concentran más viviendas turísticas registradas y descargar la tabla de su ciudad.</li>
+            <li><b>Investigadores:</b> reproducir cada cifra con el código, o usar las tablas por barrio y por ciudad en sus propios análisis.</li>
           </ul>
-          <p><b>Código y datos abiertos:</b> todo el código de la web y de la comprobación, y los datos que publicamos, están en
-            <a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener">GitHub</a> (código con licencia MIT; datos CC BY 4.0). Puedes revisar exactamente cómo
-            calculamos cada cifra. No publicamos los resultados anuncio a anuncio.</p>
-          <p>¿Eres periodista y necesitas un dato que no está aquí o quieres contrastar una cifra? <a href="/contacto?tipo=prensa">Escríbenos</a>.</p>
+          <h3>Archivos</h3>
+          <ul>
+            <li><b>Índice:</b> <a href="/data/ranking.json">ranking.json</a> (todas las cifras de cada ciudad, con el cálculo) ·
+              <a href="/data/index_history.json">index_history.json</a> (una copia por mes).</li>
+            <li><b>Zonas:</b> <a href="/data/areas.json">areas.json</a> (lista de zonas y cifras clave) · <code>/data/&lt;zona&gt;/summary.json</code> (todas las cifras de una zona,
+              p. ej. <a href="/data/malaga/summary.json">Málaga</a>) · <code>/data/&lt;zona&gt;/zonas.csv</code> (tabla por barrios, códigos postales o municipios, se abre en Excel;
+              p. ej. <a href="/data/sevilla/zonas.csv" download>Sevilla</a>, <a href="/data/madrid/zonas.csv" download>Madrid</a>).</li>
+            <li><b>Evolución:</b> <a href="/data/history.json">history.json</a> (viviendas registradas por zona, día a día).</li>
+          </ul>
+          <h3>Código en GitHub</h3>
+          <p>Todo el código de la web, de la comprobación de anuncios y del índice, y los datos que publicamos, están en
+            <a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener">github.com/tienelicencia/tienelicencia</a> (código con licencia MIT; datos CC BY 4.0).
+            Allí puedes ver exactamente cómo se calcula cada cifra (<code>pipeline/</code>), descargar los datos de cada día (<code>site/data/</code>) con su historial de cambios,
+            y abrir una incidencia si encuentras un error. No publicamos los resultados anuncio a anuncio ni identificadores de anfitriones.</p>
+          <p>Fuentes originales: ver <a href="#fuentes">Fuentes de datos</a>. ¿Eres periodista y necesitas un dato que no está aquí o quieres contrastar una cifra?
+            <a href="/contacto?tipo=prensa">Escríbenos</a> o escribe a <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
         </div>
         <div lang="en">
-          <p>You may quote and reuse the figures, citing “Source: tienelicencia.com” and the date of the data. Every figure on the area pages has a
+          <p>Everything we publish can be reused: quote the figures, make your own charts or combine them with other data, citing "Source: tienelicencia.com"
+            and the date of the data (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>). Every figure on the area pages has a
             <b>Share</b> button with a direct link to it.</p>
+          <h3>What you can do with the data</h3>
           <ul>
-            <li><b>Key figures:</b> <a href="/malaga">Málaga city</a> and <a href="/sevilla">Seville city</a> (listings without a valid number, tourist flats by barrio, buildings),
-              <a href="/marbella">Marbella</a> and <a href="/provincia">the province</a>.</li>
-            <li><b>Downloadable tables (CSV, open in Excel):</b> <a href="/data/malaga/zonas.csv" download>Málaga barrios</a> ·
-              <a href="/data/sevilla/zonas.csv" download>Seville barrios</a> ·
-              <a href="/data/marbella/zonas.csv" download>Marbella localities</a> · <a href="/data/provincia/zonas.csv" download>province municipalities</a>.</li>
-            <li><b>Full data (JSON):</b> <a href="/data/malaga/summary.json">Málaga</a> · <a href="/data/sevilla/summary.json">Seville</a> · <a href="/data/marbella/summary.json">Marbella</a> ·
-              <a href="/data/provincia/summary.json">province</a> · <a href="/data/history.json">daily history</a>.</li>
-            <li><b>Original sources:</b> <a href="https://www.juntadeandalucia.es/organismos/turismojusticiadesregulacionyadministracionlocal/areas/turismo/registro-turismo/open-rta.html" target="_blank" rel="noopener">Andalusian Tourism Register (Open RTA)</a>
-              (<a href="https://www.juntadeandalucia.es/ssdigitales/festa/download-pro/dataset-openrta.csv">full CSV download</a>) ·
-              <a href="https://insideairbnb.com/get-the-data/" target="_blank" rel="noopener">Inside Airbnb</a> · <a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">Catastro</a> ·
-              <a href="https://www.ine.es/experimental/viv_turistica/experimental_viv_turistica.htm" target="_blank" rel="noopener">INE, tourist dwellings</a> ·
-              <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi" target="_blank" rel="noopener">SERPAVI (rents)</a> ·
-              <a href="https://datosabiertos.malaga.eu/" target="_blank" rel="noopener">Málaga council open data</a>.</li>
+            <li><b>Journalists:</b> compare cities with the <a href="/ranking">index</a>, follow it month by month, or tell the story of a particular barrio.</li>
+            <li><b>Residents' associations and councils:</b> see which barrios and buildings have the most registered tourist flats and download their city's table.</li>
+            <li><b>Researchers:</b> reproduce every figure from the code, or use the barrio and city tables in their own analysis.</li>
           </ul>
-          <p><b>Open code and data:</b> all the code behind the site and the checks, and the data we publish, are on
-            <a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener">GitHub</a> (code under MIT; data CC BY 4.0). You can see exactly how every figure is
-            worked out. We don't publish listing-by-listing results.</p>
-          <p>Journalist needing a figure that isn't here, or wanting to check one? <a href="/contacto?tipo=prensa">Get in touch</a>.</p>
+          <h3>Files</h3>
+          <ul>
+            <li><b>Index:</b> <a href="/data/ranking.json">ranking.json</a> (every figure for each city, with the calculation) ·
+              <a href="/data/index_history.json">index_history.json</a> (one copy per month).</li>
+            <li><b>Areas:</b> <a href="/data/areas.json">areas.json</a> (list of areas and key figures) · <code>/data/&lt;area&gt;/summary.json</code> (every figure for an area,
+              e.g. <a href="/data/malaga/summary.json">Málaga</a>) · <code>/data/&lt;area&gt;/zonas.csv</code> (table by barrio, postcode or municipality, opens in Excel;
+              e.g. <a href="/data/sevilla/zonas.csv" download>Seville</a>, <a href="/data/madrid/zonas.csv" download>Madrid</a>).</li>
+            <li><b>History:</b> <a href="/data/history.json">history.json</a> (registered flats per area, day by day).</li>
+          </ul>
+          <h3>Code on GitHub</h3>
+          <p>All the code behind the site, the listing checks and the index, and the data we publish, are at
+            <a href="https://github.com/tienelicencia/tienelicencia" target="_blank" rel="noopener">github.com/tienelicencia/tienelicencia</a> (code under MIT; data CC BY 4.0).
+            There you can see exactly how each figure is calculated (<code>pipeline/</code>), download each day's data (<code>site/data/</code>) with its change history,
+            and open an issue if you find a mistake. We don't publish listing-by-listing results or host identifiers.</p>
+          <p>Original sources: see <a href="#fuentes">Data sources</a>. Journalist needing a figure that isn't here, or wanting to check one?
+            <a href="/contacto?tipo=prensa">Get in touch</a> or write to <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
         </div>
       </article>
     </div>

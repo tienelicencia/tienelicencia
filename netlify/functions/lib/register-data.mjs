@@ -28,7 +28,7 @@ const STREET_TYPES = new Set(["C", "CL", "CALLE", "AV", "AVD", "AVDA", "AVENIDA"
 const STOP = new Set(["DE", "DEL", "LA", "LAS", "EL", "LOS", "Y", "THE"]);
 const AREA_MUNI = { malaga: "MALAGA", marbella: "MARBELLA", sevilla: "SEVILLA", granada: "GRANADA", cordoba: "CORDOBA", cadiz: "CADIZ",
   barcelona: "BARCELONA", bilbao: "BILBAO", donostia: "DONOSTIA SAN SEBASTIAN", valencia: "VALENCIA",
-  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA", madrid: "MADRID" };
+  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA", madrid: "MADRID", palma: "PALMA" };
 const AREA_PROV = { provincia: "MA", "provincia-sevilla": "SE", "provincia-cadiz": "CA", "provincia-granada": "GR",
   "provincia-almeria": "AL", "provincia-cordoba": "CO", "provincia-huelva": "HU", "provincia-jaen": "JA", mallorca: "IB" };   // "andalucia" = everything
 /** Does a register row (or street/barrio entry with _muni/prov) belong to this area? */

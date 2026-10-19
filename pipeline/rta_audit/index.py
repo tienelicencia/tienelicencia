@@ -3,7 +3,7 @@
 Three components, each normalised against its highest value in a fixed baseline (October 2026), then weighted:
 
   A  housing        tourist homes advertised on Airbnb, Booking and Vrbo (INE, de-duplicated) / all homes in the municipality
-  B  concentration  Airbnb listings per 100 homes in the city's most affected 1 km circle (circles with 3,000+ homes)
+  B  concentration  Airbnb listings per 100 homes in the city's most affected circle 1 km across (500 m radius; circles with 3,000+ homes)
   C  registration   severity-weighted registration discrepancies among assessed Airbnb listings:
                       R = 100 × (1.00 × invalid + 0.75 × unmatched + 0.35 × missing) / assessed
 
@@ -85,7 +85,12 @@ def verification(items, cfg, source="full", checked=None, target=None, date=None
                                 "missing": round(100 * sev["missing"] * m / nr, 2)}
         if source == "sample":
             out["no_verifiable_ci"] = wilson(bad, n)
-    out["sufficient"] = nr >= cfg["min_assessed"]
+    # Enough evidence: min_assessed listings, or (a town with fewer listings than that) nearly all of them checked, which
+    # is a census rather than a sample. 0.9 allows for listings removed between listing and checking.
+    out["sufficient"] = nr >= cfg["min_assessed"] or bool(source == "sample" and frame and frame < cfg["min_assessed"]
+                                                          and n >= 0.9 * frame and nr >= 0.5 * cfg["min_assessed"])
+    if source == "sample" and frame and checked is not None and checked >= 0.9 * frame:
+        out["census"] = True
     return out
 
 

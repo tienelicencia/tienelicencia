@@ -61,7 +61,8 @@ class Barrios:
                 lats, lons = [p[0] for p in ring], [p[1] for p in ring]
                 self.polys.append((bid, name, ring, (min(lats), max(lats), min(lons), max(lons))))
             # GeoJSON for the site, rounded to ~1 m, [lon, lat] order
-            self.features.append({"type": "Feature", "properties": {"id": bid, "name": name},
+            self.features.append({"type": "Feature", "properties": {"id": bid, "name": name,
+                                                                    **({"group": pr["neighbourhood_group"]} if wgs84 and pr.get("neighbourhood_group") else {})},
                                   "geometry": {"type": "MultiPolygon", "coordinates": [
                                       [[[round(lo, 5), round(la, 5)] for la, lo in ring]] for ring in rings_ll]}})
 

@@ -56,6 +56,8 @@
       "Since April 2025 <b>no new tourist lets are accepted in apartment blocks</b> anywhere in the Balearics, and buying new tourist places is frozen in Mallorca (Decree-law 4/2025).",
       "In 2026 Palma declared <b>the whole municipality unsuitable</b> for new tourist lets (BOIB no. 81, 27 June 2026); existing registrations remain valid.",
       "A tourist stay can't exceed <b>30 nights</b>; stays of 31 nights or more fall outside (art. 50.13)."]),
+    // Palma: Mallorca's rules, with Palma's own zoning first
+    palma: () => { const m = LAW.mallorca(); return [m[3], m[0], m[1], m[2], m[4]]; },
     valencia: () => L([
       "Toda vivienda turística debe estar inscrita en el Registro de Turismo de la Comunitat Valenciana y <b>mostrar su número y su ubicación exacta en toda la publicidad</b> (Ley 15/2018, art. 19.1.b). Las plataformas deben pedir un número válido (art. 62.2).",
       "Una vivienda turística se alquila <b>por 10 días o menos</b> al mismo huésped; las estancias de 11 días o más no lo son (art. 65). No se puede alquilar por habitaciones.",
@@ -192,6 +194,7 @@
       sevilla: ["VUT/SE/00624", "Calle Feria 70", "Santa Cruz"],
       barcelona: ["HUTB-002062", "Carrer de Sants 387", "Sagrada Família"],
       mallorca: ["ETV/10070", "Carrer Miramar 10 Alcúdia", "Sóller"],
+      palma: ["ETV/2215", "Carrer Jeroni Pou 35", "Santa Catalina"],
       valencia: ["CV-VUT0044553-V", "Calle Paz 29", "Russafa"],
       madrid: ["VT-1234", "Calle de Atocha 20", "Embajadores"],
       bilbao: ["EBI00003", "Bidebarrieta 7", "Abando"],
@@ -274,7 +277,8 @@
       const period = R.ine_period ? TL.date(`${R.ine_period}-01`, { month: "long", year: "numeric" }) : "";
       const isBarrio = sub.kind === "barrio";
       const byAirbnb = (sub.rows || []).some((r) => r.airbnb_share != null);   // sub-areas with Airbnb listings (barrios; Mallorca's municipalities)
-      const advKey = byAirbnb ? "airbnb_share" : "ine_pct";
+      const byFrame = !byAirbnb && (sub.rows || []).some((r) => r.listings_per_100 != null);   // towns: our list of all their listings
+      const advKey = byAirbnb ? "airbnb_share" : byFrame ? "listings_per_100" : "ine_pct";
       const ranked = (sub.rows || []).filter((r) => r.vut_share != null && (sub.kind !== "municipality" || r.homes >= 2000))
         .sort((x, y) => y.vut_share - x.vut_share);
       const over8 = isBarrio && CAP ? ranked.filter((r) => r.vut_share > CAP) : [];
@@ -282,6 +286,7 @@
       const hasAdv = top.some((r) => r[advKey] != null);
       const smax = Math.max(...top.flatMap((r) => [r.vut_share, r[advKey] || 0]), 10);
       const advLabel = byAirbnb ? L("Anunciadas en Airbnb (vivienda completa)", "Advertised on Airbnb (entire home)")
+        : byFrame ? L("Anuncios de Airbnb por cada 100 viviendas", "Airbnb listings per 100 homes")
         : L("Anunciadas en plataformas (INE)", "Advertised on platforms (INE)");
       point("proporcion", L("% de viviendas", "% of homes"),
         `<span class="big brand">${pctS(R.vut_share)}</span><span class="pill warn">${L("Indicativo", "Indicative")}</span>`,
@@ -311,7 +316,7 @@
           })() : ""}
          <p class="small muted">${L("Indicativo, no exhaustivo: el Catastro cuenta todas las viviendas (también vacías y segundas residencias); el INE solo cubre Airbnb, Booking y Vrbo; y por barrios solo tenemos Airbnb.",
           "Indicative, not comprehensive: the Catastro counts every home (including empty and second homes); the INE only covers Airbnb, Booking and Vrbo; and by barrio we only have Airbnb.")}</p>`,
-        top.length ? `<div class="legend-title" style="margin-bottom:6px">${isBarrio ? L("Barrios con mayor proporción", "Barrios with the highest share") : L("Municipios con mayor proporción (más de 2.000 viviendas)", "Municipalities with the highest share (over 2,000 homes)")}</div>
+        top.length ? `<div class="legend-title" style="margin-bottom:6px">${isBarrio ? (sub.level === "district" ? L("Distritos con mayor proporción", "Districts with the highest share") : L("Barrios con mayor proporción", "Barrios with the highest share")) : L("Municipios con mayor proporción (más de 2.000 viviendas)", "Municipalities with the highest share (over 2,000 homes)")}</div>
           <div class="legend" style="margin:0 0 12px"><span><i style="background:var(--brand-2)"></i>${L("Registradas", "Registered")}</span>${hasAdv ? `<span><i style="background:var(--other)"></i>${advLabel}</span>` : ""}</div>
           <div class="hbars">${top.map((r) => `<div class="hbar pair" tabindex="0" data-tip="${esc(`${subName(r)}: ${L("registradas", "registered")} ${pctS(r.vut_share)}${r[advKey] != null ? ` · ${L("anunciadas", "advertised")} ${pctS(r[advKey])}` : ""}`)}">
             <span class="lab">${subName(r)}</span>
@@ -383,30 +388,51 @@
 
     // where: barrios / postcodes / municipalities
     const rows = sub.rows;
-    const kindName = { barrio: L("barrio", "barrio"), locality: L("código postal", "postcode"), municipality: L("municipio", "municipality") }[sub.kind];
-    const top = rows[0];
-    const share = top ? Math.round(100 * top.vut / R.vut) : 0;
-    const maxV = Math.max(...rows.map((r) => r.vut), 1);
+    const kindName = { barrio: sub.level === "district" ? L("distrito", "district") : L("barrio", "barrio"), locality: L("código postal", "postcode"), municipality: L("municipio", "municipality") }[sub.kind];
+    // Cities without Inside Airbnb data but with official barrios: Airbnb listings per barrio from our own complete list
+    // of the city's listings (locations only), and the live-checked sample's result where a barrio has enough of it
+    const FR = !LS && sub.kind === "barrio" && rows.some((r) => r.listings != null);
+    const located = rows.some((r) => r.vut != null);   // registered flats per barrio need the register's coordinates
+    const the = sub.level === "district" ? L("el distrito ", "the district of ") : L("el barrio ", "the barrio of ");
+    const sinDatos = `<span class="muted">${L("sin datos", "no data")}</span>`;
+    const nf1 = (x) => Number(x).toLocaleString(TL.lang() === "es" ? "es-ES" : "en-GB", { maximumFractionDigits: 1 });
+    const byListings = !located && rows.some((r) => r.listings);   // no registered flats by barrio: describe where the listings are
+    const top = byListings ? [...rows].sort((a, b) => (b.listings || 0) - (a.listings || 0))[0] : rows[0];
+    const frameN = FR ? (S.sample || {}).frame || rows.reduce((a, r) => a + (r.listings || 0), 0) : 0;
+    const share = !top ? 0 : byListings ? Math.round(100 * top.listings / ((LS ? LS.listings : frameN) || 1)) : Math.round(100 * top.vut / R.vut);
+    const maxV = Math.max(...rows.map((r) => r.vut || 0), 1);
     const withPct = rows.filter((r) => r.not_valid_pct != null);
     const hasShare = rows.some((r) => r.vut_share != null);
     const shareCell = (r) => hasShare ? `<td class="n hide-sm">${r.vut_share != null ? `${CAP && r.vut_share > CAP && sub.kind === "barrio" ? "<b>" : ""}${Number(r.vut_share).toLocaleString(TL.lang() === "es" ? "es-ES" : "en-GB", { maximumFractionDigits: 1 })}%${CAP && r.vut_share > CAP && sub.kind === "barrio" ? "</b>" : ""}` : "—"}</td>` : "";
-    const tableRows = (list) => list.map((r) => `<tr><td>${subName(r)}</td><td class="n">${fmt(r.vut)}</td>${shareCell(r)}
+    const tableRows = (list) => list.map((r) => `<tr><td>${subName(r)}</td><td class="n">${r.vut != null ? fmt(r.vut) : sinDatos}</td>${shareCell(r)}
         ${LS ? `<td class="n hide-sm">${fmt(r.listings)}</td><td class="n">${r.not_valid_pct != null ? Math.round(r.not_valid_pct) + "%" : "—"}</td>
           <td class="bar-cell hide-sm"><div class="mini">${r.not_valid_pct != null ? `<i style="width:${Math.min(100, r.not_valid_pct * 1.6)}%"></i>` : ""}</div></td>`
+        : FR ? `<td class="n hide-sm">${fmt(r.listings || 0)}</td><td class="n hide-sm">${r.listings_per_100 != null ? nf1(r.listings_per_100) : "—"}</td>
+          <td class="n">${r.not_valid_pct != null ? Math.round(r.not_valid_pct) + "%" : "—"}</td>`
         : `<td class="n hide-sm">${fmt(r.places)}</td><td class="bar-cell hide-sm"><div class="mini"><i class="brand" style="width:${(100 * r.vut / maxV).toFixed(1)}%"></i></div></td>`}</tr>`).join("");
     const head = `<tr><th>${kindName[0].toUpperCase() + kindName.slice(1)}</th><th class="n">${L("Viviendas reg.", "Registered")}</th>${hasShare ? `<th class="n hide-sm">${L("% viviendas*", "% homes*")}</th>` : ""}
       ${LS ? `<th class="n hide-sm">${L("Anuncios", "Listings")}</th><th class="n">${L("Sin nº válido", "No valid no.")}</th><th class="hide-sm"></th>`
+        : FR ? `<th class="n hide-sm">${L("Anuncios", "Listings")}</th><th class="n hide-sm">${L("Por 100 viv.", "Per 100 homes")}</th><th class="n">${L("Sin nº válido†", "No valid no.†")}</th>`
         : `<th class="n hide-sm">${L("Plazas", "Places")}</th><th class="hide-sm"></th>`}</tr>`;
-    const list = LS ? [...rows].filter((r) => r.listings > 0).sort((a, b) => b.listings - a.listings) : rows;
+    const list = LS || byListings ? [...rows].filter((r) => r.listings > 0).sort((a, b) => b.listings - a.listings) : rows;
+    const minS = sub.min_sample || 30;
     if (top) point("donde", L("Dónde", "Where"), `<span class="big brand">${share}%</span>`,
-      L(`de las viviendas turísticas están en ${sub.kind === "barrio" ? "el barrio " : sub.kind === "locality" ? "el código postal " : ""}${subName(top)}`,
-        `of tourist flats are in ${sub.kind === "barrio" ? "the barrio of " : sub.kind === "locality" ? "postcode " : ""}${subName(top)}`),
-      LS ? `<p>${L(`${sub.kind === "municipality" ? "Por municipios" : "Por barrios"}, el porcentaje de anuncios sin número válido va del ${Math.round(Math.min(...withPct.map((r) => r.not_valid_pct)))}% al ${Math.round(Math.max(...withPct.map((r) => r.not_valid_pct)))}%. Solo mostramos el porcentaje donde hay al menos ${M.min_listings_area} anuncios.`,
-        `${sub.kind === "municipality" ? "By municipality" : "By barrio"}, the share of listings without a valid number ranges from ${Math.round(Math.min(...withPct.map((r) => r.not_valid_pct)))}% to ${Math.round(Math.max(...withPct.map((r) => r.not_valid_pct)))}%. We only show a percentage where there are at least ${M.min_listings_area} listings.`)}</p>` : "",
+      byListings ? L(`de los anuncios de Airbnb están en ${the}${subName(top)}`, `of Airbnb listings are in ${the}${subName(top)}`)
+        : L(`de las viviendas turísticas están en ${sub.kind === "barrio" ? the : sub.kind === "locality" ? "el código postal " : ""}${subName(top)}`,
+          `of tourist flats are in ${sub.kind === "barrio" ? the : sub.kind === "locality" ? "postcode " : ""}${subName(top)}`),
+      LS ? `<p>${L(`${sub.kind === "municipality" ? "Por municipios" : "Por barrios"}, el porcentaje de anuncios sin número válido va del ${Math.round(Math.min(...withPct.map((r) => r.not_valid_pct)))}% al ${Math.round(Math.max(...withPct.map((r) => r.not_valid_pct)))}%. Solo mostramos el porcentaje donde hay al menos ${M.min_listings_area} anuncios.${located ? "" : ` Al ${RG.es} le faltan las coordenadas de demasiadas viviendas para repartirlas por barrios.`}`,
+        `${sub.kind === "municipality" ? "By municipality" : "By barrio"}, the share of listings without a valid number ranges from ${Math.round(Math.min(...withPct.map((r) => r.not_valid_pct)))}% to ${Math.round(Math.max(...withPct.map((r) => r.not_valid_pct)))}%. We only show a percentage where there are at least ${M.min_listings_area} listings.${located ? "" : ` Too many flats in the ${RG.en} have no coordinates to split them by barrio.`}`)}</p>`
+      : FR ? `<p>${L(`Anuncios: los ${fmt(frameN)} anuncios de Airbnb que encontramos en el municipio, situados en su ${kindName}. ${located ? "" : `Al ${RG.es} le faltan las coordenadas de demasiadas viviendas para repartirlas por ${kindName}s. `}El porcentaje sin número válido sale de la muestra revisada en directo y solo lo damos donde hay al menos ${minS} anuncios revisados${withPct.length ? ` (${fmt(withPct.length)} ${withPct.length === 1 ? kindName : kindName + "s"})` : `: ningún ${kindName} llega todavía`}; la cifra de toda la ciudad, con la muestra completa, está en «Anuncios (muestra)».`,
+          `Listings: the ${fmt(frameN)} Airbnb listings we found in the municipality, placed in their ${kindName}. ${located ? "" : `Too many flats in the ${RG.en} have no coordinates to split them by ${kindName}. `}The share without a valid number comes from the live-checked sample and is only given where at least ${minS} listings were checked${withPct.length ? ` (${fmt(withPct.length)} ${withPct.length === 1 ? kindName : kindName + "s"})` : `: no ${kindName} has that many yet`}; the city-wide figure, from the whole sample, is under “Listings (sample)”.`)}</p>` : "",
       `<table class="data"><thead>${head}</thead><tbody id="sub-body">${tableRows(list.slice(0, 10))}</tbody></table>
        ${list.length > 10 ? `<button class="more" type="button" id="sub-more">${L(`Ver los ${fmt(list.length)}`, `Show all ${fmt(list.length)}`)}</button>` : ""}
-       ${hasShare ? `<p class="tiny muted" style="margin-top:8px">${L("* Viviendas turísticas registradas sobre el total de viviendas del Catastro. Indicativo.", "* Registered tourist flats as a share of all homes in the Catastro. Indicative.")}</p>` : ""}`,
-      LS ? srcAirbnb : srcReg);
+       ${hasShare ? `<p class="tiny muted" style="margin-top:8px">${L("* Viviendas turísticas registradas sobre el total de viviendas del Catastro. Indicativo.", "* Registered tourist flats as a share of all homes in the Catastro. Indicative.")}</p>` : ""}
+       ${FR ? `<p class="tiny muted" style="margin-top:8px">${L(`† Estimación con la muestra aleatoria, solo con ${minS} o más anuncios revisados en el ${kindName}; con pocos anuncios el margen de error es amplio (ver la clasificación completa). Un anuncio no es una vivienda: una vivienda puede tener varios.`,
+          `† Estimate from the random sample, only with ${minS} or more listings checked in the ${kindName}; with few listings the margin of error is wide (see the full ranking). A listing isn't a home: one home can have several.`)}</p>
+          <p style="margin-top:14px"><a href="${areaHref(slug, "zonas")}">${sub.level === "district" ? L("Ver todos los distritos →", "See every district →") : L("Ver la clasificación de todos los barrios →", "See the ranking of every barrio →")}</a></p>` : ""}`,
+      LS ? srcAirbnb + (sub.source ? L(` Límites: ${esc(sub.source.es)}.`, ` Boundaries: ${esc(sub.source.en)}.`) : "") : FR ? L(`Fuentes: ${RG.es}, Catastro, lista de anuncios de Airbnb de tienelicencia.com (${TL.date((S.sample || {}).frame_date)}) y ${esc(sub.source?.es || "límites oficiales de los barrios")}.`,
+        `Sources: ${RG.en}, Catastro, tienelicencia.com's list of Airbnb listings (${TL.date((S.sample || {}).frame_date)}) and ${esc(sub.source?.en || "official barrio boundaries")}.`)
+        : srcReg + (sub.source ? L(` Límites: ${esc(sub.source.es)}.`, ` Boundaries: ${esc(sub.source.en)}.`) : ""));
 
     // concentration + biggest buildings
     if (R.buildings_10plus) point("edificios", L("Edificios", "Buildings"), `<span class="big brand">${fmt(R.buildings_10plus)}</span>`,

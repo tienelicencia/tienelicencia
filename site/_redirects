@@ -1,6 +1,7 @@
 # Page routes, one block per area slug (keep in step with AREAS in pipeline/site_build.py).
 # Here rather than in netlify.toml: this file ships with the site's files, so a new area's pages go live with them.
 /ranking                  /ranking.html  200
+/mapa                     /mapa.html  200
 /malaga                   /area.html  200
 /malaga/mapa              /mapa.html  200
 /malaga/zonas             /zonas.html  200
@@ -46,6 +47,9 @@
 /mallorca                 /area.html  200
 /mallorca/mapa            /mapa.html  200
 /mallorca/zonas           /zonas.html  200
+/palma                    /area.html  200
+/palma/mapa               /mapa.html  200
+/palma/zonas              /zonas.html  200
 /bilbao                   /area.html  200
 /bilbao/mapa              /mapa.html  200
 /bilbao/zonas             /zonas.html  200

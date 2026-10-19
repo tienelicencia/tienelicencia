@@ -1,25 +1,46 @@
-﻿zona,viviendas_turisticas_registradas,plazas
-03002,767,2890
-03540,532,2344
-03004,399,1875
-03003,269,951
-03001,212,939
-03013,197,972
-03012,194,803
-03016,164,715
-03005,89,392
-03010,58,302
-03007,54,209
-03009,54,277
-03008,33,156
-03006,14,55
-03138,14,91
-03015,12,106
-03011,11,51
-03014,7,34
-03114,5,36
-03112,4,32
-03559,2,24
-03699,2,22
-—,1,6
-03115,1,6
+﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
+Casco Antiguo - Santa Cruz - Ayuntamiento,620,2264,2251,27.5,406,18.0,56,30.4
+Playa de San Juan,408,1656,22027,1.9,136,0.6,25,
+Ensanche Diputacion,302,1087,9614,3.1,217,2.3,38,28.9
+Centro,282,1246,4542,6.2,217,4.8,41,48.8
+Mercado,262,1261,5663,4.6,179,3.2,27,
+Carolinas Bajas,199,833,5414,3.7,161,3.0,31,32.3
+Albufereta,140,595,6581,2.1,97,1.5,14,
+Cabo de las Huertas,131,708,9667,1.4,61,0.6,10,
+Campoamor,126,631,6028,2.1,127,2.1,22,
+Pla del Bon Repos,114,575,8039,1.4,75,0.9,17,
+Sananton,106,448,1481,7.2,142,9.6,23,
+Raval Roig - Virgen del Socorro,75,317,1621,4.6,38,2.3,7,
+Carolinas Altas,62,301,8793,0.7,63,0.7,14,
+Benalua,51,199,5740,0.9,23,0.4,3,
+San Blas - Santo Domingo,47,206,4753,1.0,56,1.2,13,
+El Palmeral - Urbanova - Tabarca,39,202,3544,1.1,34,1.0,8,
+Vistahermosa,21,154,2865,0.7,23,0.8,4,
+Los Angeles,12,73,5139,0.2,33,0.6,10,
+Poligono San Blas,12,60,5261,0.2,15,0.3,,
+Virgen del Remedio,10,43,6835,0.1,8,0.1,1,
+Altozano - Conde Lumiares,9,47,4780,0.2,23,0.5,2,
+Disperso Partidas,8,66,4700,0.2,19,0.4,3,
+Villafranqueza - Santa Faz,6,45,2572,0.2,5,0.2,1,
+Alipark,5,18,1656,0.3,13,0.8,1,
+Lo Morant - San Nicolas de Bari,5,23,2876,0.2,8,0.3,1,
+San Fernando - Princesa Mercedes,5,15,2411,0.2,10,0.4,3,
+Ciudad Elegida,4,18,1955,0.2,7,0.4,1,
+Sidi Ifni - Nou Alacant,4,18,2148,0.2,9,0.4,2,
+Gran Via Sur,3,15,3280,0.1,1,0.0,1,
+Juan XXIII,3,37,3263,0.1,6,0.2,,
+San Gabriel,3,14,2205,0.1,11,0.5,1,
+Florida Alta,2,8,2429,0.1,5,0.2,1,
+Florida Baja,2,7,4886,0.0,12,0.2,3,
+Garbinet,2,11,5844,0.0,8,0.1,3,
+Poligono Babel,2,8,3473,0.1,9,0.3,3,
+San Agustin,2,9,928,0.2,0,0.0,,
+Ciudad Jardin,1,8,636,0.2,0,0.0,,
+Ciudad de Asis,1,6,3026,0.0,5,0.2,1,
+Colonia Requena,1,6,949,0.1,0,0.0,,
+Cuatrocientas Viviendas,1,5,480,0.2,1,0.2,,
+Juan Pablo II,1,4,3036,0.0,2,0.1,,
+Rabasa,1,8,1188,0.1,1,0.1,,
+Tombola,1,4,1062,0.1,0,0.0,,
+Divina Pastora,0,0,535,0.0,2,0.4,,
+Virgen del Carmen,0,0,1099,0.0,1,0.1,,

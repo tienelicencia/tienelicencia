@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mapa · tienelicencia.com</title>
-<meta name="description" content="Mapa de las viviendas turísticas registradas, edificio por edificio.">
+<meta name="description" content="Mapa de España de las viviendas turísticas registradas, de todo el país a cada edificio.">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
@@ -18,15 +18,13 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Mapa · tienelicencia.com">
-<meta property="og:description" content="Mapa de las viviendas turísticas registradas, edificio por edificio.">
+<meta property="og:description" content="Mapa de España de las viviendas turísticas registradas, de todo el país a cada edificio.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
 <link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin>
-<script>/* start our map data downloading now, in parallel with maplibre-gl.js; map.js picks the responses up */
-(function () { var s = location.pathname.split("/").filter(Boolean)[0] || new URLSearchParams(location.search).get("area");
-  if (!s || !/^[a-z0-9-]+$/.test(s)) return;
-  ["buildings.json", "hex.geojson"].forEach(function (f) { var l = document.createElement("link");
-    l.rel = "preload"; l.as = "fetch"; l.crossOrigin = "anonymous"; l.href = "/data/" + s + "/" + f; document.head.appendChild(l); }); })();</script>
+<!-- our map data starts downloading now, in parallel with maplibre-gl.js; map.js picks the responses up -->
+<link rel="preload" href="/data/areas.json" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/data/spain/map.json" as="fetch" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <link rel="stylesheet" href="/assets/site.css">

@@ -5,7 +5,7 @@
   const SHIFTED_LABS = "https://shiftedlabs.ai";
   const STR = {
     es: {
-      nav_areas: "Zonas", nav_rank: "Ranking", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú", city_label: "Elige tu zona", city_all: "Toda España", city_avail: "Disponibles", city_soon: "Próximamente", soon: "próximamente",
+      nav_areas: "Zonas", nav_rank: "Ranking", nav_check: "Comprobar anuncio", nav_method: "Metodología", nav_faq: "Preguntas", menu: "Menú", city_label: "Elige tu zona", city_all: "Toda España", city_avail: "Disponibles", city_soon: "Próximamente", city_cities: "Ciudades", city_wide: "Islas y regiones", soon: "próximamente",
       privacy: "Privacidad y cookies", legal: "Aviso legal", cookies: "Preferencias de cookies",
       strip: "Servicio de información independiente con datos abiertos oficiales.",
       strip_b: "No es una web oficial de ninguna administración.",
@@ -49,7 +49,7 @@
       view_data: "Ver los datos",
     },
     en: {
-      nav_areas: "Areas", nav_rank: "Ranking", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu", city_label: "Choose your area", city_all: "All of Spain", city_avail: "Available", city_soon: "Coming soon", soon: "coming soon",
+      nav_areas: "Areas", nav_rank: "Ranking", nav_check: "Check an advert", nav_method: "Methodology", nav_faq: "FAQ", menu: "Menu", city_label: "Choose your area", city_all: "All of Spain", city_avail: "Available", city_soon: "Coming soon", city_cities: "Cities", city_wide: "Islands and regions", soon: "coming soon",
       privacy: "Privacy & cookies", legal: "Legal notice", cookies: "Cookie settings",
       strip: "An independent public-information service built on official open data.",
       strip_b: "Not an official website of any administration.",
@@ -183,16 +183,20 @@
   const COMING = [["barcelona", "Barcelona"], ["madrid", "Madrid"], ["valencia", "Valencia"], ["bilbao", "Bilbao"],
     ["donostia", "San Sebastián"], ["zaragoza", "Zaragoza"], ["murcia", "Murcia"], ["laspalmas", "Las Palmas de Gran Canaria"],
     ["alicante", "Alicante"], ["cordoba", "Córdoba"], ["valladolid", "Valladolid"]];
+  // Areas in the order the site lists them: cities by population (largest first), then islands and regions.
+  const byPopulation = (a, b) => (b.population || 0) - (a.population || 0) || name(a.name).localeCompare(name(b.name));
+  const cityAreas = (A) => A.areas.filter((a) => a.kind === "city").sort(byPopulation);
+  const wideAreas = (A) => A.areas.filter((a) => a.kind === "island" || a.kind === "region").sort(byPopulation);
   function cityPicker(A) {
     const sel = document.getElementById("city-pick");
     if (!sel) return;
-    const have = new Set(A.areas.map((a) => a.slug));
-    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "region" || a.kind === "island");
+    const live = [...cityAreas(A), ...wideAreas(A)];
     const cur = currentArea();
+    const opt = (a) => `<option value="${a.slug}" ${a.slug === cur ? "selected" : ""}>${esc(name(a.name))}</option>`;
     const paint = () => {
       sel.innerHTML = `<option value="">${t("city_all")}</option>
-        <optgroup label="${t("city_avail")}">${live.map((a) => `<option value="${a.slug}" ${a.slug === cur ? "selected" : ""}>${esc(name(a.name))}</option>`).join("")}</optgroup>
-        <optgroup label="${t("city_soon")}">${COMING.filter(([s]) => !have.has(s)).map(([, n]) => `<option disabled>${esc(n)} · ${t("soon")}</option>`).join("")}</optgroup>`;
+        <optgroup label="${t("city_cities")}">${cityAreas(A).map(opt).join("")}</optgroup>
+        <optgroup label="${t("city_wide")}">${wideAreas(A).map(opt).join("")}</optgroup>`;
       if (cur && !live.some((a) => a.slug === cur)) {   // a province page: show it as the current choice
         const a = A.areas.find((x) => x.slug === cur);
         if (a) sel.insertAdjacentHTML("afterbegin", `<option value="${a.slug}" selected>${esc(name(a.name))}</option>`);
@@ -216,8 +220,8 @@
         <a class="brand" href="/" aria-label="tienelicencia.com — inicio">${LOGO}${WORD}</a>
         <nav class="site-nav" id="site-nav" aria-label="Principal">
           <label class="city-pick"><span class="sr-only" data-t="city_label"></span><select id="city-pick" data-t-aria="city_label"></select></label>
+          <a href="/ranking" class="nav-cta" data-t="nav_rank" ${page === "ranking" ? 'aria-current="page"' : ""}></a>
           <a href="/#zonas" data-t="nav_areas" ${page === "home" || page === "area" || page === "map" ? 'aria-current="page"' : ""}></a>
-          <a href="/ranking" data-t="nav_rank" ${page === "ranking" ? 'aria-current="page"' : ""}></a>
           <a href="/comprobar" data-t="nav_check" ${page === "check" ? 'aria-current="page"' : ""}></a>
           <a href="/metodologia" data-t="nav_method" ${page === "method" ? 'aria-current="page"' : ""}></a>
           <a href="/preguntas" data-t="nav_faq" ${page === "faq" ? 'aria-current="page"' : ""}></a>
@@ -262,6 +266,7 @@
               <a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> ·
               <a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Catastro</a> ·
               <a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> ·
+              <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a> ·
               <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>.
               <a href="/metodologia#fuentes" data-t="foot_all_sources"></a></p></div>
         </div>
@@ -409,7 +414,7 @@
       if (r.lat == null || !r.building) return "";
       const target = a === "provincia" ? "provincia" : areaOfMuni(r.muni, r.prov);
       if (!target) return "";
-      return `<a class="btn btn-ghost" href="${areaHref(target, "mapa")}?b=${encodeURIComponent(r.building)}" data-onmap='${esc(JSON.stringify({ building: r.building, lat: r.lat, lon: r.lon }))}'>${ICON.map}<span>${t("see_map")}</span></a>`;
+      return `<a class="btn btn-ghost" href="${areaHref(target, "mapa")}?b=${encodeURIComponent(r.building)}${r.lat != null ? `&lat=${r.lat}&lon=${r.lon}` : ""}" data-onmap='${esc(JSON.stringify({ building: r.building, lat: r.lat, lon: r.lon }))}'>${ICON.map}<span>${t("see_map")}</span></a>`;
     };
     function codeResult(j, a) {
       if (j.rows.length) {
@@ -525,7 +530,8 @@
   }
   const AREA_OF_MUNI = { "Málaga": "malaga", "Marbella": "marbella", "Sevilla": "sevilla", "Granada": "granada", "Córdoba": "cordoba", "Cádiz": "cadiz",
     "Barcelona": "barcelona", "Bilbao": "bilbao", "Donostia / San Sebastián": "donostia", "Valencia": "valencia",
-    "Murcia": "murcia", "Las Palmas de Gran Canaria": "laspalmas", "Madrid": "madrid" };
+    "Murcia": "murcia", "Las Palmas de Gran Canaria": "laspalmas", "Madrid": "madrid", "Palma": "palma", "Zaragoza": "zaragoza",
+    "Alicante": "alicante", "Valladolid": "valladolid" };
   /** Which area's map shows a register row's building: its city, else Málaga province; null elsewhere in Andalucía
       (the Andalucía map shows density only). Data built before "prov" existed is all Málaga province. */
   const AREA_OF_PROV = { MA: "provincia", SE: "provincia-sevilla", CA: "provincia-cadiz", GR: "provincia-granada", AL: "provincia-almeria",
@@ -719,6 +725,6 @@
   }
 
   window.TL = { init, t, lang: () => lang, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
-    getJSON, api, areaHref, areaOfMuni, AREA_OF_PROV, COMING, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
+    getJSON, api, byPopulation, cityAreas, wideAreas, areaHref, areaOfMuni, AREA_OF_PROV, COMING, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
     track, shareButton, loading };
 })();

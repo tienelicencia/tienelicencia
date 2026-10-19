@@ -54,8 +54,8 @@
         <ol>
           <li>${L("<b>Viviendas anunciadas (A):</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo según el INE (sin duplicados) ÷ total de viviendas del municipio.",
             "<b>Homes advertised (A):</b> tourist homes advertised on Airbnb, Booking and Vrbo according to the INE (de-duplicated) ÷ all homes in the municipality.")}</li>
-          <li>${L(`<b>Concentración (B):</b> anuncios de Airbnb por cada 100 viviendas en el círculo de 1&nbsp;km más afectado del municipio (entre los que tienen al menos ${fmt(R.peak_min_homes)} viviendas). Son anuncios, no viviendas distintas: incluyen habitaciones y algún duplicado.`,
-            `<b>Concentration (B):</b> Airbnb listings per 100 homes in the municipality's most affected 1 km circle (among circles with at least ${fmt(R.peak_min_homes)} homes). These are listings, not distinct homes: they include rooms and some duplicates.`)}</li>
+          <li>${L(`<b>Concentración (B):</b> anuncios de Airbnb por cada 100 viviendas en el círculo de 1&nbsp;km de diámetro (500&nbsp;m de radio, unas 80 hectáreas) más afectado de la ciudad (entre los que tienen al menos ${fmt(R.peak_min_homes)} viviendas). Son anuncios, no viviendas distintas: incluyen habitaciones y algún duplicado.`,
+            `<b>Concentration (B):</b> Airbnb listings per 100 homes in the city's most affected circle 1 km across (500 m radius, about 80 hectares) (among circles with at least ${fmt(R.peak_min_homes)} homes). These are listings, not distinct homes: they include rooms and some duplicates.`)}</li>
           <li>${L(`<b>Registros (C):</b> R = 100 × (${fix(sev.invalid, 2)} × no válidos + ${fix(sev.unmatched, 2)} × sin coincidencia + ${fix(sev.missing, 2)} × sin número) ÷ anuncios evaluados. Los coeficientes son decisiones de diseño del índice, no probabilidades de ilegalidad. En Madrid, donde mostrar el número no es obligatorio, los anuncios sin número quedan fuera de este cálculo.`,
             `<b>Registration (C):</b> R = 100 × (${fix(sev.invalid, 2)} × invalid + ${fix(sev.unmatched, 2)} × unmatched + ${fix(sev.missing, 2)} × missing) ÷ assessed listings. The coefficients are design choices for the index, not probabilities of illegality. In Madrid, where showing the number isn't required, listings without one are left out of this calculation.`)}</li>
           <li>${L(`Cada medida se divide por su máximo en la base (A′ = 100 × A ÷ A<sub>máx</sub>, y lo mismo B′ y C′). Índice = 100 × (${w.housing} A′ + ${w.concentration} B′ + ${w.registration} C′) ÷ el mayor valor de la base.`,
@@ -84,14 +84,20 @@
     return `<div class="ix-bar" role="img" aria-label="${esc(label)}">${seg}<span class="ix-100" style="left:${(10000 / scale).toFixed(2)}%"></span></div>`;
   }
 
+  // The city's most affected 1 km circle on the national map (the map frames it and draws its outline)
+  const peakHref = (c) => (c.peak_lat == null || !(c.area || c.slug) ? null
+    : `${areaHref(c.area || c.slug, "mapa")}?${new URLSearchParams({ circle: `${c.peak_lat},${c.peak_lon},${c.peak_radius_m || R.peak_radius_m || 1000}`,
+      label: c.peak_place ? titleCase(c.peak_place) : `${c.name} · ${L("zona más afectada", "most affected area")}` })}`);
+  const peakLink = (c) => { const h = peakHref(c); return h ? `<a class="ix-maplink" href="${esc(h)}">${L("Ver en el mapa", "See on the map")}</a>` : ""; };
+
   function headline(c) {
     const v = c.verification || {};
     const nov = v.no_verifiable_pct != null
-      ? `${pc(v.no_verifiable_pct, 0)}${v.source === "sample" ? `<small>${L(`muestra de ${fmt(v.assessed)} anuncios`, `sample of ${fmt(v.assessed)} listings`)}</small>` : ""}${c.number_required === false ? `<small>${L("mostrarlo no es obligatorio", "showing it isn't required")}</small>` : ""}`
+      ? `${pc(v.no_verifiable_pct, 0)}${v.source === "sample" ? `<small>${v.census ? L(`todos sus anuncios (${fmt(v.assessed)})`, `all its listings (${fmt(v.assessed)})`) : L(`muestra de ${fmt(v.assessed)} anuncios`, `sample of ${fmt(v.assessed)} listings`)}</small>` : ""}${c.number_required === false ? `<small>${L("mostrarlo no es obligatorio", "showing it isn't required")}</small>` : ""}`
       : NA();
     return `<dl class="ix-head">
       <div><dt>${L("de las viviendas, anunciadas para turistas", "of homes advertised to tourists")}</dt><dd>${c.housing != null ? pc(c.housing, 2) : NA()}</dd></div>
-      <div><dt>${L("anuncios por cada 100 viviendas en su km más afectado", "listings per 100 homes in its most affected km")}</dt><dd>${c.concentration != null ? num(c.concentration) : NA()}${c.peak_place ? `<small>${esc(titleCase(c.peak_place))}</small>` : ""}</dd></div>
+      <div><dt>${L("anuncios por cada 100 viviendas en su km más afectado", "listings per 100 homes in its most affected km")}</dt><dd>${c.concentration != null ? num(c.concentration) : NA()}${c.peak_place ? `<small>${esc(titleCase(c.peak_place))}</small>` : ""}${c.concentration != null && peakHref(c) ? `<small>${peakLink(c)}</small>` : ""}</dd></div>
       <div><dt>${L("de los anuncios sin número verificable públicamente", "of listings without a publicly verifiable number")}</dt><dd>${nov}</dd></div></dl>`;
   }
 
@@ -138,14 +144,18 @@
       tr(L("Viviendas turísticas registradas", "Registered tourist flats"), c.registered != null ? fmt(c.registered) : null),
       tr(L("% de viviendas con registro turístico", "% of homes with a tourist registration"), c.registered_pct != null ? pc(c.registered_pct, 2) : null)].join("");
     const conc = [
-      tr(L("Zona más afectada", "Most affected area"), c.peak_place ? esc(titleCase(c.peak_place)) : c.concentration != null ? L("círculo de 1 km", "1 km circle") : null),
+      tr(L("Zona más afectada", "Most affected area"), c.peak_place || c.concentration != null
+        ? `${c.peak_place ? esc(titleCase(c.peak_place)) : L("círculo de 1 km de diámetro", "circle 1 km across")}${peakHref(c) ? ` · ${peakLink(c)}` : ""}` : null),
       tr(L("Anuncios de Airbnb en la zona", "Airbnb listings in the area"), c.peak_listings != null ? fmt(c.peak_listings) : null),
       tr(L("Viviendas en la zona", "Homes in the area"), c.peak_homes != null ? fmt(c.peak_homes) : null),
       tr(L("Anuncios por cada 100 viviendas", "Listings per 100 homes"), c.concentration != null ? num(c.concentration) : null),
       tr(L("% de viviendas con registro turístico en la zona", "% of homes with a tourist registration in the area"), c.peak_registered_pct != null ? pc(c.peak_registered_pct) : null),
       tr(L(`Edificios de pisos con un ${R.building_share} % o más de viviendas turísticas registradas`, `Apartment buildings with ${R.building_share}%+ registered tourist flats`),
         c.buildings_over_share != null ? `${fmt(c.buildings_over_share)} <span class="muted">(${pc(c.buildings_over_share_pct)} ${L(`de ${fmt(c.apartment_buildings)}`, `of ${fmt(c.apartment_buildings)}`)})</span>` : null)].join("");
-    const method = !v ? "" : v.source === "sample"
+    const method = !v ? "" : v.source === "sample" && v.census
+      ? L(`Revisamos todos los anuncios de Airbnb encontrados en el municipio: ${fmt(v.checked)} de ${fmt(v.frame)} (los demás se retiraron antes de revisarlos).`,
+        `We checked every Airbnb listing found in the municipality: ${fmt(v.checked)} of ${fmt(v.frame)} (the rest were removed before we could check them).`)
+      : v.source === "sample"
       ? L(`Muestra aleatoria simple de los ${fmt(v.frame)} anuncios de Airbnb encontrados en el municipio (orden fijo y reproducible). Evaluados: ${fmt(v.checked)} de ${fmt(v.target)} previstos (${pc(100 * v.checked / v.target, 0)}).`,
         `Simple random sample of the ${fmt(v.frame)} Airbnb listings found in the municipality (fixed, reproducible order). Assessed: ${fmt(v.checked)} of a planned ${fmt(v.target)} (${pc(100 * v.checked / v.target, 0)}).`)
       : L(`Todos los anuncios de la ciudad en Inside Airbnb (${fmt(v.assessed)}), con ${fmt(v.live_checked)} revisados en directo.`,

@@ -89,6 +89,10 @@ class CategoryTests(unittest.TestCase):
         self.assertEqual(len(v["no_verifiable_ci"]), 2)
         self.assertTrue(v["sufficient"])
         self.assertFalse(index.verification(items(FOUND_CONSISTENT=299), CFG, source="sample")["sufficient"])
+        small = index.verification(items(FOUND_CONSISTENT=200, NO_CODE_IN_SCOPE=40), CFG, source="sample", checked=240, target=255, frame=255)
+        self.assertTrue(small["sufficient"])              # a town with 255 listings, 240 checked: a census, not a sample
+        self.assertTrue(small["census"])
+        self.assertFalse(index.verification(items(FOUND_CONSISTENT=150), CFG, source="sample", checked=150, target=255, frame=255)["sufficient"])
 
 
 class ComputeTests(unittest.TestCase):

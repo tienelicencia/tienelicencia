@@ -15,73 +15,71 @@
   });
   document.querySelectorAll("[data-track]").forEach((a) => a.addEventListener("click", () => TL.track("home_action", { action: a.dataset.track })));
 
-  Promise.all([getJSON("/data/areas.json"), getJSON("/data/malaga/summary.json"), getJSON("/data/meta.json"),
-    getJSON("/data/sevilla/summary.json").catch(() => null)]).then(([A, MS, M, SS]) => {
+  Promise.all([getJSON("/data/areas.json"), getJSON("/data/home.json"), getJSON("/data/meta.json")]).then(([A, H, M]) => {
     const paint = () => {
-      stats(A, MS, M, SS);
+      stats(A, H, M);
       cards(A);
     };
     paint();
     TL.onLang(paint);
   });
 
-  function stats(A, MS, M, SS) {
+  // The headline figures (data/home.json, built by site_build.py home_stats): across the index cities, or every area with
+  // barrio maps. Each says where it comes from; never "in Spain" for what we only measure in some places.
+  function stats(A, H, M) {
     const by = Object.fromEntries(A.areas.map((a) => [a.slug, a]));
-    const LS = MS.listings, n = LS.listings, b = LS.not_valid_breakdown;
-    const wrong = b.not_in_register + b.other_town + (b.cancelled || 0);
-    const rows = MS.subareas.rows.filter((r) => r.vut_share != null);
-    const over8 = rows.filter((r) => r.vut_share > 8).length;
-    const overS = SS ? SS.subareas.rows.filter((r) => r.vut_share != null && r.vut_share > (SS.cap || 10)).length : 0;
-    const SL = SS?.listings;
-    const top = rows.reduce((x, y) => (y.vut_share > x.vut_share ? y : x), rows[0]);
-    const mb = by.marbella, mg = by.malaga;
-    const pc = (x) => `${Number(x).toLocaleString(TL.lang() === "es" ? "es-ES" : "en-GB", { maximumFractionDigits: 1 })}${TL.lang() === "es" ? " %" : "%"}`;
+    const loc = TL.lang() === "es" ? "es-ES" : "en-GB";
+    const pc = (x, d = 1) => `${Number(x).toLocaleString(loc, { maximumFractionDigits: d })}${TL.lang() === "es" ? "\u00a0%" : "%"}`;
+    const nm = (s) => esc(by[s] ? name(by[s].name) : s);
     const base = "https://tienelicencia.com";
-    // Across every city we analyse (full lists + town samples with enough checks). Never "in Spain": only where we look.
-    const full = A.areas.filter((a) => a.has_listings), samp = A.areas.filter((a) => !a.has_listings && a.sample_pct != null && a.sample_checked >= 300);
-    const totL = full.reduce((x, a) => x + a.listings, 0), totNV = full.reduce((x, a) => x + a.not_valid, 0);
-    const cityPcts = [...full.map((a) => `${esc(name(a.name).replace(/ \(.*\)/, ""))} ${pctStr(a.not_valid, a.listings)}`),
-      ...samp.map((a) => `${esc(name(a.name).replace(/ \(.*\)/, ""))} ~${Math.round(a.sample_pct)}%`)].join(" · ");
-    const nCities = full.length + samp.length;
-    const SB = SS?.listings?.not_valid_breakdown;
-    const wrongAll = wrong + (SB ? SB.not_in_register + SB.other_town + (SB.cancelled || 0) : 0);
+    const n = H.cities, minPop = fmt(H.min_population);
+    const [t1, t2, t3] = H.top;
+    const nv = 100 * H.not_valid / H.assessed, wr = 100 * H.wrong_number / H.not_valid;
+    const tb = H.top_barrio, hs = H.hotspot;
+    const barrioCities = Object.entries(H.barrios_over_by_area).map(([s, k]) => `${nm(s)} ${fmt(k)}`).join(" · ");
     const S = [
-      ["bad", pctStr(totNV, totL), L(`de los anuncios de Airbnb en las <b>${nCities} ciudades que analizamos</b> no muestran un número de registro válido`,
-          `of Airbnb listings in the <b>${nCities} cities we analyse</b> don't display a valid registration number`),
-        cityPcts, "/#zonas",
-        L(`El ${pctStr(totNV, totL)} de los anuncios de Airbnb en las ciudades que analiza tienelicencia.com no muestran un número de registro válido`,
-          `${pctStr(totNV, totL)} of Airbnb listings in the cities tienelicencia.com analyses don't display a valid registration number`)],
-      ["", fmt(totL + samp.reduce((x, a) => x + a.sample_checked, 0)), L("anuncios de Airbnb analizados, uno a uno, con el registro oficial", "Airbnb listings checked one by one against the official register"),
-        L(`${fmt(full.reduce((x, a) => x + (a.live_checked || 0), 0) + samp.reduce((x, a) => x + a.sample_checked, 0))} de ellos revisados en directo en la página del anuncio.`,
-          `${fmt(full.reduce((x, a) => x + (a.live_checked || 0), 0) + samp.reduce((x, a) => x + a.sample_checked, 0))} of them re-checked live on the listing page.`), "/metodologia#comprobacion",
-        L(`tienelicencia.com ha comprobado ${fmt(totL)} anuncios de Airbnb con el registro oficial de turismo`, `tienelicencia.com has checked ${fmt(totL)} Airbnb listings against the official tourism register`)],
-      ["bad", fmt(wrongAll), L("anuncios en Málaga y Sevilla muestran <b>un número que no está en el registro</b> o que es de otro municipio", "listings in Málaga and Seville show <b>a number that isn't in the register</b> or belongs to another town"),
-        L("No sabemos por qué: puede ser una baja, una errata o un número de otra vivienda.", "We don't know why: a closed registration, a typo or another flat's number."), "/malaga#sin-numero",
-        L(`${fmt(wrongAll)} anuncios de Airbnb en Málaga y Sevilla muestran un número de registro que no existe o es de otro municipio`, `${fmt(wrongAll)} Airbnb listings in Málaga and Seville show a registration number that doesn't exist or belongs to another town`)],
-      overS ? ["gold", fmt(over8 + overS), L(`barrios superan el <b>límite de viviendas turísticas</b> de su ayuntamiento: ${fmt(over8)} en Málaga (8&nbsp;%) y ${fmt(overS)} en Sevilla (10&nbsp;%)`,
-          `barrios are above their council's <b>tourist-flat limit</b>: ${fmt(over8)} in Málaga (8%) and ${fmt(overS)} in Seville (10%)`),
-        L("Indicativo: sobre las viviendas del Catastro.", "Indicative: against Catastro homes."), "/sevilla/zonas",
-        L(`${fmt(over8 + overS)} barrios de Málaga y Sevilla superan el límite de viviendas turísticas de su ayuntamiento`, `${fmt(over8 + overS)} barrios in Málaga and Seville are above their council's tourist-flat limit`)] :
-      ["gold", fmt(over8), L("barrios de Málaga superan el <b>8&nbsp;% de viviendas turísticas</b> registradas, el límite que usa el Ayuntamiento", "Málaga barrios are above <b>8% registered tourist flats</b>, the limit the council uses"),
-        L("Indicativo: sobre las viviendas del Catastro.", "Indicative: against Catastro homes."), "/malaga/zonas",
-        L(`${fmt(over8)} barrios de Málaga superan el 8 % de viviendas turísticas registradas`, `${fmt(over8)} Málaga barrios are above 8% registered tourist flats`)],
-      ["gold", pc(top.vut_share), L(`de las viviendas de <b>${esc(top.name)}</b> son viviendas turísticas registradas`, `of homes in <b>${esc(top.name)}</b> are registered tourist flats`),
-        L("El estudio municipal da una cifra parecida.", "The council's own study gives a similar figure."), `/malaga/mapa?barrio=${top.id}`,
-        L(`El ${pc(top.vut_share)} de las viviendas de ${top.name} (Málaga) son viviendas turísticas registradas`, `${pc(top.vut_share)} of homes in ${top.name} (Málaga) are registered tourist flats`)],
-      ["", pc(mb.vut_share), L(`de las viviendas de <b>Marbella</b> están registradas como turísticas, frente al ${pc(mg.vut_share)} en Málaga capital`, `of homes in <b>Marbella</b> are registered as tourist flats, against ${pc(mg.vut_share)} in Málaga city`),
-        L(`Pero solo el ${pc(mb.ine_pct)} se anuncia en las grandes plataformas (INE).`, `But only ${pc(mb.ine_pct)} is advertised on the big platforms (INE).`), "/marbella",
-        L(`El ${pc(mb.vut_share)} de las viviendas de Marbella están registradas como turísticas`, `${pc(mb.vut_share)} of homes in Marbella are registered as tourist flats`)],
+      ["gold", esc(t1.name), L(`es la ciudad con <b>más presión de la vivienda turística</b> de España, seguida de ${esc(t2.name)} y ${esc(t3.name)}`,
+          `is the city under <b>the most tourist-housing pressure</b> in Spain, followed by ${esc(t2.name)} and ${esc(t3.name)}`),
+        L(`Índice de las ${n} ciudades de más de ${minPop} habitantes: viviendas anunciadas, concentración y registros.`,
+          `Index of the ${n} cities over ${minPop} inhabitants: homes advertised, concentration and registrations.`), "/ranking",
+        L(`${t1.name}, ${t2.name} y ${t3.name}: las ciudades españolas con más presión de la vivienda turística`, `${t1.name}, ${t2.name} and ${t3.name}: the Spanish cities under the most tourist-housing pressure`)],
+      ["", pc(H.registered_pct, 2), L(`de las viviendas de las <b>${n} mayores ciudades</b> son viviendas turísticas registradas: ${fmt(H.registered)}`,
+          `of homes in the <b>${n} largest cities</b> are registered tourist flats: ${fmt(H.registered)}`),
+        L(`Del ${pc(H.registered_min[0], 2)} en ${esc(H.registered_min[1])} al ${pc(H.registered_max[0], 2)} en ${esc(H.registered_max[1])}.`,
+          `From ${pc(H.registered_min[0], 2)} in ${esc(H.registered_min[1])} to ${pc(H.registered_max[0], 2)} in ${esc(H.registered_max[1])}.`), "/ranking",
+        L(`${pc(H.registered_pct, 2)} de las viviendas de las ${n} mayores ciudades españolas son viviendas turísticas registradas`, `${pc(H.registered_pct, 2)} of homes in Spain's ${n} largest cities are registered tourist flats`)],
+      ["bad", fmt(H.not_valid), L(`anuncios de Airbnb <b>no muestran un número de registro válido</b>: el ${pc(nv, 0)} de los ${fmt(H.assessed)} que hemos comprobado`,
+          `Airbnb listings <b>don't display a valid registration number</b>: ${pc(nv, 0)} of the ${fmt(H.assessed)} we've checked`),
+        L(`${fmt(H.wrong_number)} de ellos (${pc(wr, 0)}) muestran un número que no está en el registro o que es de otro municipio. Sin contar Madrid, donde mostrarlo no es obligatorio.`,
+          `${fmt(H.wrong_number)} of them (${pc(wr, 0)}) show a number that isn't in the register or belongs to another town. Not counting Madrid, where showing it isn't required.`), "/ranking",
+        L(`${fmt(H.not_valid)} anuncios de Airbnb en las mayores ciudades españolas no muestran un número de registro válido`, `${fmt(H.not_valid)} Airbnb listings in Spain's largest cities don't display a valid registration number`)],
+      ["gold", fmt(H.barrios_over), L(`barrios tienen <b>más del ${H.barrio_share}\u00a0% de sus viviendas</b> registradas como turísticas; ${fmt(H.barrios_over_by_area[tb.area] || 0)} están en ${nm(tb.area)}`,
+          `barrios have <b>more than ${H.barrio_share}% of their homes</b> registered as tourist flats; ${fmt(H.barrios_over_by_area[tb.area] || 0)} are in ${nm(tb.area)}`),
+        L(`En ${esc(tb.name)} llegan al ${pc(tb.share)}. ${barrioCities}. Solo ciudades con mapa de barrios.`,
+          `In ${esc(tb.name)} they reach ${pc(tb.share)}. ${barrioCities}. Only cities with barrio maps.`), `/${tb.area}/mapa?barrio=${tb.id}`,
+        L(`${fmt(H.barrios_over)} barrios españoles tienen más del ${H.barrio_share} % de sus viviendas registradas como turísticas`, `${fmt(H.barrios_over)} Spanish barrios have more than ${H.barrio_share}% of their homes registered as tourist flats`)],
+      ["", fmt(H.buildings_over), L(`edificios de pisos tienen <b>al menos una de cada cuatro viviendas</b> registrada como turística`,
+          `apartment buildings have <b>at least one in four homes</b> registered as tourist flats`),
+        L(`Edificios de 4 viviendas o más en ${H.building_cities.map(esc).join(", ")} (donde podemos situar la mayoría de las viviendas registradas).`,
+          `Buildings of 4+ homes in ${H.building_cities.map(esc).join(", ")} (where we can place most registered flats).`), "/ranking",
+        L(`${fmt(H.buildings_over)} edificios de pisos en las mayores ciudades españolas tienen al menos una de cada cuatro viviendas registrada como turística`, `${fmt(H.buildings_over)} apartment buildings in Spain's largest cities have at least one in four homes registered as tourist flats`)],
+      ["bad", fmt(Math.round(hs.concentration)), L(`anuncios de Airbnb por cada 100 viviendas en <b>${esc(TL.titleCase ? TL.titleCase(hs.peak_place || "") : hs.peak_place || "")} (${esc(hs.name)})</b>, la zona más afectada de España`,
+          `Airbnb listings for every 100 homes in <b>${esc(TL.titleCase ? TL.titleCase(hs.peak_place || "") : hs.peak_place || "")} (${esc(hs.name)})</b>, the most affected area in Spain`),
+        L(`${fmt(hs.peak_listings)} anuncios y ${fmt(hs.peak_homes)} viviendas en un círculo de 1\u00a0km de diámetro.`, `${fmt(hs.peak_listings)} listings and ${fmt(hs.peak_homes)} homes in a circle 1 km across.`),
+        `/${hs.area}/mapa?circle=${hs.peak_lat},${hs.peak_lon},${hs.peak_radius_m}`,
+        L(`En la zona más afectada de España hay ${Math.round(hs.concentration)} anuncios de Airbnb por cada 100 viviendas`, `In Spain's most affected area there are ${Math.round(hs.concentration)} Airbnb listings for every 100 homes`)],
     ];
     document.getElementById("bigstats").innerHTML = S.map(([cls, big, txt, small, href, share]) => `<div class="stat">
         <b class="${cls}">${big}</b><span>${txt}</span><small>${small} <a href="${href}" style="color:#7fd3b3">${L("Ver datos", "See data")} →</a></small>
         ${TL.shareButton({ url: base + href, text: `${share} · tienelicencia.com`, content: "home_stat" })}</div>`).join("");
     document.getElementById("bigstats-src").textContent = L(
-      `Anuncios: Airbnb (Inside Airbnb, ${TL.date(M.snapshot_date)}${SS?.snapshot_date ? ` y ${TL.date(SS.snapshot_date)}` : ""}) verificados uno a uno por tienelicencia.com; ${fmt(LS.live_checked + (SL?.live_checked || 0))} revisados en directo en los últimos 45 días. Registro de Turismo de Andalucía (${TL.date(M.register_lastUpdateData)}), Catastro e INE.`,
-      `Listings: Airbnb (Inside Airbnb, ${TL.date(M.snapshot_date)}${SS?.snapshot_date ? ` and ${TL.date(SS.snapshot_date)}` : ""}) checked one by one by tienelicencia.com; ${fmt(LS.live_checked + (SL?.live_checked || 0))} re-checked live in the last 45 days. Andalusian Tourism Register (${TL.date(M.register_lastUpdateData)}), Catastro and INE.`);
+      `Ciudades de más de ${minPop} habitantes (INE). Anuncios: Airbnb (Inside Airbnb y nuestras muestras aleatorias), comprobados uno a uno con los registros oficiales de turismo; Catastro e INE. Datos al ${TL.date(H.built_at.slice(0, 10))}.`,
+      `Cities over ${minPop} inhabitants (INE). Listings: Airbnb (Inside Airbnb and our random samples), checked one by one against the official tourism registers; Catastro and INE. Data as of ${TL.date(H.built_at.slice(0, 10))}.`);
   }
 
   function cards(A) {
-    document.getElementById("areas").innerHTML = A.areas.filter((a) => a.kind !== "province").map((a) => `
+    const list = [...TL.cityAreas(A), ...TL.wideAreas(A)];   // cities by population, then Mallorca and Andalucía
+    document.getElementById("areas").innerHTML = list.map((a) => `
       <a class="card area-card" href="${areaHref(a.slug)}">
         <div class="art" data-preview="${a.slug}"></div>
         <div class="body">
@@ -90,27 +88,15 @@
           <div class="stats">
             <div><b>${fmt(a.vut)}</b><span>${t("regs")}</span></div>
             ${a.has_listings ? `<div><b class="bad">${pctStr(a.not_valid, a.listings)}</b><span>${L("anuncios sin número válido", "listings without a valid number")}</span></div>`
-              : a.sample_pct != null && a.sample_checked >= 300 ? `<div><b class="bad">~${Math.round(a.sample_pct)}%</b><span>${L("anuncios sin número válido (muestra)", "listings without a valid number (sample)")}</span></div>`
+              : a.sample_pct != null && a.sample_checked >= 250 ? `<div><b class="bad">~${Math.round(a.sample_pct)}%</b><span>${L("anuncios sin número válido (muestra)", "listings without a valid number (sample)")}</span></div>`
               : `<div><b>${fmt(a.vut_places)}</b><span>${L("plazas turísticas", "guest places")}</span></div>`}
           </div>
           <span class="go">${t("view_data")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</span>
         </div>
       </a>`).join("");
-    // Cities we're working on, after the live ones
-    const have = new Set(A.areas.map((a) => a.slug));
-    document.getElementById("areas").insertAdjacentHTML("beforeend", TL.COMING.filter(([s]) => !have.has(s)).map(([s, n]) => `
-      <div class="card area-card soon">
-        <div class="body">
-          <span class="kind">${L("Próximamente", "Coming soon")}</span>
-          <h3>${esc(n)}</h3>
-          <p class="small muted">${L("Estamos preparando sus datos: registro oficial y anuncios.", "We're preparing its data: official register and listings.")}</p>
-          <a class="go" href="/contacto?${new URLSearchParams({ tipo: "zona", ref: n })}">${L("Avísame / pídela", "Tell me / ask for it")} ${ICON.arrow.replace("<svg", '<svg width="18" height="18"')}</a>
-        </div>
-      </div>`).join(""));
-    const live = A.areas.filter((a) => a.kind === "city" || a.kind === "island").map((a) => esc(name(a.name).replace(/ \(.*\)/, "")));
-    const soon = TL.COMING.filter(([s]) => !have.has(s)).map(([, n]) => esc(n));
-    document.getElementById("coverage-line").innerHTML = L(`<b>Disponible:</b> ${live.join(", ")} y toda Andalucía. <b>Próximamente:</b> ${soon.join(", ")}.`,
-      `<b>Available:</b> ${live.join(", ")} and all of Andalucía. <b>Coming soon:</b> ${soon.join(", ")}.`);
+    const cities = TL.cityAreas(A).map((a) => esc(name(a.name)));
+    document.getElementById("coverage-line").innerHTML = L(`<b>Disponible:</b> ${cities.join(", ")}, la isla de Mallorca y toda Andalucía.`,
+      `<b>Available:</b> ${cities.join(", ")}, the island of Mallorca and all of Andalucía.`);
     document.querySelectorAll("[data-preview]").forEach((el) =>
       getJSON(`/data/${el.dataset.preview}/preview.json`).then((pts) => TL.preview(el, pts, { pad: 10 })));
   }

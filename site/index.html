@@ -45,13 +45,18 @@
       <div class="hero-actions grid4">
         <a class="action" href="#zonas" data-track="hero_zone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg>
           <span><b lang="es">Ver el resumen de una zona</b><b lang="en">See an area summary</b></span></a>
-        <a class="action" href="/andalucia/mapa" data-track="hero_map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
+        <a class="action" href="/mapa" data-track="hero_map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>
           <span><b lang="es">Consultar el mapa interactivo</b><b lang="en">Open the interactive map</b></span></a>
         <a class="action" href="/comprobar" data-track="hero_check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg>
           <span><b lang="es">Comprobar un anuncio</b><b lang="en">Check an advert</b></span></a>
         <a class="action" href="#buscar" data-track="hero_search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <span><b lang="es">Buscar una dirección o licencia</b><b lang="en">Search an address or licence</b></span></a>
       </div>
+      <a class="index-cta" href="/ranking" data-track="hero_index">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="6" width="3" height="12" rx="1"/><rect x="16" y="9" width="3" height="9" rx="1"/></svg>
+        <span><b lang="es">Ver el índice de presión de la vivienda turística</b><b lang="en">See the tourist-housing pressure index</b>
+          <small lang="es">Las 13 ciudades de más de 300.000 habitantes, de mayor a menor presión</small><small lang="en">The 13 cities over 300,000 inhabitants, from most to least pressure</small></span>
+        <span class="arrow" aria-hidden="true">→</span></a>
     </div>
     <div class="hero-art">
       <div class="card" style="aspect-ratio:1/1;position:relative;overflow:hidden;background:var(--surface-2)" id="hero-map" aria-hidden="true"></div>
@@ -69,7 +74,7 @@
     </div></div>
     <div class="stats-grid" id="bigstats"></div>
     <p class="tiny muted" style="margin-top:14px" id="bigstats-src"></p>
-    <p style="margin-top:18px"><a class="btn" href="/ranking"><span lang="es">Ver el ranking de las 10 mayores ciudades</span><span lang="en">See the ranking of the 10 largest cities</span></a></p>
+    <p style="margin-top:18px"><a class="btn" href="/ranking"><span lang="es">Ver el índice de las 13 mayores ciudades</span><span lang="en">See the index of the 13 largest cities</span></a></p>
   </div>
 </section>
 
@@ -81,14 +86,14 @@
     </div></div>
     <div class="howto">
       <a class="howto-item" href="#zonas"><span class="n">1</span><div><h3><span lang="es">Elige tu zona</span><span lang="en">Pick your area</span></h3>
-        <p lang="es">Málaga capital, Sevilla capital, Marbella o toda la provincia de Málaga. Verás las cifras clave: viviendas registradas, qué parte de las viviendas son turísticas y cuántos anuncios no muestran un número válido.</p>
-        <p lang="en">Málaga city, Seville city, Marbella or the whole of Málaga province. You'll see the key figures: registered flats, what share of homes are tourist lets and how many adverts don't show a valid number.</p></div></a>
+        <p lang="es">Una de las grandes ciudades, la isla de Mallorca o toda Andalucía. Verás las cifras clave: viviendas registradas, qué parte de las viviendas son turísticas y cuántos anuncios no muestran un número válido.</p>
+        <p lang="en">One of the big cities, the island of Mallorca or all of Andalucía. You'll see the key figures: registered flats, what share of homes are tourist lets and how many adverts don't show a valid number.</p></div></a>
       <a class="howto-item" href="#buscar"><span class="n">2</span><div><h3><span lang="es">Busca tu calle o tu edificio</span><span lang="en">Look up your street or building</span></h3>
         <p lang="es">Escribe una dirección, un barrio o un número de licencia. Verás cada vivienda turística registrada en ese edificio, con su planta y puerta.</p>
         <p lang="en">Type an address, a barrio or a licence number. You'll see every registered tourist flat in that building, with its floor and door.</p></div></a>
       <a class="howto-item" href="/malaga/mapa"><span class="n">3</span><div><h3><span lang="es">Explora el mapa</span><span lang="en">Explore the map</span></h3>
-        <p lang="es">Edificio por edificio, con capas para el porcentaje de viviendas turísticas y, en Málaga y Sevilla capital, los anuncios sin número por zonas y barrios.</p>
-        <p lang="en">Building by building, with layers for the share of tourist homes and, in Málaga and Seville cities, adverts without a number by area and barrio.</p></div></a>
+        <p lang="es">Edificio por edificio, con capas para el porcentaje de viviendas turísticas y los anuncios sin número por zonas y barrios.</p>
+        <p lang="en">Building by building, with layers for the share of tourist homes and adverts without a number by area and barrio.</p></div></a>
       <a class="howto-item" href="/comprobar"><span class="n">4</span><div><h3><span lang="es">Comprueba un anuncio</span><span lang="en">Check an advert</span></h3>
         <p lang="es">Pega un enlace de Airbnb (o escribe el número de un anuncio de Booking) y te decimos si el número es válido y a qué vivienda corresponde. Si no lo es, te explicamos cómo comunicarlo.</p>
         <p lang="en">Paste an Airbnb link (or type the number from a Booking advert) and we tell you whether it's valid and which flat it belongs to. If not, we explain how to report it.</p></div></a>
@@ -110,15 +115,15 @@
       <div class="card area-card skeleton" style="height:320px"></div>
       <div class="card area-card skeleton" style="height:320px"></div>
     </div>
-    <p class="small muted" style="margin-top:16px"><span data-t="more_soon"></span> · <a href="/contacto?tipo=zona" data-t="more_ask"></a></p>
+    <p class="small muted" style="margin-top:16px"><a href="/contacto?tipo=zona" data-t="more_ask"></a></p>
   </section>
 
   <section class="section" id="buscar" style="scroll-margin-top:24px">
     <div class="section-head"><div>
       <span class="eyebrow"><span lang="es">Búsqueda rápida</span><span lang="en">Quick search</span></span>
       <h2 class="h2" style="margin-top:10px"><span lang="es">¿Una dirección o un número concreto?</span><span lang="en">Got an address or a number?</span></h2>
-      <p class="muted" lang="es">Busca en el registro de las provincias de Málaga y Sevilla. Verás cada vivienda turística inscrita en ese edificio, con su planta y puerta.</p>
-      <p class="muted" lang="en">Search the register for Málaga and Seville provinces. You'll see every tourist flat registered in that building, with its floor and door.</p>
+      <p class="muted" lang="es">Busca un número de licencia de cualquier zona que cubrimos, o una dirección en Andalucía (para otras ciudades, usa el buscador de su página). Verás cada vivienda turística inscrita en ese edificio, con su planta y puerta.</p>
+      <p class="muted" lang="en">Search a licence number from any area we cover, or an address in Andalucía (for other cities, use the search on their page). You'll see every tourist flat registered in that building, with its floor and door.</p>
     </div></div>
     <div id="home-search" style="max-width:760px"></div>
   </section>
