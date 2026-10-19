@@ -3,7 +3,7 @@
   const { t, fmt, pctStr, esc, name, getJSON, areaHref, ICON } = TL;
   TL.init({ page: "home" });
   const L = (es, en) => (TL.lang() === "es" ? es : en);
-  const search = TL.searchWidget(document.getElementById("home-search"), { area: "andalucia", examples: ["VUT/MA/86284", "Calle Bolivia 121 Málaga", "Calle Feria 70 Sevilla"] });
+  const search = TL.searchWidget(document.getElementById("home-search"), { area: "spain", examples: ["VUT/MA/86284", "Calle Feria 70 Sevilla", "Carrer de Sants 387 Barcelona"] });
 
   getJSON("/data/andalucia/preview.json").then((pts) => TL.preview(document.getElementById("hero-map"), pts, { pad: 8, q: [.01, .99] }));
 

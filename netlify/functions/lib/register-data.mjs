@@ -28,13 +28,16 @@ const STREET_TYPES = new Set(["C", "CL", "CALLE", "AV", "AVD", "AVDA", "AVENIDA"
 const STOP = new Set(["DE", "DEL", "LA", "LAS", "EL", "LOS", "Y", "THE"]);
 const AREA_MUNI = { malaga: "MALAGA", marbella: "MARBELLA", sevilla: "SEVILLA", granada: "GRANADA", cordoba: "CORDOBA", cadiz: "CADIZ",
   barcelona: "BARCELONA", bilbao: "BILBAO", donostia: "DONOSTIA SAN SEBASTIAN", valencia: "VALENCIA",
-  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA", madrid: "MADRID", palma: "PALMA" };
+  laspalmas: "LAS PALMAS DE GRAN CANARIA", murcia: "MURCIA", zaragoza: "ZARAGOZA", madrid: "MADRID", palma: "PALMA",
+  alicante: "ALICANTE", valladolid: "VALLADOLID" };
 const AREA_PROV = { provincia: "MA", "provincia-sevilla": "SE", "provincia-cadiz": "CA", "provincia-granada": "GR",
-  "provincia-almeria": "AL", "provincia-cordoba": "CO", "provincia-huelva": "HU", "provincia-jaen": "JA", mallorca: "IB" };   // "andalucia" = everything
+  "provincia-almeria": "AL", "provincia-cordoba": "CO", "provincia-huelva": "HU", "provincia-jaen": "JA", mallorca: "IB" };
+const ANDALUCIA = new Set(["AL", "CA", "CO", "GR", "HU", "JA", "MA", "SE"]);   // "spain" (or no area) = every register
 /** Does a register row (or street/barrio entry with _muni/prov) belong to this area? */
 const inArea = (r, area) => AREA_MUNI[area] ? r._muni === AREA_MUNI[area]
-  : AREA_PROV[area] && r.prov ? r.prov === AREA_PROV[area] : true;   // (data built before "prov" existed: no filter)
-const POSTCODE = /^(04|07|08|11|14|18|20|21|23|28|29|30|35|41|46|48|50)\d{3}$/;   // provinces we cover
+  : AREA_PROV[area] && r.prov ? r.prov === AREA_PROV[area]
+  : area === "andalucia" && r.prov ? ANDALUCIA.has(r.prov) : true;   // (data built before "prov" existed: no filter)
+const POSTCODE = /^(03|04|07|08|11|14|18|20|21|23|28|29|30|35|41|46|47|48|50)\d{3}$/;   // provinces we cover
 const BARRIO_ALIASES = { SOHO: "ENSANCHE CENTRO" };
 const codeKey = (code) => {
   const c = String(code || "").trim().toUpperCase();

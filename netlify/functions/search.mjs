@@ -34,7 +34,7 @@ export default async (req, context) => {
   if (!buildings.length) {
     const s = suggest(q, area, 1);
     if (s.streets.length) {
-      const fix = `${s.streets[0].name}${s.number ? " " + s.number : ""}${area === "provincia" ? " " + s.streets[0].muni : ""}`;
+      const fix = `${s.streets[0].name}${s.number ? " " + s.number : ""}${/^(provincia|andalucia|spain|mallorca)/.test(area) ? " " + s.streets[0].muni : ""}`;
       buildings = findAddress(fix, area);
       if (buildings.length) return json(200, { ...base, kind: "address", corrected: fix, buildings }, 300);
     }

@@ -486,7 +486,7 @@
         if (!(opts.onBarrio && opts.onBarrio(it.id, it.muni))) location.href = `${areaHref(AREA_OF_MUNI[it.muni] || "malaga", "mapa")}?barrio=${it.id}`;
         return;
       }
-      const q = `${it.name}${it.number ? " " + it.number : ""}${area === "provincia" ? " " + it.muni : ""}`;
+      const q = `${it.name}${it.number ? " " + it.number : ""}${/^(provincia|andalucia|spain|mallorca)/.test(area) ? " " + it.muni : ""}`;
       input.value = q;
       close();
       run(q);
