@@ -1,84 +1,70 @@
-﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Jeronimo y Avileses,2699,81,3.0,52,19.2
-Baños y Mendigo,1344,79,5.9,59,6.8
-Sucina,1875,40,2.1,22,
-El Carmen,9283,33,0.4,24,
-San Juan,2773,22,0.8,13,
-San Pedro,1085,20,1.8,13,
-Corvera,2184,18,0.8,15,
-La Catedral,1383,16,1.2,8,
-Vista Alegre,6771,16,0.2,12,
-Guadalupe,3979,15,0.4,12,
-San Lorenzo,1894,15,0.8,10,
-Gea y Truyols,1617,13,0.8,8,
-Espinardo,6094,12,0.2,7,
-La Alberca,6151,12,0.2,8,
-Santiago y Zaraiche,6257,12,0.2,6,
-El Palmar,10020,11,0.1,7,
-La Ñora,2659,11,0.4,8,
-San Nicolas,1816,11,0.6,8,
-Santa Maria de Gracia,5899,11,0.2,9,
-Puente Tocinos,6313,10,0.2,8,
-Santa Catalina,939,10,1.1,8,
-La Arboleja,964,9,0.9,7,
-San Miguel,4116,9,0.2,5,
-San Anton,3783,8,0.2,5,
-San Jose de la Vega,2121,8,0.4,6,
-Churra,4727,7,0.1,3,
-San Antolin,2266,7,0.3,4,
-Santa Eulalia,1773,7,0.4,5,
-La Fama,2918,6,0.2,3,
-Cabezo de Torres,5782,5,0.1,2,
-Santa Cruz,952,5,0.5,4,
-El Puntal,3888,4,0.1,2,
-Garres y Lages,3283,4,0.1,3,
-La Flota,3546,4,0.1,3,
-San Andres,898,4,0.4,2,
-Aljucer,3429,3,0.1,2,
-Beniajan,4948,3,0.1,2,
-Cañadas de San Pedro,392,3,0.8,1,
-Infante Juan Manuel,5045,3,0.1,2,
-San Benito - Progreso,2677,3,0.1,,
-Vistabella,1878,3,0.2,3,
-Algezares,2732,2,0.1,1,
-Alquerias,2415,2,0.1,1,
-Llano de Brujas,2054,2,0.1,2,
-Monteagudo,1773,2,0.1,2,
-San Bartolome,854,2,0.2,1,
-San Basilio,2548,2,0.1,1,
-Santiago el Mayor,4461,2,0.0,2,
-Buenos Aires,1170,1,0.1,1,
-Carrascoy la Murta,105,1,1.0,,
-El Esparragal,3583,1,0.0,,
-El Ranero,2242,1,0.0,1,
-Javali Viejo,1088,1,0.1,,
-La Paz,1991,1,0.1,,
-La Purisima - Barriomar,2105,1,0.0,1,
-Los Dolores,2284,1,0.0,1,
-Rincon de Seca,1076,1,0.1,1,
-San Benito - Patiño,3665,1,0.0,1,
-Zarandona,2981,1,0.0,1,
-Zeneta,770,1,0.1,1,
-Barqueros,412,0,0.0,,
-Casillas,1888,0,0.0,,
-Cañada Hermosa,53,0,,,
-Cobatillas,1303,0,0.0,,
-El Raal,2281,0,0.0,,
-Era Alta,1381,0,0.0,,
-Javali Nuevo,1462,0,0.0,,
-La Albatalia,958,0,0.0,,
-La Raya,1032,0,0.0,,
-Lobosillo,733,0,0.0,,
-Los Martinez del Puerto,383,0,0.0,,
-Los Ramos,1636,0,0.0,,
-Nonduermas,1106,0,0.0,,
-Ntra. Sra. Fuensanta,196,0,0.0,,
-Puebla de Soto,1015,0,0.0,,
-Rincon de Beniscornia,472,0,0.0,,
-San Gines,1339,0,0.0,,
-San Pio X,1358,0,0.0,,
-Sangonera la Seca,2144,0,0.0,,
-Sangonera la Verde,5048,0,0.0,,
-Santo Angel,2863,0,0.0,,
-Torreagüera,4185,0,0.0,,
-Valladolises y Lo Jurado,306,0,0.0,,
+﻿zona,viviendas_turisticas_registradas,plazas
+30590,467,2068
+30155,201,1172
+30153,100,508
+30007,84,341
+30004,74,321
+30003,71,332
+30002,69,303
+30005,52,224
+30001,52,200
+30009,48,194
+30008,36,191
+30592,25,127
+30709,23,120
+30100,21,106
+30120,20,99
+30107,20,64
+30006,19,96
+30570,18,76
+30110,16,92
+30150,15,77
+30700,13,73
+30591,13,62
+30011,12,62
+30830,12,73
+30010,12,62
+30012,11,51
+30164,8,70
+30710,6,29
+30152,4,21
+30580,4,25
+30835,4,30
+30740,4,19
+30163,3,10
+30158,3,15
+30380,3,18
+30139,2,4
+30160,2,7
+30509,2,10
+30720,2,10
+—,1,3
+30017,1,8
+30030,1,4
+30579,1,6
+30837,1,6
+30750,1,6
+30368,1,5
+30833,1,5
+30890,1,6
+3059,1,4
+30320,1,4
+33059,1,6
+30151,1,6
+30,1,6
+30868,1,6
+30880,1,6
+30167,1,4
+30730,1,8
+30832,1,6
+30103,1,7
+30860,1,5
+30015,1,4
+30817,1,8
+30169,1,3
+30588,1,9
+30739,1,6
+30385,1,6
+30501,1,6
+30628,1,6
+30161,1,3

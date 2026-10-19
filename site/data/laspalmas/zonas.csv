@@ -1,106 +1,78 @@
-﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Santa Catalina - Canteras,15127,903,6.0,180,12.8
-La Isleta,10493,322,3.1,66,15.2
-Guanarteme,13007,274,2.1,48,20.8
-Ciudad Jardin,2046,105,5.1,18,
-Vegueta,2090,90,4.3,11,
-Triana,4732,67,1.4,9,
-Alcaravaneras,6108,50,0.8,11,
-Canalejas,4020,33,0.8,5,
-Escaleritas,8741,20,0.2,3,
-Schamann,6842,20,0.3,3,
-Lugo,4762,19,0.4,2,
-Las Torres,6248,16,0.3,6,
-San Antonio,937,15,1.6,2,
-"Diseminado (Vegueta, Cono Sur y Tafira)",670,14,2.1,3,
-Diseminado (Tamaraceite-San Lorenzo-Tenoya),2311,13,0.6,1,
-San Juan - San Jose,2841,9,0.3,,
-Tafira Alta,1113,9,0.8,,
-Fincas Unidas,1849,8,0.4,1,
-Las Rehoyas,4769,8,0.2,2,
-Tamaraceite,5689,7,0.1,,
-San Cristobal,286,5,1.7,2,
-San Lazaro,4782,5,0.1,1,
-Ciudad del Mar,1733,4,0.2,2,
-San Roque,938,4,0.4,,
-La Calzada,141,3,2.1,,
-La Minilla,1924,3,0.2,,
-Miller,3696,3,0.1,,
-San Francisco - San Nicolas,1173,3,0.3,2,
-Vega de San Jose,3586,3,0.1,1,
-Casablanca I,1325,2,0.2,,
-El Batan,1411,2,0.1,1,
-El Toscon,280,2,0.7,1,
-Las Cuevas,47,2,,,
-Llano de las Nieves,680,2,0.3,,
-Los Tarahales,954,2,0.2,,
-Salto del Negro,642,2,0.3,,
-Santa Margarita,216,2,0.9,,
-Tafira Baja,625,2,0.3,,
-Zarate,1652,2,0.1,,
-Almatriche Alto,624,1,0.2,1,
-Campus Universitario,140,1,0.7,,
-Costa Ayala,267,1,0.4,,
-Dragonal Bajo,131,1,0.8,,
-El Cardon,381,1,0.3,,
-El Fondillo,108,1,0.9,1,
-El Zardo,449,1,0.2,,
-Hoya de la Plata,664,1,0.2,,
-Isla Perdida,205,1,0.5,1,
-La Cantera,369,1,0.3,1,
-La Galera,407,1,0.2,,
-La Suerte,429,1,0.2,,
-Lomo los Frailes,1590,1,0.1,,
-Montequemado,123,1,0.8,,
-Pico Viento,126,1,0.8,,
-Rehoyas Altas,710,1,0.1,,
-Siete Puertas,128,1,0.8,,
-Almatriche Bajo,770,0,0.0,,
-Altavista,643,0,0.0,,
-Casa Ayala,159,0,0.0,,
-Casablanca III,1517,0,0.0,,
-Cañada Honda,140,0,0.0,,
-Chumberas,1400,0,0.0,,
-Ciudad del Campo,1984,0,0.0,,
-Cruz del Ovejero,204,0,0.0,,
-Cuesta Ramon,220,0,0.0,,
-Cuevas Blancas,64,0,,,
-Cuevas Torres,1166,0,0.0,,
-Diaz Casanova,25,0,,,
-Don Zoilo,531,0,0.0,,
-Dragonal Alto,73,0,,,
-El Lasso,716,0,0.0,,
-El Pintor,157,0,0.0,,
-El Roman,138,0,0.0,,
-El Roque,35,0,,,
-El Secadero,371,0,0.0,,
-Hoya Andrea,1010,0,0.0,,
-Jinamar,645,0,0.0,,
-La Cazuela,1,0,,,
-La Cruz,16,0,,,
-La Feria,5067,0,0.0,,
-La Montañeta,168,0,0.0,,
-La Palma,73,0,,,
-La Paterna,3302,0,0.0,,
-Ladera Alta,499,0,0.0,,
-Las Majadillas,568,0,0.0,,
-Las Mesas,987,0,0.0,,
-Las Perreras,90,0,,,
-Las Torres Industriales,3,0,,,
-Llanos de Mª Rivera,83,0,,,
-Llanos de la Barrera,89,0,,,
-Lomo Apolinaro,1143,0,0.0,,
-Lomo Blanco,1675,0,0.0,,
-Lomo Verdejo,115,0,0.0,,
-Lomo de Enmedio,24,0,,,
-Lomo del Sabinal,66,0,,,
-Marzagan,165,0,0.0,,
-Miller Industrial,6,0,,,
-Monte Luz,189,0,0.0,,
-Pedro Hidalgo,1409,0,0.0,,
-Piletas,564,0,0.0,,
-Risco Negro,106,0,0.0,,
-San Fco. de Paula,492,0,0.0,,
-San Jose del Alamo,116,0,0.0,,
-San Lorenzo,484,0,0.0,,
-Tres Palmas,508,0,0.0,,
+﻿zona,viviendas_turisticas_registradas,plazas
+35007,1250,4446
+35010,960,3737
+35008,899,3477
+35009,349,1547
+35006,159,692
+35002,158,758
+35001,142,919
+35005,125,647
+35003,101,412
+35004,71,334
+35017,64,373
+35018,58,304
+35100,55,201
+35011,50,256
+35019,40,162
+35014,37,209
+35016,36,232
+35015,30,152
+35013,24,138
+35229,24,130
+35012,23,130
+35000,12,48
+—,7,31
+35214,6,36
+35130,6,22
+35119,4,16
+35414,4,18
+35625,4,14
+35300,4,22
+35480,3,17
+35200,3,13
+35110,3,11
+35290,3,13
+35106,3,16
+35138,2,10
+35470,2,10
+35600,2,6
+35510,2,10
+35260,2,10
+35660,2,6
+35120,2,14
+35508,2,6
+35413,2,7
+35422,1,8
+35028,1,4
+35129,1,4
+35350,1,3
+35519,1,3
+38008,1,2
+35319,1,5
+35210,1,3
+37001,1,3
+35310,1,8
+35308,1,6
+35328,1,3
+35432,1,3
+35460,1,6
+35469,1,4
+35339,1,15
+35430,1,6
+35108,1,6
+35501,1,3
+35400,1,6
+35333,1,8
+35215,1,20
+35216,1,2
+35219,1,6
+35330,1,6
+35509,1,3
+35507,1,2
+35109,1,3
+35020,1,4
+35217,1,4
+35118,1,3
+35500,1,3
+35558,1,5
+35530,1,3
