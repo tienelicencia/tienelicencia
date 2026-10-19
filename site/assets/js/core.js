@@ -181,7 +181,8 @@
   // ---------------------------------------------------------------- city picker (header)
   // Cities we're working on: shown as "coming soon" until their area exists in areas.json, then they move to the list.
   const COMING = [["barcelona", "Barcelona"], ["madrid", "Madrid"], ["valencia", "Valencia"], ["bilbao", "Bilbao"],
-    ["donostia", "San Sebastián"], ["zaragoza", "Zaragoza"], ["murcia", "Murcia"], ["laspalmas", "Las Palmas de Gran Canaria"]];
+    ["donostia", "San Sebastián"], ["zaragoza", "Zaragoza"], ["murcia", "Murcia"], ["laspalmas", "Las Palmas de Gran Canaria"],
+    ["alicante", "Alicante"], ["cordoba", "Córdoba"], ["valladolid", "Valladolid"]];
   function cityPicker(A) {
     const sel = document.getElementById("city-pick");
     if (!sel) return;
@@ -256,7 +257,8 @@
               <a href="https://opendata.euskadi.eus/" target="_blank" rel="noopener">Euskadi</a> ·
               <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Aragón</a> ·
               <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Murcia</a> ·
-              <a href="https://datos.canarias.es/" target="_blank" rel="noopener">Canarias</a>.
+              <a href="https://datos.canarias.es/" target="_blank" rel="noopener">Canarias</a> ·
+              <a href="https://datosabiertos.jcyl.es/" target="_blank" rel="noopener">Castilla y León</a>.
               <a href="https://insideairbnb.com/" target="_blank" rel="noopener">Inside Airbnb</a> ·
               <a href="https://www.sedecatastro.gob.es/" target="_blank" rel="noopener">© Catastro</a> ·
               <a href="https://www.ine.es/" target="_blank" rel="noopener">INE</a> ·

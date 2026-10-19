@@ -54,7 +54,9 @@ const codeKey = (code) => {
   const z = /^VUT?-(HU|TE|ZA)-(\d{2})-0*(\d+)$/.exec(c);   // Aragón: VU-ZA-18-101 → ZA-18-101
   if (z) return `${z[1]}-${z[2]}-${+z[3]}`;
   const md = /^(VT|HM|AM|TR|HH|HR|AR|CM|CH|HS)-0*(\d{1,6})$/.exec(c);   // Comunidad de Madrid (VT-12345)
-  return md ? `${md[1]}-${+md[2]}` : null;
+  if (md) return `${md[1]}-${+md[2]}`;
+  const cl = /^(05|09|24|34|37|40|42|47|49)\/0*(\d{1,6})$/.exec(c);   // Castilla y León (47/000547 → 47/547)
+  return cl ? `${cl[1]}/${+cl[2]}` : null;
 };
 /** A Mallorca number typed in (ETV/1234, ETVPL 12345, H/123…) → its key, else null. */
 export const balKey = (q) => {
@@ -219,6 +221,8 @@ export function findCode(q) {
   // Aragón (VU-ZA-18-101); Andalusian codes like VUT/HU/01234 use slashes, so a slash means it isn't one
   const az = /(?<![A-Z0-9])VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*(\d{2})[\s\-_./]*0*(\d{1,5})(?![0-9])/i.exec(String(q || ""));
   if (az && !String(q).includes("/")) { const k = `${az[1].toUpperCase()}-${az[2]}-${+az[3]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
+  const cl = /^\s*(?:VUT?[\s\-_.:]*)?(05|09|24|34|37|40|42|47|49)\s*\/\s*0*(\d{1,6})\s*$/i.exec(String(q || ""));   // Castilla y León: 47/000547
+  if (cl) { const k = `${cl[1]}/${+cl[2]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
   const md = /^\s*(VT|HM|AM|TR|HH)[\s\-_.]*0*(\d{1,6})\s*$/i.exec(String(q || ""));   // Madrid's bare VT-12345
   if (md) { const k = `${md[1].toUpperCase()}-${+md[2]}`; return { query: q, key: k, variant: "exact", rows: (S.byKey.get(k) || []).map(publicRow) }; }
   const uk = murKey(q);

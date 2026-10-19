@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { parse, variants } from "./lib/codes.mjs";
-import { extractPage, assess, assessCat, assessBal, assessEus, assessVlc, assessCan, assessMur, assessMad, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
+import { extractPage, assess, assessCat, assessBal, assessEus, assessVlc, assessCan, assessMur, assessMad, assessCyl, extractListingId, parseAdvertUrl, coverage, otherRegion } from "./check-listing.mjs";
 import { findCode, findAddress, building, lookup, suggest } from "./lib/register-data.mjs";
 import { looksLikeCode } from "./search.mjs";
 
@@ -136,6 +136,33 @@ assert.ok(looksLikeCode("VUT/MA/14434") && looksLikeCode("vut-ma-14434") && look
     const none = assessMad({ registration_raw: "" }, lookup());
     assert.equal(none.reason, "no_number"); assert.equal(none.number_required, false);
     assert.equal(assessVlc({ registration_raw: "VT-12345-V" }, lookup()).region, "Comunitat Valenciana");   // Valencia's VT- keeps its -V
+  }
+  // Alicante (Valencian register, home -A) and Valladolid (Castilla y León register)
+  assert.equal(coverage({ location: "Alicante, Comunidad Valenciana, España" }).id, "alicante");
+  assert.equal(coverage({ location: "Alacant, Comunitat Valenciana, Espanya" }).id, "alicante");
+  assert.equal(coverage({ location: "Valladolid, Castilla y León, España" }).id, "valladolid");
+  assert.equal(coverage({ location: "València, Comunidad Valenciana, España" }).id, "valencia");
+  if (Object.values(lookup().vlc || {}).some((v) => /ALICANTE/.test(v[0] || "") && v[1] != null)) {   // (skipped without Alicante's parcels)
+    const ak = Object.keys(lookup().vlc).find((k) => /ALICANTE/.test(lookup().vlc[k][0] || "") && lookup().vlc[k][1] != null && k.endsWith("-A"));
+    const ar = lookup().vlc[ak];
+    const home = ["ALACANT/ALICANTE", "A"];
+    assert.equal(assessVlc({ registration_raw: ak.replace(/^CV-VUT0*(\d+)-A$/, "VT-$1"), lat: ar[1], lon: ar[2], room_type: "Entire home/apt", location: "Alicante" }, lookup(), null, ...home).verdict.startsWith("VALID"), true);
+    const vk = Object.keys(lookup().vlc).find((k) => /VAL.NCIA/.test(lookup().vlc[k][0] || "") && k.endsWith("-V"));
+    assert.equal(assessVlc({ registration_raw: vk, lat: ar[1], lon: ar[2], location: "Alicante" }, lookup(), null, ...home).reason, "other_place");
+  }
+  if (Object.keys(lookup().cyl || {}).length) {   // (skipped when this region's data didn't download)
+    const C = lookup().cyl;
+    const ck = Object.keys(C).find((k) => k.startsWith("47/") && C[k][0] === "Valladolid" && C[k][3] === "C");
+    const [, n] = ck.split("/");
+    for (const raw of [`VUT-47/${n}`, `Nº registro: VUT 47/${n.padStart(6, "0")}`, `47/${n.padStart(6, "0")}`])
+      assert.equal(assessCyl({ registration_raw: raw, room_type: "Entire home/apt", location: "Valladolid" }, lookup()).key, ck, raw);
+    assert.equal(assessCyl({ registration_raw: `VUT-47/${n}`, room_type: "Entire home/apt", location: "Valladolid" }, lookup()).verdict.startsWith("VALID"), true);
+    const lk = Object.keys(C).find((k) => k.startsWith("24/") && C[k][0] !== "Valladolid");
+    assert.equal(assessCyl({ registration_raw: `VUT ${lk}`, location: "Valladolid" }, lookup()).reason, "other_place");
+    assert.equal(assessCyl({ registration_raw: "VUT 47/999999", location: "Valladolid" }, lookup()).reason, "not_in_register");
+    assert.equal(assessCyl({ registration_raw: "" }, lookup()).reason, "no_number");
+    assert.ok(looksLikeCode(`47/${n.padStart(6, "0")}`) && findCode(`47/${n.padStart(6, "0")}`).rows.length > 0);
+    assert.equal(otherRegion("VUT 24/000123"), "Castilla y León");
   }
   assert.equal(otherRegion("VT-12345-V"), "Comunitat Valenciana");   // Valencia's VT- isn't read as Balearic
   assert.equal(otherRegion("HUTB-012345"), "Catalunya");

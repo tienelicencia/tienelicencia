@@ -1,8 +1,8 @@
 name: 2b · Town samples
 
-# Towns without Inside Airbnb data (Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia, Las Palmas): rebuild the list of
-# each town's Airbnb listings from Airbnb's map search, then live-check a fixed random sample of it, re-checking entries
-# older than 25 days. Monthly, or on demand. One runner per town; a run that hits the time limit saves its progress and
+# Towns without Inside Airbnb data (the index cities Alicante, Córdoba, Valladolid, Zaragoza, Murcia and Las Palmas first,
+# then Marbella, Granada, Cádiz): rebuild the list of each town's Airbnb listings from Airbnb's map search, then live-check a
+# fixed random sample of it (up to n; a town with fewer listings is checked in full), re-checking entries older than 25 days. Monthly, or on demand. One runner per town; a run that hits the time limit saves its progress and
 # the next one continues. Results go to the private state repository (./state); "3 · Build site" runs when this finishes.
 on:
   schedule:
@@ -11,7 +11,7 @@ on:
     inputs:
       towns:
         description: "Towns (JSON list)"
-        default: '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]'
+        default: '["alicante", "cordoba", "valladolid", "zaragoza", "murcia", "laspalmas", "marbella", "granada", "cadiz"]'
       n:
         description: "Sample size per town"
         default: "1000"
@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        town: ${{ fromJSON(github.event.inputs.towns || '["marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas"]') }}
+        town: ${{ fromJSON(github.event.inputs.towns || '["alicante", "cordoba", "valladolid", "zaragoza", "murcia", "laspalmas", "marbella", "granada", "cadiz"]') }}
     steps:
       - uses: actions/checkout@v4
       - name: Private state (town samples)

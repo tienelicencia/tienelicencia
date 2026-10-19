@@ -1,0 +1,134 @@
+{
+  "name": {
+    "es": "Índice de presión de la vivienda turística",
+    "en": "Tourist-housing pressure index"
+  },
+  "version": "1.2",
+  "notes": "Weights and severities are index-design choices, not probabilities of illegality. Change them only with a new version. 1.1 (19 Oct 2026): cohort = every municipality over 300,000 inhabitants (13), replacing the hand-picked ten largest plus Alicante. 1.2 (19 Oct 2026): where adverts needn't show the number (Madrid), adverts without one are left out of the registration score (numerator and denominator).",
+  "weights": {
+    "housing": 0.4,
+    "concentration": 0.35,
+    "registration": 0.25
+  },
+  "severity": {
+    "invalid": 1.0,
+    "unmatched": 0.75,
+    "missing": 0.35
+  },
+  "min_assessed": 300,
+  "sample_target": 1000,
+  "cohort": {
+    "rule": {
+      "es": "municipios de más de 300.000 habitantes",
+      "en": "municipalities with more than 300,000 inhabitants"
+    },
+    "min_population": 300000,
+    "source": "INE, Cifras oficiales de población de los municipios españoles a 1 de enero de 2025 (Real Decreto 1117/2025, BOE-A-2025-25362; INE table 29005)",
+    "population_date": "2025-01-01",
+    "reviewed": "2026-10-19",
+    "review": "Once a year, when the next Real Decreto of official population figures is published (usually December). Nearest below the threshold: Vigo 294,489; L'Hospitalet de Llobregat 289,510.",
+    "cities": [
+      {
+        "name": "Madrid",
+        "ine": "28079",
+        "population": 3506730,
+        "area": "madrid",
+        "row": null
+      },
+      {
+        "name": "Barcelona",
+        "ine": "08019",
+        "population": 1731649,
+        "area": "barcelona",
+        "row": null
+      },
+      {
+        "name": "Valencia",
+        "ine": "46250",
+        "population": 840792,
+        "area": "valencia",
+        "row": null
+      },
+      {
+        "name": "Zaragoza",
+        "ine": "50297",
+        "population": 693091,
+        "area": "zaragoza",
+        "row": null
+      },
+      {
+        "name": "Sevilla",
+        "ine": "41091",
+        "population": 689423,
+        "area": "sevilla",
+        "row": null
+      },
+      {
+        "name": "Málaga",
+        "ine": "29067",
+        "population": 599063,
+        "area": "malaga",
+        "row": null
+      },
+      {
+        "name": "Murcia",
+        "ine": "30030",
+        "population": 479405,
+        "area": "murcia",
+        "row": null
+      },
+      {
+        "name": "Palma",
+        "ine": "07040",
+        "population": 434786,
+        "area": "mallorca",
+        "row": "Palma de Mallorca"
+      },
+      {
+        "name": "Las Palmas de Gran Canaria",
+        "ine": "35016",
+        "population": 381868,
+        "area": "laspalmas",
+        "row": null
+      },
+      {
+        "name": "Alicante",
+        "ine": "03014",
+        "population": 366221,
+        "area": "alicante",
+        "row": null
+      },
+      {
+        "name": "Bilbao",
+        "ine": "48020",
+        "population": 351124,
+        "area": "bilbao",
+        "row": null
+      },
+      {
+        "name": "Córdoba",
+        "ine": "14021",
+        "population": 323262,
+        "area": "cordoba",
+        "row": null
+      },
+      {
+        "name": "Valladolid",
+        "ine": "47186",
+        "population": 302614,
+        "area": "valladolid",
+        "row": null
+      }
+    ]
+  },
+  "baseline": {
+    "period": "2026-10",
+    "frozen": false,
+    "housing_max": null,
+    "concentration_max": null,
+    "registration_max": null,
+    "raw_max": null,
+    "leader": null,
+    "frozen_at": null
+  }
+}

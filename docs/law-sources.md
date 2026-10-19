@@ -1328,3 +1328,41 @@ provision). The advert-number duty was not dropped in 2026: it had already gone 
      was dropped by Decreto 29/2019.
    - So the only line is national: RDL 29/2026, LAU art. 5.e, 31-day cap. Site rule: "possibly exempt" at **≥ 32 nights**
      while the RDL is in force. If it lapses, Madrid has no regional threshold to fall back on.
+
+## Alicante city (Comunitat Valenciana) (checked 19 Oct 2026)
+
+- Regional rules as for Valencia city (see that section): Ley 15/2018 art. 19.1.b (number and location in all advertising),
+  art. 62.2 (platforms), art. 65 (tourist stay = 10 days or less), Decreto 9/2024. Register: the same Generalitat dataset
+  (`CV-VUT0012345-A`, province letter A).
+- City suspension of new tourist-flat licences, in force 13 Jan 2025 (max. two years); extended by the Pleno in July 2025
+  to tourist apartment blocks, guesthouses and hostels across the municipality (DOGV no. 10159, 25 Jul 2025:
+  https://www.alicante.es/sites/default/files/documentos/202507/pub-dogv-10159-25-07-25.pdf), until January 2027 at the latest.
+  Applications complete before publication are not affected.
+- Modificación Puntual nº 52 del PGOU: approved as a project by the Junta de Gobierno Local in December 2025 for initial
+  approval and 45 days' public consultation. Maximum 0.187 tourist places per inhabitant per census district for new VUT,
+  whole tourist blocks and hotels (4–5★ hotels excluded); separate entrance required in residential buildings; no tourist
+  uses on the ground floor of the main shopping streets. **Final approval not confirmed** (news sources only:
+  https://www.alicante.es/es/noticias/alicante-aprueba-junta-nueva-regulacion-usos-turisticos-que-ira-pleno-mes).
+
+## Valladolid (Castilla y León) (checked 19 Oct 2026)
+
+- **Ley 14/2010, de 9 de diciembre, de Turismo de Castilla y León** (BOE-A-2010-20073). Art. 20.1: advertising, by any
+  medium, a tourist activity without having filed the declaration or obtained the permit is "actividad clandestina".
+- **Decreto 3/2017, de 16 de febrero**, viviendas de uso turístico (BOCYL núm. 33, 17 Feb 2017, BOCYL-D-17022017-1):
+  - Art. 3.1: whole flats, houses etc. offered on tourist channels, habitually, for payment. Art. 2.2.b excludes LAU
+    lets for permanent residence and partial sublets.
+  - Art. 3.2 (letting must be of the whole unit, not by rooms): **annulled** by the TSJ de Castilla y León (sentencia
+    86/2018, 2 Feb 2018, PO 504/2017), published by Orden CYT/1318/2019. The Supreme Court upheld the rest of the decree.
+  - **Art. 35.1: "En la publicidad que se realice por cualquier medio … se indicará, de forma que no induzca a confusión,
+    el número de inscripción en el Registro de Turismo de Castilla y León."** Also art. 18 (notice board), reservation
+    confirmations and the guest information sheet must carry it.
+  - No minimum/maximum number of nights in the decree; we use 32 nights (national RDL 29/2026), as for Madrid.
+- Reform: a PNL (Grupo Socialista) admitted by the Mesa de las Cortes on 20 Mar 2025 asks the Junta to reform the decree
+  (limits by saturation, inspection). Not adopted as of 19 Oct 2026. No municipal limits found for Valladolid.
+- Register: "Registro de Turismo de Castilla y León", Junta open data, CC BY 4.0, daily
+  (https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-turismo-de-castilla-y-leon/). Numbers
+  `<province>/<serial>` (47 = Valladolid); serials are per class of establishment, so the same number exists for a flat,
+  an apartment and a hostel. Contains names, phones and emails: we drop them on download.
+- Data (19 Oct 2026): Valladolid city has 135 tourist flats (129 pisos, 4 casas, 2 inmuebles análogos), 42 tourist
+  apartment establishments and 48 hotel-type establishments in the register; INE counts 259 tourist homes advertised
+  (May 2026, 0.16% of homes).

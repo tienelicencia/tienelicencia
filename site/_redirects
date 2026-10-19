@@ -58,6 +58,12 @@
 /zaragoza                 /area.html  200
 /zaragoza/mapa            /mapa.html  200
 /zaragoza/zonas           /zonas.html  200
+/alicante                 /area.html  200
+/alicante/mapa            /mapa.html  200
+/alicante/zonas           /zonas.html  200
+/valladolid               /area.html  200
+/valladolid/mapa          /mapa.html  200
+/valladolid/zonas         /zonas.html  200
 /murcia                   /area.html  200
 /murcia/mapa              /mapa.html  200
 /murcia/zonas             /zonas.html  200

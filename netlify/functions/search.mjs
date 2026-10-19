@@ -13,7 +13,8 @@ export function looksLikeCode(q) {
     || /^\s*(CV\s*[-_\s]*)?VUT?\s*[-_\s]*\d/i.test(q)   // Comunitat Valenciana
     || /^\s*VV\s*[-_\s]*\d/i.test(q)   // Canarias
     || /^\s*(VV|AR|ALB|CT|A|H)[\s.\-_]*MU[\s.\-_]*\d/i.test(q)   // Región de Murcia
-    || /^\s*VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*\d/i.test(q);   // Aragón
+    || /^\s*VUT?[\s\-_./]*(HU|TE|ZA)[\s\-_./]*\d/i.test(q)   // Aragón
+    || /^\s*(VUT?[\s\-_.:]*)?(05|09|24|34|37|40|42|47|49)\s*\/\s*\d/i.test(q);   // Castilla y León (47/000547)
 }
 
 export default async (req, context) => {

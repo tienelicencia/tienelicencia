@@ -96,7 +96,7 @@ def lookup(idx, num, prov, home_prov="V"):
     return key(num, prov or home_prov), None
 
 
-def classify(raw, lat, lon, room_type, min_nights, idx, home_code="46250"):
+def classify(raw, lat, lon, room_type, min_nights, idx, home_code="46250", home_prov="V"):
     """Same categories as the other regions. A number registered in another municipality is FOUND_OTHER_MUNICIPALITY;
     in Valencia but more than 800 m from its parcel, FOUND_INCONSISTENT. Hotel and tourist-apartment numbers (other
     registers, not open) and seasonal claims count as possibly exempt."""
@@ -105,7 +105,7 @@ def classify(raw, lat, lon, room_type, min_nights, idx, home_code="46250"):
     if nums:
         best = None
         for num, prov in nums:
-            k, rec = lookup(idx, num, prov)
+            k, rec = lookup(idx, num, prov, home_prov)
             if not rec:
                 cat = "NOT_IN_REGISTER"
             elif rec["muni_code"] != home_code:
@@ -133,7 +133,7 @@ def classify(raw, lat, lon, room_type, min_nights, idx, home_code="46250"):
 _ADDR = re.compile(r"^(?:[A-Z]{2}\s+)?(.*?),\s*(\d+\s*[A-Z]?)\b(.*)$", re.IGNORECASE)   # "CL ARRABAL, 11, Es:T Pl:OD Pt:OS"
 
 
-def as_register_records(idx, home_code="46250", name="VALENCIA"):
+def as_register_records(idx, home_code="46250", name="VALENCIA", province="VALENCIA"):
     """The city's flats in the same shape as Junta register records (maps, buildings, barrios and search)."""
     out = []
     for k, v in idx.items():
@@ -146,7 +146,7 @@ def as_register_records(idx, home_code="46250", name="VALENCIA"):
         es = re.search(r"Es:(\S+)", rest)
         clean = lambda x: None if not x or x.group(1) in ("OD", "OS", "T") else x.group(1)
         out.append({"registration_code": k, "objects_type_id": "Vivienda de uso turístico", "group": "Completa",
-                    "municipalities": name, "provinces": "VALENCIA", "lat": v["lat"], "lon": v["lon"],
+                    "municipalities": name, "provinces": province, "lat": v["lat"], "lon": v["lon"],
                     "road_name": m.group(1) if m else v.get("address"), "km_num": m.group(2).replace(" ", "") if m else None,
                     "floor": clean(fl), "door": clean(dr), "staircase": clean(es), "block": None, "portal": None,
                     "postal_code": v.get("postcode"), "locality": None, "tot_gen_places": v.get("places"),

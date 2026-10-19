@@ -1,16 +1,16 @@
 ﻿edificio,barrio_o_municipio,viviendas_turisticas,plazas
 Juan Sebastian el Cano 3,Vera,149,625
-Tomillo 2,Vera,140,685
+Tomillo 2,Vera,139,680
 Madrid 9,Pulpi,134,671
 Ciudad de Alicante 6,Vera,122,595
 Califato 5,Mojacar,104,494
 España 2,Pulpi,90,415
-Sotavento 2,Vera,89,432
+Sotavento 2,Vera,88,426
 Pintor Morales 2,Mojacar,86,342
 Mirador de la Marina 2,Mojacar,83,350
 Ciudad de Tarragona 3,Vera,81,314
 Tortuga Boba 3,Vera,70,220
-Moro Manco 1,Mojacar,66,316
+Moro Manco 1,Mojacar,65,312
 Lisboa 2,Pulpi,62,306
 Del Descubrimiento 5,Vera,59,280
 Arquitecto Julian Laguna 35,"Ejido, el",59,256
@@ -18,17 +18,17 @@ Las Higueras 95,Vicar,56,237
 Europa 7,Pulpi,56,297
 Alcazaba 115,Vera,53,277
 Juan Sebastian el Cano 72,Vera,53,203
+Cortijos del Sotillo E1-1,Nijar,52,316
 Torre Bahia 1,Roquetas de Mar,51,159
-Cortijos del Sotillo E1-1,Nijar,50,308
-Madrid 8,Pulpi,50,221
 Ciudad de Alicante 1,Vera,49,242
 Clara Campoamor 7,Mojacar,49,251
+Madrid 8,Pulpi,49,213
 Del Generalife 2,Vera,48,223
 Del Mediterraneo 409,Mojacar,47,276
 Tortuga Boba 5,Vera,46,158
+Del Mulhacen 1,Vera,45,228
 Ciudad de Cadiz 9,Roquetas de Mar,44,235
 Playa Paraiso 1,Roquetas de Mar,44,161
-Del Mulhacen 1,Vera,44,224
 Viena 2,Pulpi,43,204
 Islas Canarias 9,Vera,43,200
 Juan Sebastian el Cano 72,Vera,40,147
@@ -38,7 +38,7 @@ Cañada Julian 8,Vera,37,186
 Las Encinas 50,Vicar,37,103
 Del Mediterraneo 93,Mojacar,37,165
 Juegos Mediterraneos 4,Almería,35,199
-Albardin 3,Vera,34,167
+Albardin 3,Vera,35,171
 Amarguillos 2,Vera,33,165
 Aguadulce 8,Vera,33,84
 Las Pitas 1,Vera,33,153
@@ -58,9 +58,9 @@ Carmen Sevilla 2,Roquetas de Mar,29,147
 Arrayan 1,Vera,28,135
 Islas Canarias 13,Vera,28,148
 Rosita Ferrer 5,Roquetas de Mar,28,106
+Noria 39,Nijar,27,146
 Cabina 16,"Ejido, el",27,121
 Atalayones 8,Mojacar,26,126
-Noria 39,Nijar,26,140
 Costa Levante 1,Mojacar,26,137
 La Giralda 2,Vera,26,121
 Monaco 1,Roquetas de Mar,26,121
@@ -101,6 +101,7 @@ Nuñez de Balboa 6,Vera,19,90
 Turre 1,Garrucha,19,83
 Ciudad de Castellon 2,Vera,19,85
 Alhambra 6,Vera,19,98
+Juegos de Languedoc Rosellon 100,Almería,19,86
 Juan Sebastian Elcano 1,Vera,18,80
 Alhambra 1,Vera,18,77
 Naturaleza 1,Vera,18,61
@@ -108,7 +109,6 @@ Del Mediterráneo 42,Mojacar,18,92
 De las Estrellas 75,Pulpi,18,79
 Mediterraneo 4,Pulpi,18,78
 Nogal 3,Roquetas de Mar,18,65
-Juegos de Languedoc Rosellon 100,Almería,18,82
 De las Estrellas 59,Pulpi,17,81
 11 de Marzo 27,Pulpi,17,70
 Fragata 2,Nijar,17,74
@@ -147,7 +147,6 @@ Eucalipto 5,Roquetas de Mar,14,64
 De las Gaviotas 49,Roquetas de Mar,14,51
 Costa del Sol 26,Almería,14,54
 Vista Alegre 2,Garrucha,14,79
-Ancla 20,Nijar,14,87
 Europa 9,Pulpi,14,71
 Poniente 2,Nijar,13,58
 Costa Levante 5,Mojacar,13,83
@@ -170,6 +169,7 @@ Valle del Sol 1,Vera,13,72
 Carlos Iii 432,Roquetas de Mar,13,73
 Nuñez de Balboa 8,Vera,13,49
 Vera Colina 1,Vera,13,48
+Ancla 20,Nijar,13,81
 De los Castaños 2,Roquetas de Mar,12,56
 Duende 9,Mojacar,12,81
 Marques de Chavarri 32,Mojacar,12,55
@@ -191,7 +191,7 @@ Del Mediterraneo 227,Mojacar,11,46
 Rio Abajo 1,Mojacar,11,49
 Palomares 24,Vera,11,73
 Del Mediterraneo 159,Mojacar,11,41
-Islas Canarias 1,Vera,11,48
+Islas Canarias 1,Vera,11,49
 Cala Chica 2,Nijar,11,46
 Ancla 40,Nijar,11,53
 Jesus de Perceval 23,Mojacar,11,57
@@ -204,6 +204,7 @@ Cibeles 5,Roquetas de Mar,11,33
 Armada Española 29,Roquetas de Mar,11,53
 Nuñez de Balboa 2,Vera,11,46
 Playa Ciudad Luminosa 78,Almería,11,40
+Juegos de Languedoc Rosellon 110,Almería,11,42
 De Torres 84,Roquetas de Mar,11,48
 Lerida 5,Vera,11,36
 Rosita Ferrer 7,Roquetas de Mar,11,52
@@ -237,7 +238,6 @@ La Parata 18,Mojacar,10,56
 Orense 10,Roquetas de Mar,10,57
 Sierra Lisbona 4,Vera,10,45
 El Pocico 5,Roquetas de Mar,10,41
-De los Juegos de Languedoc Rosellon 110,Almería,10,36
 Garrucha 126,Carboneras,10,46
 Nino Bravo 54,Roquetas de Mar,10,45
 Nuñez de Balboa 4,Vera,10,37

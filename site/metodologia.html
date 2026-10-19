@@ -136,15 +136,16 @@
                 <span lang="en">Madrid: registered tourist flats and other accommodation (number and address; we don't use the trade name) and the city's official addresses to place them on the map.</span></td>
               <td><span lang="es">Semanal</span><span lang="en">Weekly</span></td></tr>
             <tr><td><a href="https://dadesobertes.gva.es/dataset/tur-gestur-vt" target="_blank" rel="noopener">Generalitat Valenciana · Viviendas turísticas</a> (CC BY 4.0)</td>
-              <td><span lang="es">Valencia: todas las viviendas turísticas inscritas (número, dirección, referencia catastral, plazas). No usamos nombres comerciales ni webs.</span>
-                <span lang="en">Valencia: every registered tourist flat (number, address, cadastral reference, guest places). We don't use trade names or websites.</span></td>
+              <td><span lang="es">Valencia y Alicante: todas las viviendas turísticas inscritas (número, dirección, referencia catastral, plazas). No usamos nombres comerciales ni webs.</span>
+                <span lang="en">Valencia and Alicante: every registered tourist flat (number, address, cadastral reference, guest places). We don't use trade names or websites.</span></td>
               <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
             <tr><td><a href="https://datos.canarias.es/catalogos/general/dataset/establecimientos-extrahoteleros-de-tipologia-vivienda-vacacional-inscritos-en-el-registro" target="_blank" rel="noopener">Gobierno de Canarias · Registro General Turístico</a> ·
               <a href="https://www.turismoregiondemurcia.es/" target="_blank" rel="noopener">Región de Murcia · ITREM</a> ·
-              <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a></td>
-              <td><span lang="es">Las Palmas, Murcia y Zaragoza: las viviendas turísticas inscritas (número, dirección, plazas) para comprobar los anuncios de nuestras muestras. No usamos nombres, teléfonos, correos ni webs.
+              <a href="https://aplicaciones.aragon.es/wturpub/" target="_blank" rel="noopener">Gobierno de Aragón · Registro de Turismo</a> ·
+              <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-turismo-de-castilla-y-leon/" target="_blank" rel="noopener">Junta de Castilla y León · Registro de Turismo</a> (CC BY 4.0)</td>
+              <td><span lang="es">Las Palmas, Murcia, Zaragoza y Valladolid: los alojamientos turísticos inscritos (número, dirección, plazas) para comprobar los anuncios de nuestras muestras. No usamos nombres, teléfonos, correos ni webs.
                 Aragón publica sus registros turísticos en Aragón Open Data con licencia CC BY 4.0, aunque el aviso legal de su aplicación de consulta habla de uso personal. tienelicencia.com es un servicio gratuito y sin fines comerciales, para uso personal e informativo: no vendemos estos datos ni obtenemos beneficio de ellos. Si el Gobierno de Aragón nos pide retirarlos, lo haremos.</span>
-                <span lang="en">Las Palmas, Murcia and Zaragoza: registered tourist flats (number, address, guest places), to check the listings in our samples. We don't use names, phones, emails or websites.
+                <span lang="en">Las Palmas, Murcia, Zaragoza and Valladolid: registered tourist accommodation (number, address, guest places), to check the listings in our samples. We don't use names, phones, emails or websites.
                 Aragón publishes its tourism registers on Aragón Open Data under CC BY 4.0, although its lookup app's legal notice mentions personal use. tienelicencia.com is a free, non-commercial service for personal and informational use: we don't sell this data or profit from it. If the Government of Aragón asks us to remove it, we will.</span></td>
               <td><span lang="es">Diaria</span><span lang="en">Daily</span></td></tr>
             <tr><td><a href="https://www.geobilbao.eus/" target="_blank" rel="noopener">Ayuntamiento de Bilbao · GeoBilbao</a> (CC BY 3.0 ES) ·
@@ -272,26 +273,32 @@
 
         <h3 id="muestras"><span lang="es">Otros municipios: estimación por muestra</span><span lang="en">Other towns: estimates from a sample</span></h3>
         <div lang="es">
-          <p>Inside Airbnb no publica la lista de anuncios de todos los municipios. Para <b>Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia y Las Palmas de Gran Canaria</b>
+          <p>Inside Airbnb no publica la lista de anuncios de todos los municipios. Para <b>Alicante, Córdoba, Valladolid, Zaragoza, Murcia, Las Palmas de Gran Canaria, Marbella, Granada y Cádiz</b>
             hacemos nuestra propia lista a partir de las páginas públicas de búsqueda de Airbnb: dividimos el municipio en cuadrículas del mapa hasta que cada una muestra todos
             sus anuncios, quitamos duplicados y nos quedamos con los que están dentro del municipio (en Andalucía, según la vivienda registrada más cercana; fuera, a menos de
             250&nbsp;m de un edificio residencial del municipio según el Catastro).</p>
-          <p>De esa lista elegimos <b>1.000 anuncios al azar</b> y revisamos cada uno en directo, con las mismas reglas que en Málaga y Sevilla. Con 1.000
-            anuncios, el porcentaje real está, con un 95&nbsp;% de confianza, a unos <b>±3 puntos</b> de la estimación; en cada página damos el intervalo exacto.
+          <p>De esa lista sacamos una <b>muestra aleatoria simple</b>: ordenamos los anuncios por una huella fija de su identificador (siempre el mismo orden, reproducible)
+            y revisamos en directo los primeros, con las mismas reglas que en Málaga y Sevilla. Como el orden no depende de dónde está el anuncio ni de qué tipo es, la
+            muestra representa a todo el municipio sin tener que ponderar por barrios, y al ampliarla los anuncios ya revisados siguen dentro. El objetivo es
+            <b>1.000 anuncios</b>, o todos si el municipio tiene menos; empezamos con 400 en cada ciudad y vamos ampliando. Con 1.000 anuncios, el porcentaje real está,
+            con un 95&nbsp;% de confianza, a unos <b>±3 puntos</b> de la estimación (con 400, a unos ±5); en cada página damos el intervalo exacto y el número realmente revisado.
             En Málaga comprobamos que una muestra así da prácticamente la misma cifra que revisar todos los anuncios.</p>
           <p>Límites: la estimación es del municipio entero, no por barrios; Airbnb no muestra la estancia mínima en el anuncio, así que no podemos
             descontar los alquileres de temporada largos; con menos anuncios revisados (al menos 300) el intervalo es más ancho, y lo indicamos; y un anuncio sin ninguna fecha disponible puede no aparecer en la búsqueda. Rehacemos la lista
-            cada trimestre.</p>
+            cada mes y volvemos a revisar los anuncios cuya última comprobación tiene más de 25 días.</p>
         </div>
         <div lang="en">
-          <p>Inside Airbnb doesn't publish listing lists for every town. For <b>Marbella, Granada, Córdoba, Cádiz, Zaragoza, Murcia and Las Palmas de Gran Canaria</b>
+          <p>Inside Airbnb doesn't publish listing lists for every town. For <b>Alicante, Córdoba, Valladolid, Zaragoza, Murcia, Las Palmas de Gran Canaria, Marbella, Granada and Cádiz</b>
             we build our own list from Airbnb's public search pages: we split the municipality into map squares until each shows all its listings, remove duplicates and keep
             those inside the municipality (in Andalucía, by the nearest registered flat; elsewhere, within 250 m of one of the town's residential buildings in the Catastro).</p>
-          <p>From that list we pick <b>1,000 listings at random</b> and check each one live, with the same rules as in Málaga and Sevilla. With 1,000
-            listings the true share is, with 95% confidence, within about <b>±3 points</b> of the estimate; each page gives the exact interval. In Málaga we
+          <p>From that list we take a <b>simple random sample</b>: we order the listings by a fixed fingerprint of their ID (always the same, reproducible order) and
+            check the first ones live, with the same rules as in Málaga and Sevilla. Because the order doesn't depend on where a listing is or what kind it is, the sample
+            represents the whole municipality without weighting by barrio, and enlarging it keeps the listings already checked. The target is <b>1,000 listings</b>, or all
+            of them if the municipality has fewer; we start with 400 in each city and enlarge from there. With 1,000 listings the true share is, with 95% confidence, within
+            about <b>±3 points</b> of the estimate (with 400, about ±5); each page gives the exact interval and the number actually checked. In Málaga we
             checked that such a sample gives practically the same figure as checking every listing.</p>
           <p>Limits: the estimate covers the whole municipality, not barrios; Airbnb doesn't show the minimum stay on the listing, so we can't exclude long
-            seasonal lets; and a listing with no available dates at all may not appear in search. We rebuild the list every quarter.</p>
+            seasonal lets; with fewer listings checked (at least 300) the interval is wider, and we say so; and a listing with no available dates at all may not appear in search. We rebuild the list every month and re-check listings last checked more than 25 days ago.</p>
         </div>
 
         <h3><span lang="es">Comprobar un anuncio concreto</span><span lang="en">Checking a single advert</span></h3>
@@ -382,80 +389,140 @@
           of how many tourist flats each barrio has, so we don't publish that comparison: the data doesn't let us attribute the rise to each area's tourist flats.</p>
 
         <!-- ------------------------------------------------------------------ -->
-        <h2 id="ranking"><span lang="es">Ranking de ciudades</span><span lang="en">City ranking</span></h2>
+        <h2 id="indice"><span id="ranking"></span><span lang="es">Índice de presión de la vivienda turística</span><span lang="en">Tourist-housing pressure index</span></h2>
         <div lang="es">
-          <p>El <a href="/ranking">ranking</a> compara las diez ciudades más pobladas de España (padrón del INE): Madrid, Barcelona, Valencia, Sevilla, Zaragoza, Málaga,
-            Murcia, Palma, Las Palmas de Gran Canaria y Bilbao. Mide la <b>presión de la vivienda turística</b>: cuánta vivienda se dedica al alquiler turístico y cuánto
-            se concentra. Aparte, muestra cuántos anuncios no muestran un número de registro válido.</p>
-          <h3>Puntuación de presión turística (0–100)</h3>
-          <p>Es la media de dos medidas que tenemos para todas las ciudades. Cada una se expresa respecto a la ciudad más alta en esa medida (que vale 100), así que
-            la puntuación compara ciudades entre sí: 50 significa la mitad que la ciudad más afectada, no «la mitad de lo admisible».</p>
+          <p>El <a href="/ranking">índice</a> compara <b>todos los municipios españoles de más de 300.000 habitantes</b> según las cifras oficiales de población del INE
+            (1 de enero de 2025, Real Decreto 1117/2025): Madrid, Barcelona, Valencia, Zaragoza, Sevilla, Málaga, Murcia, Palma, Las Palmas de Gran Canaria, Alicante,
+            Bilbao, Córdoba y Valladolid. La regla es el umbral de población, no una selección nuestra; revisamos la lista una vez al año, cuando se publican las nuevas
+            cifras oficiales (los siguientes por debajo son Vigo, con 294.489, y L'Hospitalet de Llobregat, con 289.510). Todas las medidas se refieren al
+            <b>término municipal</b>, nunca al área metropolitana.</p>
+          <h3>Las tres medidas</h3>
           <ul>
-            <li><b>Cantidad:</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo sobre el total de viviendas del municipio, según la estadística experimental
-              del INE (sin duplicados entre plataformas). Es la misma fuente para todas las ciudades y cuenta lo que se anuncia, tenga registro o no.</li>
-            <li><b>Concentración:</b> anuncios de Airbnb por cada 100 viviendas en el <b>círculo de 1&nbsp;km más afectado</b> de la ciudad. Probamos centros cada 200&nbsp;m
-              allí donde hay anuncios y nos quedamos con el que tiene más anuncios por vivienda, entre los círculos con al menos 3.000 viviendas (para que una playa o un
-              parque con pocas viviendas no gane). Usamos la zona más afectada, y no el «centro histórico», porque cada ciudad lo define de una manera y porque en algunas
-              el turismo se concentra fuera de él (en Las Palmas, junto a Las Canteras). Los anuncios salen de Inside Airbnb o, donde no hay datos, de nuestra propia lista
-              de anuncios de Airbnb; las viviendas, del Catastro (o del censo de 2021 repartido por barrios, en el País Vasco).</li>
+            <li><b>Viviendas anunciadas (A, 40&nbsp;%):</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo sobre el total de viviendas del municipio, según la
+              estadística experimental del INE (sin duplicados entre plataformas). Es la misma fuente para todas las ciudades y cuenta lo que se anuncia, tenga registro o no.</li>
+            <li><b>Concentración (B, 35&nbsp;%):</b> anuncios de Airbnb por cada 100 viviendas en el <b>círculo de 1&nbsp;km más afectado</b> del municipio. Probamos centros
+              cada 200&nbsp;m y nos quedamos con el que tiene más anuncios por vivienda, entre los círculos con al menos 3.000 viviendas (para que una playa o un parque con
+              pocas viviendas no gane). Usamos la zona más afectada, y no el «centro histórico», porque cada ciudad lo define de una manera. Los anuncios salen de Inside
+              Airbnb o, donde no hay datos, de nuestra propia lista completa de anuncios de Airbnb del municipio; las viviendas, del Catastro (o del censo de 2021 repartido
+              por barrios, en el País Vasco). Son anuncios, no viviendas distintas: incluyen habitaciones y algún duplicado.</li>
+            <li><b>Discrepancias de registro (C, 25&nbsp;%):</b> entre los anuncios evaluados,
+              R = 100 × (1,00 × no válidos + 0,75 × sin coincidencia + 0,35 × sin número) ÷ anuncios evaluados.</li>
           </ul>
-          <p>Si a una ciudad le falta la medida de concentración (porque aún no la cubrimos), su puntuación usa solo la cantidad y se marca con un asterisco.</p>
-          <h3>Lo que se muestra junto a la puntuación</h3>
+          <h3>Categorías de registro</h3>
+          <p>Cada anuncio cuenta una sola vez, en la categoría más grave que podemos sostener; los problemas secundarios se guardan como señales y no cambian el índice.</p>
           <ul>
-            <li><b>Anuncios sin número válido:</b> la parte de los anuncios de Airbnb que no muestran un número que esté en el registro autonómico, sobre <b>todos</b> los
-              anuncios (sin quitar los posiblemente exentos, para que ningún umbral regional favorezca a una ciudad). En Zaragoza, Murcia y Las Palmas sale de una muestra
-              aleatoria de 400 anuncios revisados uno a uno. Se puede ordenar el ranking por esta columna; no forma parte de la puntuación de presión.</li>
-            <li><b>Barra:</b> la cantidad anunciada, dividida en la parte que muestra un número válido y la que no (aplicando a la cifra del INE el porcentaje de nuestras
-              comprobaciones). La marca vertical son las viviendas con licencia turística registrada sobre el total: puede ser más que lo anunciado, porque una vivienda
-              registrada puede no estar anunciándose.</li>
-            <li><b>Edificios:</b> edificios de pisos (4 viviendas o más en el Catastro) en los que las viviendas turísticas registradas son el 25&nbsp;% o más. Solo donde
-              podemos situar en su edificio al menos el 80&nbsp;% de las viviendas registradas (por referencia catastral, dirección o coordenadas a menos de 25&nbsp;m);
-              si no, no lo mostramos para no quedarnos cortos.</li>
+            <li><b>Número válido</b> (gravedad 0): está en el registro, también tras corregir errores de formato evidentes. Señales aparte: número compartido por varios
+              anuncios de vivienda completa, anuncio a más de 800&nbsp;m de la dirección registrada, habitación con licencia de vivienda completa.</li>
+            <li><b>Sin número</b> (0,35): no muestra ningún número utilizable y no parece exento.</li>
+            <li><b>Sin coincidencia</b> (0,75): muestra un número que no está en el registro publicado. Puede ser un error de escritura o un registro reciente: no decimos que
+              sea falso.</li>
+            <li><b>No válido confirmado</b> (1,00): el número está registrado en <b>otro municipio</b>, o consta <b>cancelado en un documento oficial</b> que tenemos.
+              Un número que simplemente desaparece del registro abierto no se trata como cancelado.</li>
+            <li><b>Posiblemente exento</b> (0, pero cuenta en el total): hoteles, estancias mínimas largas, alquileres de temporada que la estancia respalda, o solo número
+              nacional. Se quedan en el denominador para que ningún umbral regional favorezca a una ciudad.</li>
+          </ul>
+          <p>Los coeficientes (1,00 / 0,75 / 0,35) son decisiones de diseño del índice, no probabilidades de ilegalidad. Junto a cada ciudad mostramos también
+            «sin número verificable públicamente»: la suma simple de las tres categorías, sin ponderar.</p>
+          <h3>Madrid</h3>
+          <p>En la Comunidad de Madrid <b>no es obligatorio mostrar el número</b> en los anuncios (el Tribunal Supremo anuló esa obligación en 2018). Contar como
+            discrepancia a los anuncios sin número castigaría a Madrid por algo que allí no se exige: en octubre de 2026 eran 13.073 de 23.109 anuncios, y por sí solos
+            habrían dado a Madrid la puntuación de registros más alta de todas. Por eso, en Madrid los anuncios sin número <b>quedan fuera de la puntuación de
+            registros</b>, tanto del numerador como del total: R se calcula solo con los anuncios que muestran un número o parecen exentos, y mide cuántos de esos
+            números no están en el registro o son de otro municipio. No sustituimos la cifra de Madrid por la media de otras ciudades, porque sería una estimación
+            ajena a Madrid y cambiaría cada mes con las demás. La cifra «sin número verificable públicamente» sí los incluye, con una nota de que mostrarlo no es
+            obligatorio. La consecuencia es que la puntuación de registros de Madrid se basa en menos anuncios (unos 10.000) que la de otras grandes ciudades.</p>
+          <h3>Cálculo y base fija</h3>
+          <p>Cada medida se divide por su valor más alto en la base: A′ = 100 × A ÷ A<sub>máx</sub>, y lo mismo B′ y C′. Después,
+            índice = 100 × (0,40 A′ + 0,35 B′ + 0,25 C′) ÷ el mayor valor de esa suma en la base. La ciudad con más presión en la base vale 100.</p>
+          <p>La base es <b>octubre de 2026</b>. Los máximos de referencia se calculan con los datos recogidos hasta el 31 de octubre y se fijan al cerrar el mes, cuando las
+            trece ciudades tienen datos comparables; desde entonces no se vuelven a calcular. Hasta ese momento la base es provisional y lo indicamos. Después, el índice se actualiza cada mes con esos mismos máximos, así que una ciudad puede
+            superar 100 si su presión aumenta: 100 es la referencia, no un máximo ni un límite legal. Si las tres ciudades nuevas no pudieran medirse con datos de
+            octubre, lo diremos y propondremos otra fecha de base, en lugar de usar datos posteriores como si fueran de octubre.</p>
+          <p>Cada mes guardamos una copia con la fecha de cada fuente y el tamaño de cada muestra, para distinguir los cambios reales de los que se deben a ampliar una
+            muestra. La versión del método (ahora 1.2) cambia si cambian los pesos, las gravedades o las ciudades.</p>
+          <h3>Muestras y datos que faltan</h3>
+          <ul>
+            <li>Donde Inside Airbnb publica datos (Madrid, Barcelona, Valencia, Sevilla, Málaga, Palma, Bilbao) evaluamos todos los anuncios. En el resto (Zaragoza,
+              Murcia, Las Palmas, Alicante, Córdoba y Valladolid), una <a href="#muestras">muestra aleatoria</a> de nuestra lista completa: el objetivo es 1.000 anuncios, o
+              todos si el municipio tiene menos. Mostramos siempre el número realmente evaluado, no el objetivo.</li>
+            <li>Con al menos 300 anuncios evaluados la ciudad recibe índice, marcado como <b>provisional</b> mientras la muestra no llegue a su objetivo. Con menos, o si
+              falta cualquiera de las tres medidas, la ciudad aparece sin índice: nunca estimamos una medida que falta ni repartimos su peso entre las otras.</li>
           </ul>
           <h3>Límites</h3>
           <ul>
-            <li>El INE solo cuenta los anuncios que cumplen la definición de vivienda turística de cada comunidad, y eso cambia entre regiones. En Palma, por ejemplo,
-              cuenta muchas menos viviendas que anuncios encontramos en Airbnb.</li>
-            <li>Los anuncios de Airbnb incluyen habitaciones y pueden duplicar una misma vivienda; el INE quita duplicados. Por eso las dos medidas no se suman.</li>
-            <li>Las fechas no coinciden del todo: INE (semestral), Inside Airbnb (trimestral), nuestras muestras y registros (diarios o semanales). Cada cifra indica su fecha.</li>
-            <li>Una puntuación más alta no significa que haya más incumplimiento, sino más vivienda dedicada al turismo. Para eso está la columna de anuncios sin número válido.</li>
+            <li>El INE solo cuenta los anuncios que cumplen la definición de vivienda turística de cada comunidad, y eso cambia entre regiones (en Palma cuenta muchas menos
+              viviendas que anuncios encontramos en Airbnb).</li>
+            <li>Las fechas no coinciden del todo: INE (semestral), Inside Airbnb (trimestral), nuestras muestras (mensuales) y registros (diarios o semanales). Cada cifra
+              indica su fecha.</li>
+            <li>Los registros no son iguales: unos tienen coordenadas y otros no, y la numeración cambia (en Castilla y León el mismo número existe para varios tipos de
+              alojamiento, así que lo damos por válido si alguno está en el municipio). Explicamos cada caso en <a href="#ley">las normas de cada zona</a>.</li>
+            <li>Un índice alto no demuestra que haya alojamientos ilegales ni que el ayuntamiento no actúe.</li>
           </ul>
         </div>
         <div lang="en">
-          <p>The <a href="/ranking">ranking</a> compares Spain's ten most populated cities (INE register): Madrid, Barcelona, Valencia, Seville, Zaragoza, Málaga, Murcia,
-            Palma, Las Palmas de Gran Canaria and Bilbao. It measures <b>tourist-housing pressure</b>: how much housing goes to tourist lets and how concentrated it is.
-            Separately, it shows how many listings don't display a valid registration number.</p>
-          <h3>Tourist-pressure score (0–100)</h3>
-          <p>It's the average of two measures we have for every city. Each is expressed relative to the highest city on that measure (= 100), so the score compares cities
-            with each other: 50 means half the most affected city, not "half of what's acceptable".</p>
+          <p>The <a href="/ranking">index</a> compares <b>every Spanish municipality with more than 300,000 inhabitants</b> on the INE's official population figures
+            (1 January 2025, Royal Decree 1117/2025): Madrid, Barcelona, Valencia, Zaragoza, Seville, Málaga, Murcia, Palma, Las Palmas de Gran Canaria, Alicante, Bilbao,
+            Córdoba and Valladolid. The rule is the population threshold, not our choice; we review the list once a year, when new official figures are published (the
+            next below are Vigo, 294,489, and L'Hospitalet de Llobregat, 289,510). Every measure refers to the <b>municipality</b>, never the metropolitan area.</p>
+          <h3>The three measures</h3>
           <ul>
-            <li><b>Amount:</b> tourist homes advertised on Airbnb, Booking and Vrbo as a share of all homes in the municipality, from the INE's experimental statistic
-              (de-duplicated across platforms). Same source for every city; it counts what's advertised, registered or not.</li>
-            <li><b>Concentration:</b> Airbnb listings per 100 homes in the city's <b>most affected 1 km circle</b>. We try centres every 200 m wherever there are listings
-              and keep the one with the most listings per home, among circles with at least 3,000 homes (so a beach or a park with few homes doesn't win). We use the most
-              affected area rather than the "historic centre" because each city defines that differently and in some the tourism sits elsewhere (in Las Palmas, by Las
-              Canteras). Listings come from Inside Airbnb or, where there's none, our own list of Airbnb listings; homes from the Catastro (or the 2021 census spread
-              over barrios, in the Basque Country).</li>
+            <li><b>Homes advertised (A, 40%):</b> tourist homes advertised on Airbnb, Booking and Vrbo as a share of all homes in the municipality, from the INE's
+              experimental statistic (de-duplicated across platforms). Same source for every city; it counts what's advertised, registered or not.</li>
+            <li><b>Concentration (B, 35%):</b> Airbnb listings per 100 homes in the municipality's <b>most affected 1 km circle</b>. We try centres every 200 m and keep the
+              one with the most listings per home, among circles with at least 3,000 homes (so a beach or a park with few homes doesn't win). We use the most affected area
+              rather than the "historic centre" because each city defines that differently. Listings come from Inside Airbnb or, where there's none, our own complete list
+              of the municipality's Airbnb listings; homes from the Catastro (or the 2021 census spread over barrios, in the Basque Country). These are listings, not
+              distinct homes: they include rooms and some duplicates.</li>
+            <li><b>Registration discrepancies (C, 25%):</b> among assessed listings,
+              R = 100 × (1.00 × invalid + 0.75 × unmatched + 0.35 × missing) ÷ assessed listings.</li>
           </ul>
-          <p>If a city is missing the concentration measure (not covered yet), its score uses amount alone and is marked with an asterisk.</p>
-          <h3>What's shown next to the score</h3>
+          <h3>Registration categories</h3>
+          <p>Each listing counts once, in the most serious category we can support; secondary issues are kept as signals and don't change the index.</p>
           <ul>
-            <li><b>Listings without a valid number:</b> the share of Airbnb listings not showing a number that's in the regional register, out of <b>all</b> listings
-              (possibly exempt ones are not removed, so no regional threshold favours a city). In Zaragoza, Murcia and Las Palmas it comes from a random sample of 400
-              listings checked one by one. The ranking can be sorted by it; it isn't part of the pressure score.</li>
-            <li><b>Bar:</b> the advertised amount, split into the part showing a valid number and the part that doesn't (applying our checks' percentage to the INE figure).
-              The vertical mark is homes with a registered tourist licence as a share of all homes: it can exceed what's advertised, since a registered flat may not be
-              advertised.</li>
-            <li><b>Buildings:</b> apartment buildings (4+ homes in the Catastro) where registered tourist flats are 25% or more of homes. Only where we can place at least
-              80% of registered flats in their building (by cadastral reference, address or coordinates within 25 m); otherwise we don't show it, so as not to undercount.</li>
+            <li><b>Valid number</b> (severity 0): in the register, including after correcting obvious formatting slips. Separate signals: a number shared by several
+              whole-home listings, a listing more than 800 m from the registered address, a room with a whole-home licence.</li>
+            <li><b>Missing</b> (0.35): no usable number and no sign of an exemption.</li>
+            <li><b>Unmatched</b> (0.75): a number that isn't in the published register. It may be a typo or a recent registration: we don't say it's false.</li>
+            <li><b>Confirmed invalid</b> (1.00): the number is registered in <b>another municipality</b>, or is <b>cancelled in an official document</b> we hold. A number
+              that simply drops out of the open register isn't treated as cancelled.</li>
+            <li><b>Possibly exempt</b> (0, but counted in the total): hotels, long minimum stays, seasonal lets backed by the stay, or a national number only. They stay in
+              the denominator so that no regional threshold favours a city.</li>
+          </ul>
+          <p>The coefficients (1.00 / 0.75 / 0.35) are design choices for the index, not probabilities of illegality. Next to each city we also show "without a publicly
+            verifiable number": the plain, unweighted sum of the three categories.</p>
+          <h3>Madrid</h3>
+          <p>In the Comunidad de Madrid <b>adverts don't have to show the number</b> (the Supreme Court annulled that duty in 2018). Counting adverts without a number as
+            discrepancies would penalise Madrid for something it doesn't require: in October 2026 they were 13,073 of 23,109 listings, and on their own would have given
+            Madrid the highest registration score of all. So in Madrid, adverts without a number <b>are left out of the registration score</b>, from both the numerator
+            and the total: R is calculated only from listings that show a number or look exempt, and measures how many of those numbers aren't in the register or belong
+            to another municipality. We don't replace Madrid's figure with other cities' average, because that would be an estimate from outside Madrid and would change
+            every month with the others. The "without a publicly verifiable number" figure does include them, with a note that showing it isn't required. The consequence
+            is that Madrid's registration score rests on fewer listings (about 10,000) than other large cities'.</p>
+          <h3>Calculation and fixed baseline</h3>
+          <p>Each measure is divided by its highest value in the baseline: A′ = 100 × A ÷ A<sub>max</sub>, likewise B′ and C′. Then
+            index = 100 × (0.40 A′ + 0.35 B′ + 0.25 C′) ÷ the highest value of that sum in the baseline. The city under most pressure in the baseline scores 100.</p>
+          <p>The baseline is <b>October 2026</b>. The reference maxima are calculated from data collected up to 31 October and fixed when the month closes, once all thirteen
+            cities have comparable data; after that they are never recalculated. Until then the baseline is provisional and we say so. After that the index is updated monthly against the same maxima, so a city can exceed 100 if its
+            pressure rises: 100 is the reference, not a maximum or a legal limit. If the three new cities can't be measured with October data, we'll say so and propose a
+            different baseline date, rather than using later data as if it were October's.</p>
+          <p>Each month we keep a copy with each source's date and each sample's size, to tell real changes from those caused by enlarging a sample. The method's version
+            (now 1.2) changes if the weights, severities or cities change.</p>
+          <h3>Samples and missing data</h3>
+          <ul>
+            <li>Where Inside Airbnb publishes data (Madrid, Barcelona, Valencia, Seville, Málaga, Palma, Bilbao) we assess every listing. Elsewhere (Zaragoza, Murcia,
+              Las Palmas, Alicante, Córdoba and Valladolid), a <a href="#muestras">random sample</a> of our complete list: the target is 1,000 listings, or all of them if
+              the municipality has fewer. We always show the number actually assessed, not the target.</li>
+            <li>With at least 300 assessed listings a city gets an index, marked <b>provisional</b> until its sample reaches the target. With fewer, or if any of the three
+              measures is missing, the city appears without an index: we never estimate a missing measure or share its weight among the others.</li>
           </ul>
           <h3>Limits</h3>
           <ul>
-            <li>The INE only counts listings that meet each region's definition of a tourist home, and that varies. In Palma, for example, it counts far fewer homes than
-              the listings we find on Airbnb.</li>
-            <li>Airbnb listings include rooms and can duplicate a home; the INE removes duplicates. So the two measures don't add up.</li>
-            <li>Dates don't fully match: INE (twice a year), Inside Airbnb (quarterly), our samples and registers (daily or weekly). Each figure gives its date.</li>
-            <li>A higher score means more housing given over to tourism, not more non-compliance. That's what the listings-without-a-valid-number column is for.</li>
+            <li>The INE only counts listings that meet each region's definition of a tourist home, and that varies (in Palma it counts far fewer homes than the listings
+              we find on Airbnb).</li>
+            <li>Dates don't fully match: INE (twice a year), Inside Airbnb (quarterly), our samples (monthly) and registers (daily or weekly). Each figure gives its date.</li>
+            <li>Registers differ: some have coordinates and some don't, and numbering varies (in Castilla y León the same number exists for several kinds of accommodation,
+              so we accept it if any of them is in the municipality). Each case is explained under <a href="#ley">each area's rules</a>.</li>
+            <li>A high index doesn't prove illegal accommodation or that the council isn't acting.</li>
           </ul>
         </div>
 
@@ -753,10 +820,10 @@
         <h3 id="ley-madrid"><span lang="es">Madrid (Comunidad de Madrid)</span><span lang="en">Madrid (Comunidad de Madrid)</span></h3>
         <p lang="es">En Madrid usamos el registro de empresas turísticas de la Comunidad de Madrid (datos abiertos, semanal; números <code>VT-12345</code>) y situamos cada
           vivienda de la ciudad con las direcciones oficiales del Ayuntamiento. <b>A diferencia del resto de zonas, en Madrid no es obligatorio mostrar el número en los
-          anuncios</b>, así que la cifra de anuncios sin número no mide incumplimientos: mide transparencia.</p>
+          anuncios</b>, así que la cifra de anuncios sin número no mide incumplimientos: mide transparencia. Por eso no cuentan en la puntuación de registros del <a href="#indice">índice</a>.</p>
         <p lang="en">In Madrid we use the Comunidad de Madrid's register of tourist businesses (open data, weekly; numbers <code>VT-12345</code>) and place each city flat
           using the council's official addresses. <b>Unlike every other area, in Madrid adverts don't have to show the number</b>, so the share of listings without one
-          doesn't measure breaches: it measures transparency.</p>
+          doesn't measure breaches: it measures transparency. That's why they don't count in the <a href="#indice">index</a>'s registration score.</p>
         <div class="law">
           <h3><span lang="es">Sin obligación de mostrar el número</span><span lang="en">No duty to show the number</span> <span class="status inforce"><span lang="es">Desde 2018</span><span lang="en">Since 2018</span></span></h3>
           <ul lang="es">
@@ -991,6 +1058,40 @@
           </ul>
         </div>
 
+        <h3 id="ley-alicante"><span lang="es">Alicante (Comunitat Valenciana)</span><span lang="en">Alicante (Comunitat Valenciana)</span></h3>
+        <p lang="es">Inside Airbnb no cubre Alicante: estimamos el porcentaje con una <a href="#muestras">muestra</a>. Los números (<code>CV-VUT0012345-A</code>) se comprueban en el mismo registro de la Generalitat Valenciana que en Valencia; un número escrito sin la letra de provincia se lee primero como de Alicante (-A). Cada vivienda se sitúa en su parcela del Catastro.</p>
+        <p lang="en">Inside Airbnb doesn't cover Alicante: we estimate the share from a <a href="#muestras">sample</a>. Numbers (<code>CV-VUT0012345-A</code>) are checked against the same Generalitat Valenciana register as Valencia; a number written without its province letter is read first as Alicante's (-A). Each flat is placed on its Catastro parcel.</p>
+        <div class="law">
+          <h3><span lang="es">Lo esencial</span><span lang="en">Key points</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>Las mismas reglas autonómicas que en Valencia: número y ubicación en toda la publicidad (Ley 15/2018, art. 19.1.b); estancias de 10 días o menos (art. 65), así que posiblemente exentas desde 11 noches; no se alquila por habitaciones.</li>
+            <li>Suspensión municipal de nuevas licencias de viviendas turísticas desde el 13/01/2025, ampliada en julio de 2025 a bloques de apartamentos, pensiones y albergues (DOGV núm. 10159, 25/07/2025), como máximo hasta enero de 2027.</li>
+            <li>La modificación puntual n.º 52 del Plan General (máximo de plazas turísticas por distrito censal, acceso independiente en edificios residenciales) estaba en exposición pública; no hemos confirmado su aprobación definitiva (revisado el 19/10/2026).</li>
+          </ul>
+          <ul lang="en">
+            <li>The same regional rules as Valencia: number and location in all advertising (Law 15/2018, art. 19.1.b); stays of 10 days or less (art. 65), so possibly exempt from 11 nights; no letting by the room.</li>
+            <li>City suspension of new tourist-flat licences since 13/01/2025, extended in July 2025 to apartment blocks, guesthouses and hostels (DOGV no. 10159, 25/07/2025), until January 2027 at the latest.</li>
+            <li>City-plan amendment no. 52 (a maximum of tourist places per census district, a separate entrance in residential buildings) was out for public consultation; we haven't confirmed its final approval (checked 19/10/2026).</li>
+          </ul>
+        </div>
+
+        <h3 id="ley-valladolid"><span lang="es">Valladolid (Castilla y León)</span><span lang="en">Valladolid (Castilla y León)</span></h3>
+        <p lang="es">Inside Airbnb no cubre Valladolid: estimamos el porcentaje con una <a href="#muestras">muestra</a>. Los números (<code>47/000547</code>, a menudo escritos <code>VUT 47/547</code>) se comprueban en el Registro de Turismo de Castilla y León (datos abiertos de la Junta, CC BY 4.0, actualizado a diario). Cada tipo de alojamiento tiene su propia numeración, así que un mismo número puede ser una vivienda turística, un apartamento turístico o un hostal: lo damos por válido si alguno de ellos está en el municipio, y por «otro municipio» solo si todos están fuera. El registro solo da coordenadas de unas pocas viviendas de Valladolid, así que no hay mapa de viviendas registradas.</p>
+        <p lang="en">Inside Airbnb doesn't cover Valladolid: we estimate the share from a <a href="#muestras">sample</a>. Numbers (<code>47/000547</code>, often written <code>VUT 47/547</code>) are checked against the Castilla y León Tourism Register (Junta open data, CC BY 4.0, updated daily). Each type of accommodation has its own numbering, so the same number can be a tourist flat, a tourist apartment or a hostel: we accept it if any of them is in the municipality, and call it "another municipality" only if all are elsewhere. The register gives coordinates for only a few of Valladolid's flats, so there's no map of registered flats.</p>
+        <div class="law">
+          <h3><span lang="es">Lo esencial</span><span lang="en">Key points</span> <span class="status inforce"><span lang="es">En vigor</span><span lang="en">In force</span></span></h3>
+          <ul lang="es">
+            <li>Número de inscripción en toda la publicidad: Decreto 3/2017, art. 35.1. Anunciar una actividad turística sin haberla declarado es actividad clandestina (Ley 14/2010, art. 20).</li>
+            <li>Se puede alquilar por habitaciones: el TSJ de Castilla y León anuló la prohibición del art. 3.2 (Orden CYT/1318/2019). El Tribunal Supremo confirmó la validez del resto del decreto.</li>
+            <li>La norma no fija un número de noches: posiblemente exentos desde 32 noches (ley estatal). No hemos encontrado límites municipales en Valladolid; hay una propuesta parlamentaria de 2025 para reformar el decreto (revisado el 19/10/2026).</li>
+          </ul>
+          <ul lang="en">
+            <li>The registration number in all advertising: Decree 3/2017, art. 35.1. Advertising a tourist activity that hasn't been declared is clandestine activity (Law 14/2010, art. 20).</li>
+            <li>Letting by the room is allowed: the Castilla y León High Court annulled the ban in art. 3.2 (Order CYT/1318/2019). The Supreme Court upheld the rest of the decree.</li>
+            <li>The rules set no number of nights: possibly exempt from 32 nights (national law). We found no city limits in Valladolid; there's a 2025 parliamentary motion to reform the decree (checked 19/10/2026).</li>
+          </ul>
+        </div>
+
         <h3 id="ley-laspalmas"><span lang="es">Las Palmas de Gran Canaria (Canarias)</span><span lang="en">Las Palmas de Gran Canaria (Canary Islands)</span></h3>
         <p lang="es">Inside Airbnb no cubre Las Palmas: estimamos el porcentaje con una <a href="#muestras">muestra</a>. Los números (<code>VV-35-1-0012345</code>: 35 provincia, 1 Gran Canaria) se comprueban en el Registro General Turístico de Canarias (datos abiertos). Aceptamos las erratas habituales (sin guiones, VT por VV, sin provincia ni isla) si el número existe.</p>
         <p lang="en">Inside Airbnb doesn't cover Las Palmas: we estimate the share from a <a href="#muestras">sample</a>. Numbers (<code>VV-35-1-0012345</code>: 35 province, 1 Gran Canaria) are checked against the Canary Islands tourism register (open data). We accept the usual slips (no hyphens, VT for VV, no province or island) if the number exists.</p>
@@ -1116,9 +1217,9 @@
         <h2 id="actualizacion"><span lang="es">Actualización y contacto</span><span lang="en">Updates and contact</span></h2>
         <p lang="es">Los datos se actualizan automáticamente cada día: el registro (cuando cambia), los anuncios revisados en directo y la instantánea de Inside Airbnb
           (cuando hay una nueva). La fecha de cada dato aparece en la página de cada zona. Para correcciones, sugerencias o comentarios, usa el
-          <a href="/contacto">formulario de contacto</a>.</p>
+          <a href="/contacto">formulario de contacto</a> o escribe a <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
         <p lang="en">The data updates itself every day: the register (when it changes), the live-checked listings and the Inside Airbnb snapshot (when there's a new one).
-          Each area page shows the date of its data. For corrections, suggestions or comments, use the <a href="/contacto">contact form</a>.</p>
+          Each area page shows the date of its data. For corrections, suggestions or comments, use the <a href="/contacto">contact form</a> or write to <a href="mailto:hola@shiftedlabs.ai">hola@shiftedlabs.ai</a>.</p>
 
         <!-- ------------------------------------------------------------------ -->
         <h2 id="prensa"><span lang="es">Prensa y datos</span><span lang="en">Press and data</span></h2>
