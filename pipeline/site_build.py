@@ -714,7 +714,7 @@ def census_home_points(barrios, barrio_homes, around, span=0.08):
     return [(y, x, barrio_homes.get(bid, 0) / cells[bid]) for y, x, bid in grid if cells[bid]]
 
 
-def ranking(I, summaries, conc, built, extra=None):
+def ranking(I, summaries, conc, built, extra=None, kept=(), prev_rank=None):
     """Tourist-housing pressure in Spain's ten largest cities. What residents see: tourist homes advertised (INE, all
     platforms, de-duplicated) as a share of all homes, split by our checks into those showing a valid registration number
     and those that don't; plus licences registered and concentration. Score = advertised share relative to the highest."""
@@ -724,6 +724,9 @@ def ranking(I, summaries, conc, built, extra=None):
         if not m.get("pct"):
             continue
         S = summaries.get(slug) or {}
+        if slug in kept and name_ in (prev_rank or {}):   # that city's register didn't load: last published entry
+            out.append({k: v for k, v in prev_rank[name_].items() if k not in ("score", "score_parts", "score_partial")})
+            continue
         r = {**((extra or {}).get("palma" if row_name else slug) or {}),
              "name": name_, "ine": code, "slug": slug if slug and not row_name else None, "area": slug,
              "advertised_pct": m["pct"], "advertised_homes": int(m["homes"]), "census_homes": ine_census_homes(m)}
@@ -736,7 +739,7 @@ def ranking(I, summaries, conc, built, extra=None):
             r["registered_pct"] = sub.get("vut_share")
         else:
             L = S.get("listings")
-            if L:
+            if L and L.get("listings"):
                 nv, src = round(100 * L["verdicts"]["NOT_VALID"] / L["listings"], 1), "listings"
                 r["need_number_not_valid_pct"] = L.get("need_number_not_valid_pct")
             elif (S.get("sample") or {}).get("checked", 0) >= MIN_SAMPLE_PUBLISH:
@@ -764,6 +767,29 @@ def ranking(I, summaries, conc, built, extra=None):
     out.sort(key=lambda r: -r["score"])
     return {"built_at": built, "ine_period": I.get("period"), "peak_radius_m": PEAK_M, "peak_min_homes": PEAK_MIN_HOMES,
             "building_min_homes": BUILDING_MIN_HOMES, "building_share": BUILDING_SHARE, "cities": out}
+
+
+LOOKUP_KEYS = {"catalunya": ["cat"], "baleares": ["bal"], "euskadi": ["eus"], "valencia": ["vlc"], "madrid": ["mad"], "aragon": ["ara"],
+               "murcia": ["mur", "mur_filing"], "canarias": ["can", "can_short"]}
+SEARCH_PROV = {"catalunya": ["B"], "baleares": ["IB"], "euskadi": ["BI", "SS"], "valencia": ["V"], "madrid": ["M"], "aragon": ["Z"],
+               "murcia": ["MU"], "canarias": ["GC"]}
+
+
+def previous_published():
+    """What the last build published (areas, ranking, function data), to fall back on for a region missing this run."""
+    out = {}
+    try:
+        out["areas"] = {a["slug"]: a for a in json.load(open(os.path.join(SITE_DATA, "areas.json"), encoding="utf-8"))["areas"]}
+        out["ranking"] = {c["name"]: c for c in json.load(open(os.path.join(SITE_DATA, "ranking.json"), encoding="utf-8"))["cities"]}
+    except (OSError, ValueError, KeyError):
+        pass
+    for k, f in (("lookup", "lookup.json.gz"), ("search", "search.json.gz")):
+        try:
+            d = json.load(gzip.open(os.path.join(FN_DATA, f), "rt", encoding="utf-8"))
+            out[k] = d if k == "lookup" else d["rows"]
+        except (OSError, ValueError, KeyError):
+            pass
+    return out
 
 
 def ine_mallorca(I):
@@ -1000,6 +1026,12 @@ def cmd_build(a):
     EUS = euskadi.load_register(ep, json.load(open(gp)) if os.path.exists(gp) else None) if os.path.exists(ep[0]) else {}
     prov += [x for x in euskadi.as_register_records(EUS, [A["ia_muni"] for A in AREAS if A.get("region") == "euskadi"])
              if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
+    # A region whose register couldn't be loaded (no fresh download and no cached copy) keeps what was published last time
+    MISSING = {r for r, d in {"catalunya": CAT, "baleares": BAL, "euskadi": EUS, "valencia": VLC, "madrid": MAD, "aragon": ARA,
+                               "murcia": MUR, "canarias": CAN}.items() if not d}
+    prev = previous_published() if MISSING else {}
+    if MISSING:
+        print("registers missing this run (previous figures kept):", ", ".join(sorted(MISSING)))
     agg = buildings.Aggregator()
     agg_ids = {id(x): agg.add(x) for x in prov}
 
@@ -1027,10 +1059,18 @@ def cmd_build(a):
         json.dump(obj, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
     barrio_rent, city_rent, ryears = serpavi_barrios(BAR["malaga"], parcel_pts) if "malaga" in BAR else ({}, None, None)   # SERPAVI sections: Málaga only for now
-    areas_out, hist_areas, hist_listings, listing_stats, conc, summaries, rk_extra = [], {}, {}, None, {}, {}, {}
+    areas_out, hist_areas, hist_listings, listing_stats, conc, summaries, rk_extra, kept = [], {}, {}, None, {}, {}, {}, set()
     for A in AREAS:
+        if A.get("region") in MISSING and A["slug"] in prev.get("areas", {}) and os.path.exists(os.path.join(SITE_DATA, A["slug"], "summary.json")):
+            summaries[A["slug"]] = json.load(open(os.path.join(SITE_DATA, A["slug"], "summary.json"), encoding="utf-8"))
+            areas_out.append(prev["areas"][A["slug"]])
+            hist_areas[A["slug"]] = prev["areas"][A["slug"]].get("vut")
+            kept.add(A["slug"])
+            print(f"{A['slug']}: register missing this run; keeping the previously published figures")
+            continue
         barrios = BAR.get(A["slug"])
         _rows, a_snap, out, removed, by_key = LIST.get(A["slug"], (None, None, [], 0, {}))
+        has_l = A["listings"] and A["slug"] in LIST   # a listing city whose data didn't load this time is built without listings
         recs_a = [x for x in prov if A["match"](x)]
         vut_a = [x for x in recs_a if x.get("objects_type_id") == buildings.VUT]
         ids_a = {agg_ids[id(x)] for x in recs_a}
@@ -1058,7 +1098,7 @@ def cmd_build(a):
              "vut_share": round(100 * t[2] / t[6], 1) if t[6] else None} for t in reg["top_buildings"] if t[2] >= 10],
             BUILDING_CSV_COLS)
         reg["top_buildings"] = reg["top_buildings"][:200]
-        summary = {"slug": A["slug"], "registered": reg, "has_listings": A["listings"], "cap": A.get("cap"),
+        summary = {"slug": A["slug"], "registered": reg, "has_listings": has_l, "cap": A.get("cap"),
                    "register": REGISTERS[A.get("region", "andalucia")],
                    **({"snapshot_date": a_snap} if a_snap else {})}
         hexg = geo.Hex(A["hex_m"])
@@ -1076,7 +1116,7 @@ def cmd_build(a):
         for m in mks:
             for la, lo, dw in parcel_pts.get(m, ()):
                 hx[hexg.cell(la, lo)]["homes"] += dw
-        if A["listings"]:
+        if has_l:
             for o in out:
                 c = hexg.cell(o["lat"], o["lon"])
                 hx[c]["n"] += 1
@@ -1089,7 +1129,7 @@ def cmd_build(a):
                 p["homes"] = c["homes"]
                 if c["homes"] >= MIN_HOMES_SHARE:
                     p["share"] = round(100 * c["reg"] / c["homes"], 1)
-                    if A["listings"]:
+                    if has_l:
                         p["ashare"] = round(100 * c["ent"] / c["homes"], 1)
             if c["n"] >= MIN_LISTINGS_HEX:
                 p.update(n=c["n"], nv=c["nv"], pct=round(100 * c["nv"] / c["n"]))
@@ -1101,7 +1141,7 @@ def cmd_build(a):
         tot_ = sum(f["properties"].get("homes") or 0 for f in hfeats)
         if tot_ and A["kind"] == "city":
             conc[A["slug"]] = (round(100 * sum(f["properties"]["homes"] for f in hfeats if (f["properties"].get("share") or 0) > 10) / tot_, 1), "area")
-        if A["listings"]:
+        if has_l:
             w(f"{A['slug']}/dots.json", listing_dots(out, hexg))
         # small dot-density preview for cards and teasers: hex centres [lon, lat, flats, % not valid or -1]
         pv = []
@@ -1112,7 +1152,7 @@ def cmd_build(a):
                 pv.append([round(sum(c[0] for c in ring) / 6, 4), round(sum(c[1] for c in ring) / 6, 4), p["reg"], p.get("pct", -1)])
         w(f"{A['slug']}/preview.json", pv)
 
-        if A["listings"]:
+        if has_l:
             summary["listings"] = listing_summary(out, removed, by_key, vut_a)
             if A["slug"] == "malaga":
                 listing_stats = summary["listings"]
@@ -1205,7 +1245,7 @@ def cmd_build(a):
             if not hp and A.get("census") and barrios is not None:
                 cen = A["center"][::-1]
                 hp = census_home_points(barrios, {p_["id"]: p_.get("homes") or 0 for p_ in summary["subareas"]["rows"]}, cen)
-            if A["listings"]:
+            if has_l:
                 lp = [(o["lat"], o["lon"]) for o in out if not palma or (barrios and barrios.lookup(o["lat"], o["lon"])[1] == "Palma de Mallorca")]
             elif A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
                 lp = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
@@ -1218,16 +1258,16 @@ def cmd_build(a):
         write_csv(os.path.join(SITE_DATA, A["slug"], "zonas.csv"), summary["subareas"]["rows"])
         hist_areas[A["slug"]] = reg["vut"]
         areas_out.append({k: A[k] for k in ("slug", "name", "kind", "center", "zoom", "hex_m", "subareas")} | {
-            "has_listings": A["listings"], "has_barrios": barrios is not None, "has_map": any(x.get("lat") is not None for x in recs_a) or bool(A["listings"]), "cap": A.get("cap"), "census": bool(census), "vut": reg["vut"], "vut_places": reg["vut_places"],
+            "has_listings": has_l, "has_barrios": barrios is not None, "has_map": any(x.get("lat") is not None for x in recs_a) or bool(has_l), "cap": A.get("cap"), "census": bool(census), "vut": reg["vut"], "vut_places": reg["vut_places"],
             "homes": reg.get("homes"), "vut_share": reg.get("vut_share"), "ine_homes": reg.get("ine_homes"),
             "ine_pct": reg.get("ine_pct"), "ine_period": reg.get("ine_period"), **areas_extra,
             **({"listings": summary["listings"]["listings"], "not_valid": summary["listings"]["verdicts"]["NOT_VALID"],
                 "live_checked": summary["listings"]["live_checked"]}
-               if A["listings"] else {})})
+               if has_l else {})})
 
     built = now()
     w("areas.json", {"built_at": built, "areas": areas_out})
-    w("ranking.json", ranking(I, summaries, conc, built, rk_extra))
+    w("ranking.json", ranking(I, summaries, conc, built, rk_extra, kept, prev.get("ranking", {})))
 
     # ---- history (one point per build day)
     hp = os.path.join(SITE_DATA, "history.json")
@@ -1297,6 +1337,16 @@ def cmd_build(a):
                    "cancelled": {k: {"date": v.get("cancel_date")} for k, v in official.items()
                                  if v.get("status") == "cancelled"}},
                   fh, ensure_ascii=False, separators=(",", ":"))
+    if MISSING and prev.get("lookup"):   # keep the missing regions' number lists from the last build
+        L2 = json.load(gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "rt", encoding="utf-8"))
+        for r_ in MISSING:
+            for k_ in LOOKUP_KEYS[r_]:
+                if not L2.get(k_) and prev["lookup"].get(k_):
+                    L2[k_] = prev["lookup"][k_]
+        for k_ in ("long_stay", "seasonal_short"):
+            L2[k_] = sorted(set(L2.get(k_) or []) | set(prev["lookup"].get(k_) or []))
+        with gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "wt", encoding="utf-8") as fh:
+            json.dump(L2, fh, ensure_ascii=False, separators=(",", ":"))
 
     clean = lambda v: " ".join(str(v).split()) if v not in (None, "", "-") else ""
     srows = []
@@ -1315,6 +1365,9 @@ def cmd_build(a):
                       *((lambda b: [b[1], b[0]])(BAR[MUNI_AREA[x["municipalities"]]].lookup(x["lat"], x["lon"]))
                         if x.get("municipalities") in MUNI_AREA and x.get("lat") is not None else [None, None]),
                       PROV_CODE.get((x.get("provinces") or "").upper())])
+    if MISSING and prev.get("search"):   # keep the missing regions' register rows from the last build
+        codes_ = {c for r_ in MISSING for c in SEARCH_PROV[r_]}
+        srows += [r_ for r_ in prev["search"] if r_ and r_[-1] in codes_]
     srows.sort(key=lambda r: (r[3], r[4], r[5]))
     with gzip.open(os.path.join(FN_DATA, "search.json.gz"), "wt", encoding="utf-8") as fh:
         json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"],

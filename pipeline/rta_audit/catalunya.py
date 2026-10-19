@@ -36,19 +36,28 @@ def fetch(cache_dir, provincia="Barcelona"):
     Keeps the previous copies if a download fails. Returns (generalitat_csv, ajuntament_csv)."""
     import io
     import os
+    import time
     import zipfile
     from urllib.parse import urlencode
     from . import http
     d = os.path.join(cache_dir, "catalunya")
     os.makedirs(d, exist_ok=True)
     gen, ajt = os.path.join(d, "generalitat.csv"), os.path.join(d, "ajuntament_hut.csv")
-    try:
-        q = {"$select": ",".join(GENCAT_COLS), "$where": f"prov_ncia='{provincia}'", "$limit": "300000"}
-        r = http.get(f"{GENCAT}?{urlencode(q)}", timeout=300)
-        if r.text.count("\n") > 1000:
-            open(gen, "w", encoding="utf-8").write(r.text)
-    except Exception as e:  # noqa: BLE001
-        print("catalunya: generalitat download failed, keeping previous copy:", e)
+    q = {"$select": ",".join(GENCAT_COLS), "$where": f"prov_ncia='{provincia}'", "$limit": "300000"}
+    for attempt in range(3):
+        try:
+            r = http.get(f"{GENCAT}?{urlencode(q)}", timeout=300)
+            if r.text.count("\n") > 1000:
+                open(gen, "w", encoding="utf-8").write(r.text)
+                print(f"catalunya: generalitat register, {r.text.count(chr(10))} rows")
+                break
+            print(f"catalunya: generalitat answered HTTP {r.status_code} with {len(r.text)} bytes: {r.text[:200]!r}")
+        except Exception as e:  # noqa: BLE001
+            print(f"catalunya: generalitat download attempt {attempt + 1} failed:", e)
+        time.sleep(20 * (attempt + 1))
+    else:
+        print("catalunya: generalitat register not refreshed; keeping the previous copy" if os.path.exists(gen) else
+              "catalunya: generalitat register not available (no previous copy): Barcelona is skipped this run")
     try:
         res = http.get(AJT_PACKAGE, timeout=60).json()["result"]["resources"]
         dated = [(m.group(1), m.group(2), x) for x in res for m in [re.search(r"(\d{4})_(\d)T", x.get("name") or "")] if m]
@@ -61,6 +70,8 @@ def fetch(cache_dir, provincia="Barcelona"):
         if "NUMERO_REGISTRE_GENERALITAT" in text:
             open(ajt, "w", encoding="utf-8").write(text)
             print("catalunya: ajuntament file", latest.get("name"))
+        else:
+            print(f"catalunya: ajuntament file {latest.get('name')} has no register column ({len(raw)} bytes): {text[:200]!r}")
     except Exception as e:  # noqa: BLE001
         print("catalunya: ajuntament download failed, keeping previous copy:", e)
     return gen, ajt
