@@ -1,28 +1,14 @@
-﻿zona,viviendas_turisticas_registradas,plazas
-14002,655,3298
-14001,515,2647
-14003,514,2648
-14004,376,1977
-14009,234,1228
-14005,180,909
-14008,159,818
-14006,145,735
-14011,113,540
-14010,100,484
-14012,72,469
-14007,60,279
-14013,47,250
-14014,35,200
-14710,3,14
-14711,2,12
-14029,2,12
-14610,2,29
-14540,1,4
-14193,1,7
-1002,1,10
-1411,1,6
-18002,1,12
-14000,1,5
-14350,1,8
-14192,1,4
-14820,1,8
+﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
+Centro,2087,10717,25199,8.3,1266,5.0,279,20.1
+Poniente Sur,375,1870,23771,1.6,163,0.7,34,8.8
+Sur,283,1489,16115,1.8,139,0.9,32,12.5
+Noroeste,143,669,16343,0.9,55,0.3,8,
+Norte Sierra,123,750,15193,0.8,42,0.3,4,
+Sureste,73,371,12035,0.6,38,0.3,11,
+Levante,71,343,21098,0.3,25,0.1,6,
+Poniente Norte,10,59,4857,0.2,8,0.2,,
+Trassierra,2,14,604,0.3,4,0.7,1,
+Villarrubia,2,10,1920,0.1,1,0.1,,
+Cerro Muriano,1,8,568,0.2,0,0.0,,
+Santa Cruz,1,8,328,0.3,0,0.0,,
+Higuerón,0,0,749,0.0,1,0.1,,

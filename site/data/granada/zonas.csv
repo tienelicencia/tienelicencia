@@ -1,44 +1,32 @@
-﻿zona,viviendas_turisticas_registradas,plazas
-18010,1004,4891
-18009,644,3097
-18001,496,2383
-18002,322,1636
-18005,289,1539
-18008,164,882
-18012,127,678
-18006,126,641
-18014,87,448
-18004,82,451
-18003,76,431
-18007,61,301
-18011,44,208
-18015,33,173
-18013,26,148
-18016,7,41
-18182,6,52
-18190,5,22
-18100,3,20
-18000,2,8
-18196,2,12
-18690,2,10
-18220,2,10
-18198,2,8
-18110,2,10
-18213,2,12
-08006,1,6
-11012,1,5
-10005,1,6
-19002,1,5
-18680,1,7
-18211,1,6
-18613,1,4
-18620,1,6
-1810,1,2
-18600,1,8
-29010,1,4
-18697,1,2
-10010,1,4
-18630,1,5
-18814,1,7
-1986,1,8
-41004,1,5
+﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas
+Centro - Sagrario,924,4394,9684,9.5
+Albayzin,759,3729,3594,21.1
+Realejo - San Matias,692,3341,5994,11.5
+Figares,332,1816,11654,2.8
+Zaidin - Vergeles,171,860,22735,0.8
+Camino de Ronda,160,923,14749,1.1
+San Ildefonso,158,768,3714,4.3
+Pajaritos,46,256,4610,1.0
+Cervantes,43,247,6116,0.7
+Chana - Encina - Angustias,39,195,9828,0.4
+Doctores - Plaza de Toros,38,217,4273,0.9
+Carretera de la Sierra,31,174,2509,1.2
+Barriada de la Cruz,27,129,6857,0.4
+San Francisco Javier,20,113,2476,0.8
+Bola de Oro,18,82,671,2.7
+Camino de los Neveros,18,95,2664,0.7
+Cerrillo de Maracena,18,86,3565,0.5
+Haza Grande,18,84,876,2.1
+Sacromonte,18,107,241,7.5
+Castaño - Mirasierra,16,92,2807,0.6
+Lancha del Genil,14,86,997,1.4
+Campo Verde,8,40,1418,0.6
+El Fargue,6,52,427,1.4
+Parque de la Rosaleda,6,42,2717,0.2
+Joaquina Eguaras,4,24,4628,0.1
+Parque Nueva Granada,4,18,1447,0.3
+Bobadilla,2,14,243,0.8
+Caseria de Montijo,2,13,1393,0.1
+Almanjayar,1,7,2178,0.0
+Cartuja,1,8,3235,0.0
+Rey Badis,1,2,1093,0.1

@@ -53,7 +53,7 @@ Aloha Gardens 1,Marbella,87,445,204,42.6
 Alhamar 2,Mijas,87,412,191,45.5
 El Coloso 1,Benalmadena,86,398,294,29.3
 Peñoncillo 69,Manilva,86,421,424,20.3
-Doña Maria 8,Benalmadena,84,304,156,53.8
+Doña Maria 8,Benalmadena,85,308,156,54.5
 Crucero 3,Marbella,83,398,247,33.6
 Luis Vives 1,Benalmadena,81,314,233,34.8
 Brasil 18,Torremolinos,80,314,160,50.0
@@ -166,6 +166,7 @@ Principe Alfonso Hohenloh,Marbella,45,149,101,44.6
 Las Ventas 18,Marbella,45,266,106,42.5
 El Fuerte 4,Marbella,45,164,136,33.1
 Costa del Oro 1,Torrox,44,193,505,8.7
+Maritimo Rey de España 33,Fuengirola,44,180,206,21.4
 Las Deblas 4,Fuengirola,44,189,137,32.1
 Terrazas del Rodeo 1,Marbella,44,204,213,20.7
 Almogia 3,Marbella,44,217,90,48.9
@@ -175,7 +176,6 @@ Valle Romano 2,Estepona,43,209,189,22.8
 Boulevard 3,Benalmadena,43,196,154,27.9
 Ramon Gomez de la Serna 23,Marbella,43,243,270,15.9
 Antonio Machado 2,Benalmadena,43,163,253,17.0
-Maritimo Rey de España 33,Fuengirola,43,176,206,20.9
 Marbella Real 311,Marbella,43,244,267,16.1
 Benatalaya 1-A,Estepona,43,220,205,21.0
 Santiago de Compostela 4,Marbella,43,262,278,15.5
@@ -297,7 +297,7 @@ Benalauria 2,Mijas,34,186,80,42.5
 Almeria 23,Torrox,34,205,108,31.5
 Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
 Nicaragua 24,Estepona,34,183,115,29.6
-Azahar de Estepona 49,Estepona,34,204,61,55.7
+Azahar de Estepona 1022,Estepona,34,204,61,55.7
 "Los Naranjos de Marbella, Fase 1 67",Marbella,33,182,102,32.4
 Altos de la Quinta 2812,Benahavis,33,164,104,31.7
 Valdivia 1,Nerja,33,134,86,38.4
@@ -349,6 +349,7 @@ Del Arte 61,Estepona,31,160,54,57.4
 La Resina Golf,Estepona,30,155,150,20.0
 Del Carmen 33,Estepona,30,133,104,28.8
 Alameda de las Brisas 4,Marbella,30,165,200,15.0
+Golf de Riviera 2,Mijas,30,137,47,63.8
 Lomas del Marques 45,Benahavis,30,158,107,28.0
 Sirio 21,Marbella,30,227,113,26.5
 Casares del Sol 3,Casares,30,136,114,26.3
@@ -364,7 +365,6 @@ Del Sol 141,Benalmadena,29,129,59,49.2
 Piscis 2,Benalmadena,29,104,133,21.8
 Puerto Paraiso 2,Estepona,29,125,76,38.2
 Malaga 1,Fuengirola,29,83,135,21.5
-Golf de Riviera 2,Mijas,29,133,47,61.7
 Pueblo los Monteros 10,Marbella,29,157,142,20.4
 Marítimo Rey de España 124,Fuengirola,29,155,102,28.4
 Del Peñoncillo 11,Torrox,29,131,225,12.9
