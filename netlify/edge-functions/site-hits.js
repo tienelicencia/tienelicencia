@@ -26,14 +26,24 @@
  * and salts deleted (see dashboard.sql). No cookie, nothing on the device, so
  * no consent banner is needed; a person counts once per site per day.
  *
- * The key below is the project's PUBLISHABLE key: public by design, and in this
- * project it can only call log_site_hit (insert-only). It cannot read anything.
+ * Key: the project's PUBLISHABLE key, from the Netlify env var SITE_HITS_KEY if
+ * set, else the copy embedded below by install.sh. install.sh embeds it ONLY in
+ * private repos: a public repo (tienelicencia) gets no key in code and must set
+ * SITE_HITS_KEY in its Netlify site. The analytics schema is insert-only for this
+ * key, but the key is the whole project's public key, so never publish it in a
+ * public repo (that happened once, 20 Oct 2026, and the key was revoked).
+ * No key → nothing is logged; the site is unaffected.
  *
  * Exclude your own browser on a site: open any page with ?count=off (undo: ?count=on).
  */
 
 const ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_hit';
-const KEY = 'sb_publishable_45PHPHXAlqQl-LB4PNc8ag_KqXhqHio';
+const EMBEDDED_KEY = '';
+const siteHitsKey = () => {
+  const fromEnv = globalThis.Netlify?.env?.get('SITE_HITS_KEY') ?? '';
+  if (fromEnv.startsWith('sb_publishable_')) return fromEnv;
+  return EMBEDDED_KEY.startsWith('sb_publishable_') ? EMBEDDED_KEY : '';
+};
 const OPT_OUT = 'sl_count_off';
 
 // First match wins. Order matters: AI assistants before generic bot words.
@@ -117,6 +127,8 @@ export default async (request, context) => {
     return res;
   }
   if (optedOut || !(response.headers.get('content-type') ?? '').includes('text/html')) return response;
+  const KEY = siteHitsKey();
+  if (!KEY) return response;
 
   const ua = request.headers.get('user-agent') ?? '';
   const { kind, agent } = classify(ua, request.headers);
