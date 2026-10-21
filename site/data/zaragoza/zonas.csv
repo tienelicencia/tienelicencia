@@ -1,30 +1,27 @@
-﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Casco Histórico,24894,352,1.4,206,24.3
-El Rabal,35080,67,0.2,31,22.6
-Centro,29034,65,0.2,38,34.2
-Universidad,26156,44,0.2,28,
-San José,33141,42,0.1,23,
-Delicias,49188,41,0.1,30,30.0
-Almozara,14645,19,0.1,9,
-Torrero,20277,12,0.1,5,
-Actur Rey Fernando,22854,11,0.0,5,
-Las Fuentes,20154,10,0.0,9,
-Miralbueno,5503,7,0.1,2,
-Garrapinillos,1806,4,0.2,2,
-Distrito Sur,17590,3,0.0,1,
-Juslibol,1092,3,0.3,1,
-Monzalbarba,904,3,0.3,2,
-Oliver Valdefierro,14174,3,0.0,2,
-Peñaflor,725,3,0.4,1,
-Montañana,1374,2,0.1,1,
-Santa Isabel,5164,2,0.0,2,
-Cartuja Baja,895,1,0.1,1,
-Casablanca,4331,1,0.0,1,
-Casetas,3208,1,0.0,,
-Alfocea,95,0,,,
-Movera,915,0,0.0,,
-San Gregorio,243,0,0.0,,
-San Juan de Mozarrifar,1118,0,0.0,,
-Torrecilla,27,0,,,
-Venta del Olivar,389,0,0.0,,
-Villarrapa,117,0,0.0,,
+﻿zona,viviendas_turisticas_registradas,plazas
+50003,256,0
+50001,83,0
+50004,72,0
+50014,49,0
+50008,47,0
+50002,47,0
+50015,32,0
+50006,31,0
+—,28,0
+50010,23,0
+50007,17,0
+50005,16,0
+50009,14,0
+50017,10,0
+50018,10,0
+50013,6,0
+50011,6,0
+50059,3,0
+50012,3,0
+50190,2,0
+50016,2,0
+50021,2,0
+50019,1,0
+50620,1,0
+50298,1,0
+50680,1,0

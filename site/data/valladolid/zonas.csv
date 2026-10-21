@@ -1,43 +1,16 @@
-﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Plaza Mayor,3804,47,1.2,47,53.2
-Plaza España,2421,26,1.1,26,
-La Antigua - Santa Cruz,3125,21,0.7,21,
-Caño Argales,4181,18,0.4,18,
-Rondilla,11738,17,0.1,17,
-Campo Grande,8407,14,0.2,14,
-San Pablo - San Nicolás,3607,12,0.3,12,
-Delicias - Arco de Ladrillo,10530,10,0.1,10,
-Parquesol,11828,10,0.1,10,
-Vadillos,3332,9,0.3,9,
-Delicias - Canterac,13795,7,0.1,7,
-La Victoria,7432,7,0.1,7,
-San Martín,1871,7,0.4,7,
-Covaresa,2756,6,0.2,6,
-Barrio España,1562,5,0.3,5,
-Circular,6154,5,0.1,5,
-Huerta del Rey,11187,5,0.0,5,
-Batallas,2289,4,0.2,4,
-La Farola,2356,4,0.2,4,
-Pajarillos Altos,2965,4,0.1,4,
-San Pedro Regalado,1355,4,0.3,4,
-Hospital,4488,3,0.1,3,
-Plaza de Toros,6112,3,0.0,3,
-Las Villas - Valparaíso,4360,2,0.0,2,
-Belén - Pilarica,2322,1,0.0,1,
-Cuatro de Marzo,1928,1,0.1,1,
-El Berrocal - la Galera,730,1,0.1,1,
-El Pinar,276,1,0.4,1,
-Pilarica - los Santos,3107,1,0.0,1,
-Arturo Eyries,2017,0,0.0,,
-Extrarradio,616,0,0.0,,
-Girón,1628,0,0.0,,
-La Overuela,407,0,0.0,,
-La Rubia,4435,0,0.0,,
-Las Flores,960,0,0.0,,
-Pajarillos Bajos,3161,0,0.0,,
-Parque Alameda - Paula López,3083,0,0.0,,
-Polígono Argales,36,0,,,
-Polígono San Cristóbal,23,0,,,
-Puente Duero,620,0,0.0,,
-San Isidro,3813,0,0.0,,
-Soto de Medinilla,68,0,,,
+﻿zona,viviendas_turisticas_registradas,plazas
+47003,25,121
+47001,17,91
+47010,15,75
+47002,13,57
+47004,11,51
+47013,9,35
+47009,8,43
+47005,7,34
+47012,7,39
+47007,6,28
+47006,6,36
+47008,4,16
+47011,4,17
+47014,2,11
+47140,1,4
