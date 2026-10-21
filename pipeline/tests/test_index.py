@@ -110,12 +110,12 @@ class ComputeTests(unittest.TestCase):
         self.assertEqual((b["housing_max"], b["concentration_max"], b["registration_max"]), (3.0, 30.0, 15.0))
         self.assertEqual(b["leader"], "Alfa")
         self.assertEqual(alfa["normalised"], {"housing": 100.0, "concentration": 100.0, "registration": 70.0})
-        raw_b = 0.40 * 50 + 0.35 * 50 + 0.25 * 100
-        raw_max = 0.40 * 100 + 0.35 * 100 + 0.25 * 70
-        self.assertAlmostEqual(beta["index"], round(100 * raw_b / raw_max, 1))
-        self.assertEqual(alfa["index"], 100.0)
+        # No final rescaling: the index is the weighted sum of the normalised factors, so the leader needn't score 100
+        self.assertAlmostEqual(beta["index"], 0.40 * 50 + 0.35 * 50 + 0.25 * 100)        # 62.5
+        self.assertAlmostEqual(alfa["index"], 0.40 * 100 + 0.35 * 100 + 0.25 * 70)       # 92.5
+        self.assertEqual(alfa["contributions"]["housing"], 40.0)                         # weight × 100
         for c in (alfa, beta):
-            self.assertAlmostEqual(sum(c["contributions"].values()), c["index"], delta=0.15)
+            self.assertAlmostEqual(sum(c["contributions"].values()), c["index"], delta=0.02)
         self.assertEqual([alfa["rank"], beta["rank"]], [1, 2])
 
     def test_missing_component_never_reweighted(self):
@@ -131,8 +131,7 @@ class ComputeTests(unittest.TestCase):
 
     def test_frozen_baseline_is_not_recalculated_and_can_exceed_100(self):
         cfg = copy.deepcopy(CFG)
-        cfg["baseline"].update(frozen=True, housing_max=3.0, concentration_max=30.0, registration_max=15.0,
-                               raw_max=0.40 * 100 + 0.35 * 100 + 0.25 * 70, leader="Alfa")
+        cfg["baseline"].update(frozen=True, housing_max=3.0, concentration_max=30.0, registration_max=15.0, leader="Alfa")
         V = lambda **n: index.verification(items(**n), CFG)
         cs = [city("Alfa", 6.0, 45.0, V(FOUND_CONSISTENT=500, NO_CODE_IN_SCOPE=500))]   # pressure doubled after the base
         b = index.compute(cs, cfg)
@@ -143,7 +142,7 @@ class ComputeTests(unittest.TestCase):
 
     def test_provisional_while_sample_incomplete(self):
         cfg = copy.deepcopy(CFG)
-        cfg["baseline"].update(frozen=True, housing_max=3.0, concentration_max=30.0, registration_max=15.0, raw_max=92.5)
+        cfg["baseline"].update(frozen=True, housing_max=3.0, concentration_max=30.0, registration_max=15.0)
         v = index.verification(items(FOUND_CONSISTENT=300, NO_CODE_IN_SCOPE=100), CFG, source="sample", checked=400, target=1000)
         cs = [city("Beta", 1.5, 15.0, v)]
         index.compute(cs, cfg)
@@ -196,8 +195,9 @@ class PublishedRankingTests(unittest.TestCase):
             A, B, R_ = c["housing"], c["concentration"], c["verification"]["R"]
             raw = w["housing"] * 100 * A / b["housing_max"] + w["concentration"] * 100 * B / b["concentration_max"] \
                 + w["registration"] * 100 * R_ / b["registration_max"]
-            self.assertAlmostEqual(c["index"], 100 * raw / b["raw_max"], delta=0.06, msg=c["name"])
-            self.assertAlmostEqual(sum(c["contributions"].values()), c["index"], delta=0.15, msg=c["name"])
+            self.assertAlmostEqual(c["index"], raw, delta=0.06, msg=c["name"])   # no final rescaling
+            self.assertAlmostEqual(sum(c["contributions"].values()), c["index"], delta=0.02, msg=c["name"])
+            self.assertLessEqual(c["index"], 100 if not b.get("frozen") else float("inf"))   # provisional: no factor above its max
         self.assertEqual([c["rank"] for c in ranked], list(range(1, len(ranked) + 1)))
         self.assertEqual([c["index"] for c in ranked], sorted((c["index"] for c in ranked), reverse=True))
 

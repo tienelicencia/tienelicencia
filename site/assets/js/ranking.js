@@ -1,5 +1,6 @@
 /* Índice de presión de la vivienda turística: every Spanish municipality over 300,000 inhabitants, one composite index
-   (housing 40% · concentration 35% · registration 25%) normalised against a fixed October 2026 baseline (100 points).
+   (housing 40% · concentration 35% · registration 25%): each factor scored 0–100 against the highest city in the October
+   2026 baseline, weighted and added up, so the index is out of 100 and the leader doesn't automatically score 100.
    Data: /data/ranking.json, built by pipeline/site_build.py with rta_audit/index.py and index_config.json.
    Method: /metodologia#indice */
 (() => {
@@ -47,9 +48,9 @@
         <li><i class="sw c-a"></i><b>${Math.round(w.housing * 100)}${L(" %", "%")}</b> ${L("Viviendas anunciadas para turistas", "Homes advertised to tourists")}</li>
         <li><i class="sw c-b"></i><b>${Math.round(w.concentration * 100)}${L(" %", "%")}</b> ${L("Concentración en zonas residenciales", "Concentration in residential areas")}</li>
         <li><i class="sw c-c"></i><b>${Math.round(w.registration * 100)}${L(" %", "%")}</b> ${L("Discrepancias en los registros anunciados", "Discrepancies in advertised registrations")}</li></ul>
-      <p>${L(`La puntuación toma como referencia la ciudad con mayor índice en ${basePeriod()} (100 puntos). Las cifras posteriores pueden superar ese valor: 100 es la referencia, no el máximo posible ni un límite legal.`,
-        `The score takes the city with the highest index in ${basePeriod()} as its reference (100 points). Later figures can exceed it: 100 is the reference, not the highest possible value or a legal limit.`)}
-        ${R.baseline.frozen ? "" : `<b>${L("La base aún es provisional", "The baseline is still provisional")}</b>${L(": se fijará cuando las ciudades tengan datos comparables. Hasta entonces la referencia se recalcula con cada actualización.", ": it will be fixed once every city has comparable data. Until then the reference is recalculated with each update.")}`}</p>
+      <p>${L(`Cada medida se puntúa de 0 a 100 (100 = la ciudad más alta en esa medida en ${basePeriod()}) y se pondera según su peso. La suma da el índice, sobre 100. La ciudad con más puntos encabeza el ranking, pero no recibe automáticamente 100: 100 es el máximo teórico, el de una ciudad que fuera la más alta en las tres medidas. Es una comparación relativa entre ciudades, no una medida absoluta de la presión turística.`,
+        `Each measure is scored from 0 to 100 (100 = the highest city on that measure in ${basePeriod()}) and weighted by its importance. The weighted scores add up to the index, out of 100. The city with the most points leads the ranking, but doesn't automatically get 100: 100 is the theoretical maximum, for a city that was highest on all three measures. It's a relative comparison between cities, not an absolute measure of tourist pressure.`)}
+        ${R.baseline.frozen ? "" : `<b>${L("La base aún es provisional", "The baseline is still provisional")}</b>${L(": se fijará cuando las ciudades tengan datos comparables. Hasta entonces los máximos de cada medida se recalculan con cada actualización.", ": it will be fixed once every city has comparable data. Until then each measure's maximum is recalculated with each update.")}`}</p>
       <details class="ix-formula"><summary>${L("Ver fórmula y metodología completa", "See the formula and full methodology")}</summary>
         <ol>
           <li>${L("<b>Viviendas anunciadas (A):</b> viviendas turísticas anunciadas en Airbnb, Booking y Vrbo según el INE (sin duplicados) ÷ total de viviendas del municipio.",
@@ -58,17 +59,17 @@
             `<b>Concentration (B):</b> Airbnb listings per 100 homes in the city's most affected circle 1 km across (500 m radius, about 80 hectares) (among circles with at least ${fmt(R.peak_min_homes)} homes). These are listings, not distinct homes: they include rooms and some duplicates.`)}</li>
           <li>${L(`<b>Registros (C):</b> R = 100 × (${fix(sev.invalid, 2)} × no válidos + ${fix(sev.unmatched, 2)} × sin coincidencia + ${fix(sev.missing, 2)} × sin número) ÷ anuncios evaluados. Los coeficientes son decisiones de diseño del índice, no probabilidades de ilegalidad. En Madrid, donde mostrar el número no es obligatorio, los anuncios sin número quedan fuera de este cálculo.`,
             `<b>Registration (C):</b> R = 100 × (${fix(sev.invalid, 2)} × invalid + ${fix(sev.unmatched, 2)} × unmatched + ${fix(sev.missing, 2)} × missing) ÷ assessed listings. The coefficients are design choices for the index, not probabilities of illegality. In Madrid, where showing the number isn't required, listings without one are left out of this calculation.`)}</li>
-          <li>${L(`Cada medida se divide por su máximo en la base (A′ = 100 × A ÷ A<sub>máx</sub>, y lo mismo B′ y C′). Índice = 100 × (${w.housing} A′ + ${w.concentration} B′ + ${w.registration} C′) ÷ el mayor valor de la base.`,
-            `Each measure is divided by its baseline maximum (A′ = 100 × A ÷ A<sub>max</sub>, likewise B′ and C′). Index = 100 × (${w.housing} A′ + ${w.concentration} B′ + ${w.registration} C′) ÷ the highest baseline value.`)}</li>
+          <li>${L(`Cada medida se divide por su máximo en la base (A′ = 100 × A ÷ A<sub>máx</sub>, y lo mismo B′ y C′). Índice = ${w.housing} A′ + ${w.concentration} B′ + ${w.registration} C′, sobre 100. Los tres tramos de cada barra son esos tres sumandos.`,
+            `Each measure is divided by its baseline maximum (A′ = 100 × A ÷ A<sub>max</sub>, likewise B′ and C′). Index = ${w.housing} A′ + ${w.concentration} B′ + ${w.registration} C′, out of 100. The three segments of each bar are those three terms.`)}</li>
         </ol>
         <p>${L(`Una ciudad sin alguna de las tres medidas, o con menos de ${fmt(R.min_assessed)} anuncios evaluados, no recibe índice: nunca estimamos una medida ni repartimos su peso entre las otras. Versión ${esc(R.version)}.`,
           `A city missing any of the three measures, or with fewer than ${fmt(R.min_assessed)} assessed listings, gets no index: we never estimate a measure or share its weight among the others. Version ${esc(R.version)}.`)}
           <a href="/metodologia#indice">${L("Metodología completa →", "Full methodology →")}</a></p>
       </details>
       <div class="ix-legend" aria-hidden="true">${Object.values(COMP).map((c) => `<span><i class="sw ${c.cls}"></i>${L(c.es, c.en)}</span>`).join("")}
-        <span><i class="tick100"></i>${L("100 = referencia", "100 = reference")}</span></div>`;
+        <span>${L("Barra completa = 100 puntos", "Full bar = 100 points")}</span></div>`;
 
-    const scale = Math.max(110, ...ranked.map((c) => c.index)) * 1.02;
+    const scale = Math.max(100, ...ranked.map((c) => c.index));   // the bar's track is 0–100 (wider only if a score ever passes 100)
     $("#ix").innerHTML = ranked.map((c) => row(c, scale)).join("") + pending.map(pendingRow).join("");
 
     $("#ix-notes").innerHTML = L(`<p><b>Cómo leerlo.</b> Un índice alto significa más presión de la vivienda turística combinada con más discrepancias visibles en los registros. <b>No demuestra</b> que haya alojamientos ilegales, que todos los anuncios sin número incumplan la ley, que un número sin coincidencia sea falso, ni que el ayuntamiento no actúe. En la Comunidad de Madrid no es obligatorio mostrar el número en los anuncios: allí los anuncios sin número no cuentan en la puntuación de registros, que se calcula solo con los números que sí se muestran.</p>
@@ -81,7 +82,7 @@
     const seg = Object.entries(COMP).map(([k, m]) =>
       `<i class="${m.cls}" style="width:${(100 * c.contributions[k] / scale).toFixed(2)}%" title="${esc(`${L(m.es, m.en)}: ${fix(c.contributions[k])}`)}"></i>`).join("");
     const label = Object.entries(COMP).map(([k, m]) => `${L(m.es, m.en)} ${fix(c.contributions[k])}`).join(", ");
-    return `<div class="ix-bar" role="img" aria-label="${esc(label)}">${seg}<span class="ix-100" style="left:${(10000 / scale).toFixed(2)}%"></span></div>`;
+    return `<div class="ix-bar" role="img" aria-label="${esc(label)}">${seg}</div>`;
   }
 
   // The city's most affected 1 km circle on the national map (the map frames it and draws its outline)
@@ -115,7 +116,7 @@
         ${headline(c)}
         <details class="ix-more"><summary>${L("Ver todos los datos", "See all the data")}</summary>${details(c)}</details>
       </div>
-      <div class="ix-score"><b>${fix(c.index)}</b><span>${L("puntos", "points")} · ${baseLabel()}</span></div></li>`;
+      <div class="ix-score"><b>${fix(c.index)}</b><span>${L("puntos de 100", "points out of 100")} · ${baseLabel()}</span></div></li>`;
   }
 
   function pendingRow(c) {
@@ -175,8 +176,8 @@
     const comp = c.index == null ? "" : `<table class="ix-t ix-calc"><thead><tr><th scope="col">${L("Componente", "Component")}</th><th scope="col">${L("Medida", "Measure")}</th><th scope="col">${L("Normalizada", "Normalised")}</th><th scope="col">${L("Peso", "Weight")}</th><th scope="col">${L("Puntos", "Points")}</th></tr></thead><tbody>
       ${Object.entries(COMP).map(([kk, m]) => `<tr><th scope="row"><i class="sw ${m.cls}"></i> ${L(m.es, m.en)}</th>
         <td>${kk === "housing" ? pc(c.housing, 2) : kk === "concentration" ? num(c.concentration) : fix(c.verification.R, 2)}</td>
-        <td>${fix(c.normalised[kk])}</td><td>${Math.round(R.weights[kk] * 100)}${L(" %", "%")}</td><td>${fix(c.contributions[kk])}</td></tr>`).join("")}
-      <tr class="ix-total"><th scope="row" colspan="4">${L("Índice", "Index")} (${baseLabel()}, v${esc(R.version)})</th><td>${fix(c.index)}</td></tr></tbody></table>`;
+        <td>${fix(c.normalised[kk])} / 100</td><td>× ${Math.round(R.weights[kk] * 100)}${L(" %", "%")}</td><td>${fix(c.contributions[kk], 2)}</td></tr>`).join("")}
+      <tr class="ix-total"><th scope="row" colspan="4">${L("Índice, sobre 100", "Index, out of 100")} (${baseLabel()}, v${esc(R.version)})</th><td>${fix(c.index, 2)}</td></tr></tbody></table>`;
     return `<div class="ix-sections">
       <section><h3>${L("Vivienda", "Housing")}</h3><table class="ix-t"><tbody>${housing}</tbody></table></section>
       <section><h3>${L("Concentración", "Concentration")}</h3><table class="ix-t"><tbody>${conc}</tbody></table></section>

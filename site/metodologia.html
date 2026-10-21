@@ -517,14 +517,21 @@
             ajena a Madrid y cambiaría cada mes con las demás. La cifra «sin número verificable públicamente» sí los incluye, con una nota de que mostrarlo no es
             obligatorio. La consecuencia es que la puntuación de registros de Madrid se basa en menos anuncios (unos 10.000) que la de otras grandes ciudades.</p>
           <h3>Cálculo y base fija</h3>
+          <p>El índice combina tres medidas, cada una puntuada de 0 a 100 y ponderada según su peso. Las puntuaciones ponderadas se suman y dan una cifra
+            final sobre 100. La ciudad con más puntos encabeza el ranking, pero no recibe automáticamente 100.</p>
           <p>Cada medida se divide por su valor más alto en la base: A′ = 100 × A ÷ A<sub>máx</sub>, y lo mismo B′ y C′. Después,
-            índice = 100 × (0,40 A′ + 0,35 B′ + 0,25 C′) ÷ el mayor valor de esa suma en la base. La ciudad con más presión en la base vale 100.</p>
+            índice = 0,40 A′ + 0,35 B′ + 0,25 C′. Por ejemplo, Málaga tiene el valor más alto en viviendas anunciadas y en concentración (100 en ambas) y 73,8 en
+            registros, donde la más alta es Palma: 0,40 × 100 + 0,35 × 100 + 0,25 × 73,8 = 93,4 puntos. 100 es el máximo teórico, el de una ciudad que fuera
+            la más alta en las tres medidas; no es la puntuación de la ciudad que encabeza el ranking.</p>
+          <p>Es una <b>medida relativa</b>: compara las ciudades entre sí con los pesos que hemos elegido. No es una medida absoluta de la presión turística, y una
+            ciudad con 80 puntos no tiene «el 80&nbsp;% de la presión» de otra con 100: tiene el 80&nbsp;% de su puntuación en este índice.</p>
           <p>La base es <b>octubre de 2026</b>. Los máximos de referencia se calculan con los datos recogidos hasta el 31 de octubre y se fijan al cerrar el mes, cuando las
-            trece ciudades tienen datos comparables; desde entonces no se vuelven a calcular. Hasta ese momento la base es provisional y lo indicamos. Después, el índice se actualiza cada mes con esos mismos máximos, así que una ciudad puede
-            superar 100 si su presión aumenta: 100 es la referencia, no un máximo ni un límite legal. Si las tres ciudades nuevas no pudieran medirse con datos de
+            trece ciudades tienen datos comparables; desde entonces no se vuelven a calcular. Hasta ese momento la base es provisional y lo indicamos. Después, el índice se actualiza cada mes con esos mismos máximos. Si una ciudad supera más adelante el máximo de octubre en alguna medida,
+            esa medida pasa de 100 y el índice también puede hacerlo: no lo limitamos, para que la subida se vea. Si las tres ciudades nuevas no pudieran medirse con datos de
             octubre, lo diremos y propondremos otra fecha de base, en lugar de usar datos posteriores como si fueran de octubre.</p>
           <p>Cada mes guardamos una copia con la fecha de cada fuente y el tamaño de cada muestra, para distinguir los cambios reales de los que se deben a ampliar una
-            muestra. La versión del método (ahora 1.3) cambia si cambian los pesos, las gravedades o las ciudades.</p>
+            muestra. La versión del método (ahora 2.0) cambia si cambian los pesos, las gravedades, las ciudades o el cálculo. Hasta la versión 1.3 el índice
+            se reescalaba para que la primera ciudad valiera 100; desde la 2.0 es la suma directa, así que las cifras anteriores no son comparables con las actuales.</p>
           <h3>Muestras y datos que faltan</h3>
           <ul>
             <li>Donde Inside Airbnb publica datos (Madrid, Barcelona, Valencia, Sevilla, Málaga, Palma, Bilbao) evaluamos todos los anuncios. En el resto (Zaragoza,
@@ -587,14 +594,21 @@
             every month with the others. The "without a publicly verifiable number" figure does include them, with a note that showing it isn't required. The consequence
             is that Madrid's registration score rests on fewer listings (about 10,000) than other large cities'.</p>
           <h3>Calculation and fixed baseline</h3>
+          <p>The index combines three indicators, each scored from 0 to 100 and weighted by its importance. The weighted scores are added together to give a
+            final score out of 100. The city with the highest score leads the ranking, but doesn't automatically receive 100 points.</p>
           <p>Each measure is divided by its highest value in the baseline: A′ = 100 × A ÷ A<sub>max</sub>, likewise B′ and C′. Then
-            index = 100 × (0.40 A′ + 0.35 B′ + 0.25 C′) ÷ the highest value of that sum in the baseline. The city under most pressure in the baseline scores 100.</p>
+            index = 0.40 A′ + 0.35 B′ + 0.25 C′. For example, Málaga has the highest value for homes advertised and for concentration (100 on both) and 73.8 for
+            registration, where Palma is highest: 0.40 × 100 + 0.35 × 100 + 0.25 × 73.8 = 93.4 points. 100 is the theoretical maximum, for a city that was
+            highest on all three measures; it isn't the score of the city that leads the ranking.</p>
+          <p>It's a <b>relative measure</b>: it compares cities with each other, using the weights we chose. It isn't an absolute measure of tourist pressure, and a
+            city with 80 points doesn't have "80% of the pressure" of one with 100: it has 80% of its score on this index.</p>
           <p>The baseline is <b>October 2026</b>. The reference maxima are calculated from data collected up to 31 October and fixed when the month closes, once all thirteen
-            cities have comparable data; after that they are never recalculated. Until then the baseline is provisional and we say so. After that the index is updated monthly against the same maxima, so a city can exceed 100 if its
-            pressure rises: 100 is the reference, not a maximum or a legal limit. If the three new cities can't be measured with October data, we'll say so and propose a
+            cities have comparable data; after that they are never recalculated. Until then the baseline is provisional and we say so. After that the index is updated monthly against the same maxima. If a city later goes above October's maximum on a measure,
+            that measure goes above 100 and so can the index: we don't cap it, so the rise is visible. If the three new cities can't be measured with October data, we'll say so and propose a
             different baseline date, rather than using later data as if it were October's.</p>
           <p>Each month we keep a copy with each source's date and each sample's size, to tell real changes from those caused by enlarging a sample. The method's version
-            (now 1.3) changes if the weights, severities or cities change.</p>
+            (now 2.0) changes if the weights, severities, cities or calculation change. Up to version 1.3 the index was rescaled
+            so the leading city scored 100; since 2.0 it's the plain sum, so earlier figures aren't comparable with current ones.</p>
           <h3>Samples and missing data</h3>
           <ul>
             <li>Where Inside Airbnb publishes data (Madrid, Barcelona, Valencia, Seville, Málaga, Palma, Bilbao) we assess every listing. Elsewhere (Zaragoza, Murcia,

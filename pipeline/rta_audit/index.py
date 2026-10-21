@@ -7,11 +7,11 @@ Three components, each normalised against its highest value in a fixed baseline 
   C  registration   severity-weighted registration discrepancies among assessed Airbnb listings:
                       R = 100 × (1.00 × invalid + 0.75 × unmatched + 0.35 × missing) / assessed
 
-  A' = 100 × A / A_max(baseline), B' and C' likewise
-  raw = 0.40 A' + 0.35 B' + 0.25 C'
-  index = 100 × raw / raw_max(baseline)
+  A' = 100 × A / A_max(baseline), B' and C' likewise (each 0–100 at the baseline)
+  index = 0.40 A' + 0.35 B' + 0.25 C'   (out of 100; the leading city doesn't automatically score 100)
 
-The baseline values are frozen in index_config.json; later months are measured against them, so a city can go above 100.
+The baseline maxima are frozen in index_config.json; later months are measured against them, so a factor can go above
+100 (a city above October's highest value) and so can the index. We don't cap it.
 Until the baseline is frozen it is computed from the current data and labelled provisional. A city missing a component, or
 with too few assessed listings, gets no index (status "unavailable"): we never reweight the other components or estimate it.
 
@@ -111,18 +111,18 @@ def compute(cities, cfg):
     def norm(c):
         return {k: (100 * v / b[f"{k}_max"] if v is not None and b.get(f"{k}_max") else None) for k, v in comps(c).items()}
     if not b.get("frozen"):
-        raws = [(sum(w[k] * x for k, x in norm(c).items()), c["name"]) for c in complete]
-        b["raw_max"], b["leader"] = max(raws) if raws else (None, None)
+        scores = [(sum(w[k] * x for k, x in norm(c).items()), c["name"]) for c in complete]
+        b["leader"] = max(scores)[1] if scores else None
     for c in cities:
         n = norm(c)
         c["normalised"] = {k: (round(x, 1) if x is not None else None) for k, x in n.items()}
         missing = [k for k, x in n.items() if x is None]
-        if missing or not b.get("raw_max"):
+        if missing:
             c.update(index=None, status="unavailable", missing_components=missing, contributions=None)
             continue
-        contrib = {k: 100 * w[k] * x / b["raw_max"] for k, x in n.items()}   # index points from each component
-        c["contributions"] = {k: round(x, 1) for k, x in contrib.items()}
-        c["index"] = round(sum(contrib.values()), 1)
+        contrib = {k: w[k] * x for k, x in n.items()}   # index points from each component: weight × normalised score
+        c["contributions"] = {k: round(x, 2) for k, x in contrib.items()}
+        c["index"] = round(sum(contrib.values()), 2)
         v = c.get("verification") or {}
         c["status"] = "provisional" if (v.get("source") == "sample" and (v.get("checked") or 0) < (v.get("target") or 0)) \
             or not b.get("frozen") else "final"
@@ -137,6 +137,6 @@ def freeze(cities, cfg, period, path=CONFIG, when=None):
     b = compute([dict(c) for c in cities], dict(cfg, baseline=dict(cfg["baseline"], frozen=False)))
     cfg = dict(cfg)
     cfg["baseline"] = {"period": period, "frozen": True, "housing_max": b["housing_max"], "concentration_max": b["concentration_max"],
-                       "registration_max": b["registration_max"], "raw_max": b["raw_max"], "leader": b["leader"], "frozen_at": when}
+                       "registration_max": b["registration_max"], "leader": b["leader"], "frozen_at": when}
     json.dump(cfg, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     return cfg["baseline"]
