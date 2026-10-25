@@ -16,19 +16,19 @@ Principe Salman 6,Marbella,73,382,297,24.6
 Los Altos de los Monteros 14,Marbella,72,362,169,42.6
 Cuesta Correa 1,Marbella,72,237,254,28.3
 Las Ventas 22,Marbella,70,379,137,51.1
-Mediterraneo 1,Marbella,68,246,162,42.0
+Mediterraneo 1,Marbella,70,254,162,43.2
 Aries 111,Marbella,63,328,214,29.4
 Calderon de la Barca 73,Marbella,62,353,243,25.5
 Las Adelfas 13,Marbella,61,320,100,61.0
 Los Granados 5,Marbella,59,313,261,22.6
+La Alcazaba 1,Marbella,58,313,187,31.0
 Los Jardines de Santa Maria Golf 4,Marbella,57,297,224,25.4
-La Alcazaba 1,Marbella,56,302,187,29.9
 Julio Iglesias 1,Marbella,56,247,144,38.9
 Miguel Delibes 18,Marbella,55,283,357,15.4
 Jardines de Don Carlos 4,Marbella,54,319,127,42.5
-Hiedra 26,Marbella,52,254,231,22.5
 Bahia de Marbella 4,Marbella,52,320,143,36.4
 Hiedra 2,Marbella,52,278,192,27.1
+Santa Maria Village 3,Marbella,51,248,231,22.1
 Lola Flores 1,Marbella,50,250,88,56.8
 Lorcrimar V 5,Marbella,49,268,148,33.1
 Lola Flores 3,Marbella,49,288,109,45.0
@@ -36,8 +36,8 @@ Rio Danubio 1,Marbella,49,199,132,37.1
 Alcaucin 2,Marbella,48,285,100,48.0
 Alonso de Bazan 17,Marbella,47,294,228,20.6
 Jose Manuel Caballero Bonald 5,Marbella,47,257,136,34.6
+Marbellamar 1,Marbella,47,430,117,40.2
 Hacienda Playa Fase 3 4,Marbella,46,237,140,32.9
-Marbellamar 1,Marbella,46,420,117,39.3
 Principe Alfonso Hohenloh,Marbella,45,149,101,44.6
 Las Ventas 18,Marbella,45,266,106,42.5
 El Fuerte 4,Marbella,45,164,136,33.1
@@ -59,7 +59,6 @@ Ramon y Cajal 12,Marbella,41,244,187,21.9
 Juan Antonio de Torquemada 2,Marbella,40,241,114,35.1
 Arriate 3,Marbella,40,212,105,38.1
 Ashmawi 1,Marbella,40,231,248,16.1
-Atolon de Coral,Marbella,39,195,111,35.1
 Las Ventas 4,Marbella,39,216,90,43.3
 Faisan 158,Marbella,39,221,96,40.6
 Cervantes 19,Marbella,39,294,119,32.8
@@ -68,6 +67,7 @@ Duque de Ahumada 11,Marbella,39,182,157,24.8
 De las Nereidas 1,Marbella,39,214,98,39.8
 Conde Rudi 5,Marbella,39,171,273,14.3
 Aloha Royal 25,Marbella,39,229,91,42.9
+White Pearl Beach,Marbella,38,189,111,34.2
 Juan Antonio de Torquemada 2,Marbella,38,223,130,29.2
 Los Naranjos de Marbella Fase Iii,Marbella,37,167,70,52.9
 Duque de Ahumada 9,Marbella,37,133,90,41.1
@@ -77,8 +77,8 @@ Mar Arbolada 2,Marbella,36,123,142,25.4
 Oceano 6,Marbella,36,193,63,57.1
 Muelle Ribera 1,Marbella,36,173,51,70.6
 Juan Ruiz Muñoz 2,Marbella,36,120,105,34.3
+El Oasis de Marbella 13,Marbella,35,196,119,29.4
 Rio Volga 7,Marbella,35,176,148,23.6
-El Oasis de Marbella 13,Marbella,34,185,119,28.6
 Playas del Duque 9,Marbella,34,156,164,20.7
 Jose Banus 4,Marbella,34,170,74,45.9
 Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
@@ -86,17 +86,17 @@ Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
 Guadalvillas 138,Marbella,33,253,86,38.4
 Alcaucin 7,Marbella,33,175,84,39.3
 Valle del Golf-Nva Aloha 8,Marbella,33,142,88,37.5
+Faisan 158,Marbella,33,134,110,30.0
 Alminar de Marbella 1121,Marbella,32,170,92,34.8
 Lunamar 248,Marbella,32,204,250,12.8
 Albatros 2,Marbella,32,226,148,21.6
 Gregorio Marañon 8,Marbella,32,111,50,64.0
-Faisan 158,Marbella,32,131,110,29.1
 Cumbres del Rodeo 110,Marbella,32,169,115,27.8
 Playa Real 108,Marbella,31,186,165,18.8
 Hacienda Elviria 27,Marbella,31,173,238,13.0
-Alameda de las Brisas 4,Marbella,30,165,200,15.0
 Sirio 21,Marbella,30,227,113,26.5
 Camilo José Cela 13,Marbella,30,136,126,23.8
+Alameda de las Brisas 4,Marbella,29,161,200,14.5
 Pueblo los Monteros 10,Marbella,29,157,142,20.4
 Ricardo Soriano 31,Marbella,29,118,201,14.4
 Alfonso de Hohenlohe,Marbella,29,107,74,39.2
@@ -174,7 +174,6 @@ Luis Morales 103,Marbella,19,103,47,40.4
 Los Gladiolos 1,Marbella,19,104,50,38.0
 Roy Boston 4,Marbella,19,104,94,20.2
 Andasol 9,Marbella,19,107,76,25.0
-La Reserva de Marbella 2,Marbella,19,94,75,25.3
 Mario Vargas Llosa 2B,Marbella,19,90,80,23.8
 José Banus 7,Marbella,19,125,96,19.8
 Rotary Internacional,Marbella,19,55,,
@@ -188,6 +187,7 @@ El Embrujo de Banús 1,Marbella,18,135,132,13.6
 El Manantial,Marbella,18,101,66,27.3
 Noray 9,Marbella,18,116,94,19.1
 Camilo Jose Cela 11,Marbella,18,79,83,21.7
+La Reserva de Marbella 2,Marbella,18,90,75,24.0
 Pablo Casals 4,Marbella,18,68,52,34.6
 Marques de Ivanrey 1,Marbella,18,59,41,43.9
 Elviria Hills 822,Marbella,18,108,62,29.0
@@ -226,7 +226,7 @@ Jardines de la Aldaba 12,Marbella,15,82,50,30.0
 Edgar Neville,Marbella,15,92,37,40.5
 De las Antillas 23,Marbella,15,84,56,26.8
 Lomas del Puerto,Marbella,15,82,40,37.5
-Londres 1,Marbella,15,48,106,14.2
+Londres 1,Marbella,15,44,106,14.2
 Del Prado 14,Marbella,15,49,96,15.6
 La Alzambra,Marbella,15,100,50,30.0
 La Goleta,Marbella,15,72,40,37.5
@@ -275,7 +275,6 @@ Andalucia Garden Club 52,Marbella,14,49,18,77.8
 Marbella Lake 4,Marbella,14,92,98,14.3
 Frankfurt 1,Marbella,13,71,47,27.7
 De las Gardenias 3,Marbella,13,71,33,39.4
-Hermanos Salom 4,Marbella,13,64,71,18.3
 Reserva de Marbella 3,Marbella,13,63,45,28.9
 La Hacienda 6,Marbella,13,67,60,21.7
 Antillas 6,Marbella,13,67,44,29.5
@@ -284,7 +283,6 @@ Concha Nacar 3,Marbella,13,59,60,21.7
 Aloha Golf 138,Marbella,13,63,52,25.0
 Pinos del Angel 2,Marbella,13,66,24,54.2
 De la Granadilla 2,Marbella,13,114,110,11.8
-Del Gaviero 23,Marbella,13,78,64,20.3
 Jade Beach I 7,Marbella,13,75,24,54.2
 Sierra Bermeja 6,Marbella,13,76,58,22.4
 Artola Golf 22,Marbella,13,139,20,65.0
@@ -295,6 +293,7 @@ Las Bovedas 3,Marbella,13,122,30,43.3
 Las Gitanillas 1,Marbella,13,68,15,86.7
 Reserva de Marbella 1,Marbella,13,65,40,32.5
 Jacinto Benavente 7,Marbella,13,73,104,12.5
+Hermanos Salom 4,Marbella,12,60,71,16.9
 Principe Alfonso Hohenloh 19,Marbella,12,46,127,9.4
 Ribera de Guadalmina 22,Marbella,12,77,80,15.0
 Julio Iglesias 3,Marbella,12,52,64,18.8
@@ -306,6 +305,7 @@ Nueva Andalucia 27,Marbella,12,62,36,33.3
 Muro 11,Marbella,12,57,22,54.5
 "Aloha Pueblo Fase Iv, Urb. Aloha Golf 172",Marbella,12,54,26,46.2
 Ricardo Soriano 64,Marbella,12,54,120,10.0
+Del Gaviero 23,Marbella,12,71,64,18.8
 Sierra Bermeja 38,Marbella,12,57,37,32.4
 Arias Maldonado 2,Marbella,12,40,67,17.9
 De los Jazmines 95,Marbella,12,68,22,54.5
@@ -313,7 +313,7 @@ De los Jazmines 95,Marbella,12,68,22,54.5
 De la Coruña 26,Marbella,12,66,39,30.8
 De la Jacaranda 34,Marbella,12,95,20,60.0
 Los Altos de los Monteros,Marbella,12,63,73,16.4
-Rotary Internacional 7,Marbella,11,52,46,23.9
+Rotary Internacional 7,Marbella,11,56,46,23.9
 Ana de Austria 1,Marbella,11,59,32,34.4
 Turmalina-Arroyo Piedras 1,Marbella,11,66,48,22.9
 "Marina Puente Romano, Conjunto Jardin Andaluz 11",Marbella,11,58,72,15.3
@@ -348,7 +348,7 @@ Pablo Ruiz Picasso 39,Marbella,11,63,65,16.9
 Torrente Ballester 5,Marbella,11,66,116,9.5
 Los Acebos 29,Marbella,11,78,16,68.8
 Diego de Velazquez 7,Marbella,11,57,58,19.0
-Solanum 30B,Marbella,11,61,48,22.9
+Solanum 13,Marbella,11,61,48,22.9
 Albatros Hills 39,Marbella,10,54,72,13.9
 Magnolia-Santa Maria Golf 3,Marbella,10,55,21,47.6
 Fontanilla 4,Marbella,10,40,27,37.0
