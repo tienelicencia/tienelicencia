@@ -498,14 +498,17 @@ def city_barrios(slug):
         return geo.Barrios(geo.ensure_barrios(CACHE))
     A = next(x for x in AREAS if x["slug"] == slug)
     if A.get("barrios_file"):
-        return geo.Barrios(os.path.join(CACHE, A["barrios_file"]))
+        p_ = os.path.join(CACHE, A["barrios_file"])
+        if not os.path.exists(p_):   # a council's server down (or blocking the runner): the copy kept in the repo
+            p_ = os.path.join(REPO, "pipeline", "inputs", A["barrios_file"])
+        return geo.Barrios(p_)
     _, p = snapshot.latest_local(CACHE, A.get("ia", slug))
     return geo.Barrios(os.path.join(os.path.dirname(p), "neighbourhoods.geojson"))
 
 
 def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA", cat_idx=None, bal=None, eus=None, fn=None):
     """Classify every listing of one city (live if fresh, else snapshot text). Returns (listings, removed, by_key)."""
-    out, removed = [], 0
+    out, removed, no_position = [], 0, 0
     for r in rows:
         s = st.get(r["id"])
         basis = "snapshot"
@@ -514,11 +517,18 @@ def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA", 
             continue
         if fresh(s, snap_date) and s["live_status"] == "ok":
             basis = "live"
-            v = {"registration_raw": s["registration_raw"], "lat": s["lat"], "lon": s["lon"],
-                 "room_type": s["room_type"], "property_type": s["property_type"], "min_nights": r["minimum_nights"]}
+            # a live read can lack a field (e.g. no map position): fall back to the snapshot's
+            v = {"registration_raw": s["registration_raw"],
+                 "lat": s.get("lat") if s.get("lat") not in (None, "") else r["latitude"],
+                 "lon": s.get("lon") if s.get("lon") not in (None, "") else r["longitude"],
+                 "room_type": s.get("room_type") or r["room_type"], "property_type": s.get("property_type") or r["property_type"],
+                 "min_nights": r["minimum_nights"]}
         else:
             v = {"registration_raw": r["license"], "lat": r["latitude"], "lon": r["longitude"], "room_type": r["room_type"],
                  "property_type": r["property_type"], "min_nights": r["minimum_nights"]}
+        if v["lat"] in (None, "") or v["lon"] in (None, ""):   # no position anywhere: can't place it, so leave it out
+            no_position += 1
+            continue
         if fn is not None:    # a region's own classifier: fn(view, snapshot row) → {"category", "key", "group"}
             cc = fn(v, r)
             c = {"category": cc["category"], "match_key": cc["key"] if cc["category"].startswith("FOUND") else None,
@@ -546,6 +556,8 @@ def classify_listings(index, official, mx, snap_date, rows, st, home="MÁLAGA", 
                     "host_bucket": host_bucket(r["calculated_host_listings_count"]),
                     "reg_group": (c.get("register_record") or {}).get("group")})
 
+    if no_position:
+        print(f"{home}: {no_position} listings without a map position left out")
     # shared whole-dwelling codes
     by_key = defaultdict(list)
     for o in out:

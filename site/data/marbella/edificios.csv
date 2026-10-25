@@ -16,13 +16,13 @@ Principe Salman 6,Marbella,73,382,297,24.6
 Los Altos de los Monteros 14,Marbella,72,362,169,42.6
 Cuesta Correa 1,Marbella,72,237,254,28.3
 Las Ventas 22,Marbella,70,379,137,51.1
-Mediterraneo 1,Marbella,70,254,162,43.2
+Mediterraneo 1,Marbella,68,246,162,42.0
 Aries 111,Marbella,63,328,214,29.4
 Calderon de la Barca 73,Marbella,62,353,243,25.5
 Las Adelfas 13,Marbella,61,320,100,61.0
 Los Granados 5,Marbella,59,313,261,22.6
-La Alcazaba 1,Marbella,58,313,187,31.0
 Los Jardines de Santa Maria Golf 4,Marbella,57,297,224,25.4
+La Alcazaba 1,Marbella,56,302,187,29.9
 Julio Iglesias 1,Marbella,56,247,144,38.9
 Miguel Delibes 18,Marbella,55,283,357,15.4
 Jardines de Don Carlos 4,Marbella,54,319,127,42.5
@@ -86,17 +86,17 @@ Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
 Guadalvillas 138,Marbella,33,253,86,38.4
 Alcaucin 7,Marbella,33,175,84,39.3
 Valle del Golf-Nva Aloha 8,Marbella,33,142,88,37.5
-Faisan 158,Marbella,33,134,110,30.0
 Alminar de Marbella 1121,Marbella,32,170,92,34.8
 Lunamar 248,Marbella,32,204,250,12.8
 Albatros 2,Marbella,32,226,148,21.6
 Gregorio Marañon 8,Marbella,32,111,50,64.0
+Faisan 158,Marbella,32,131,110,29.1
 Cumbres del Rodeo 110,Marbella,32,169,115,27.8
 Playa Real 108,Marbella,31,186,165,18.8
 Hacienda Elviria 27,Marbella,31,173,238,13.0
+Alameda de las Brisas 4,Marbella,30,165,200,15.0
 Sirio 21,Marbella,30,227,113,26.5
 Camilo José Cela 13,Marbella,30,136,126,23.8
-Alameda de las Brisas 4,Marbella,29,161,200,14.5
 Pueblo los Monteros 10,Marbella,29,157,142,20.4
 Ricardo Soriano 31,Marbella,29,118,201,14.4
 Alfonso de Hohenlohe,Marbella,29,107,74,39.2
@@ -284,6 +284,7 @@ Concha Nacar 3,Marbella,13,59,60,21.7
 Aloha Golf 138,Marbella,13,63,52,25.0
 Pinos del Angel 2,Marbella,13,66,24,54.2
 De la Granadilla 2,Marbella,13,114,110,11.8
+Del Gaviero 23,Marbella,13,78,64,20.3
 Jade Beach I 7,Marbella,13,75,24,54.2
 Sierra Bermeja 6,Marbella,13,76,58,22.4
 Artola Golf 22,Marbella,13,139,20,65.0
@@ -305,7 +306,6 @@ Nueva Andalucia 27,Marbella,12,62,36,33.3
 Muro 11,Marbella,12,57,22,54.5
 "Aloha Pueblo Fase Iv, Urb. Aloha Golf 172",Marbella,12,54,26,46.2
 Ricardo Soriano 64,Marbella,12,54,120,10.0
-Del Gaviero 23,Marbella,12,71,64,18.8
 Sierra Bermeja 38,Marbella,12,57,37,32.4
 Arias Maldonado 2,Marbella,12,40,67,17.9
 De los Jazmines 95,Marbella,12,68,22,54.5
