@@ -58,6 +58,7 @@ jobs:
         run: |
           git config user.name "licencemap-bot"
           git config user.email "actions@users.noreply.github.com"
+          test -f netlify/edge-functions/site-hits.js || { echo "::error::netlify/edge-functions/site-hits.js missing (Shifted Labs traffic counter): restore it before publishing"; exit 1; }
           git add site/data netlify/functions/data   # aggregate data only; per-listing state lives in the private repo
           git diff --cached --quiet && exit 0
           git commit -m "Data refresh $(date -u +%F)"

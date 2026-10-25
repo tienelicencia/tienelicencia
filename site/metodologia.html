@@ -350,8 +350,10 @@
           <p>De esa lista sacamos una <b>muestra aleatoria simple</b>: ordenamos los anuncios por una huella fija de su identificador (siempre el mismo orden, reproducible)
             y revisamos en directo los primeros, con las mismas reglas que en las ciudades con datos de Inside Airbnb. Como el orden no depende de dónde está el anuncio ni de qué tipo es, la
             muestra representa a todo el municipio sin tener que ponderar por barrios, y al ampliarla los anuncios ya revisados siguen dentro. El objetivo es
-            <b>1.000 anuncios</b>, o todos si el municipio tiene menos; empezamos con 400 en cada ciudad y vamos ampliando. En Valladolid, que tiene unos 255, los hemos revisado todos. Con 1.000 anuncios, el porcentaje real está,
-            con un 95&nbsp;% de confianza, a unos <b>±3 puntos</b> de la estimación (con 400, a unos ±5); en cada página damos el intervalo exacto y el número realmente revisado.
+            <b>revisarlos todos</b>: cada día revisamos hasta 600 anuncios nuevos por ciudad y volvemos a revisar los que llevan un mes sin comprobar, así que cada anuncio
+            se revisa aproximadamente una vez al mes. Mientras la lista no está completa, la cifra es una muestra aleatoria: con 400 anuncios, el porcentaje real está, con
+            un 95&nbsp;% de confianza, a unos <b>±5 puntos</b> de la estimación, y con 1.000, a unos ±3; en cada página damos el intervalo exacto y el número realmente revisado.
+            En Valladolid, que tiene unos 255, ya los hemos revisado todos.
             En Málaga comprobamos que una muestra así da prácticamente la misma cifra que revisar todos los anuncios.</p>
           <p>Por barrios mostramos los anuncios de nuestra lista completa (y cuántos hay por cada 100 viviendas), las viviendas turísticas registradas solo donde
             podemos situar al menos el 80&nbsp;% de las del registro, y el porcentaje sin número válido solo en los barrios con al menos 30 anuncios revisados, con su intervalo de
@@ -366,9 +368,10 @@
             those inside the municipality (in Andalucía, by the nearest registered flat; elsewhere, within 250 m of one of the town's residential buildings in the Catastro).</p>
           <p>From that list we take a <b>simple random sample</b>: we order the listings by a fixed fingerprint of their ID (always the same, reproducible order) and
             check the first ones live, with the same rules as in the cities with Inside Airbnb data. Because the order doesn't depend on where a listing is or what kind it is, the sample
-            represents the whole municipality without weighting by barrio, and enlarging it keeps the listings already checked. The target is <b>1,000 listings</b>, or all
-            of them if the municipality has fewer; we start with 400 in each city and enlarge from there. In Valladolid, which has about 255, we have checked them all. With 1,000 listings the true share is, with 95% confidence, within
-            about <b>±3 points</b> of the estimate (with 400, about ±5); each page gives the exact interval and the number actually checked. In Málaga we
+            represents the whole municipality without weighting by barrio, and enlarging it keeps the listings already checked. The aim is <b>to check them all</b>: every day
+            we check up to 600 new listings per city and re-check those last checked a month ago, so each listing is checked about once a month. Until the list is
+            complete, the figure is a random sample: with 400 listings the true share is, with 95% confidence, within about <b>±5 points</b> of the estimate, and with 1,000
+            about ±3; each page gives the exact interval and the number actually checked. In Valladolid, which has about 255, we have already checked them all. In Málaga we
             checked that such a sample gives practically the same figure as checking every listing.</p>
           <p>By barrio we show the listings in our complete list (and how many per 100 homes), registered tourist flats only where we can place at least 80% of the
             register's, and the share without a valid number only in barrios with at least 30 listings checked, with its 95% confidence interval. In Zaragoza and
@@ -535,9 +538,9 @@
           <h3>Muestras y datos que faltan</h3>
           <ul>
             <li>Donde Inside Airbnb publica datos (Madrid, Barcelona, Valencia, Sevilla, Málaga, Palma, Bilbao) evaluamos todos los anuncios. En el resto (Zaragoza,
-              Murcia, Las Palmas, Alicante, Córdoba y Valladolid), una <a href="#muestras">muestra aleatoria</a> de nuestra lista completa: el objetivo es 1.000 anuncios, o
-              todos si el municipio tiene menos. Mostramos siempre el número realmente evaluado, no el objetivo.</li>
-            <li>Con al menos 300 anuncios evaluados la ciudad recibe índice, marcado como <b>provisional</b> mientras la muestra no llegue a su objetivo. Una ciudad con menos de
+              Murcia, Las Palmas, Alicante, Córdoba y Valladolid), nuestra lista completa: revisamos <a href="#muestras">todos sus anuncios</a> poco a poco y, mientras
+              no está completa, la cifra sale de una muestra aleatoria. Mostramos siempre el número realmente evaluado.</li>
+            <li>Con al menos 300 anuncios evaluados la ciudad recibe índice, marcado como <b>provisional</b> mientras no hayamos revisado toda su lista. Una ciudad con menos de
               300 anuncios en total (Valladolid tiene unos 255) recibe índice si los revisamos casi todos: es un recuento completo, no una muestra. Con menos, o si
               falta cualquiera de las tres medidas, la ciudad aparece sin índice: nunca estimamos una medida que falta ni repartimos su peso entre las otras.</li>
           </ul>
@@ -612,9 +615,9 @@
           <h3>Samples and missing data</h3>
           <ul>
             <li>Where Inside Airbnb publishes data (Madrid, Barcelona, Valencia, Seville, Málaga, Palma, Bilbao) we assess every listing. Elsewhere (Zaragoza, Murcia,
-              Las Palmas, Alicante, Córdoba and Valladolid), a <a href="#muestras">random sample</a> of our complete list: the target is 1,000 listings, or all of them if
-              the municipality has fewer. We always show the number actually assessed, not the target.</li>
-            <li>With at least 300 assessed listings a city gets an index, marked <b>provisional</b> until its sample reaches the target. A city with fewer than 300 listings in all
+              Las Palmas, Alicante, Córdoba and Valladolid), our complete list: we check <a href="#muestras">all its listings</a> over time and, until the list is complete,
+              the figure comes from a random sample. We always show the number actually assessed.</li>
+            <li>With at least 300 assessed listings a city gets an index, marked <b>provisional</b> until we've checked its whole list. A city with fewer than 300 listings in all
               (Valladolid has about 255) gets an index if we check nearly all of them: that's a full count, not a sample. With fewer, or if any of the three
               measures is missing, the city appears without an index: we never estimate a missing measure or share its weight among the others.</li>
           </ul>

@@ -129,8 +129,9 @@ def cmd_recheck(a):
 # ------------------------------------------------------------------ town samples (no Inside Airbnb data)
 SAMPLE_DIR = os.path.join(STATE_DIR, "samples")
 SAMPLE_TOWNS = {"marbella", "granada", "cordoba", "cadiz", "zaragoza", "murcia", "laspalmas", "alicante", "valladolid"}
-FRAME_MAX_AGE_DAYS = 25   # rebuild the list of a town's listings each monthly run
-SAMPLE_MAX_AGE_DAYS = 25  # …and re-check sampled listings whose last check is older than this
+FRAME_MAX_AGE_DAYS = 7    # rebuild the list of a town's listings weekly (new and removed listings show up fast)
+TOWN_CATCHUP = 600        # "--budget auto": listings never checked yet, at most this many a day per town (~1.5 h), on top of…
+#                           …the monthly re-check share (RECHECK_CYCLE_DAYS), like the Inside Airbnb cities
 
 
 def muni_locator(index):
@@ -209,15 +210,23 @@ def cmd_sample(a):
                  frame_outside=len(found) - len(inside), capped_areas=len(capped))
         json.dump(S, open(path, "w"), separators=(",", ":"))
         print(f"frame: {len(inside)} listings in {home} ({len(found) - len(inside)} outside, {len(capped)} capped areas)")
-    # Fixed random order (hash of the id): the first N of the list are a simple random sample.
-    order = sorted((r[0] for r in S["frame"]), key=lambda i: hashlib.sha1(i.encode()).hexdigest())[:a.n]
-    def stale(c):
+    # Fixed random order (hash of the id): the first N of the list are a simple random sample; --n 0 = every listing.
+    order = sorted((r[0] for r in S["frame"]), key=lambda i: hashlib.sha1(i.encode()).hexdigest())[:a.n or None]
+
+    def age(c):
         try:
-            return (datetime.now(timezone.utc) - datetime.fromisoformat(c["checked_at"].replace("Z", "+00:00"))).days >= SAMPLE_MAX_AGE_DAYS
-        except (KeyError, ValueError, TypeError):
-            return True
-    todo = [i for i in order if i not in S["checks"] or stale(S["checks"][i])]
-    print(f"sample {len(order)} of {len(S['frame'])}: {len(order) - len(todo)} already checked, {len(todo)} to go")
+            return (datetime.now(timezone.utc) - datetime.fromisoformat(c["checked_at"].replace("Z", "+00:00"))).days
+        except (KeyError, ValueError, TypeError, AttributeError):
+            return 10 ** 6
+    new = [i for i in order if i not in S["checks"]]                       # never checked: in random order
+    due = sorted((i for i in order if i in S["checks"] and age(S["checks"][i]) >= RECHECK_CYCLE_DAYS),
+                 key=lambda i: -age(S["checks"][i]))                       # then the oldest checks
+    if a.budget == "auto":   # every listing re-checked about once a month, plus a daily share of the ones never checked
+        budget = -(-len(order) // RECHECK_CYCLE_DAYS) + min(TOWN_CATCHUP, len(new))
+    else:
+        budget = int(a.budget) if a.budget else len(new) + len(due)
+    todo = (new + due)[:budget]
+    print(f"{len(order)} of {len(S['frame'])} listings in scope: {len(new)} never checked, {len(due)} due again; checking {len(todo)} this run")
     blocked, tally = 0, Counter()
     for k, lid in enumerate(todo, 1):
         if a.max_minutes and time.monotonic() - t0 > a.max_minutes * 60:
@@ -234,7 +243,7 @@ def cmd_sample(a):
         if blocked >= 3:
             print("STOP: blocked by Airbnb; will resume next run")
             break
-    S["sample_n"] = a.n
+    S["sample_n"] = a.n   # 0 = every listing in the list
     json.dump(S, open(path, "w"), separators=(",", ":"))
 
 
@@ -268,7 +277,7 @@ def sample_by_barrio(path, sm, barrios):
 def sample_summary(path, judge):
     """Town estimate from its live-checked random sample: shares with 95% intervals (Wilson)."""
     S = json.load(open(path))
-    order = sorted((r[0] for r in S["frame"]), key=lambda i: __import__("hashlib").sha1(i.encode()).hexdigest())[:S.get("sample_n", 1000)]
+    order = sorted((r[0] for r in S["frame"]), key=lambda i: __import__("hashlib").sha1(i.encode()).hexdigest())[:S.get("sample_n", 1000) or None]
     checked = [S["checks"][i] for i in order if i in S["checks"]]
     ok = [c for c in checked if c.get("live_status") == "ok"]
     ids = [i for i in order if i in S["checks"] and S["checks"][i].get("live_status") == "ok"]   # aligned with ok / items
@@ -1674,7 +1683,7 @@ def cmd_build(a):
                 elif A["slug"] in sample_items:
                     sm_ = summary["sample"]
                     rk["_verif"] = (sample_items[A["slug"]], {"source": "sample", "checked": sm_["checked"],
-                                                              "target": min(PINDEX_CFG["sample_target"], sm_["frame"]),
+                                                              "target": sm_["sample"],   # every listing in the list (or the sample asked for)
                                                               "date": (sm_.get("last_checked") or "")[:10], "frame": sm_["frame"]})
                 rk_extra[A["slug"]] = rk
             write_csv(os.path.join(SITE_DATA, A["slug"], "zonas.csv"), summary["subareas"]["rows"])
@@ -1866,7 +1875,8 @@ def main():
     p.set_defaults(f=cmd_recheck)
     p = sp.add_parser("sample")
     p.add_argument("--town", required=True, choices=sorted(SAMPLE_TOWNS))
-    p.add_argument("--n", type=int, default=1000, help="sample size")
+    p.add_argument("--n", type=int, default=0, help="sample size (0 = every listing in the town's list)")
+    p.add_argument("--budget", default="auto", help='listings to check this run, or "auto" (monthly re-checks plus a daily share of new ones)')
     p.add_argument("--max-minutes", type=float, default=0)
     p.add_argument("--refresh-frame", action="store_true", help="rebuild the list of listings even if recent")
     p.set_defaults(f=cmd_sample)

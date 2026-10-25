@@ -2,7 +2,7 @@
   publish = "site"
   functions = "netlify/functions"
   # No build step: site/data and the function data are produced by the scheduled pipeline and committed.
-  command = "echo 'static site — data built by .github/workflows/refresh.yml'"
+  command = "test -f netlify/edge-functions/site-hits.js || { echo 'netlify/edge-functions/site-hits.js missing (Shifted Labs traffic counter)'; exit 1; }"   # static site; this only refuses to deploy without the traffic counter
 
 [functions]
   node_bundler = "esbuild"

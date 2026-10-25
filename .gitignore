@@ -9,3 +9,7 @@ __pycache__/
 .DS_Store
 node_modules/
 .netlify/
+
+# Local secrets / config (never commit)
+.env
+.env.local
