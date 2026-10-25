@@ -14,6 +14,7 @@ import gzip
 import json
 import os
 import re
+import shutil
 import sqlite3
 import sys
 import time
@@ -1279,6 +1280,21 @@ def write_spain_map(w, areas_out):
 
 
 def cmd_build(a):
+    # Bulletproof build: one city or one optional step failing never stops the others. A failed city keeps its
+    # previously published files; a failed shared step keeps its previous file. Failures are listed at the end (and as
+    # GitHub annotations). Only a systemic failure (most areas failing) stops the run, so nothing half-built is committed.
+    problems = []
+
+    def guard(what, fn, default=None):
+        try:
+            return fn()
+        except Exception as e:  # noqa: BLE001
+            import traceback
+            problems.append((what, f"{type(e).__name__}: {e}"))
+            print(f"WARNING {what} failed, previous version kept: {type(e).__name__}: {e}", flush=True)
+            traceback.print_exc()
+            return default
+
     meta = json.load(open(os.path.join(REG_DIR, "register_meta.json")))
     recs = register.load_records(REG_DIR)
     index, mx = register.build_index(recs), register.max_issued(recs)
@@ -1315,33 +1331,33 @@ def cmd_build(a):
             and x.get("objects_type_id") in register.TOURIST_ACCOMMODATION_TYPES]
     # Catalonia (Barcelona city): converted to the same record shape, so buildings, barrios and search work unchanged
     cg, ca = os.path.join(CACHE, "catalunya", "generalitat.csv"), os.path.join(CACHE, "catalunya", "ajuntament_hut.csv")
-    CAT = catalunya.load_register(cg, ca) if os.path.exists(cg) and os.path.exists(ca) else {}
+    CAT = guard("register cat", lambda: catalunya.load_register(cg, ca) if os.path.exists(cg) and os.path.exists(ca) else {}, {})
     prov += [x for x in catalunya.as_register_records(CAT) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Mallorca: the Consell de Mallorca's registers, same shape
     bp = [os.path.join(CACHE, "baleares", n) for n in baleares.SOURCES]
-    BAL = baleares.load_register(bp) if all(os.path.exists(p_) for p_ in bp) else {}
+    BAL = guard("register bal", lambda: baleares.load_register(bp) if all(os.path.exists(p_) for p_ in bp) else {}, {})
     prov += [x for x in baleares.as_register_records(BAL) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Valencia: the Generalitat's register, each flat placed on its Catastro parcel
     vp = os.path.join(CACHE, "valencia", "viviendas.csv")
     cat_ = catastro.load_cached(CACHE)
     vparcels = {**((cat_.get("46900") or {}).get("parcels") or {}), **((cat_.get("03900") or {}).get("parcels") or {})}   # Valencia, Alicante
-    VLC = valencia.load_register(vp, vparcels) if os.path.exists(vp) else {}
+    VLC = guard("register vlc", lambda: valencia.load_register(vp, vparcels) if os.path.exists(vp) else {}, {})
     prov += valencia.as_register_records(VLC)
     prov += valencia.as_register_records(VLC, "03014", "ALICANTE", "ALICANTE")
     # Las Palmas de Gran Canaria: the Registro General Turístico de Canarias
-    CAN = canarias.load_register([os.path.join(CACHE, "canarias", n) for n in canarias.SOURCES])
+    CAN = guard("register can", lambda: canarias.load_register([os.path.join(CACHE, "canarias", n) for n in canarias.SOURCES]), {})
     prov += [x for x in canarias.as_register_records(CAN) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Murcia: the ITREM listings, flats placed on their Catastro parcel
-    MUR = murcia.load_register(os.path.join(CACHE, "murcia"), (catastro.load_cached(CACHE).get("30030") or {}).get("parcels") or {})
+    MUR = guard("register mur", lambda: murcia.load_register(os.path.join(CACHE, "murcia"), (catastro.load_cached(CACHE).get("30030") or {}).get("parcels") or {}), {})
     prov += [x for x in murcia.as_register_records(MUR) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Madrid: the Comunidad's register; city flats placed from the council's address points
-    MAD = madrid.load_register(os.path.join(CACHE, "madrid"))
+    MAD = guard("register mad", lambda: madrid.load_register(os.path.join(CACHE, "madrid")), {})
     prov += [x for x in madrid.as_register_records(MAD) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # Zaragoza: the Aragón register (no coordinates: in search, not on the map)
-    ARA = aragon.load_register(os.path.join(CACHE, "aragon", "vut.csv"))
+    ARA = guard("register ara", lambda: aragon.load_register(os.path.join(CACHE, "aragon", "vut.csv")), {})
     prov += aragon.as_register_records(ARA)
     # Valladolid: the Castilla y León register (a third with coordinates)
-    CYL = cyl.load_register(os.path.join(CACHE, "cyl", "registro.csv"))
+    CYL = guard("register cyl", lambda: cyl.load_register(os.path.join(CACHE, "cyl", "registro.csv")), {})
     prov += [x for x in cyl.as_register_records(CYL) if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     FN = {"madrid": lambda v, r: madrid.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], MAD),
           "aragon": lambda v, r: aragon.classify(v["registration_raw"], v["lat"], v["lon"], v["room_type"], v["min_nights"], ARA),
@@ -1354,13 +1370,14 @@ def cmd_build(a):
     # Basque Country (Bilbao, Donostia): the REATE; flats and rooms placed from their addresses where we can
     ep = [os.path.join(CACHE, "euskadi", n) for n in euskadi.SOURCES]
     gp = os.path.join(CACHE, "euskadi", "geocoded.json")
-    EUS = euskadi.load_register(ep, json.load(open(gp)) if os.path.exists(gp) else None) if os.path.exists(ep[0]) else {}
+    EUS = guard("register eus", lambda: euskadi.load_register(ep, json.load(open(gp)) if os.path.exists(gp) else None) if os.path.exists(ep[0]) else {}, {})
     prov += [x for x in euskadi.as_register_records(EUS, [A["ia_muni"] for A in AREAS if A.get("region") == "euskadi"])
              if x["objects_type_id"] in register.TOURIST_ACCOMMODATION_TYPES]
     # A region whose register couldn't be loaded (no fresh download and no cached copy) keeps what was published last time
     MISSING = {r for r, d in {"catalunya": CAT, "baleares": BAL, "euskadi": EUS, "valencia": VLC, "madrid": MAD, "aragon": ARA,
                                "cyl": CYL, "murcia": MUR, "canarias": CAN}.items() if not d}
-    prev = previous_published() if MISSING else {}
+    prev = previous_published()   # always: any city or step that fails below falls back on it
+    FAILED = set()   # areas whose build failed this run (they keep their previously published files)
     if MISSING:
         print("registers missing this run (previous figures kept):", ", ".join(sorted(MISSING)))
     agg = buildings.Aggregator()
@@ -1381,10 +1398,15 @@ def cmd_build(a):
                     or (rg_ == "valencia" and not VLC):
                 print(f"{A['slug']}: no register or listings in the cache; skipped")
                 continue
-            bal = (BAL, baleares.MuniEdges(os.path.join(os.path.dirname(p_), "neighbourhoods.geojson"))) if rg_ == "baleares" else None
-            LIST[A["slug"]] = (rows_, d_, *classify_listings(index, official, mx, d_, rows_, state.load(state_path(A["slug"])), A.get("home"),
-                                                             CAT if rg_ == "catalunya" else None, bal, EUS if rg_ == "euskadi" else None,
-                                                             FN.get(rg_)))
+            bal = guard(f"municipal edges {A['slug']}", lambda: (BAL, baleares.MuniEdges(os.path.join(os.path.dirname(p_), "neighbourhoods.geojson")))) \
+                if rg_ == "baleares" else None
+            got = guard(f"listings {A['slug']}", lambda: (rows_, d_, *classify_listings(
+                index, official, mx, d_, rows_, state.load(state_path(A["slug"])), A.get("home"), CAT if rg_ == "catalunya" else None, bal,
+                EUS if rg_ == "euskadi" else None, FN.get(rg_))))
+            if got is None:
+                FAILED.add(A["slug"])
+            else:
+                LIST[A["slug"]] = got
 
     os.makedirs(SITE_DATA, exist_ok=True)
 
@@ -1395,379 +1417,439 @@ def cmd_build(a):
 
     barrio_rent, city_rent, ryears = serpavi_barrios(BAR["malaga"], parcel_pts) if "malaga" in BAR else ({}, None, None)   # SERPAVI sections: Málaga only for now
     areas_out, hist_areas, hist_listings, listing_stats, conc, summaries, rk_extra, kept, sample_items = [], {}, {}, None, {}, {}, {}, set(), {}
-    for A in AREAS:
-        if A.get("region") in MISSING and A["slug"] in prev.get("areas", {}) and os.path.exists(os.path.join(SITE_DATA, A["slug"], "summary.json")):
-            summaries[A["slug"]] = json.load(open(os.path.join(SITE_DATA, A["slug"], "summary.json"), encoding="utf-8"))
+    def keep_previous(A):
+        """An area that failed this run: its last published entry, summary and ranking row stand."""
+        if A["slug"] in prev.get("areas", {}):
             areas_out.append(prev["areas"][A["slug"]])
             hist_areas[A["slug"]] = prev["areas"][A["slug"]].get("vut")
-            kept.add(A["slug"])
-            print(f"{A['slug']}: register missing this run; keeping the previously published figures")
+        sp = os.path.join(SITE_DATA, A["slug"], "summary.json")
+        if os.path.exists(sp):
+            summaries[A["slug"]] = json.load(open(sp, encoding="utf-8"))
+        kept.add(A["slug"])
+
+    for A in AREAS:
+        if A["slug"] in FAILED:   # its listings failed to classify above: keep what was published last time
+            keep_previous(A)
             continue
-        barrios = BAR.get(A["slug"])
-        _rows, a_snap, out, removed, by_key = LIST.get(A["slug"], (None, None, [], 0, {}))
-        has_l = A["listings"] and A["slug"] in LIST   # a listing city whose data didn't load this time is built without listings
-        recs_a = [x for x in prov if A["match"](x)]
-        vut_a = [x for x in recs_a if x.get("objects_type_id") == buildings.VUT]
-        ids_a = {agg_ids[id(x)] for x in recs_a}
-        reg = registered_summary(recs_a, agg_ids, agg)
-        census = A["kind"] == "region" or A.get("census")   # "% of homes" from the INE census, not the Catastro
-        mks = set() if census else {m for m in muni_homes if muni_prov.get(m) == CATASTRO_PROVINCE} if A["kind"] == "province" \
-            else {buildings.muni_key(A["catastro"][2])} if A.get("catastro") else {buildings.muni_key(x.get("municipalities")) for x in recs_a}
-        pcode = A["ine"][5:] if A["ine"].startswith("prov:") else None
-        in_area = (lambda c_: c_ == A["ine"]) if A["kind"] == "city" else (lambda c_: c_[:2] == pcode) if pcode \
-            else (lambda c_: c_[:2] in ANDALUSIA_INE)   # a census city: just it; a province; the region: Andalucía only
-        area_homes = sum(ine_census_homes(m) or 0 for c_, m in I["munis"].items() if in_area(c_)) if census \
-            else sum(muni_homes[m] for m in mks)
-        if area_homes:
-            reg.update(homes=area_homes, vut_share=round(100 * reg["vut"] / area_homes, 2))
-        im = I["province"] if A["ine"] == "province" else ine_region(I) if A["ine"] == "region" else ine_mallorca(I) if A["ine"] == "mallorca" \
-            else (I.get("provinces") or {}).get(pcode) if pcode else I["munis"].get(A["ine"])
-        if im and im.get("homes") is not None:
-            reg.update(ine_homes=int(im["homes"]), ine_pct=im.get("pct"), ine_period=I["period"])
-        for t in reg["top_buildings"]:
-            t[6] = homes.get(t[0])
-            if barrios is not None:
-                t[9] = barrios.lookup(t[4], t[5])[1]
-        write_csv(os.path.join(SITE_DATA, A["slug"], "edificios.csv"), [
-            {"name": t[7], "place": t[9] or t[8], "vut": t[2], "places": t[3], "homes": t[6],
-             "vut_share": round(100 * t[2] / t[6], 1) if t[6] else None} for t in reg["top_buildings"] if t[2] >= 10],
-            BUILDING_CSV_COLS)
-        reg["top_buildings"] = reg["top_buildings"][:200]
-        summary = {"slug": A["slug"], "registered": reg, "has_listings": has_l, "cap": A.get("cap"),
-                   "register": REGISTERS[A.get("region", "andalucia")],
-                   **({"snapshot_date": a_snap} if a_snap else {})}
-        hexg = geo.Hex(A["hex_m"])
+        area_dir = os.path.join(SITE_DATA, A["slug"])
+        backup = os.path.join(CACHE, "_area_backup", A["slug"])
+        shutil.rmtree(backup, ignore_errors=True)
+        if os.path.isdir(area_dir):
+            shutil.copytree(area_dir, backup)
+        try:
+            if A.get("region") in MISSING and A["slug"] in prev.get("areas", {}) and os.path.exists(os.path.join(SITE_DATA, A["slug"], "summary.json")):
+                summaries[A["slug"]] = json.load(open(os.path.join(SITE_DATA, A["slug"], "summary.json"), encoding="utf-8"))
+                areas_out.append(prev["areas"][A["slug"]])
+                hist_areas[A["slug"]] = prev["areas"][A["slug"]].get("vut")
+                kept.add(A["slug"])
+                print(f"{A['slug']}: register missing this run; keeping the previously published figures")
+                continue
+            barrios = BAR.get(A["slug"])
+            _rows, a_snap, out, removed, by_key = LIST.get(A["slug"], (None, None, [], 0, {}))
+            has_l = A["listings"] and A["slug"] in LIST   # a listing city whose data didn't load this time is built without listings
+            recs_a = [x for x in prov if A["match"](x)]
+            vut_a = [x for x in recs_a if x.get("objects_type_id") == buildings.VUT]
+            ids_a = {agg_ids[id(x)] for x in recs_a}
+            reg = registered_summary(recs_a, agg_ids, agg)
+            census = A["kind"] == "region" or A.get("census")   # "% of homes" from the INE census, not the Catastro
+            mks = set() if census else {m for m in muni_homes if muni_prov.get(m) == CATASTRO_PROVINCE} if A["kind"] == "province" \
+                else {buildings.muni_key(A["catastro"][2])} if A.get("catastro") else {buildings.muni_key(x.get("municipalities")) for x in recs_a}
+            pcode = A["ine"][5:] if A["ine"].startswith("prov:") else None
+            in_area = (lambda c_: c_ == A["ine"]) if A["kind"] == "city" else (lambda c_: c_[:2] == pcode) if pcode \
+                else (lambda c_: c_[:2] in ANDALUSIA_INE)   # a census city: just it; a province; the region: Andalucía only
+            area_homes = sum(ine_census_homes(m) or 0 for c_, m in I["munis"].items() if in_area(c_)) if census \
+                else sum(muni_homes[m] for m in mks)
+            if area_homes:
+                reg.update(homes=area_homes, vut_share=round(100 * reg["vut"] / area_homes, 2))
+            im = I["province"] if A["ine"] == "province" else ine_region(I) if A["ine"] == "region" else ine_mallorca(I) if A["ine"] == "mallorca" \
+                else (I.get("provinces") or {}).get(pcode) if pcode else I["munis"].get(A["ine"])
+            if im and im.get("homes") is not None:
+                reg.update(ine_homes=int(im["homes"]), ine_pct=im.get("pct"), ine_period=I["period"])
+            for t in reg["top_buildings"]:
+                t[6] = homes.get(t[0])
+                if barrios is not None:
+                    t[9] = barrios.lookup(t[4], t[5])[1]
+            write_csv(os.path.join(SITE_DATA, A["slug"], "edificios.csv"), [
+                {"name": t[7], "place": t[9] or t[8], "vut": t[2], "places": t[3], "homes": t[6],
+                 "vut_share": round(100 * t[2] / t[6], 1) if t[6] else None} for t in reg["top_buildings"] if t[2] >= 10],
+                BUILDING_CSV_COLS)
+            reg["top_buildings"] = reg["top_buildings"][:200]
+            summary = {"slug": A["slug"], "registered": reg, "has_listings": has_l, "cap": A.get("cap"),
+                       "register": REGISTERS[A.get("region", "andalucia")],
+                       **({"snapshot_date": a_snap} if a_snap else {})}
+            hexg = geo.Hex(A["hex_m"])
 
-        # buildings layer
-        w(f"{A['slug']}/buildings.json", {
-            "fields": ["lat", "lon", "label", "vut", "places", "other", "since", "other_types", "id", "homes"],
-            "rows": [] if A["kind"] == "region" else agg.rows(lambda b: b["id"] in ids_a, homes)})   # region: hexes only (size)
+            # buildings layer
+            w(f"{A['slug']}/buildings.json", {
+                "fields": ["lat", "lon", "label", "vut", "places", "other", "since", "other_types", "id", "homes"],
+                "rows": [] if A["kind"] == "region" else agg.rows(lambda b: b["id"] in ids_a, homes)})   # region: hexes only (size)
 
-        # hexes: licence density, plus the problem share where we have listings
-        hx = defaultdict(Counter)
-        for x in vut_a:
-            if x.get("lat") is not None:
-                hx[hexg.cell(x["lat"], x["lon"])]["reg"] += 1
-        for m in mks:
-            for la, lo, dw in parcel_pts.get(m, ()):
-                hx[hexg.cell(la, lo)]["homes"] += dw
-        if has_l:
-            for o in out:
-                c = hexg.cell(o["lat"], o["lon"])
-                hx[c]["n"] += 1
-                hx[c]["nv"] += o["verdict"] == "NOT_VALID"
-                hx[c]["ent"] += o["entire"]
-        hfeats = []
-        for (q, r_), c in hx.items():
-            p = {"reg": c["reg"]}
-            if c["homes"]:
-                p["homes"] = c["homes"]
-                if c["homes"] >= MIN_HOMES_SHARE:
-                    p["share"] = round(100 * c["reg"] / c["homes"], 1)
-                    if has_l:
-                        p["ashare"] = round(100 * c["ent"] / c["homes"], 1)
-            if c["n"] >= MIN_LISTINGS_HEX:
-                p.update(n=c["n"], nv=c["nv"], pct=round(100 * c["nv"] / c["n"]))
-            if c["reg"] or "n" in p:
-                hfeats.append({"type": "Feature", "properties": p,
-                               "geometry": {"type": "Polygon", "coordinates": [hexg.polygon(q, r_)]}})
-        w(f"{A['slug']}/hex.geojson", {"type": "FeatureCollection", "features": hfeats})
-        if not has_l and A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
-            w(f"{A['slug']}/listings_hex.geojson", frame_hexes(json.load(open(sample_path(A["slug"])))["frame"], hexg, hx))
-        # concentration (for the ranking): share of homes in ~150 m areas where registered flats exceed 10% of homes
-        tot_ = sum(f["properties"].get("homes") or 0 for f in hfeats)
-        if tot_ and A["kind"] == "city":
-            conc[A["slug"]] = (round(100 * sum(f["properties"]["homes"] for f in hfeats if (f["properties"].get("share") or 0) > 10) / tot_, 1), "area")
-        if has_l:
-            w(f"{A['slug']}/dots.json", listing_dots(out, hexg))
-        # small dot-density preview for cards and teasers: hex centres [lon, lat, flats, % not valid or -1]
-        pv = []
-        for f in hfeats:
-            ring = f["geometry"]["coordinates"][0][:6]
-            p = f["properties"]
-            if p["reg"] or "pct" in p:
-                pv.append([round(sum(c[0] for c in ring) / 6, 4), round(sum(c[1] for c in ring) / 6, 4), p["reg"], p.get("pct", -1)])
-        w(f"{A['slug']}/preview.json", pv)
-
-        if has_l:
-            summary["listings"] = listing_summary(out, removed, by_key, vut_a)
-            if A["slug"] == "malaga":
-                listing_stats = summary["listings"]
-            hist_listings[A["slug"]] = {k: summary["listings"][k] for k in ("listings", "live_checked")} | {
-                "not_valid": summary["listings"]["verdicts"]["NOT_VALID"], "snapshot": a_snap}
-            ent = sum(1 for o in out if o["entire"])
-            summary["listings"].update(entire=ent, **({"entire_share": round(100 * ent / area_homes, 2)} if area_homes else {}))
-
-        # towns without Inside Airbnb data: our own list of the town's listings (locations) and its live-checked random sample
-        frame, smp_bar = None, {}
-        if A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
-            fn_ = FN.get(A["slug"]) or FN.get(A.get("region"))
-            judge = (lambda v, f_=fn_: f_(v, None)["category"]) if fn_ \
-                else (lambda v, h=A["home"]: classify.classify(v, index, official, mx, h)["category"])
-            summary["sample"] = sample_summary(sample_path(A["slug"]), judge)
-            if barrios is not None:
-                smp_bar = sample_by_barrio(sample_path(A["slug"]), summary["sample"], barrios)
-            summary["sample"].pop("_ids")
-            sample_items[A["slug"]] = summary["sample"].pop("_items")
-            areas_extra = {"sample_pct": summary["sample"]["not_valid_pct"], "sample_checked": summary["sample"]["checked"]}
-            if not has_l:
-                frame = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
-        else:
-            areas_extra = {}
-
-        if barrios is not None:
-            bstats = defaultdict(Counter)
-            for la, lo in frame or ():   # listings per barrio from our list (no verdicts: only the sample has those)
-                bstats[barrios.lookup(la, lo)[0]]["frame"] += 1
-            for o in out:
-                bid, _ = barrios.lookup(o["lat"], o["lon"])
-                bstats[bid]["n"] += 1
-                bstats[bid]["entire"] += o["entire"]
-                bstats[bid][o["verdict"]] += 1
-                bstats[bid][o["cat"]] += 1
-            breg = defaultdict(Counter)
-            # Mallorca's sub-areas are its municipalities: count each entry in its registered one (half have no point)
-            by_muni = {baleares.muni(f["properties"]["name"]): f["properties"]["id"] for f in barrios.features} \
-                if A.get("region") == "baleares" and A["subareas"] == "municipality" else {}
-            # Registered flats by barrio need the register's coordinates: where most have none (Zaragoza, Palma…), counting
-            # only the located ones would undercount, so those barrios get no registered figures ("sin datos")
-            located = by_muni or not vut_a or sum(1 for x in vut_a if x.get("lat") is not None) / len(vut_a) >= MIN_LINKED
-            if not located:
-                print(f"{A['slug']}: {sum(1 for x in vut_a if x.get('lat') is not None)} of {len(vut_a)} registered flats located:"
-                      " no registered figures by barrio")
+            # hexes: licence density, plus the problem share where we have listings
+            hx = defaultdict(Counter)
             for x in vut_a:
-                if by_muni.get(baleares.muni(x.get("municipalities"))) is not None:   # Mallorca: by its registered municipality
-                    bid = by_muni[baleares.muni(x["municipalities"])]
-                    breg[bid]["vut"] += 1
-                    breg[bid]["places"] += x.get("tot_gen_places") or 0
-                elif x.get("lat") is not None:
-                    bid, _ = barrios.lookup(x["lat"], x["lon"])
-                    breg[bid]["vut"] += 1
-                    breg[bid]["places"] += x.get("tot_gen_places") or 0
+                if x.get("lat") is not None:
+                    hx[hexg.cell(x["lat"], x["lon"])]["reg"] += 1
             for m in mks:
                 for la, lo, dw in parcel_pts.get(m, ()):
-                    bid, _ = barrios.lookup(la, lo)
-                    breg[bid]["homes"] += dw
-            if A.get("region") == "euskadi":   # no Catastro in Euskadi: census 2021 homes per barrio (pipeline/inputs)
-                hb = json.load(open(os.path.join(PIPE, "inputs", "euskadi_homes_per_barrio_2021.json")))[A["slug"]]["homes"]
-                for f in barrios.features:
-                    breg[f["properties"]["id"]]["homes"] = hb.get(f["properties"]["name"], 0)
-            feats, rows_ = [], []
-            for f in barrios.features:
-                bid = f["properties"]["id"]
-                s, rg = bstats.get(bid, Counter()), breg.get(bid, Counter())
-                p = {"id": bid, "name": f["properties"]["name"], "listings": s["n"] if has_l else s["frame"] if frame is not None else None,
-                     "vut": rg["vut"] if located else None, "places": rg["places"] if located else None}
-                if f["properties"].get("group") and A["slug"] in boundaries.SOURCES:   # the council's district, for the table
-                    p["district"] = f["properties"]["group"]
-                if rg["homes"]:
-                    p["homes"] = rg["homes"]
-                    if rg["homes"] >= MIN_HOMES_BARRIO:
-                        if located:
-                            p["vut_share"] = round(100 * rg["vut"] / rg["homes"], 1)
+                    hx[hexg.cell(la, lo)]["homes"] += dw
+            if has_l:
+                for o in out:
+                    c = hexg.cell(o["lat"], o["lon"])
+                    hx[c]["n"] += 1
+                    hx[c]["nv"] += o["verdict"] == "NOT_VALID"
+                    hx[c]["ent"] += o["entire"]
+            hfeats = []
+            for (q, r_), c in hx.items():
+                p = {"reg": c["reg"]}
+                if c["homes"]:
+                    p["homes"] = c["homes"]
+                    if c["homes"] >= MIN_HOMES_SHARE:
+                        p["share"] = round(100 * c["reg"] / c["homes"], 1)
                         if has_l:
-                            p["airbnb_share"] = round(100 * s["entire"] / rg["homes"], 1)
-                        elif frame is not None:   # all listings (our list has no room type), not entire homes only
-                            p["listings_per_100"] = round(100 * s["frame"] / rg["homes"], 1)
-                if has_l:
-                    p["airbnb_entire"] = s["entire"]
-                sb = smp_bar.get(bid)
-                if sb:
-                    p["sample_checked"] = sb["n"]
-                    if sb["n"] >= MIN_SAMPLE_BARRIO:
-                        p.update(not_valid_pct=round(100 * sb["NOT_VALID"] / sb["n"], 1), not_valid_ci=wilson(sb["NOT_VALID"], sb["n"]))
-                if A["slug"] == "malaga" and bid in barrio_rent:
-                    p.update(barrio_rent[bid])
-                if has_l and s["n"] >= MIN_LISTINGS_AREA:
-                    p.update(not_valid_pct=round(100 * s["NOT_VALID"] / s["n"], 1),
-                             no_number=s["NO_CODE_IN_SCOPE"],
-                             bad_number=s["NOT_IN_REGISTER"] + s["MALFORMED"] + s["FOUND_OTHER_MUNICIPALITY"] + s["CANCELLED_OFFICIAL"],
-                             shared=s["VALID_CODE_SHARED"], valid=s["VALID"], exempt=s["POSSIBLY_EXEMPT"])
-                feats.append({**f, "properties": p})
-                if p["vut"] or p["listings"] or (not located and p.get("homes")):
-                    rows_.append(p)
-            w(f"{A['slug']}/barrios.geojson", {"type": "FeatureCollection", "features": feats})
-            summary["subareas"] = {"kind": "barrio" if A["subareas"] == "barrio" else A["subareas"],
-                                   "rows": sorted(rows_, key=lambda p: -p["vut"] if located else -(p["listings"] or 0))}
-            if A["slug"] in boundaries.SOURCES:   # official outlines we fetch (rta_audit/boundaries.py): which, and whose
-                summary["subareas"].update(level=boundaries.SOURCES[A["slug"]]["level"], source=boundaries.label(A["slug"]))
-            if not located:
-                summary["subareas"]["vut_located"] = False
-            if frame is not None:
-                summary["subareas"].update(listings_from="frame", min_sample=MIN_SAMPLE_BARRIO)
-            if A.get("census") and A["kind"] == "city":   # no Catastro grid: concentration by barrio instead (census homes)
-                th = sum(p.get("homes") or 0 for p in rows_)
-                if th:
-                    conc[A["slug"]] = (round(100 * sum(p.get("homes") or 0 for p in rows_ if (p.get("vut_share") or 0) > 10) / th, 1), "barrio")
-        else:
-            sk = "locality" if A["subareas"] == "barrio" else A["subareas"]   # barrios missing this time: postcodes instead
-            summary["subareas"] = {"kind": sk, "rows": subarea_rows(sk, recs_a, muni_homes, ine_by_key,
-                                                                              census=census)}
-        rent = rent_comparison(A, recs_a, out, parcel_pts, I, ine_by_key, muni_homes, barrios,
-                               summary["subareas"]["rows"] if barrios is not None else None, city_rent, ryears)
-        if rent:
-            summary["rent"] = rent
-        w(f"{A['slug']}/summary.json", summary)
-        summaries[A["slug"]] = summary
-        # ---- ranking extras (Spain's ten largest cities): the most affected circle 1 km across, and buildings
-        if any(x[2] == A["slug"] for x in RANKING):   # (Palma has had its own area since Oct 2026: no special case)
-            vut_m, mk_, out_m = vut_a, mks, out
-            hp = [p_ for m_ in mk_ for p_ in parcel_pts.get(m_, ())]
-            if not hp and A.get("census") and barrios is not None:
-                cen = A["center"][::-1]
-                hp = census_home_points(barrios, {p_["id"]: p_.get("homes") or 0 for p_ in summary["subareas"]["rows"]}, cen)
+                            p["ashare"] = round(100 * c["ent"] / c["homes"], 1)
+                if c["n"] >= MIN_LISTINGS_HEX:
+                    p.update(n=c["n"], nv=c["nv"], pct=round(100 * c["nv"] / c["n"]))
+                if c["reg"] or "n" in p:
+                    hfeats.append({"type": "Feature", "properties": p,
+                                   "geometry": {"type": "Polygon", "coordinates": [hexg.polygon(q, r_)]}})
+            w(f"{A['slug']}/hex.geojson", {"type": "FeatureCollection", "features": hfeats})
+            if not has_l and A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
+                w(f"{A['slug']}/listings_hex.geojson", frame_hexes(json.load(open(sample_path(A["slug"])))["frame"], hexg, hx))
+            # concentration (for the ranking): share of homes in ~150 m areas where registered flats exceed 10% of homes
+            tot_ = sum(f["properties"].get("homes") or 0 for f in hfeats)
+            if tot_ and A["kind"] == "city":
+                conc[A["slug"]] = (round(100 * sum(f["properties"]["homes"] for f in hfeats if (f["properties"].get("share") or 0) > 10) / tot_, 1), "area")
             if has_l:
-                lp = [(o["lat"], o["lon"]) for o in out_m]
-            elif A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
-                lp = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
-            else:
-                lp = []
-            place_of = (lambda la, lo, b=barrios: b.lookup(la, lo)[1]) if barrios is not None else None
-            rk = peak_metrics(hp, lp, [(x["lat"], x["lon"]) for x in vut_m if x.get("lat") is not None], len(vut_m), place_of,
-                              lambda la, lo, v=vut_m: postcode_place(v, la, lo) or near_place(la, lo))
-            rk.update(building_shares(homes, ref_muni, ref_pts, mk_, vut_m, agg_ids))
-            # registration verification: every listing (Inside Airbnb cities) or the live-checked random sample (towns)
-            if has_l:
-                rk["_verif"] = ([(o["cat"], o["verdict"]) for o in out_m],
-                                {"source": "full", "date": a_snap, "live_checked": sum(1 for o in out_m if o["basis"] == "live")})
-            elif A["slug"] in sample_items:
-                sm_ = summary["sample"]
-                rk["_verif"] = (sample_items[A["slug"]], {"source": "sample", "checked": sm_["checked"],
-                                                          "target": min(PINDEX_CFG["sample_target"], sm_["frame"]),
-                                                          "date": (sm_.get("last_checked") or "")[:10], "frame": sm_["frame"]})
-            rk_extra[A["slug"]] = rk
-        write_csv(os.path.join(SITE_DATA, A["slug"], "zonas.csv"), summary["subareas"]["rows"])
-        hist_areas[A["slug"]] = reg["vut"]
-        areas_out.append({k: A[k] for k in ("slug", "name", "kind", "center", "zoom", "hex_m", "subareas")} | {
-            "has_listings": has_l, "has_barrios": barrios is not None, "population": AREA_POPULATION.get(A["slug"]), "has_map": A.get("map", True) and (any(x.get("lat") is not None for x in recs_a) or bool(has_l)), "cap": A.get("cap"), "census": bool(census), "vut": reg["vut"], "vut_places": reg["vut_places"],
-            "homes": reg.get("homes"), "vut_share": reg.get("vut_share"), "ine_homes": reg.get("ine_homes"),
-            "ine_pct": reg.get("ine_pct"), "ine_period": reg.get("ine_period"), **areas_extra,
-            **({"listings": summary["listings"]["listings"], "not_valid": summary["listings"]["verdicts"]["NOT_VALID"],
-                "live_checked": summary["listings"]["live_checked"]}
-               if has_l else {})})
+                w(f"{A['slug']}/dots.json", listing_dots(out, hexg))
+            # small dot-density preview for cards and teasers: hex centres [lon, lat, flats, % not valid or -1]
+            pv = []
+            for f in hfeats:
+                ring = f["geometry"]["coordinates"][0][:6]
+                p = f["properties"]
+                if p["reg"] or "pct" in p:
+                    pv.append([round(sum(c[0] for c in ring) / 6, 4), round(sum(c[1] for c in ring) / 6, 4), p["reg"], p.get("pct", -1)])
+            w(f"{A['slug']}/preview.json", pv)
 
+            if has_l:
+                summary["listings"] = listing_summary(out, removed, by_key, vut_a)
+                if A["slug"] == "malaga":
+                    listing_stats = summary["listings"]
+                hist_listings[A["slug"]] = {k: summary["listings"][k] for k in ("listings", "live_checked")} | {
+                    "not_valid": summary["listings"]["verdicts"]["NOT_VALID"], "snapshot": a_snap}
+                ent = sum(1 for o in out if o["entire"])
+                summary["listings"].update(entire=ent, **({"entire_share": round(100 * ent / area_homes, 2)} if area_homes else {}))
+
+            # towns without Inside Airbnb data: our own list of the town's listings (locations) and its live-checked random sample
+            frame, smp_bar = None, {}
+            if A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
+                fn_ = FN.get(A["slug"]) or FN.get(A.get("region"))
+                judge = (lambda v, f_=fn_: f_(v, None)["category"]) if fn_ \
+                    else (lambda v, h=A["home"]: classify.classify(v, index, official, mx, h)["category"])
+                summary["sample"] = sample_summary(sample_path(A["slug"]), judge)
+                if barrios is not None:
+                    smp_bar = sample_by_barrio(sample_path(A["slug"]), summary["sample"], barrios)
+                summary["sample"].pop("_ids")
+                sample_items[A["slug"]] = summary["sample"].pop("_items")
+                areas_extra = {"sample_pct": summary["sample"]["not_valid_pct"], "sample_checked": summary["sample"]["checked"]}
+                if not has_l:
+                    frame = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
+            else:
+                areas_extra = {}
+
+            if barrios is not None:
+                bstats = defaultdict(Counter)
+                for la, lo in frame or ():   # listings per barrio from our list (no verdicts: only the sample has those)
+                    bstats[barrios.lookup(la, lo)[0]]["frame"] += 1
+                for o in out:
+                    bid, _ = barrios.lookup(o["lat"], o["lon"])
+                    bstats[bid]["n"] += 1
+                    bstats[bid]["entire"] += o["entire"]
+                    bstats[bid][o["verdict"]] += 1
+                    bstats[bid][o["cat"]] += 1
+                breg = defaultdict(Counter)
+                # Mallorca's sub-areas are its municipalities: count each entry in its registered one (half have no point)
+                by_muni = {baleares.muni(f["properties"]["name"]): f["properties"]["id"] for f in barrios.features} \
+                    if A.get("region") == "baleares" and A["subareas"] == "municipality" else {}
+                # Registered flats by barrio need the register's coordinates: where most have none (Zaragoza, Palma…), counting
+                # only the located ones would undercount, so those barrios get no registered figures ("sin datos")
+                located = by_muni or not vut_a or sum(1 for x in vut_a if x.get("lat") is not None) / len(vut_a) >= MIN_LINKED
+                if not located:
+                    print(f"{A['slug']}: {sum(1 for x in vut_a if x.get('lat') is not None)} of {len(vut_a)} registered flats located:"
+                          " no registered figures by barrio")
+                for x in vut_a:
+                    if by_muni.get(baleares.muni(x.get("municipalities"))) is not None:   # Mallorca: by its registered municipality
+                        bid = by_muni[baleares.muni(x["municipalities"])]
+                        breg[bid]["vut"] += 1
+                        breg[bid]["places"] += x.get("tot_gen_places") or 0
+                    elif x.get("lat") is not None:
+                        bid, _ = barrios.lookup(x["lat"], x["lon"])
+                        breg[bid]["vut"] += 1
+                        breg[bid]["places"] += x.get("tot_gen_places") or 0
+                for m in mks:
+                    for la, lo, dw in parcel_pts.get(m, ()):
+                        bid, _ = barrios.lookup(la, lo)
+                        breg[bid]["homes"] += dw
+                if A.get("region") == "euskadi":   # no Catastro in Euskadi: census 2021 homes per barrio (pipeline/inputs)
+                    hb = json.load(open(os.path.join(PIPE, "inputs", "euskadi_homes_per_barrio_2021.json")))[A["slug"]]["homes"]
+                    for f in barrios.features:
+                        breg[f["properties"]["id"]]["homes"] = hb.get(f["properties"]["name"], 0)
+                feats, rows_ = [], []
+                for f in barrios.features:
+                    bid = f["properties"]["id"]
+                    s, rg = bstats.get(bid, Counter()), breg.get(bid, Counter())
+                    p = {"id": bid, "name": f["properties"]["name"], "listings": s["n"] if has_l else s["frame"] if frame is not None else None,
+                         "vut": rg["vut"] if located else None, "places": rg["places"] if located else None}
+                    if f["properties"].get("group") and A["slug"] in boundaries.SOURCES:   # the council's district, for the table
+                        p["district"] = f["properties"]["group"]
+                    if rg["homes"]:
+                        p["homes"] = rg["homes"]
+                        if rg["homes"] >= MIN_HOMES_BARRIO:
+                            if located:
+                                p["vut_share"] = round(100 * rg["vut"] / rg["homes"], 1)
+                            if has_l:
+                                p["airbnb_share"] = round(100 * s["entire"] / rg["homes"], 1)
+                            elif frame is not None:   # all listings (our list has no room type), not entire homes only
+                                p["listings_per_100"] = round(100 * s["frame"] / rg["homes"], 1)
+                    if has_l:
+                        p["airbnb_entire"] = s["entire"]
+                    sb = smp_bar.get(bid)
+                    if sb:
+                        p["sample_checked"] = sb["n"]
+                        if sb["n"] >= MIN_SAMPLE_BARRIO:
+                            p.update(not_valid_pct=round(100 * sb["NOT_VALID"] / sb["n"], 1), not_valid_ci=wilson(sb["NOT_VALID"], sb["n"]))
+                    if A["slug"] == "malaga" and bid in barrio_rent:
+                        p.update(barrio_rent[bid])
+                    if has_l and s["n"] >= MIN_LISTINGS_AREA:
+                        p.update(not_valid_pct=round(100 * s["NOT_VALID"] / s["n"], 1),
+                                 no_number=s["NO_CODE_IN_SCOPE"],
+                                 bad_number=s["NOT_IN_REGISTER"] + s["MALFORMED"] + s["FOUND_OTHER_MUNICIPALITY"] + s["CANCELLED_OFFICIAL"],
+                                 shared=s["VALID_CODE_SHARED"], valid=s["VALID"], exempt=s["POSSIBLY_EXEMPT"])
+                    feats.append({**f, "properties": p})
+                    if p["vut"] or p["listings"] or (not located and p.get("homes")):
+                        rows_.append(p)
+                w(f"{A['slug']}/barrios.geojson", {"type": "FeatureCollection", "features": feats})
+                summary["subareas"] = {"kind": "barrio" if A["subareas"] == "barrio" else A["subareas"],
+                                       "rows": sorted(rows_, key=lambda p: -p["vut"] if located else -(p["listings"] or 0))}
+                if A["slug"] in boundaries.SOURCES:   # official outlines we fetch (rta_audit/boundaries.py): which, and whose
+                    summary["subareas"].update(level=boundaries.SOURCES[A["slug"]]["level"], source=boundaries.label(A["slug"]))
+                if not located:
+                    summary["subareas"]["vut_located"] = False
+                if frame is not None:
+                    summary["subareas"].update(listings_from="frame", min_sample=MIN_SAMPLE_BARRIO)
+                if A.get("census") and A["kind"] == "city":   # no Catastro grid: concentration by barrio instead (census homes)
+                    th = sum(p.get("homes") or 0 for p in rows_)
+                    if th:
+                        conc[A["slug"]] = (round(100 * sum(p.get("homes") or 0 for p in rows_ if (p.get("vut_share") or 0) > 10) / th, 1), "barrio")
+            else:
+                sk = "locality" if A["subareas"] == "barrio" else A["subareas"]   # barrios missing this time: postcodes instead
+                summary["subareas"] = {"kind": sk, "rows": subarea_rows(sk, recs_a, muni_homes, ine_by_key,
+                                                                                  census=census)}
+            rent = rent_comparison(A, recs_a, out, parcel_pts, I, ine_by_key, muni_homes, barrios,
+                                   summary["subareas"]["rows"] if barrios is not None else None, city_rent, ryears)
+            if rent:
+                summary["rent"] = rent
+            w(f"{A['slug']}/summary.json", summary)
+            summaries[A["slug"]] = summary
+            # ---- ranking extras (Spain's ten largest cities): the most affected circle 1 km across, and buildings
+            if any(x[2] == A["slug"] for x in RANKING):   # (Palma has had its own area since Oct 2026: no special case)
+                vut_m, mk_, out_m = vut_a, mks, out
+                hp = [p_ for m_ in mk_ for p_ in parcel_pts.get(m_, ())]
+                if not hp and A.get("census") and barrios is not None:
+                    cen = A["center"][::-1]
+                    hp = census_home_points(barrios, {p_["id"]: p_.get("homes") or 0 for p_ in summary["subareas"]["rows"]}, cen)
+                if has_l:
+                    lp = [(o["lat"], o["lon"]) for o in out_m]
+                elif A["slug"] in SAMPLE_TOWNS and os.path.exists(sample_path(A["slug"])):
+                    lp = [(r_[1], r_[2]) for r_ in json.load(open(sample_path(A["slug"])))["frame"]]
+                else:
+                    lp = []
+                place_of = (lambda la, lo, b=barrios: b.lookup(la, lo)[1]) if barrios is not None else None
+                rk = peak_metrics(hp, lp, [(x["lat"], x["lon"]) for x in vut_m if x.get("lat") is not None], len(vut_m), place_of,
+                                  lambda la, lo, v=vut_m: postcode_place(v, la, lo) or near_place(la, lo))
+                rk.update(building_shares(homes, ref_muni, ref_pts, mk_, vut_m, agg_ids))
+                # registration verification: every listing (Inside Airbnb cities) or the live-checked random sample (towns)
+                if has_l:
+                    rk["_verif"] = ([(o["cat"], o["verdict"]) for o in out_m],
+                                    {"source": "full", "date": a_snap, "live_checked": sum(1 for o in out_m if o["basis"] == "live")})
+                elif A["slug"] in sample_items:
+                    sm_ = summary["sample"]
+                    rk["_verif"] = (sample_items[A["slug"]], {"source": "sample", "checked": sm_["checked"],
+                                                              "target": min(PINDEX_CFG["sample_target"], sm_["frame"]),
+                                                              "date": (sm_.get("last_checked") or "")[:10], "frame": sm_["frame"]})
+                rk_extra[A["slug"]] = rk
+            write_csv(os.path.join(SITE_DATA, A["slug"], "zonas.csv"), summary["subareas"]["rows"])
+            hist_areas[A["slug"]] = reg["vut"]
+            areas_out.append({k: A[k] for k in ("slug", "name", "kind", "center", "zoom", "hex_m", "subareas")} | {
+                "has_listings": has_l, "has_barrios": barrios is not None, "population": AREA_POPULATION.get(A["slug"]), "has_map": A.get("map", True) and (any(x.get("lat") is not None for x in recs_a) or bool(has_l)), "cap": A.get("cap"), "census": bool(census), "vut": reg["vut"], "vut_places": reg["vut_places"],
+                "homes": reg.get("homes"), "vut_share": reg.get("vut_share"), "ine_homes": reg.get("ine_homes"),
+                "ine_pct": reg.get("ine_pct"), "ine_period": reg.get("ine_period"), **areas_extra,
+                **({"listings": summary["listings"]["listings"], "not_valid": summary["listings"]["verdicts"]["NOT_VALID"],
+                    "live_checked": summary["listings"]["live_checked"]}
+                   if has_l else {})})
+        except Exception as e:  # noqa: BLE001  one area failing never stops the others
+            import traceback
+            problems.append((f"area {A['slug']}", f"{type(e).__name__}: {e}"))
+            print(f"WARNING area {A['slug']} failed, previous version kept: {type(e).__name__}: {e}", flush=True)
+            traceback.print_exc()
+            if os.path.isdir(backup):   # undo any files this area had already rewritten
+                shutil.rmtree(area_dir, ignore_errors=True)
+                shutil.copytree(backup, area_dir)
+            for d_ in (summaries, rk_extra, conc, hist_areas, hist_listings, sample_items):
+                d_.pop(A["slug"], None)
+            areas_out[:] = [x for x in areas_out if x.get("slug") != A["slug"]]
+            FAILED.add(A["slug"])
+            keep_previous(A)
+        finally:
+            shutil.rmtree(backup, ignore_errors=True)
+
+    if len(FAILED) > len(AREAS) / 2:   # most areas failing is systemic: stop before writing any shared file
+        for what, err in problems[:5]:
+            print(f"  - {what}: {err}")
+        sys.exit(f"{len(FAILED)} of {len(AREAS)} areas failed: something systemic; not publishing this run")
     built = now()
     w("areas.json", {"built_at": built, "areas": areas_out})
-    write_spain_map(w, areas_out)
-    rk_ = ranking(I, summaries, conc, built, rk_extra, kept, prev.get("ranking", {}))
-    w("ranking.json", rk_)
-    w("index_history.json", index_history(rk_, os.path.join(SITE_DATA, "index_history.json")))
-    w("home.json", home_stats(rk_, summaries))
+    guard("national map", lambda: write_spain_map(w, areas_out))
 
-    # ---- history (one point per build day)
-    hp = os.path.join(SITE_DATA, "history.json")
-    hist = json.load(open(hp)) if os.path.exists(hp) else []
-    day = built[:10]
-    L = listing_stats
-    hist = [h for h in hist if h["date"] != day] + [{
-        "date": day, "listings": L["listings"], "not_valid": L["verdicts"]["NOT_VALID"], "valid": L["verdicts"]["VALID"],
-        "shared": L["verdicts"]["VALID_CODE_SHARED"], "registered_vut": L["registered_vut"], "snapshot": snap_date,
-        "live_checked": L["live_checked"], "areas_vut": hist_areas, "areas_listings": hist_listings}]
-    w("history.json", hist)
+    def publish_index():
+        rk_ = ranking(I, summaries, conc, built, rk_extra, kept, prev.get("ranking", {}))
+        w("ranking.json", rk_)
+        w("index_history.json", index_history(rk_, os.path.join(SITE_DATA, "index_history.json")))
+        w("home.json", home_stats(rk_, summaries))
+
+    guard("index (ranking, history, homepage)", publish_index)
+
+    def publish_history():
+        # ---- history (one point per build day)
+        hp = os.path.join(SITE_DATA, "history.json")
+        hist = json.load(open(hp)) if os.path.exists(hp) else []
+        day = built[:10]
+        L = listing_stats
+        hist = [h for h in hist if h["date"] != day] + [{
+            "date": day, "listings": L["listings"], "not_valid": L["verdicts"]["NOT_VALID"], "valid": L["verdicts"]["VALID"],
+            "shared": L["verdicts"]["VALID_CODE_SHARED"], "registered_vut": L["registered_vut"], "snapshot": snap_date,
+            "live_checked": L["live_checked"], "areas_vut": hist_areas, "areas_listings": hist_listings}]
+        w("history.json", hist)
+    guard("daily history", publish_history)
+
     w("meta.json", {"built_at": built, "register_lastUpdateData": meta["lastUpdateData"],
                     "register_downloaded_at": meta["downloaded_at"], "snapshot_date": snap_date,
                     "live_max_age_days": LIVE_MAX_AGE_DAYS, "min_listings_area": MIN_LISTINGS_AREA,
                     "min_listings_hex": MIN_LISTINGS_HEX, "location_threshold_m": classify.LOCATION_THRESHOLD_M})
 
-    # ---- function data: register lookup (all Andalucía) + search index (the province)
-    os.makedirs(FN_DATA, exist_ok=True)
-    idx = {}
-    for k, rs in index.items():
-        x = rs[0]
-        if x.get("objects_type_id") not in register.TOURIST_ACCOMMODATION_TYPES:
-            continue
-        idx[k] = [x.get("municipalities"), round(x["lat"], 5) if x.get("lat") else None,
-                  round(x["lon"], 5) if x.get("lon") else None, (x.get("group") or "")[:1],
-                  (x.get("registration_date") or "")]
-    OWN = {k: v for k, v in LIST.items() if not AREA_BY_SLUG[k].get("parent")}   # (Palma's listings are Mallorca's)
-    usage = {k: n_ for slug_, (_r, _d, _o, _rm, bk) in OWN.items() for k, v in bk.items()   # hosts (Mallorca: places) per shared code
-             for n_ in [shared_count(v, places=AREA_REGION[slug_] == "baleares")] if n_ > 1}
-    with gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "wt", encoding="utf-8") as fh:
-        json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"], "max_issued":
-                   {f"{p}/{v}": n_ for (p, v), n_ in mx.items()}, "codes": idx, "shared": usage,
-                   # listings with a minimum stay of 60+ nights (seasonal lets): the advert page doesn't show it
-                   # (Andalucía: 60+ nights; Catalonia: more than 31 days is seasonal)
-                   "long_stay": sorted(r["id"] for slug_, (rs, *_) in OWN.items() for r in rs
-                                       if int(r["minimum_nights"] or 0) >= REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
-                   # listings that say "seasonal" but whose recorded minimum stay is shorter: the claim doesn't count
-                   "seasonal_short": sorted(r["id"] for slug_, (rs, *_) in OWN.items() for r in rs
-                                            if r["minimum_nights"] and re.search(r"(?i)(exempt|exento)[^<|]*(seasonal|temporada)", r["license"] or "")
-                                            and int(r["minimum_nights"]) < REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
-                   # Catalonia (province of Barcelona): HUTB/HB/ATB numbers → [municipality, lat, lon, group]
-                   "cat": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
-                               "C" if k.startswith("HUTB") else ""] for k, v in CAT.items()},
-                   # Basque Country: EBI/LSS/HBI… numbers → [municipality, lat, lon, group (C whole flat, H rooms)]
-                   "eus": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
-                               (v.get("group") or "")[:1]] for k, v in EUS.items()},
-                   # Canarias: VV-35-1-0012345 → [municipality, lat, lon, group]; "can_short": old / short forms → key
-                   "can": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None, ""]
-                           for k, v in CAN.items() if k != "_short" and v.get("muni") and canarias._same_muni(v["muni"], "Las Palmas De Gran Canaria")
-                           or (k != "_short" and k.split("-")[1:3] == ["35", "1"])},
-                   "can_short": {s: k for s, k in (CAN.get("_short") or {}).items() if k.split("-")[1:3] in (["35", "1"], ["", ""])},
-                   # Comunidad de Madrid: VT-12345 → [municipality, lat, lon, group]
-                   "mad": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
-                               "C" if k.startswith("VT") else ""] for k, v in MAD.items()},
-                   # Aragón: VU-ZA-18-101 → key ZA-18-101 → [municipality (Zaragoza or other), lat, lon, group]
-                   "ara": {k: ["Zaragoza" if v["zaragoza"] else v["locality"].title(), None, None, "C"] for k, v in ARA.items()},
-                   # Castilla y León: 47/547 → [municipality (one in the town if any entry with the number is), lat, lon, group]
-                   "cyl": {k: (lambda h: [h["muni"], round(h["lat"], 5) if h.get("lat") else None, round(h["lon"], 5) if h.get("lon") else None,
-                                          "C" if h["flat"] else ""])(next((r for r in rs if cyl._muni(r["muni"]) == "VALLADOLID"), rs[0]))
-                           for k, rs in CYL.items()},
-                   # Región de Murcia: VV.MU.6415-1 → [municipality (Murcia or other), lat, lon, group]
-                   "mur": {k: ["Murcia" if v["in_murcia"] else "", round(v["lat"], 5) if v.get("lat") else None,
-                               round(v["lon"], 5) if v.get("lon") else None, ""] for k, v in MUR.items() if k != "_filing"},
-                   "mur_filing": MUR.get("_filing", {}),
-                   # Comunitat Valenciana: CV-VUT0012345-V → [municipality, lat, lon, group]
-                   "vlc": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
-                               "C"] for k, v in VLC.items()},
-                   # Mallorca: ETV/ETVPL/VT/H… numbers → [municipality, lat, lon, group]
-                   "bal": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
-                               "C" if k.split("/")[0] in ("ETV", "ETVPL", "VT") else ""] for k, v in BAL.items()},
-                   # date only: the source note describes a private document and stays in the private state
-                   "cancelled": {k: {"date": v.get("cancel_date")} for k, v in official.items()
-                                 if v.get("status") == "cancelled"}},
-                  fh, ensure_ascii=False, separators=(",", ":"))
-    if MISSING and prev.get("lookup"):   # keep the missing regions' number lists from the last build
-        L2 = json.load(gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "rt", encoding="utf-8"))
-        for r_ in MISSING:
-            for k_ in LOOKUP_KEYS[r_]:
-                if not L2.get(k_) and prev["lookup"].get(k_):
-                    L2[k_] = prev["lookup"][k_]
-        for k_ in ("long_stay", "seasonal_short"):
-            L2[k_] = sorted(set(L2.get(k_) or []) | set(prev["lookup"].get(k_) or []))
+    def write_function_data():
+        # ---- function data: register lookup (all Andalucía) + search index (the province)
+        os.makedirs(FN_DATA, exist_ok=True)
+        idx = {}
+        for k, rs in index.items():
+            x = rs[0]
+            if x.get("objects_type_id") not in register.TOURIST_ACCOMMODATION_TYPES:
+                continue
+            idx[k] = [x.get("municipalities"), round(x["lat"], 5) if x.get("lat") else None,
+                      round(x["lon"], 5) if x.get("lon") else None, (x.get("group") or "")[:1],
+                      (x.get("registration_date") or "")]
+        OWN = {k: v for k, v in LIST.items() if not AREA_BY_SLUG[k].get("parent")}   # (Palma's listings are Mallorca's)
+        usage = {k: n_ for slug_, (_r, _d, _o, _rm, bk) in OWN.items() for k, v in bk.items()   # hosts (Mallorca: places) per shared code
+                 for n_ in [shared_count(v, places=AREA_REGION[slug_] == "baleares")] if n_ > 1}
         with gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "wt", encoding="utf-8") as fh:
-            json.dump(L2, fh, ensure_ascii=False, separators=(",", ":"))
+            json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"], "max_issued":
+                       {f"{p}/{v}": n_ for (p, v), n_ in mx.items()}, "codes": idx, "shared": usage,
+                       # listings with a minimum stay of 60+ nights (seasonal lets): the advert page doesn't show it
+                       # (Andalucía: 60+ nights; Catalonia: more than 31 days is seasonal)
+                       "long_stay": sorted(r["id"] for slug_, (rs, *_) in OWN.items() for r in rs
+                                           if int(r["minimum_nights"] or 0) >= REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
+                       # listings that say "seasonal" but whose recorded minimum stay is shorter: the claim doesn't count
+                       "seasonal_short": sorted(r["id"] for slug_, (rs, *_) in OWN.items() for r in rs
+                                                if r["minimum_nights"] and re.search(r"(?i)(exempt|exento)[^<|]*(seasonal|temporada)", r["license"] or "")
+                                                and int(r["minimum_nights"]) < REGISTERS[AREA_REGION[slug_]]["seasonal_nights"]),
+                       # Catalonia (province of Barcelona): HUTB/HB/ATB numbers → [municipality, lat, lon, group]
+                       "cat": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                                   "C" if k.startswith("HUTB") else ""] for k, v in CAT.items()},
+                       # Basque Country: EBI/LSS/HBI… numbers → [municipality, lat, lon, group (C whole flat, H rooms)]
+                       "eus": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                                   (v.get("group") or "")[:1]] for k, v in EUS.items()},
+                       # Canarias: VV-35-1-0012345 → [municipality, lat, lon, group]; "can_short": old / short forms → key
+                       "can": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None, ""]
+                               for k, v in CAN.items() if k != "_short" and v.get("muni") and canarias._same_muni(v["muni"], "Las Palmas De Gran Canaria")
+                               or (k != "_short" and k.split("-")[1:3] == ["35", "1"])},
+                       "can_short": {s: k for s, k in (CAN.get("_short") or {}).items() if k.split("-")[1:3] in (["35", "1"], ["", ""])},
+                       # Comunidad de Madrid: VT-12345 → [municipality, lat, lon, group]
+                       "mad": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                                   "C" if k.startswith("VT") else ""] for k, v in MAD.items()},
+                       # Aragón: VU-ZA-18-101 → key ZA-18-101 → [municipality (Zaragoza or other), lat, lon, group]
+                       "ara": {k: ["Zaragoza" if v["zaragoza"] else v["locality"].title(), None, None, "C"] for k, v in ARA.items()},
+                       # Castilla y León: 47/547 → [municipality (one in the town if any entry with the number is), lat, lon, group]
+                       "cyl": {k: (lambda h: [h["muni"], round(h["lat"], 5) if h.get("lat") else None, round(h["lon"], 5) if h.get("lon") else None,
+                                              "C" if h["flat"] else ""])(next((r for r in rs if cyl._muni(r["muni"]) == "VALLADOLID"), rs[0]))
+                               for k, rs in CYL.items()},
+                       # Región de Murcia: VV.MU.6415-1 → [municipality (Murcia or other), lat, lon, group]
+                       "mur": {k: ["Murcia" if v["in_murcia"] else "", round(v["lat"], 5) if v.get("lat") else None,
+                                   round(v["lon"], 5) if v.get("lon") else None, ""] for k, v in MUR.items() if k != "_filing"},
+                       "mur_filing": MUR.get("_filing", {}),
+                       # Comunitat Valenciana: CV-VUT0012345-V → [municipality, lat, lon, group]
+                       "vlc": {k: [v.get("muni"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                                   "C"] for k, v in VLC.items()},
+                       # Mallorca: ETV/ETVPL/VT/H… numbers → [municipality, lat, lon, group]
+                       "bal": {k: [v.get("municipi"), round(v["lat"], 5) if v.get("lat") else None, round(v["lon"], 5) if v.get("lon") else None,
+                                   "C" if k.split("/")[0] in ("ETV", "ETVPL", "VT") else ""] for k, v in BAL.items()},
+                       # date only: the source note describes a private document and stays in the private state
+                       "cancelled": {k: {"date": v.get("cancel_date")} for k, v in official.items()
+                                     if v.get("status") == "cancelled"}},
+                      fh, ensure_ascii=False, separators=(",", ":"))
+        if MISSING and prev.get("lookup"):   # keep the missing regions' number lists from the last build
+            L2 = json.load(gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "rt", encoding="utf-8"))
+            for r_ in MISSING:
+                for k_ in LOOKUP_KEYS[r_]:
+                    if not L2.get(k_) and prev["lookup"].get(k_):
+                        L2[k_] = prev["lookup"][k_]
+            for k_ in ("long_stay", "seasonal_short"):
+                L2[k_] = sorted(set(L2.get(k_) or []) | set(prev["lookup"].get(k_) or []))
+            with gzip.open(os.path.join(FN_DATA, "lookup.json.gz"), "wt", encoding="utf-8") as fh:
+                json.dump(L2, fh, ensure_ascii=False, separators=(",", ":"))
 
-    clean = lambda v: " ".join(str(v).split()) if v not in (None, "", "-") else ""
-    srows = []
-    MUNI_AREA = {A["home"]: A["slug"] for A in AREAS if A.get("home") and A["slug"] in BAR}   # barrio names in search results
-    PROV_CODE = {"BARCELONA": "B", "ILLES BALEARS": "IB", "BIZKAIA": "BI", "GIPUZKOA": "SS", "VALENCIA": "V", "LAS PALMAS": "GC", "MURCIA": "MU", "ZARAGOZA": "Z", "MADRID": "M", "ALICANTE": "A", "VALLADOLID": "VA", "ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
-                 "MÁLAGA": "MA", "SEVILLA": "SE"}   # the register's own province codes (VUT/MA/…, VUT/HU/…)
-    for x in prov:
-        srows.append([x["registration_code"], buildings.KIND.get(x.get("objects_type_id"), "?"), (x.get("group") or "")[:1],
-                      buildings.street_name(x.get("municipalities")), buildings.street_name(x.get("road_name")),
-                      clean(x.get("km_num")), clean(x.get("block")), clean(x.get("portal")), clean(x.get("staircase")),
-                      clean(x.get("floor")), clean(x.get("door")), clean(x.get("domicile_complement"))[:90],
-                      clean(x.get("postal_code")), buildings.street_name(x.get("locality")), x.get("tot_gen_places") or 0,
-                      (x.get("registration_date") or "")[:8],
-                      round(x["lat"], 5) if x.get("lat") is not None else None,
-                      round(x["lon"], 5) if x.get("lon") is not None else None, agg_ids[id(x)],
-                      *((lambda b: [b[1], b[0]])(BAR[MUNI_AREA[x["municipalities"]]].lookup(x["lat"], x["lon"]))
-                        if x.get("municipalities") in MUNI_AREA and x.get("lat") is not None else [None, None]),
-                      PROV_CODE.get((x.get("provinces") or "").upper())])
-    if MISSING and prev.get("search"):   # keep the missing regions' register rows from the last build
-        codes_ = {c for r_ in MISSING for c in SEARCH_PROV[r_]}
-        srows += [r_ for r_ in prev["search"] if r_ and r_[-1] in codes_]
-    srows.sort(key=lambda r: (r[3], r[4], r[5]))
-    with gzip.open(os.path.join(FN_DATA, "search.json.gz"), "wt", encoding="utf-8") as fh:
-        json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"],
-                   "fields": ["code", "kind", "group", "muni", "street", "num", "block", "portal", "stair", "floor", "door",
-                              "complement", "postcode", "locality", "places", "registered", "lat", "lon", "building",
-                              "barrio", "barrio_id", "prov"],
-                   "rows": srows}, fh, ensure_ascii=False, separators=(",", ":"))
+        clean = lambda v: " ".join(str(v).split()) if v not in (None, "", "-") else ""
+        srows = []
+        MUNI_AREA = {A["home"]: A["slug"] for A in AREAS if A.get("home") and A["slug"] in BAR}   # barrio names in search results
+        PROV_CODE = {"BARCELONA": "B", "ILLES BALEARS": "IB", "BIZKAIA": "BI", "GIPUZKOA": "SS", "VALENCIA": "V", "LAS PALMAS": "GC", "MURCIA": "MU", "ZARAGOZA": "Z", "MADRID": "M", "ALICANTE": "A", "VALLADOLID": "VA", "ALMERÍA": "AL", "CÁDIZ": "CA", "CÓRDOBA": "CO", "GRANADA": "GR", "HUELVA": "HU", "JAÉN": "JA",
+                     "MÁLAGA": "MA", "SEVILLA": "SE"}   # the register's own province codes (VUT/MA/…, VUT/HU/…)
+        for x in prov:
+            srows.append([x["registration_code"], buildings.KIND.get(x.get("objects_type_id"), "?"), (x.get("group") or "")[:1],
+                          buildings.street_name(x.get("municipalities")), buildings.street_name(x.get("road_name")),
+                          clean(x.get("km_num")), clean(x.get("block")), clean(x.get("portal")), clean(x.get("staircase")),
+                          clean(x.get("floor")), clean(x.get("door")), clean(x.get("domicile_complement"))[:90],
+                          clean(x.get("postal_code")), buildings.street_name(x.get("locality")), x.get("tot_gen_places") or 0,
+                          (x.get("registration_date") or "")[:8],
+                          round(x["lat"], 5) if x.get("lat") is not None else None,
+                          round(x["lon"], 5) if x.get("lon") is not None else None, agg_ids[id(x)],
+                          *((lambda b: [b[1], b[0]])(BAR[MUNI_AREA[x["municipalities"]]].lookup(x["lat"], x["lon"]))
+                            if x.get("municipalities") in MUNI_AREA and x.get("lat") is not None else [None, None]),
+                          PROV_CODE.get((x.get("provinces") or "").upper())])
+        if MISSING and prev.get("search"):   # keep the missing regions' register rows from the last build
+            codes_ = {c for r_ in MISSING for c in SEARCH_PROV[r_]}
+            srows += [r_ for r_ in prev["search"] if r_ and r_[-1] in codes_]
+        srows.sort(key=lambda r: (r[3], r[4], r[5]))
+        with gzip.open(os.path.join(FN_DATA, "search.json.gz"), "wt", encoding="utf-8") as fh:
+            json.dump({"built_at": built, "register_lastUpdateData": meta["lastUpdateData"],
+                       "fields": ["code", "kind", "group", "muni", "street", "num", "block", "portal", "stair", "floor", "door",
+                                  "complement", "postcode", "locality", "places", "registered", "lat", "lon", "building",
+                                  "barrio", "barrio_id", "prov"],
+                       "rows": srows}, fh, ensure_ascii=False, separators=(",", ":"))
 
-    print({k: v["not_valid"] for k, v in hist_listings.items()}, json.dumps(L["verdicts"]), "| areas", {a["slug"]: a["vut"] for a in areas_out},
-          "| buildings", len(agg.b), "| search rows", len(srows), "| live-based", L["live_checked"])
+        return len(srows)
+    n_search = guard("register lookup and search data", write_function_data)
+
+    print("| areas", {a["slug"]: a.get("vut") for a in areas_out}, "| buildings", len(agg.b), "| search rows", n_search,
+          "| live-based", (listing_stats or {}).get("live_checked"))
+
+    # ---- what failed this run (each kept its previous version); a systemic failure stops before the commit
+    if problems:
+        print(f"\n{len(problems)} problem(s) this run; everything else was updated:")
+        for what, err in problems:
+            print(f"  - {what}: {err}")
+            print(f"::warning title=Build: {what} kept its previous version::{err[:300]}")   # GitHub Actions annotation
+        if os.environ.get("GITHUB_STEP_SUMMARY"):
+            with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as fh:
+                fh.write("### Build: kept previous versions\n\n" + "\n".join(f"- **{w_}**: {e_}" for w_, e_ in problems) + "\n")
+
 
 
 def main():
