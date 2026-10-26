@@ -1,7 +1,7 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
-Casco Viejo,215,887,4071,5.3,301,218,55,7,8,11,20.6
+Casco Viejo,215,887,4071,5.3,300,218,54,7,8,11,20.3
 Abando,194,904,12426,1.6,224,131,64,9,3,13,32.6
-Indautxu,111,518,13105,0.8,119,87,20,7,0,4,22.7
+Indautxu,111,518,13105,0.8,119,88,19,7,0,4,21.8
 San Francisco,87,332,2852,3.1,72,57,12,2,1,0,19.4
 Uribarri,70,231,6299,1.1,80,56,16,2,3,2,22.5
 Iturralde,54,199,2768,2.0,48,38,10,0,0,0,20.8
@@ -28,7 +28,7 @@ Bolueta,6,24,3084,0.2,13,,,,,,
 Txurdinaga,6,24,6168,0.1,9,,,,,,
 Zorrotza,6,20,5062,0.1,19,10,8,0,0,1,42.1
 Arabella,4,13,445,0.9,4,,,,,,
-Altamira,3,8,591,0.5,2,,,,,,
+Altamira,3,8,591,0.5,1,,,,,,
 Diseminado (Uribarri),3,24,605,0.5,3,,,,,,
 Masustegi-Monte Caramelo,3,9,1840,0.2,3,,,,,,
 Otxarkoaga,3,12,4303,0.1,9,,,,,,
