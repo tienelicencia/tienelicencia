@@ -1,7 +1,7 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 La Llotja,1100,55,13,25,4,0,13,52.7
-El Sindicat,2370,51,12,19,2,0,18,41.2
-Les Meravelles,2595,51,25,13,4,2,6,33.3
+El Sindicat,2370,51,13,18,2,0,18,39.2
+Les Meravelles,2595,50,25,13,3,2,6,32.0
 Can Pastilla,3122,41,15,14,6,0,5,48.8
 L'Arenal,3380,41,17,13,8,0,2,51.2
 Son Armadams,3803,34,5,19,2,0,8,61.8
@@ -27,14 +27,14 @@ Monti - Sion,535,17,8,4,2,0,3,35.3
 Sant Jordi,1332,16,7,0,1,3,1,6.2
 Bons Aires,7726,15,3,4,7,0,1,73.3
 Establiments,894,15,11,0,1,1,0,6.7
-El Mercat,1297,13,,,,,,
 Plaça dels Patins,1761,13,,,,,,
+El Mercat,1297,12,,,,,,
 Son Espanyolet,3197,12,,,,,,
 Arxiduc,2688,11,,,,,,
 La Calatrava,493,11,,,,,,
 Pere Garau,10396,11,,,,,,
-Portopí,1501,11,,,,,,
 Plaça de Toros,6653,10,,,,,,
+Portopí,1501,10,,,,,,
 Son Ferriol,3635,10,,,,,,
 Jaume III,1309,9,,,,,,
 Son Vida,883,9,,,,,,
