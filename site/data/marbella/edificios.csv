@@ -173,6 +173,7 @@ Mirador de Santa Maria Golf,Marbella,19,96,105,18.1
 Luis Morales 103,Marbella,19,103,47,40.4
 Los Gladiolos 1,Marbella,19,104,50,38.0
 Roy Boston 4,Marbella,19,104,94,20.2
+Camilo Jose Cela 11,Marbella,19,81,83,22.9
 Andasol 9,Marbella,19,107,76,25.0
 Mario Vargas Llosa 2B,Marbella,19,90,80,23.8
 José Banus 7,Marbella,19,125,96,19.8
@@ -186,7 +187,6 @@ Playas Andaluzas 53,Marbella,18,60,119,15.1
 El Embrujo de Banús 1,Marbella,18,135,132,13.6
 El Manantial,Marbella,18,101,66,27.3
 Noray 9,Marbella,18,116,94,19.1
-Camilo Jose Cela 11,Marbella,18,79,83,21.7
 La Reserva de Marbella 2,Marbella,18,90,75,24.0
 Pablo Casals 4,Marbella,18,68,52,34.6
 Marques de Ivanrey 1,Marbella,18,59,41,43.9
@@ -200,6 +200,7 @@ Los Alcotanes 18,Marbella,17,101,72,23.6
 Conde Rudi 61,Marbella,17,106,84,20.2
 Duque de Ahumada 16,Marbella,17,56,63,27.0
 Valeriano Rodriguez,Marbella,17,87,70,24.3
+Los Pinos del Ángel 731,Marbella,17,106,40,42.5
 Camilo Jose Cela 6,Marbella,17,53,76,22.4
 Las Tortugas de Aloha 24,Marbella,17,91,60,28.3
 Jacaranda 6,Marbella,17,74,105,16.2
@@ -208,7 +209,6 @@ Ricardo Soriano 47,Marbella,17,87,138,12.3
 Ricardo Soriano 12,Marbella,17,71,91,18.7
 Julio Iglesias 3,Marbella,17,80,84,20.2
 Monte Paraiso 8,Marbella,16,121,93,17.2
-Los Pinos del Ángel 731,Marbella,16,98,40,40.0
 Los Granados de Cabopino 4,Marbella,16,103,57,28.1
 Aries 14,Marbella,16,74,34,47.1
 Urbanización Real de Zaragoza 8,Marbella,16,119,46,34.8
@@ -348,7 +348,7 @@ Pablo Ruiz Picasso 39,Marbella,11,63,65,16.9
 Torrente Ballester 5,Marbella,11,66,116,9.5
 Los Acebos 29,Marbella,11,78,16,68.8
 Diego de Velazquez 7,Marbella,11,57,58,19.0
-Solanum 13,Marbella,11,61,48,22.9
+Solanum 30B,Marbella,11,61,48,22.9
 Albatros Hills 39,Marbella,10,54,72,13.9
 Magnolia-Santa Maria Golf 3,Marbella,10,55,21,47.6
 Fontanilla 4,Marbella,10,40,27,37.0
