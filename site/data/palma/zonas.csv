@@ -1,7 +1,7 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 La Llotja,1100,55,13,25,4,0,13,52.7
 El Sindicat,2370,51,13,18,2,0,18,39.2
-Les Meravelles,2595,50,25,13,3,2,6,32.0
+Les Meravelles,2595,49,25,13,2,2,6,30.6
 Can Pastilla,3122,41,15,14,6,0,5,48.8
 L'Arenal,3380,41,17,13,8,0,2,51.2
 Son Armadams,3803,34,5,19,2,0,8,61.8
@@ -13,9 +13,9 @@ La Casa Blanca,413,25,11,7,5,0,0,48.0
 Santa Catalina,4190,25,6,7,0,0,12,28.0
 El Pil·larí,792,24,8,14,2,0,0,66.7
 Sant Nicolau,991,23,4,11,0,0,8,47.8
-L'Aranjassa,381,22,7,0,11,2,0,50.0
 La Missió,916,22,5,9,3,0,5,54.5
 El Molinar,4329,21,13,3,0,0,5,14.3
+L'Aranjassa,381,21,7,0,10,2,0,47.6
 Sant Agustí,2672,21,11,2,2,1,5,19.0
 Sant Jaume,763,21,3,5,8,0,5,61.9
 Cala Major,3092,20,4,3,0,0,13,15.0
@@ -33,10 +33,10 @@ Son Espanyolet,3197,12,,,,,,
 Arxiduc,2688,11,,,,,,
 La Calatrava,493,11,,,,,,
 Pere Garau,10396,11,,,,,,
-Plaça de Toros,6653,10,,,,,,
 Portopí,1501,10,,,,,,
 Son Ferriol,3635,10,,,,,,
 Jaume III,1309,9,,,,,,
+Plaça de Toros,6653,9,,,,,,
 Son Vida,883,9,,,,,,
 Marqués de la Fontsanta,2662,8,,,,,,
 Son Canals,2359,7,,,,,,
