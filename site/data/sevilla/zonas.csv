@@ -1,19 +1,19 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
-Alfalfa,829,3983,3168,26.2,934,580,202,89,23,22,31.2
+Alfalfa,829,3983,3168,26.2,933,580,202,89,22,22,31.2
 Feria,669,2994,3547,18.9,573,342,132,52,19,11,32.1
 Triana Casco Antiguo,630,2931,4225,14.9,527,312,152,36,15,7,35.7
 Arenal,628,3298,2130,29.5,651,393,171,37,12,23,32.0
-Santa Cruz,601,3190,1685,35.7,685,381,179,77,7,16,37.4
+Santa Cruz,601,3190,1685,35.7,686,383,178,76,8,16,37.0
 San Bartolomé,572,2786,2359,24.2,632,412,156,36,8,8,30.4
 San Gil,504,2137,3930,12.8,364,229,74,26,16,9,27.5
-"Encarnación, Regina",454,2148,2463,18.4,438,254,106,40,11,15,33.3
-San Vicente,425,2077,3213,13.2,356,208,82,25,10,12,30.1
+"Encarnación, Regina",454,2148,2463,18.4,437,253,106,40,11,15,33.4
+San Vicente,425,2077,3213,13.2,357,209,82,25,10,12,30.0
 Santa Catalina,408,1850,2713,15.0,305,198,65,22,10,5,28.5
-Triana Este,374,1610,7395,5.1,235,145,58,12,6,11,29.8
+Triana Este,374,1610,7395,5.1,235,146,57,12,6,11,29.4
 San Lorenzo,364,1714,2564,14.2,294,167,100,11,6,5,37.8
 San Julián,314,1363,3182,9.9,231,147,51,6,9,6,24.7
 Museo,269,1430,3044,8.8,307,154,114,21,2,7,44.0
-Triana Oeste,265,1224,8164,3.2,169,91,51,8,2,6,34.9
+Triana Oeste,265,1224,8164,3.2,169,92,50,8,2,6,34.3
 Los Remedios,222,1139,11064,2.0,150,99,36,9,0,2,30.0
 San Bernardo,154,851,1917,8.0,107,71,26,4,0,1,28.0
 Nervión,123,634,7515,1.6,86,59,11,9,0,3,23.3
@@ -69,7 +69,7 @@ Las Avenidas,8,45,1484,0.5,8,,,,,,
 "Prado, Parque María Luisa",8,47,257,3.1,5,,,,,,
 Santa Clara,8,56,2731,0.3,11,,,,,,
 Villegas,8,32,2155,0.4,6,,,,,,
-Rochelambert,7,29,3003,0.2,7,,,,,,
+Rochelambert,7,29,3003,0.2,6,,,,,,
 "Santa Aurelia, Cantábrico, Atlántico, La Romería",7,31,5460,0.1,7,,,,,,
 "Tabladilla, La Estrella",7,38,2238,0.3,4,,,,,,
 Amate,6,27,1955,0.3,8,,,,,,
