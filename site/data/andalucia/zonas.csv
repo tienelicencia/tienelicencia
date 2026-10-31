@@ -1,44 +1,44 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Marbella,15762,92058,100244,15.7,6.97
-Málaga,12610,64093,261451,4.8,3.17
-Mijas,10586,58921,62014,17.1,7.2
-Sevilla,9546,46034,327217,2.9,2.12
-Benalmadena,8682,41412,48650,17.8,7.26
-Estepona,8244,45506,50329,16.4,6.68
+Marbella,15763,92062,100244,15.7,6.97
+Málaga,12609,64088,261451,4.8,3.17
+Mijas,10592,58953,62014,17.1,7.2
+Sevilla,9548,46039,327217,2.9,2.12
+Benalmadena,8685,41425,48650,17.9,7.26
+Estepona,8247,45518,50329,16.4,6.68
 Fuengirola,6362,32058,48872,13.0,5.94
-Torremolinos,5598,24697,42918,13.0,6.34
+Torremolinos,5599,24697,42918,13.0,6.34
 Nerja,4399,20759,16622,26.5,16.43
-Granada,3615,18080,141461,2.6,2.19
+Granada,3616,18084,141461,2.6,2.19
 Córdoba,3221,16604,155490,2.1,1.53
 Conil de la Frontera,3045,16372,16919,18.0,15.22
-Tarifa,2996,15698,13598,22.0,13.87
+Tarifa,2997,15703,13598,22.0,13.87
 Manilva,2858,15148,18006,15.9,6.92
-Vera,2845,13133,20948,13.6,5.59
-Chiclana de la Frontera,2668,15802,49159,5.4,3.33
+Vera,2843,13122,20948,13.6,5.59
+Chiclana de la Frontera,2669,15806,49159,5.4,3.33
 Cádiz,2371,11225,56577,4.2,2.6
 Velez-Malaga,2331,12439,50356,4.6,2.25
-Roquetas de Mar,2321,10822,62275,3.7,1.67
-Benahavis,2251,14280,9535,23.6,9.03
+Roquetas de Mar,2321,10820,62275,3.7,1.67
+Benahavis,2251,14284,9535,23.6,9.03
 Almuñecar,2205,11702,29744,7.4,5.08
-Torrox,2003,9193,20128,10.0,6.26
-Mojacar,1944,9915,9663,20.1,10.69
+Torrox,2004,9197,20128,10.0,6.26
+Mojacar,1943,9911,9663,20.1,10.69
 "Puerto de Santa Maria, el",1831,10601,49175,3.7,2.06
-Almería,1708,8643,101053,1.7,0.95
-Ayamonte,1616,8133,17724,9.1,5.58
+Almería,1709,8649,101053,1.7,0.95
+Ayamonte,1617,8137,17724,9.1,5.58
 Casares,1561,8383,7726,20.2,9.28
 Sanlucar de Barrameda,1496,8294,34512,4.3,2.46
 Jerez de la Frontera,1457,7284,93274,1.6,1.13
 Rincon de la Victoria,1402,7878,27647,5.1,2.38
-Nijar,1315,6963,15502,8.5,6.87
-Monachil,1254,6558,7906,15.9,8.98
+Nijar,1316,6967,15502,8.5,6.87
+Monachil,1255,6562,7906,15.9,8.98
 San Roque,1248,8491,19641,6.4,2.51
-Rota,1152,6325,26914,4.3,1.75
+Rota,1151,6321,26914,4.3,1.75
 Barbate,1044,5264,14120,7.4,6.19
 Pulpi,910,4545,8664,10.5,4.49
 Chipiona,761,4288,19891,3.8,1.83
 Ronda,738,3861,19462,3.8,3.16
-Isla Cristina,587,3201,18655,3.1,1.71
-Salobreña,561,3525,11601,4.8,3.56
+Isla Cristina,586,3196,18655,3.1,1.71
+Salobreña,562,3535,11601,4.8,3.56
 Carboneras,517,2612,6285,8.2,4.28
 Ojen,497,2729,3818,13.0,5.37
 Alhaurin de la Torre,462,3452,17034,2.7,1.45
@@ -47,7 +47,7 @@ Vejer de la Frontera,429,2013,8392,5.1,9.39
 "Ejido, el",373,1764,39756,0.9,0.41
 Algarrobo,365,1621,5549,6.6,3.55
 Lepe,358,1934,21910,1.6,0.89
-Cartaya,332,1929,13632,2.4,2.01
+Cartaya,331,1923,13632,2.4,2.01
 Cuevas del Almanzora,309,1580,10494,2.9,1.62
 Frigiliana,302,1475,3071,9.8,13.45
 Alhaurin el Grande,295,1894,13125,2.2,1.6
@@ -83,7 +83,7 @@ Velez de Benaudalla,80,380,2463,3.2,2.03
 Camas,77,403,13125,0.6,0.32
 Ecija,76,420,18611,0.4,0.36
 Armilla,73,418,11304,0.6,0.46
-Tomares,72,412,10303,0.7,0.33
+Tomares,73,420,10303,0.7,0.33
 Alcaucin,72,414,2471,2.9,2.63
 Güejar Sierra,70,396,2189,3.2,2.65
 Cenes de la Vega,69,345,4160,1.7,1.25
@@ -104,11 +104,11 @@ Grazalema,46,247,1858,2.5,3.23
 "Ronquillo, el",46,236,1325,3.5,1.66
 Palos de la Frontera,45,298,5062,0.9,0.81
 Cartama,44,279,12708,0.3,0.48
-Andujar,42,216,20000,0.2,0.24
+Andujar,41,211,20000,0.2,0.24
 Canillas de Aceituno,39,241,1901,2.1,3.42
 Sanlucar la Mayor,38,253,7188,0.5,0.32
+Alcala de los Gazules,38,170,3396,1.1,1.06
 Bormujos,37,182,9200,0.4,0.5
-Alcala de los Gazules,37,166,3396,1.1,1.06
 Viñuela,36,223,1519,2.4,4.28
 Casarabonela,36,231,2147,1.7,1.63
 "Gabias, las",34,218,11667,0.3,0.24
@@ -177,6 +177,7 @@ Pizarra,17,92,4600,0.4,0.5
 Alcala la Real,17,68,13684,0.1,0.19
 Ubrique,16,56,8276,0.2,0.29
 Mancha Real,16,98,6667,0.2,0.15
+"Castillo de las Guardas, el",16,113,1884,0.8,0.69
 Gerena,16,106,3636,0.4,0.44
 Marchena,15,100,11176,0.1,0.34
 Churriana de la Vega,15,76,7778,0.2,0.18
@@ -189,7 +190,6 @@ Alcala del Rio,15,68,5714,0.3,0.21
 Dilar,15,80,1159,1.3,0.69
 Iznate,15,61,588,2.6,1.87
 Lanjaron,15,75,2759,0.5,1.45
-"Castillo de las Guardas, el",15,105,1884,0.8,0.69
 "Barrios, los",15,87,10769,0.1,0.13
 Pampaneira,15,108,386,3.9,2.85
 Cullar Vega,14,92,3175,0.4,0.63
@@ -202,14 +202,13 @@ Valle de Abdalajis,14,77,1405,1.0,1.85
 Atarfe,14,105,10400,0.1,0.25
 Montoro,13,76,5714,0.2,0.21
 Rubite,13,57,549,2.4,4.01
-Huercal-Overa,13,57,11000,0.1,0.4
 Castilblanco de los Arroyos,13,94,3810,0.3,0.21
 Santa Fe,13,61,7500,0.2,0.16
 Lora del Rio,13,80,9286,0.1,0.14
 Mairena del Alcor,12,84,10000,0.1,0.17
-Zurgena,12,72,2128,0.6,0.47
 Velez-Rubio,12,87,4815,0.2,0.54
 Cantillana,12,71,5472,0.2,0.53
+Huercal-Overa,12,54,11000,0.1,0.4
 Osuna,12,67,8000,0.1,0.15
 Constantina,12,74,3937,0.3,1.27
 "Cuervo de Sevilla, el",12,64,3846,0.3,0.13
@@ -217,6 +216,7 @@ Durcal,12,74,4426,0.3,0.61
 Lecrin,12,66,1751,0.7,1.77
 Sorvilan,12,60,780,1.5,2.05
 Huescar,12,87,5882,0.2,0.17
+Zurgena,11,66,2128,0.5,0.47
 Riogordo,11,80,2018,0.5,1.14
 Baza,11,76,11333,0.1,0.15
 Velez-Blanco,11,70,2417,0.5,1.2
@@ -245,6 +245,7 @@ Colmenar,9,69,2381,0.4,0.63
 Albox,9,55,6964,0.1,0.56
 Laujar de Andarax,9,62,1500,0.6,0.2
 Montefrio,9,64,4086,0.2,0.93
+Montecorto,9,66,532,1.7,4.32
 Nevada,9,57,1228,0.7,0.57
 "Valle, el",9,53,930,1.0,1.72
 Luque,9,50,2099,0.4,0.81
@@ -253,7 +254,6 @@ Alhama de Almeria,8,40,2321,0.3,0.56
 Martos,8,36,14286,0.1,0.14
 Ohanes,8,37,789,1.0,0.76
 Moclinejo,8,49,643,1.2,1.4
-Montecorto,8,62,532,1.5,4.32
 Capileira,8,35,636,1.3,4.4
 Sedella,8,40,895,0.9,1.9
 Canillas de Albaida,8,38,923,0.9,3.9
@@ -277,7 +277,6 @@ Paterna de Rivera,7,34,2667,0.3,0.15
 Jimera de Libar,7,54,523,1.3,1.53
 Nigüelas,7,50,882,0.8,2.38
 Villanueva del Rio y Minas,7,69,3000,0.2,0.1
-Doña Mencia,7,26,2308,0.3,0.52
 Castellar de la Frontera,7,37,1429,0.5,0.42
 Salar,7,45,1698,0.4,0.53
 Antas,7,48,1948,0.4,0.77
@@ -295,6 +294,7 @@ Umbrete,6,63,3810,0.2,0.21
 Bubion,6,24,520,1.2,5.0
 Benarraba,6,28,447,1.3,1.79
 Montellano,6,42,3939,0.2,0.33
+Doña Mencia,6,22,2308,0.3,0.52
 Cantoria,6,31,2500,0.2,0.36
 "Puebla de Cazalla, la",6,32,5333,0.1,0.15
 Villanueva de Tapia,6,28,943,0.6,0.53
@@ -302,6 +302,7 @@ Atajate,6,36,234,2.6,2.56
 "Gastor, el",6,27,1222,0.5,6.79
 Quentar,6,40,777,0.8,1.03
 Gorafe,5,29,426,1.2,3.76
+Dalias,5,36,2222,0.2,0.27
 "Palacios y Villafranca, los",5,39,16000,0.0,0.05
 Hinojos,5,38,2273,0.2,0.44
 Macharaviaya,5,20,306,1.6,2.29
@@ -309,6 +310,7 @@ Segura de la Sierra,5,33,1829,0.3,1.64
 Felix,5,43,714,0.7,0.14
 Benamargosa,5,34,1111,0.5,0.9
 Huetor de Santillan,5,30,1250,0.4,0.56
+"Carlota, la",5,25,7000,0.1,0.1
 Villacarrillo,5,30,6923,0.1,0.13
 Lucainena de las Torres,5,20,625,0.8,0.16
 Alcolea,5,40,746,0.7,0.67
@@ -324,7 +326,6 @@ Belmez,5,30,2105,0.2,0.19
 Humilladero,4,32,1707,0.2,0.41
 Alameda,4,35,2500,0.2,0.12
 Villamena,4,29,734,0.5,1.09
-Dalias,4,30,2222,0.2,0.27
 Olivares,4,29,4000,0.1,0.05
 Aznalcollar,4,21,2500,0.2,0.04
 Brenes,4,26,5000,0.1,0.02
@@ -337,7 +338,6 @@ Pozo Alcon,4,21,3276,0.1,1.74
 Albuñuelas,4,18,882,0.5,0.34
 Huercal de Almeria,4,16,6667,0.1,0.06
 Igualeja,4,29,604,0.7,1.49
-"Carlota, la",4,20,7000,0.1,0.1
 Gilena,4,45,1905,0.2,0.21
 Mollina,4,28,2857,0.1,0.14
 Valverde del Camino,4,27,6667,0.1,0.09
@@ -456,7 +456,7 @@ Galera,2,14,2376,0.1,1.01
 Lugros,2,12,316,0.6,0.95
 Santiago-Pontones,2,6,3119,0.1,1.09
 Alcaracejos,2,11,1389,0.1,0.36
-Porcuna,2,10,,,0.0
+Porcuna,2,8,,,0.0
 Alcala del Valle,2,23,2381,0.1,0.21
 Zalamea la Real,2,7,2353,0.1,0.17
 "Luisiana, la",2,19,2000,0.1,0.05
@@ -534,16 +534,17 @@ Peñarroya-Pueblonuevo,1,6,6250,0.0,0.08
 Alpandeire,1,2,328,0.3,0.61
 Lijar,1,2,,,0.0
 Caniles,1,8,2500,0.0,0.08
-Morelabor,1,2,,,0.0
-Beas,1,11,3333,0.0,0.15
-Senes,1,4,400,0.2,0.25
-Arenas del Rey,1,5,521,0.2,0.96
-Santa Cruz del Comercio,1,15,417,0.2,0.24
 Algarinejo,1,2,2143,0.0,0.7
 Macael,1,2,2857,0.0,0.07
-Padules,1,6,,,0.0
-Espiel,1,12,1429,0.1,0.14
+Morelabor,1,2,,,0.0
+Beas,1,11,3333,0.0,0.15
+Arenas del Rey,1,5,521,0.2,0.96
+Santa Cruz del Comercio,1,15,417,0.2,0.24
+Dolar,1,8,,,0.0
+Senes,1,4,400,0.2,0.25
+Alosno,1,8,2500,0.0,0.04
 Ferreira,1,3,,,0.0
+Espiel,1,12,1429,0.1,0.14
 Hinojosa del Duque,1,5,5000,0.0,0.04
 Marmolejo,1,5,3889,0.0,0.18
 Ibros,1,5,1667,0.1,0.12
@@ -561,5 +562,4 @@ Rioja,1,4,800,0.1,0.25
 Salares,1,10,287,0.3,3.48
 Villanueva de las Torres,1,8,526,0.2,0.57
 Espera,1,14,2000,0.1,0.1
-Dolar,1,8,,,0.0
-Alosno,1,8,2500,0.0,0.04
+Padules,1,6,,,0.0

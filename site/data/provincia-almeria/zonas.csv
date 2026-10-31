@@ -1,9 +1,9 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Vera,2845,13133,20948,13.6,5.59
-Roquetas de Mar,2321,10822,62275,3.7,1.67
-Mojacar,1944,9915,9663,20.1,10.69
-Almería,1708,8643,101053,1.7,0.95
-Nijar,1315,6963,15502,8.5,6.87
+Vera,2843,13122,20948,13.6,5.59
+Roquetas de Mar,2321,10820,62275,3.7,1.67
+Mojacar,1943,9911,9663,20.1,10.69
+Almería,1709,8649,101053,1.7,0.95
+Nijar,1316,6967,15502,8.5,6.87
 Pulpi,910,4545,8664,10.5,4.49
 Carboneras,517,2612,6285,8.2,4.28
 "Ejido, el",373,1764,39756,0.9,0.41
@@ -17,9 +17,9 @@ Arboleas,26,130,2791,0.9,0.86
 Fondon,18,104,1444,1.2,0.9
 Tabernas,17,117,2642,0.6,1.06
 Bedar,15,82,994,1.5,1.61
-Huercal-Overa,13,57,11000,0.1,0.4
-Zurgena,12,72,2128,0.6,0.47
 Velez-Rubio,12,87,4815,0.2,0.54
+Huercal-Overa,12,54,11000,0.1,0.4
+Zurgena,11,66,2128,0.5,0.47
 Velez-Blanco,11,70,2417,0.5,1.2
 Enix,11,55,760,1.4,2.5
 Berja,10,58,6667,0.1,0.15
@@ -30,10 +30,10 @@ Alhama de Almeria,8,40,2321,0.3,0.56
 Ohanes,8,37,789,1.0,0.76
 Antas,7,48,1948,0.4,0.77
 Cantoria,6,31,2500,0.2,0.36
+Dalias,5,36,2222,0.2,0.27
 Felix,5,43,714,0.7,0.14
 Lucainena de las Torres,5,20,625,0.8,0.16
 Alcolea,5,40,746,0.7,0.67
-Dalias,4,30,2222,0.2,0.27
 Pechina,4,28,2692,0.1,0.26
 Huercal de Almeria,4,16,6667,0.1,0.06
 Benahadux,4,24,2222,0.2,0.09
@@ -67,8 +67,8 @@ Fines,1,6,1200,0.1,0.25
 Tijola,1,5,2308,0.0,0.13
 Chirivel,1,6,1481,0.1,0.27
 Lijar,1,2,,,0.0
-Senes,1,4,400,0.2,0.25
 Macael,1,2,2857,0.0,0.07
-Padules,1,6,,,0.0
+Senes,1,4,400,0.2,0.25
 Abrucena,1,6,921,0.1,0.76
 Rioja,1,4,800,0.1,0.25
+Padules,1,6,,,0.0
