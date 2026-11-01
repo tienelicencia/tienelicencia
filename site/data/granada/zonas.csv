@@ -1,32 +1,32 @@
-﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas
-Centro - Sagrario,919,4362,9684,9.5
-Albayzin,757,3715,3594,21.1
-Realejo - San Matias,692,3341,5994,11.5
-Figares,330,1807,11654,2.8
-Zaidin - Vergeles,170,852,22735,0.7
-Camino de Ronda,160,923,14749,1.1
-San Ildefonso,156,749,3714,4.2
-Pajaritos,46,256,4610,1.0
-Cervantes,43,247,6116,0.7
-Chana - Encina - Angustias,39,195,9828,0.4
-Doctores - Plaza de Toros,37,213,4273,0.9
-Carretera de la Sierra,30,169,2509,1.2
-Barriada de la Cruz,27,129,6857,0.4
-San Francisco Javier,19,104,2476,0.8
-Bola de Oro,18,82,671,2.7
-Camino de los Neveros,18,95,2664,0.7
-Cerrillo de Maracena,18,86,3565,0.5
-Haza Grande,18,84,876,2.1
-Sacromonte,18,107,241,7.5
-Castaño - Mirasierra,16,92,2807,0.6
-Lancha del Genil,14,86,997,1.4
-Campo Verde,8,40,1418,0.6
-Parque de la Rosaleda,6,42,2717,0.2
-El Fargue,5,47,427,1.2
-Joaquina Eguaras,4,24,4628,0.1
-Parque Nueva Granada,4,18,1447,0.3
-Bobadilla,2,14,243,0.8
-Caseria de Montijo,2,13,1393,0.1
-Almanjayar,1,7,2178,0.0
-Cartuja,1,8,3235,0.0
-Rey Badis,1,2,1093,0.1
+﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
+Centro - Sagrario,919,4362,9684,9.5,843,8.7,302,31.8
+Albayzin,757,3715,3594,21.1,572,15.9,212,27.8
+Realejo - San Matias,692,3341,5994,11.5,508,8.5,185,24.9
+Figares,330,1807,11654,2.8,229,2.0,83,28.9
+Zaidin - Vergeles,170,852,22735,0.7,113,0.5,43,20.9
+Camino de Ronda,160,923,14749,1.1,103,0.7,37,18.9
+San Ildefonso,156,749,3714,4.2,81,2.2,33,15.2
+Pajaritos,46,256,4610,1.0,36,0.8,15,
+Cervantes,43,247,6116,0.7,30,0.5,11,
+Chana - Encina - Angustias,39,195,9828,0.4,15,0.2,4,
+Doctores - Plaza de Toros,37,213,4273,0.9,22,0.5,11,
+Carretera de la Sierra,30,169,2509,1.2,15,0.6,6,
+Barriada de la Cruz,27,129,6857,0.4,20,0.3,6,
+San Francisco Javier,19,104,2476,0.8,3,0.1,,
+Bola de Oro,18,82,671,2.7,7,1.0,4,
+Camino de los Neveros,18,95,2664,0.7,8,0.3,3,
+Cerrillo de Maracena,18,86,3565,0.5,4,0.1,2,
+Haza Grande,18,84,876,2.1,13,1.5,7,
+Sacromonte,18,107,241,7.5,34,14.1,12,
+Castaño - Mirasierra,16,92,2807,0.6,9,0.3,6,
+Lancha del Genil,14,86,997,1.4,17,1.7,4,
+Campo Verde,8,40,1418,0.6,1,0.1,1,
+Parque de la Rosaleda,6,42,2717,0.2,5,0.2,1,
+El Fargue,5,47,427,1.2,5,1.2,1,
+Joaquina Eguaras,4,24,4628,0.1,10,0.2,3,
+Parque Nueva Granada,4,18,1447,0.3,2,0.1,2,
+Bobadilla,2,14,243,0.8,0,0.0,,
+Caseria de Montijo,2,13,1393,0.1,2,0.1,1,
+Almanjayar,1,7,2178,0.0,1,0.0,,
+Cartuja,1,8,3235,0.0,0,0.0,,
+Rey Badis,1,2,1093,0.1,1,0.1,1,
