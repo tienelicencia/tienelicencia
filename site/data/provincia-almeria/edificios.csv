@@ -1,5 +1,5 @@
 ﻿edificio,barrio_o_municipio,viviendas_turisticas,plazas
-Juan Sebastian el Cano 3,Vera,148,621
+Juan Sebastian el Cano 3,Vera,147,617
 Tomillo 2,Vera,140,685
 Madrid 9,Pulpi,134,671
 Ciudad de Alicante 6,Vera,121,591
@@ -8,7 +8,7 @@ Sotavento 2,Vera,90,434
 España 2,Pulpi,88,407
 Pintor Morales 2,Mojacar,86,342
 Mirador de la Marina 2,Mojacar,83,350
-Ciudad de Tarragona 3,Vera,80,308
+Ciudad de Tarragona 3,Vera,78,300
 Tortuga Boba 3,Vera,70,220
 Moro Manco 1,Mojacar,65,312
 Lisboa 2,Pulpi,62,306
@@ -20,16 +20,16 @@ Alcazaba 115,Vera,54,281
 Juan Sebastian el Cano 72,Vera,53,203
 Torre Bahia 1,Roquetas de Mar,52,161
 Cortijos del Sotillo E1-1,Nijar,50,308
-Madrid 8,Pulpi,50,221
 Ciudad de Alicante 1,Vera,49,242
+Madrid 8,Pulpi,49,217
 Del Generalife 2,Vera,48,223
 Clara Campoamor 7,Mojacar,47,241
 Tortuga Boba 5,Vera,46,158
 Del Mediterraneo 409,Mojacar,46,271
 Ciudad de Cadiz 9,Roquetas de Mar,44,235
 Playa Paraiso 1,Roquetas de Mar,44,161
-Del Mulhacen 1,Vera,44,224
 Islas Canarias 9,Vera,43,200
+Del Mulhacen 1,Vera,43,218
 Viena 2,Pulpi,42,199
 Juan Sebastian el Cano 72,Vera,40,147
 Del Mar 9,Mojacar,40,195
@@ -117,7 +117,6 @@ Dique 10,"Ejido, el",17,90
 Mirafondo 18,"Ejido, el",17,70
 Murillo 2,Garrucha,17,91
 La Garrofa 9,Almería,17,73
-Espejo del Mar 72,Almería,17,88
 Alegria 7,Mojacar,16,78
 Sudamerica 204,Roquetas de Mar,16,76
 Ciudad de Murcia 4,Vera,16,94
@@ -128,6 +127,7 @@ Palo Mayor 14,"Ejido, el",16,57
 De las Gaviotas 49,Roquetas de Mar,16,56
 Mar Egeo 4,Roquetas de Mar,16,61
 Alameda 83,Roquetas de Mar,16,72
+Espejo del Mar 72,Almería,16,82
 Nuñez de Balboa 8,Vera,15,56
 Magallanes 7,Vera,15,64
 Monte Mahimon 1,Vera,15,79
@@ -184,7 +184,6 @@ Sierra Almagro 2,Vera,12,64
 Jose Artes de Arcos 32,Almería,12,45
 Sabinar 34,Roquetas de Mar,12,56
 Mar Azul 131,"Ejido, el",12,58
-Del Pocico 1,Roquetas de Mar,12,53
 Duende 3,Mojacar,11,66
 Lawrence de Arabia 1,Carboneras,11,49
 Del Mediterraneo 227,Mojacar,11,46
@@ -195,7 +194,6 @@ Islas Canarias 1,Vera,11,48
 Cala Chica 2,Nijar,11,46
 Ancla 40,Nijar,11,53
 Jesus de Perceval 23,Mojacar,11,57
-Entremares 1,Roquetas de Mar,11,46
 Calar Alto 1,Vera,11,52
 Sierra de Maria 3,Vera,11,49
 Los Castaños 1,Roquetas de Mar,11,52
@@ -209,6 +207,7 @@ De Torres 84,Roquetas de Mar,11,48
 Lerida 5,Vera,11,36
 Rosita Ferrer 7,Roquetas de Mar,11,52
 Villa Pepita 1,Almería,11,52
+El Pocico 1,Roquetas de Mar,11,49
 Puerto Rey 2,Vera,11,51
 Alameda 61,Roquetas de Mar,11,41
 De los Motores 110,Roquetas de Mar,11,43
@@ -231,6 +230,7 @@ Puerto Rey 19,Vera,10,52
 Cerro Negro 2,Nijar,10,46
 Rambla 4,Mojacar,10,36
 Caceres 6,Roquetas de Mar,10,58
+Entremares 1,Roquetas de Mar,10,42
 Avicena 16,Mojacar,10,73
 Fielato 21,Carboneras,10,48
 Brasilia 2,Roquetas de Mar,10,39
