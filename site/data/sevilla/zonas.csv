@@ -1,26 +1,26 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
-Alfalfa,829,3983,3168,26.2,930,578,201,89,22,22,31.2
+Alfalfa,829,3983,3168,26.2,929,577,201,89,22,22,31.2
 Feria,669,2994,3547,18.9,573,342,132,52,19,11,32.1
 Triana Casco Antiguo,629,2925,4225,14.9,527,315,149,36,15,7,35.1
 Arenal,628,3298,2130,29.5,650,393,170,37,12,23,31.8
 Santa Cruz,600,3186,1685,35.6,685,383,178,76,8,16,37.1
-San Bartolomé,572,2786,2359,24.2,633,414,156,35,8,8,30.2
+San Bartolomé,572,2786,2359,24.2,631,412,156,35,8,8,30.3
 San Gil,504,2137,3930,12.8,362,228,74,26,15,9,27.6
-"Encarnación, Regina",454,2148,2463,18.4,434,251,106,39,11,15,33.4
-San Vicente,425,2077,3213,13.2,358,210,82,25,10,12,29.9
-Santa Catalina,408,1850,2713,15.0,305,199,65,21,10,5,28.2
+"Encarnación, Regina",454,2148,2463,18.4,434,252,105,39,11,15,33.2
+San Vicente,425,2077,3213,13.2,358,210,81,26,10,12,29.9
+Santa Catalina,408,1850,2713,15.0,306,200,65,21,10,5,28.1
 Triana Este,374,1610,7395,5.1,234,145,57,12,6,11,29.5
 San Lorenzo,364,1714,2564,14.2,294,167,100,10,7,5,37.4
 San Julián,314,1363,3182,9.9,232,148,51,6,9,6,24.6
 Museo,269,1430,3044,8.8,307,155,113,21,2,7,43.6
 Triana Oeste,265,1224,8164,3.2,170,93,50,8,2,6,34.1
-Los Remedios,222,1139,11064,2.0,150,99,36,9,0,2,30.0
-San Bernardo,154,851,1917,8.0,107,71,26,4,0,1,28.0
+Los Remedios,222,1139,11064,2.0,150,100,35,9,0,2,29.3
+San Bernardo,154,851,1917,8.0,107,72,25,4,0,1,27.1
 Nervión,123,634,7515,1.6,86,59,11,9,0,3,23.3
 an Roque,120,623,2272,5.3,112,68,28,3,3,2,27.7
 La Buhaira,88,467,5922,1.5,60,38,7,3,1,2,16.7
 San José Obrero,85,413,4952,1.7,53,38,4,6,2,3,18.9
-"Doctor Barraquer, G. Renfe, Policlínico",79,317,2166,3.6,55,41,10,3,0,0,23.6
+"Doctor Barraquer, G. Renfe, Policlínico",79,317,2166,3.6,55,42,9,3,0,0,21.8
 "León XIII, Los Naranjos",65,303,2988,2.2,41,37,0,2,0,2,4.9
 "Cruz Roja, Capuchinos",61,317,2828,2.2,56,38,12,6,0,0,32.1
 "El Tardón, El Carmen",59,286,3829,1.5,30,21,8,1,0,0,30.0
@@ -54,9 +54,9 @@ San Pablo D y E,14,70,3289,0.4,6,,,,,,
 "Pedro Salvador, Las Palmeritas",13,68,1712,0.8,8,,,,,,
 Giralda Sur,12,56,1743,0.7,8,,,,,,
 "Begoña, Santa Catalina",11,51,1688,0.7,13,,,,,,
-Heliópolis,11,80,559,2.0,8,,,,,,
+Heliópolis,11,80,559,2.0,7,,,,,,
 "La Paz, Las Golondrinas",11,47,1657,0.7,9,,,,,,
-Polígono Sur,11,51,6471,0.2,10,,,,,,
+Polígono Sur,11,51,6471,0.2,9,,,,,,
 "Hermandades, La Carrasca",10,43,2374,0.4,9,,,,,,
 Palmete,10,71,6679,0.1,6,,,,,,
 Bda. Pino Montano,9,35,12737,0.1,7,,,,,,
