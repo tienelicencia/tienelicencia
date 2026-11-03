@@ -118,6 +118,7 @@ Miguel Delibes 18,Marbella,55,283,357,15.4
 Los Avellanos 14,Estepona,55,299,213,25.8
 Jacaranda 1,Torrox,55,248,131,42.0
 Aralia 12,Mijas,55,317,166,33.1
+Decano Pedro Navarrete 32,Torremolinos,54,245,245,22.0
 Benalmadena 43,Torremolinos,53,156,230,23.0
 Capanes del Golf 1,Benahavis,53,295,268,19.8
 El Marques de Atalaya 159,Estepona,53,281,170,31.2
@@ -133,7 +134,6 @@ Jose Orbaneja 35,Mijas,51,261,195,26.2
 Del Carmen 45,Estepona,51,232,131,38.9
 Lola Flores 1,Marbella,51,250,88,58.0
 Eduardo Aguilera Romero 12,Torremolinos,51,160,320,15.9
-Decano Pedro Navarrete 32,Torremolinos,51,227,245,20.8
 Castillo del Ingles 7,Torremolinos,50,167,65,76.9
 Virgen de la Cabeza 7,Estepona,50,275,104,48.1
 Lorcrimar V 5,Marbella,49,268,148,33.1
@@ -297,7 +297,7 @@ Benalauria 2,Mijas,34,186,80,42.5
 Almeria 23,Torrox,34,205,108,31.5
 Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
 Nicaragua 24,Estepona,34,183,115,29.6
-Azahar de Estepona 49,Estepona,34,204,61,55.7
+Azahar de Estepona 1022,Estepona,34,204,61,55.7
 "Los Naranjos de Marbella, Fase 1 67",Marbella,33,182,102,32.4
 Altos de la Quinta 2812,Benahavis,33,164,104,31.7
 Valdivia 1,Nerja,33,134,86,38.4
@@ -1630,8 +1630,8 @@ Guaras 3,Mijas,11,72,21,52.4
 Diego de Velazquez 7,Marbella,11,57,58,19.0
 Praga 1,Málaga,11,40,95,11.6
 Begoña 5,Fuengirola,11,67,60,18.3
-De San Patricio 8,Mijas,11,64,24,45.8
-Solanum 13,Marbella,11,61,48,22.9
+Solanum 30B,Marbella,11,61,48,22.9
+Solana Village Ii Fase 1 11,Mijas,11,64,24,45.8
 Tore Tore 32,Velez-Malaga,10,49,44,22.7
 Del Mediterraneo 5,Nerja,10,40,35,28.6
 Almuñecar 2,Nerja,10,49,20,50.0
