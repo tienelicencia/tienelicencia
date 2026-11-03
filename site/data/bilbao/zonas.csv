@@ -1,18 +1,18 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
-Casco Viejo,217,897,4071,5.3,302,217,57,7,8,11,21.2
-Abando,194,904,12426,1.6,224,131,64,9,3,13,32.6
-Indautxu,111,518,13105,0.8,119,87,20,7,0,4,22.7
-San Francisco,87,332,2852,3.1,72,56,13,2,1,0,20.8
-Uribarri,67,220,6299,1.1,80,56,16,2,3,2,22.5
+Casco Viejo,214,883,4071,5.3,299,223,49,7,7,11,18.7
+Abando,194,904,12426,1.6,223,131,64,9,3,13,32.7
+Indautxu,111,518,13105,0.8,119,89,18,7,0,4,21.0
+San Francisco,87,332,2852,3.1,72,57,11,2,2,0,18.1
+Uribarri,70,231,6299,1.1,79,55,16,2,3,2,22.8
 Iturralde,54,199,2768,2.0,48,38,10,0,0,0,20.8
-San Pedro de Deustu,50,198,10032,0.5,74,43,27,1,2,0,37.8
+San Pedro de Deustu,50,198,10032,0.5,74,45,25,1,2,0,35.1
 Castaños,48,198,3167,1.5,92,80,8,1,2,1,9.8
-Santutxu,45,157,14421,0.3,74,48,26,0,0,0,35.1
-Ametzola,44,196,5509,0.8,40,35,5,0,0,0,12.5
-Matiko,40,144,1831,2.2,42,34,5,1,2,0,14.3
+Santutxu,45,157,14421,0.3,71,45,26,0,0,0,36.6
+Ametzola,43,193,5509,0.8,40,35,5,0,0,0,12.5
 Basurtu,39,153,7276,0.5,51,21,20,8,0,1,54.9
-Bilbao la Vieja,36,140,2360,1.5,45,36,5,1,2,1,13.3
-Atxuri,35,120,2786,1.3,40,24,13,0,1,2,32.5
+Matiko,37,133,1831,2.0,42,34,5,1,2,0,14.3
+Bilbao la Vieja,36,140,2360,1.5,45,36,4,1,3,1,11.1
+Atxuri,35,120,2786,1.3,39,23,13,0,1,2,33.3
 Zabala,31,107,2410,1.3,21,11,3,3,0,0,28.6
 Iralabarri,29,99,5212,0.6,38,22,13,0,2,1,34.2
 Solokoetxe,28,100,2506,1.1,36,29,3,0,2,2,8.3
@@ -20,15 +20,15 @@ Begoña,20,86,2192,0.9,13,,,,,,
 Olabeaga,20,66,750,2.7,9,,,,,,
 Zurbaran,17,62,4560,0.4,23,11,7,3,2,0,43.5
 La Peña,14,39,2491,0.6,11,,,,,,
-Ibarrekolanda,12,52,4920,0.2,10,,,,,,
-San Ignacio,12,46,5432,0.2,14,,,,,,
+San Ignacio,12,46,5432,0.2,13,,,,,,
+Ibarrekolanda,11,50,4920,0.2,10,,,,,,
 Errekaldeberri,10,34,7148,0.1,23,9,14,0,0,0,60.9
 Miribilla,7,30,3973,0.2,10,,,,,,
 Bolueta,6,24,3084,0.2,13,,,,,,
 Txurdinaga,6,24,6168,0.1,9,,,,,,
 Zorrotza,6,20,5062,0.1,19,10,8,0,0,1,42.1
 Arabella,4,13,445,0.9,4,,,,,,
-Altamira,3,8,591,0.5,2,,,,,,
+Altamira,3,8,591,0.5,1,,,,,,
 Diseminado (Uribarri),3,24,605,0.5,3,,,,,,
 Masustegi-Monte Caramelo,3,9,1840,0.2,3,,,,,,
 Otxarkoaga,3,12,4303,0.1,9,,,,,,

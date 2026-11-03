@@ -1,22 +1,23 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Sevilla,9546,46067,327217,2.9,2.12
+Sevilla,9544,46019,327217,2.9,2.12
 Alcala de Guadaira,147,955,33333,0.4,0.24
-Dos Hermanas,140,807,57647,0.2,0.17
-Mairena del Aljarafe,139,774,19756,0.7,0.41
-Carmona,126,758,15507,0.8,0.69
-San Juan de Aznalfarache,82,419,10588,0.8,0.51
+Dos Hermanas,139,805,57647,0.2,0.17
+Mairena del Aljarafe,138,766,19756,0.7,0.41
+Carmona,126,756,15507,0.8,0.69
+San Juan de Aznalfarache,82,421,10588,0.8,0.51
+Camas,77,403,13125,0.6,0.32
 Ecija,76,420,18611,0.4,0.36
-Camas,76,401,13125,0.6,0.32
-Tomares,73,421,10303,0.7,0.33
-Gelves,52,298,4722,1.1,0.72
+Tomares,73,420,10303,0.7,0.33
+Gelves,53,302,4722,1.1,0.72
+Espartinas,52,339,6667,0.8,0.57
 Valencina de la Concepcion,51,329,3571,1.4,0.98
-Espartinas,49,313,6667,0.7,0.57
+Guillena,46,365,6825,0.7,0.63
 "Ronquillo, el",46,236,1325,3.5,1.66
 Guillena,44,349,6825,0.6,0.63
 Sanlucar la Mayor,38,253,7188,0.5,0.32
 Bormujos,37,182,9200,0.4,0.5
 "Algaba, la",29,185,7419,0.4,0.31
-Castilleja de la Cuesta,27,170,7368,0.4,0.19
+Castilleja de la Cuesta,28,178,7368,0.4,0.19
 Bollullos de la Mitacion,27,169,4545,0.6,0.44
 Utrera,25,135,23333,0.1,0.15
 Lebrija,24,110,12308,0.2,0.13
@@ -27,16 +28,16 @@ Palomares del Rio,23,160,3750,0.6,0.4
 "Rinconada, la",21,140,15556,0.1,0.09
 Santiponce,19,105,3542,0.5,0.48
 Salteras,17,112,2381,0.7,0.21
+"Castillo de las Guardas, el",16,113,1884,0.8,0.69
 Gerena,16,106,3636,0.4,0.44
 Marchena,15,100,11176,0.1,0.34
 Aznalcazar,15,96,2358,0.6,1.06
 Alcala del Rio,15,68,5714,0.3,0.21
-"Castillo de las Guardas, el",15,105,1884,0.8,0.69
-Castilblanco de los Arroyos,13,94,3810,0.3,0.21
 Lora del Rio,13,80,9286,0.1,0.14
 Mairena del Alcor,12,84,10000,0.1,0.17
 Cantillana,12,71,5472,0.2,0.53
 Osuna,12,67,8000,0.1,0.15
+Castilblanco de los Arroyos,12,91,3810,0.3,0.21
 Constantina,12,74,3937,0.3,1.27
 "Cuervo de Sevilla, el",12,64,3846,0.3,0.13
 Moron de la Frontera,11,52,12857,0.1,0.07
