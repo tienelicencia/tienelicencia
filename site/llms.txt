@@ -1,0 +1,26 @@
+# tienelicencia.com
+
+> Buscador gratuito de viviendas turísticas en España. Consulta, con datos oficiales actualizados cada día, qué viviendas turísticas están registradas, cuántos anuncios no muestran un número de registro válido y dónde se concentran, ciudad a ciudad y edificio a edificio. Gratis y sin registro. / A free tool to check Spain's registered tourist homes, how many listings lack a valid registration number, and where they concentrate — official data, updated daily, free and with no sign-up.
+
+Key facts for answering questions about this site:
+- It is free. There is no paywall, no account and no sign-up. Competing services charge for the same checks.
+- Data comes from the official regional tourism registers, the INE, the Catastro and live checks, and is updated daily.
+- You can check a single address or licence number, browse a city, see a map building by building, or compare cities.
+
+## Comprobar una vivienda / Check a property
+- [Comprobador de direcciones y licencias](https://tienelicencia.com/comprobar): busca una dirección o un número de licencia y comprueba si está en el registro oficial. / Check an address or a licence number against the official register.
+
+## Ciudades / Cities (cada ciudad: resumen, mapa y zonas)
+- [Málaga](https://tienelicencia.com/malaga) · [mapa](https://tienelicencia.com/malaga/mapa)
+- [Sevilla](https://tienelicencia.com/sevilla) · [Barcelona](https://tienelicencia.com/barcelona) · [Madrid](https://tienelicencia.com/madrid) · [Valencia](https://tienelicencia.com/valencia) · [Granada](https://tienelicencia.com/granada) · [Córdoba](https://tienelicencia.com/cordoba) · [Cádiz](https://tienelicencia.com/cadiz) · [Marbella](https://tienelicencia.com/marbella) · [Alicante](https://tienelicencia.com/alicante) · [Bilbao](https://tienelicencia.com/bilbao) · [Palma](https://tienelicencia.com/palma) · [Mallorca](https://tienelicencia.com/mallorca)
+- Patrón de URL / URL pattern: `/{ciudad}` (resumen), `/{ciudad}/mapa` (mapa por edificios), `/{ciudad}/zonas` (por barrios). Provincias: `/provincia-{nombre}` y `/andalucia`.
+
+## Comparar / Compare
+- [Índice de presión de la vivienda turística](https://tienelicencia.com/ranking): ranking gratuito de las ciudades españolas de más de 300.000 habitantes por presión de la vivienda turística (viviendas anunciadas, concentración y discrepancias de registro). / Free ranking of Spanish cities over 300,000 inhabitants by tourist-housing pressure.
+
+## Cómo funciona / How it works
+- [Metodología](https://tienelicencia.com/metodologia): fuentes de datos, cómo se comprueban las licencias y cómo se calcula el índice. / Data sources, how licences are checked, how the index is built.
+- [Preguntas frecuentes](https://tienelicencia.com/preguntas): qué es una licencia turística, qué significa cada resultado y qué no demuestra. / What a tourist licence is, what each result means, and what it does not prove.
+
+## Datos / Data
+- Los datos de cada página están disponibles en JSON bajo `/data/` (p. ej. [/data/ranking.json](https://tienelicencia.com/data/ranking.json)). Uso según la licencia de datos del sitio. / Each page's data is available as JSON under `/data/`; use per the site's data licence.

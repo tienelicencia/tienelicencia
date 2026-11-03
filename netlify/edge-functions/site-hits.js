@@ -73,8 +73,29 @@
  * so a link preview or a visit arriving with it is a known share or a click on one,
  * even from apps that send no referrer (WhatsApp on iPhone). Each share is also a
  * URL no app has cached, so WhatsApp/Meta must fetch it. A new code per page view;
- * the code a visitor arrived with is kept as the parent (re-shares). Pages keep
+ * the code a visitor arrived with is kept as the parent (re-shares).
+ * Links on the page (29 Oct 2026): right-click / long-press (contextmenu) or dragging one of the
+ * site's own links gives that link a fresh code for the moment, so "Copy link address" and
+ * drag-into-Teams/Slack carry one too; the next press or key puts the link back (own clicks stay
+ * clean). Not iPhone long-press (Safari fires no contextmenu). Sites that are partly an app list the paths
+ * that may carry codes in CODE_ONLY (tagsy.it). No code is added while a login token is in the address
+ * (magic links: access_token in the hash, ?code= / ?token=), on any site. A page with
+ * <meta name="sl-share" content="off"> in <head> gets no code in its own address bar (MFT's
+ * private matchday pages /<slug>: already a unique link); its links still get codes. Pages keep
  * rel=canonical / og:url pointing at the clean URL (search engines, Meta).
+ *
+ * Content copied (30 Oct 2026, every site): a copy of selected page text (not in inputs, textareas
+ * or editable fields) or a page's own copy button (navigator.clipboard.writeText) is reported as
+ * t:'copy' with the page path + title, the section it came from (data-section, else the nearest
+ * h1/h2 and h3 above it; Header / Footer outside main), the sections a selection spans, the
+ * character count, a coarse kind (text / email / phone / link) and the page view's token and
+ * share code. NEVER the text. The same copy within 5 s is sent once. It shows where content was
+ * taken, not where it went: never label it AI sharing.
+ * Printed (30 Oct 2026): the browser's print dialog opening on a page (Print or Save as PDF) is
+ * reported once per page as t:'print' with path, title, token and share code.
+ * Contact taps (30 Oct 2026): a click on a tel: / mailto: / sms: / WhatsApp link (or window.open of
+ * one, e.g. a WhatsApp button) is reported as t:'contact' with the kind, page, title and section.
+ * Never the number or address. It proves the tap, not that a call or message followed.
  *
  * Exclude your own browser on a site: open any page with ?count=off (undo: ?count=on).
  * Opening any /admin page on a site does this automatically (staff aren't visitors).
@@ -83,6 +104,11 @@
 const ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_hit';
 // From ~/.config/shiftedlabs/site-hits/probe-paths.txt (inlined by install.sh)
 const APP_PAGE = (host, path) => host.replace(/^www\./, '') === 'shiftedlabs.ai' && /^\/analytics(\/|$)/.test(path);
+// Pages a site keeps out of the counts entirely: no hit logged, no script added, reports dropped.
+// TeleStats Fives (/fives, /predict) is a private game and stays out of every analytics tool;
+// a raw prefix, the same rule as EXCLUDED_PREFIXES in that site's ts-analytics.js.
+const UNTRACKED = { 'telestats.net': /^\/(fives|predict)/i, 'telestats.com': /^\/(fives|predict)/i };
+const untracked = (host, path) => UNTRACKED[host.toLowerCase().replace(/^www\./, '')]?.test(path) === true;
 const PROBE = new RegExp("(?:(^|/)id_(rsa|dsa|ecdsa|ed25519)(\\.pub)?$)|(?:\\.(pem|key|p12|pfx|jks|keystore|ppk|crt|der)$)|(?:(^|/)private[-_]?key)|(?:(^|/)\\.env([._-][^/]*)?$)|(?:(^|/)\\.dev\\.vars)|(?:(^|/)(credentials|secrets?)(\\.(json|ya?ml|txt|env|ini))?$)|(?:/var/run/secrets)|(?:(^|/)\\.(bash_profile|bashrc|bash_history|zshrc|zsh_history|profile|npmrc|yarnrc|netrc|pgpass|htpasswd|htaccess|amplifyrc|terraformrc|boto|s3cfg|git-credentials)$)|(?:(^|/)\\.(git|svn|hg|bzr)(/|$))|(?:(^|/)\\.(aws|ssh|docker|kube|azure|gcloud|config|vscode|idea)(/|$))|(?:(^|/)\\.claude(/|$))|(?:(^|/)(CLAUDE|AGENTS)\\.md$)|(?:\\.DS_Store$)|(?:\\.(bak|old|orig|swp|save|backup|tmp)$)|(?:(^|/)(backup|dump|database|db|site|www)\\.(sql|zip|tar|gz|tgz|rar|7z)$)|(?:(^|/)__vite)|(?:(^|/)@vite/)|(?:(^|/)@fs/)|(?:(^|/)@id/)|(?:(^|/)_next/static/development/)|(?:(^|/)(actuator|_profiler|telescope|_ignition|debug/default)(/|$))|(?:(^|/)wp-(login|admin|config|content|includes|json))|(?:(^|/)xmlrpc\\.php$)|(?:\\.php[0-9]?$)|(?:phpinfo)|(?:(^|/)server-(status|info)$)|(?:(^|/)cgi-bin/)|(?:(^|/)(administrator|phpmyadmin|pma|myadmin)(/|$))|(?:^/%2f)", 'i');
 const isProbe = (path) => {
   if (PROBE.test(path)) return true;
@@ -96,13 +122,22 @@ const BEAT_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_
 const SCRIPT_PATH = '/__sl/e';
 const BEAT_PATH = '/__sl/beat';
 // Coded links (see header): sites that put a share code in the address bar. Opt in one at a time.
-const SHARE_SITES = ['shiftedlabs.ai'];
+const SHARE_SITES = ['shiftedlabs.ai', 'malagafootballtours.com', 'telestats.net', 'infinitydentalmarbella.com', 'tagsy.it', 'tienelicencia.com'];
+// Sites that are partly an app: codes ONLY on these paths (a regex, no backslashes: it is inlined into the page
+// script). tagsy.it: marketing pages only, never tag scans (/t/…), lost-item pages (/<slug>), login, account,
+// dashboard, checkout or other app screens.
+const CODE_ONLY = {
+  'tagsy.it': '^/($|(about|contact|faq|how-it-works|privacy|pitch|demo|shop|shop/build|track|track/pets|marketplace|guides)/?$|(guides|for|use-cases|products)/[^/]+/?$)',
+};
 const SHARE_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_share_code';
+const COPY_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_copy';
+const PRINT_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_print';
+const CONTACT_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_contact';
 const CODE_RE = /^[a-z0-9]{6}$/;
 
 // The browser side, served from SCRIPT_PATH. Visible time only (paused while the tab is hidden).
 const CLIENT_JS = `(()=>{try{
-var B='${BEAT_PATH}',path=location.pathname,vis=0,since=document.visibilityState==='visible'?performance.now():null,scroll=0,acted=false,sent=0;
+var B='${BEAT_PATH}',SH=null,path=location.pathname,vis=0,since=document.visibilityState==='visible'?performance.now():null,scroll=0,acted=false,sent=0;
 var cs=document.currentScript,pv=cs&&/^[a-z0-9]{12}$/.test(cs.getAttribute('data-pv')||'')?cs.getAttribute('data-pv'):null,wd=navigator.webdriver===true;
 function tick(){if(since!==null){var n=performance.now();vis+=n-since;since=n}}
 function depth(){var h=document.documentElement,b=document.body,full=Math.max(h.scrollHeight,b?b.scrollHeight:0,1);var p=Math.min(100,Math.round((scrollY+innerHeight)/full*100));if(p>scroll)scroll=p}
@@ -111,12 +146,49 @@ function flush(){tick();var s=Math.round(vis/1000);if(s>sent||scroll){sent=s;pos
 post({t:'time',p:path,s:0,d:0,i:false});
 addEventListener('DOMContentLoaded',depth);
 if(${JSON.stringify(SHARE_SITES)}.indexOf(location.hostname.replace(/^www\\./,''))>-1&&window.URL&&window.crypto&&crypto.getRandomValues){try{
-var u=new URL(location.href),inc=u.searchParams.get('sh'),A='abcdefghijkmnpqrstuvwxyz23456789',rb=crypto.getRandomValues(new Uint8Array(6)),code='';
-for(var k=0;k<6;k++)code+=A.charAt(rb[k]%32);
-u.searchParams.set('sh',code);
+var A='abcdefghijkmnpqrstuvwxyz23456789';
+function mk(){var rb=crypto.getRandomValues(new Uint8Array(6)),c='';for(var k=0;k<6;k++)c+=A.charAt(rb[k]%32);return c}
+var u=new URL(location.href),inc=u.searchParams.get('sh'),pc=/^[a-z0-9]{6}$/.test(inc||'')?inc:null,code=mk(),me=location.hostname.replace(/^www\\./,''),held=[],only=${JSON.stringify(CODE_ONLY)}[me];
+function codable(p){return !only||new RegExp(only).test(p)}
+var auth=/access_token|refresh_token|type=(magiclink|recovery|signup|invite)/.test(location.hash)||['code','token','token_hash','access_token'].some(function(k){return u.searchParams.has(k)});
+if(!auth&&codable(location.pathname)&&!document.querySelector('meta[name="sl-share"][content="off"]')){u.searchParams.set('sh',code);
 history.replaceState(history.state,'',u.pathname+u.search+u.hash);
-post({t:'code',p:path,c:code,pc:/^[a-z0-9]{6}$/.test(inc||'')?inc:null});
+post({t:'code',p:path,c:code,pc:pc});SH=code;}
+function own(a){try{var x=new URL(a.href,location.href);return (x.protocol==='https:'||x.protocol==='http:')&&x.hostname.replace(/^www\\./,'')===me?x:null}catch(e){return null}}
+function tag(a){if(a.__sl!==undefined)return a.href;var x=own(a);if(!x||!codable(x.pathname))return null;var c=mk();a.__sl=a.getAttribute('href');x.searchParams.set('sh',c);a.setAttribute('href',x.href);held.push(a);post({t:'code',p:x.pathname,c:c,pc:pc});return x.href}
+function untag(){while(held.length){var a=held.pop();if(a.__sl!==undefined){a.setAttribute('href',a.__sl);a.__sl=undefined}}}
+function link(e){return e.target&&e.target.closest?e.target.closest('a[href]'):null}
+document.addEventListener('contextmenu',function(e){var a=link(e);if(a)tag(a)},true);
+document.addEventListener('dragstart',function(e){var a=link(e),h=a&&tag(a);if(h&&e.dataTransfer){try{e.dataTransfer.setData('text/uri-list',h);e.dataTransfer.setData('text/plain',h)}catch(x){}}},true);
+addEventListener('pointerdown',untag,true);addEventListener('keydown',untag,true);
 }catch(e){}}
+var cp='',cpt=0,press=null,prt=0;
+addEventListener('pointerdown',function(e){press=e.target;prt=Date.now()},true);
+function elOf(n){return n&&n.nodeType===1?n:(n&&n.parentElement)||null}
+function txt(h){return (h.textContent||'').replace(/\\s+/g,' ').trim().slice(0,80)||null}
+function where(n){var el=elOf(n);if(!el||!el.closest)return {};
+var m=el.closest('[data-section]');if(m&&m.getAttribute('data-section'))return {s:m.getAttribute('data-section').slice(0,80)};
+var f=el.closest('footer');if(f&&!f.closest('main,article'))return {s:'Footer'};
+var g=el.closest('nav,header');if(g&&!g.closest('main,article'))return {s:'Header'};
+var hs=document.querySelectorAll('h1,h2,h3'),top=null,sub=null;
+for(var i=0;i<hs.length;i++){var h=hs[i];if(!(h===el||(h.compareDocumentPosition(el)&4)))break;if(h.closest('nav,footer'))continue;if(h.tagName==='H3')sub=h;else{top=h;sub=null}}
+return {s:top?txt(top):null,ss:sub?txt(sub):null}}
+function kind(t){t=t.trim();if(/^(https?:\\/\\/|www\\.)\\S+$/i.test(t))return 'link';if(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(t))return 'email';if(t.length<=24&&/^[+(\\d][\\d\\s().-]{6,}$/.test(t)&&t.replace(/\\D/g,'').length>=7)return 'phone';return 'text'}
+function copied(how,t,a,b,x){if(t.replace(/\\s+/g,'').length<2)return;var n=t.length,now=Date.now(),k=[path,how,a.s,a.ss,b&&b.s,n].join('|');if(k===cp&&now-cpt<5000)return;cp=k;cpt=now;
+var e=b&&b.s!==a.s?b.s:null;post({t:'copy',p:path,h:(document.title||'').slice(0,140),m:how,n:n,k:kind(t),s:a.s||null,ss:a.ss||null,e:e,es:e?b.ss||null:null,x:x||1,c:SH})}
+document.addEventListener('copy',function(){try{var ae=document.activeElement,fs=null;try{fs=ae&&(ae.tagName==='INPUT'||ae.tagName==='TEXTAREA')?ae.selectionEnd-ae.selectionStart:null}catch(x){}if(fs>0||(ae&&ae.isContentEditable))return;
+var sel=getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return;var r=sel.getRangeAt(0),st=elOf(r.startContainer);
+if(st&&st.closest&&st.closest('input,textarea,select,[contenteditable]:not([contenteditable=false])'))return;
+var a=where(r.startContainer),b=where(r.endContainer),seen={},x=1,hs=document.querySelectorAll('h1,h2');seen[a.s]=1;
+for(var i=0;i<hs.length;i++){if(r.intersectsNode(hs[i])){var l=txt(hs[i]);if(!seen[l]){seen[l]=1;x++}}}
+copied('selection',sel.toString(),a,b,x)}catch(e){}},true);
+function ckind(u){var l=String(u||'').trim().toLowerCase();if(l.indexOf('tel:')===0)return 'phone';if(l.indexOf('sms:')===0)return 'sms';if(l.indexOf('mailto:')===0)return 'email';if(/^whatsapp:|^(https?:\\/\\/)?(wa\\.me|api\\.whatsapp\\.com|web\\.whatsapp\\.com)(\\/|$)/.test(l))return 'whatsapp';return null}
+var ct='',ctt=0;
+function contact(k,el){var a=where(el),key=k+'|'+path+'|'+a.s,now=Date.now();if(key===ct&&now-ctt<10000)return;ct=key;ctt=now;post({t:'contact',p:path,h:(document.title||'').slice(0,140),k:k,s:a.s||null,ss:a.ss||null,c:SH})}
+document.addEventListener('click',function(e){try{if(e.isTrusted===false)return;var a=e.target&&e.target.closest&&e.target.closest('a[href]');var k=a&&ckind(a.getAttribute('href'));if(k)contact(k,a)}catch(x){}},true);
+try{var wo=window.open;if(wo&&!wo.__sl){window.open=function(u){try{var k=ckind(u);if(k)contact(k,Date.now()-prt<4000?press:document.activeElement)}catch(x){}return wo.apply(window,arguments)};window.open.__sl=1}}catch(e){}
+var pr=null;addEventListener('beforeprint',function(){if(pr===path)return;pr=path;post({t:'print',p:path,h:(document.title||'').slice(0,140),c:SH})});
+try{var CB=navigator.clipboard;if(CB&&CB.writeText&&!CB.__sl){var wt=CB.writeText;CB.writeText=function(t){try{copied('button',String(t==null?'':t),where(Date.now()-prt<4000?press:document.activeElement),null,1)}catch(e){}return wt.apply(CB,arguments)};CB.__sl=1}}catch(e){}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){flush();since=null}else{since=performance.now()}});
 addEventListener('pagehide',flush);
 addEventListener('scroll',depth,{passive:true});depth();
@@ -406,7 +478,8 @@ const STATIC = /\.(?!html?$)[a-z0-9]{1,8}$/i; // any other file extension except
 export default async (request, context) => {
   const url = new URL(request.url);
   if (url.pathname === SCRIPT_PATH) {
-    return new Response(CLIENT_JS, { headers: { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'public, max-age=3600' } });
+    // 5 min: a tracker update reaches returning visitors quickly (was 1 h, which hid a fresh deploy from testers)
+    return new Response(CLIENT_JS, { headers: { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'public, max-age=300' } });
   }
   if (url.pathname === BEAT_PATH) {
     if (request.method === 'POST') context.waitUntil(handleBeat(request, context, url).catch((e) => console.error('[site-hits] beat', e?.message ?? e)));
@@ -421,6 +494,7 @@ export default async (request, context) => {
   if (/\.map$/i.test(url.pathname)) return new Response('Not found', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } });
   // The Shifted Labs dashboard (/analytics on shiftedlabs.ai) is an app, not site traffic
   if (APP_PAGE(url.hostname, url.pathname)) return;
+  if (untracked(url.hostname, url.pathname)) return;
   // Staff: opening an admin page excludes this browser from the counts on this site
   if (/^\/admin(\/|$)/.test(url.pathname)) {
     if ((request.headers.get('cookie') ?? '').includes(`${OPT_OUT}=1`)) return;
@@ -568,7 +642,7 @@ async function handleBeat(request, context, url) {
     return;
   }
   const path = typeof b.p === 'string' ? b.p.slice(0, 300) : '';
-  if (!path.startsWith('/') || STATIC.test(path) || /^\/admin(\/|$)/.test(path) || APP_PAGE(url.hostname, path)) return;
+  if (!path.startsWith('/') || STATIC.test(path) || /^\/admin(\/|$)/.test(path) || APP_PAGE(url.hostname, path) || untracked(url.hostname, path)) return;
   const ua = request.headers.get('user-agent') ?? '';
   const { kind, agent } = classify(ua, new Headers({ 'accept-language': request.headers.get('accept-language') ?? '' }));
   if (kind !== 'human' && kind !== 'suspect') return;
@@ -590,6 +664,55 @@ async function handleBeat(request, context, url) {
       ip: context.ip ?? null, ua, verified: null, spa: true,
     };
     await fetch(ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ hit }) });
+    return;
+  }
+  if (b.t === 'copy') {
+    // Content copied (see header): what was taken away and from where, never the text itself
+    if (b.w === true) return; // a robot browser
+    const clip = (x, n) => (typeof x === 'string' && x.trim() ? x.replace(/\s+/g, ' ').trim().slice(0, n) : null);
+    const copy = {
+      site, path, title: clip(b.h, 140),
+      how: b.m === 'button' ? 'button' : 'selection',
+      what: ['text', 'email', 'phone', 'link'].includes(b.k) ? b.k : 'text',
+      chars: Math.max(1, Math.min(Math.round(Number(b.n) || 0), 100000)),
+      section: clip(b.s, 80), subsection: clip(b.ss, 80), end_section: clip(b.e, 80), end_subsection: clip(b.es, 80),
+      sections: Math.max(1, Math.min(Math.round(Number(b.x) || 1), 50)),
+      share_code: typeof b.c === 'string' && CODE_RE.test(b.c) ? b.c : null,
+      pv: typeof b.v === 'string' && /^[a-z0-9]{12}$/.test(b.v) ? b.v : null,
+      ip: context.ip ?? null, ua,
+      country: context.geo?.country?.code ?? null, city: context.geo?.city ?? null,
+      device: deviceOf(ua), browser: agent, os: osOf(ua),
+    };
+    await fetch(COPY_ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ c: copy }) });
+    return;
+  }
+  if (b.t === 'print') {
+    // The page was printed or saved as a PDF (the browser's print dialog opened on it)
+    if (b.w === true) return; // a robot browser
+    const print = {
+      site, path, title: typeof b.h === 'string' && b.h.trim() ? b.h.replace(/\s+/g, ' ').trim().slice(0, 140) : null,
+      share_code: typeof b.c === 'string' && CODE_RE.test(b.c) ? b.c : null,
+      pv: typeof b.v === 'string' && /^[a-z0-9]{12}$/.test(b.v) ? b.v : null,
+      ip: context.ip ?? null, ua,
+      country: context.geo?.country?.code ?? null, city: context.geo?.city ?? null,
+      device: deviceOf(ua), browser: agent, os: osOf(ua),
+    };
+    await fetch(PRINT_ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ p: print }) });
+    return;
+  }
+  if (b.t === 'contact') {
+    // A phone / email / WhatsApp / SMS link was tapped. Never the number or address itself.
+    if (b.w === true || !['phone', 'email', 'whatsapp', 'sms'].includes(b.k)) return;
+    const clip = (x, n) => (typeof x === 'string' && x.trim() ? x.replace(/\s+/g, ' ').trim().slice(0, n) : null);
+    const tap = {
+      site, path, title: clip(b.h, 140), what: b.k, section: clip(b.s, 80), subsection: clip(b.ss, 80),
+      share_code: typeof b.c === 'string' && CODE_RE.test(b.c) ? b.c : null,
+      pv: typeof b.v === 'string' && /^[a-z0-9]{12}$/.test(b.v) ? b.v : null,
+      ip: context.ip ?? null, ua,
+      country: context.geo?.country?.code ?? null, city: context.geo?.city ?? null,
+      device: deviceOf(ua), browser: agent, os: osOf(ua),
+    };
+    await fetch(CONTACT_ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ t: tap }) });
     return;
   }
   if (b.t !== 'time') return;

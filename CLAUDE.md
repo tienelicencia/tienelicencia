@@ -6,3 +6,6 @@
   SITE_HITS_KEY from the Netlify site's environment.
 - Automated builds stage only their own output paths (site/data, netlify/functions/data), never `git add -A` or `git add .`.
 - After deploying, https://tienelicencia.com/__sl/e should return a small JavaScript file (200), not a 404.
+- netlify/edge-functions/canonical.js adds each page's canonical URL (its clean path on https://tienelicencia.com, same form
+  as sitemap.xml) as a <link rel="canonical"> and a Link header. The HTML files have none on purpose: area.html etc. serve
+  many addresses. Shared links carry ?sh=… codes (traffic counter); this keeps search engines on the clean URL. Keep it.
