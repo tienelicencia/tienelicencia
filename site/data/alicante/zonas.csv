@@ -1,46 +1,46 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Casco Antiguo - Santa Cruz - Ayuntamiento,620,2264,2251,27.5,406,18.0,155,27.7
-Playa de San Juan,409,1662,22027,1.9,136,0.6,64,29.7
-Ensanche Diputacion,300,1078,9614,3.1,217,2.3,96,36.5
-Centro,281,1246,4542,6.2,217,4.8,93,39.8
-Mercado,262,1261,5663,4.6,179,3.2,82,37.8
-Carolinas Bajas,199,833,5414,3.7,161,3.0,78,32.1
-Albufereta,140,595,6581,2.1,97,1.5,34,26.5
-Cabo de las Huertas,131,708,9667,1.4,61,0.6,22,
-Campoamor,126,631,6028,2.1,127,2.1,57,47.4
-Pla del Bon Repos,114,575,8039,1.4,75,0.9,32,56.2
-Sananton,105,438,1481,7.1,142,9.6,49,46.9
-Raval Roig - Virgen del Socorro,75,317,1621,4.6,38,2.3,15,
-Carolinas Altas,62,301,8793,0.7,63,0.7,30,46.7
-Benalua,51,199,5740,0.9,23,0.4,11,
-San Blas - Santo Domingo,46,202,4753,1.0,56,1.2,29,
-El Palmeral - Urbanova - Tabarca,39,202,3544,1.1,34,1.0,20,
-Vistahermosa,21,154,2865,0.7,23,0.8,10,
-Los Angeles,12,73,5139,0.2,33,0.6,17,
-Poligono San Blas,12,60,5261,0.2,15,0.3,6,
-Virgen del Remedio,10,43,6835,0.1,8,0.1,4,
-Altozano - Conde Lumiares,9,47,4780,0.2,23,0.5,6,
-Disperso Partidas,8,66,4700,0.2,19,0.4,8,
-Villafranqueza - Santa Faz,6,45,2572,0.2,5,0.2,1,
-Alipark,5,18,1656,0.3,13,0.8,3,
-Lo Morant - San Nicolas de Bari,5,23,2876,0.2,8,0.3,2,
-San Fernando - Princesa Mercedes,5,15,2411,0.2,10,0.4,7,
-Ciudad Elegida,4,18,1955,0.2,7,0.4,3,
-Sidi Ifni - Nou Alacant,4,18,2148,0.2,9,0.4,4,
+Casco Antiguo - Santa Cruz - Ayuntamiento,620,2264,2251,27.5,406,18.0,268,25.7
+Playa de San Juan,409,1662,22027,1.9,133,0.6,94,31.9
+Ensanche Diputacion,300,1078,9614,3.1,222,2.3,147,33.3
+Centro,281,1246,4542,6.2,217,4.8,157,40.1
+Mercado,262,1261,5663,4.6,189,3.3,139,39.6
+Carolinas Bajas,199,833,5414,3.7,162,3.0,119,33.6
+Albufereta,140,595,6581,2.1,97,1.5,63,28.6
+Cabo de las Huertas,131,708,9667,1.4,61,0.6,42,26.2
+Campoamor,126,631,6028,2.1,139,2.3,96,47.9
+Pla del Bon Repos,114,575,8039,1.4,77,1.0,51,47.1
+Sananton,105,438,1481,7.1,148,10.0,101,51.5
+Raval Roig - Virgen del Socorro,75,317,1621,4.6,37,2.3,19,
+Carolinas Altas,62,301,8793,0.7,57,0.6,39,53.8
+Benalua,51,199,5740,0.9,22,0.4,12,
+San Blas - Santo Domingo,46,202,4753,1.0,55,1.2,41,56.1
+El Palmeral - Urbanova - Tabarca,39,202,3544,1.1,33,0.9,27,
+Vistahermosa,21,154,2865,0.7,23,0.8,15,
+Los Angeles,12,73,5139,0.2,32,0.6,23,
+Poligono San Blas,12,60,5261,0.2,14,0.3,9,
+Virgen del Remedio,10,43,6835,0.1,9,0.1,7,
+Altozano - Conde Lumiares,9,47,4780,0.2,25,0.5,15,
+Disperso Partidas,8,66,4700,0.2,16,0.3,12,
+Villafranqueza - Santa Faz,6,45,2572,0.2,5,0.2,4,
+Alipark,5,18,1656,0.3,14,0.8,7,
+Lo Morant - San Nicolas de Bari,5,23,2876,0.2,7,0.2,4,
+San Fernando - Princesa Mercedes,5,15,2411,0.2,11,0.5,8,
+Ciudad Elegida,4,18,1955,0.2,7,0.4,5,
+Sidi Ifni - Nou Alacant,4,18,2148,0.2,6,0.3,3,
 Gran Via Sur,3,15,3280,0.1,1,0.0,1,
-Juan XXIII,3,37,3263,0.1,6,0.2,2,
-San Gabriel,3,14,2205,0.1,11,0.5,4,
-Florida Alta,2,8,2429,0.1,5,0.2,2,
-Florida Baja,2,7,4886,0.0,12,0.2,5,
-Garbinet,2,11,5844,0.0,8,0.1,5,
-Poligono Babel,2,8,3473,0.1,9,0.3,5,
+Juan XXIII,3,37,3263,0.1,6,0.2,4,
+San Gabriel,3,14,2205,0.1,9,0.4,6,
+Florida Alta,2,8,2429,0.1,5,0.2,4,
+Florida Baja,2,7,4886,0.0,12,0.2,8,
+Garbinet,2,11,5844,0.0,9,0.2,7,
+Poligono Babel,2,8,3473,0.1,10,0.3,7,
 San Agustin,2,9,928,0.2,0,0.0,,
 Ciudad Jardin,1,8,636,0.2,0,0.0,,
-Ciudad de Asis,1,6,3026,0.0,5,0.2,3,
+Ciudad de Asis,1,6,3026,0.0,4,0.1,3,
 Colonia Requena,1,6,949,0.1,0,0.0,,
-Cuatrocientas Viviendas,1,5,480,0.2,1,0.2,,
+Cuatrocientas Viviendas,1,5,480,0.2,0,0.0,,
 Juan Pablo II,1,4,3036,0.0,2,0.1,,
-Rabasa,1,8,1188,0.1,1,0.1,,
+Rabasa,1,8,1188,0.1,1,0.1,1,
 Tombola,1,4,1062,0.1,0,0.0,,
-Divina Pastora,0,0,535,0.0,2,0.4,,
-Virgen del Carmen,0,0,1099,0.0,1,0.1,,
+Divina Pastora,0,0,535,0.0,2,0.4,1,
+Virgen del Carmen,0,0,1099,0.0,1,0.1,1,
