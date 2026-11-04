@@ -276,6 +276,7 @@ Reina Sofia 1,Estepona,36,191,130,27.7
 8 de Marzo 8,Fuengirola,36,186,77,46.8
 Carlota Alessandri 282,Torremolinos,35,147,236,14.8
 El Oasis de Marbella 13,Marbella,35,196,119,29.4
+Maritimo Rey de España 131,Fuengirola,35,192,109,32.1
 La Quinta Hills 33,Benahavis,35,216,107,32.7
 Rio Volga 7,Marbella,35,176,148,23.6
 Andalucia 63,Velez-Malaga,35,123,148,23.6
@@ -284,7 +285,6 @@ Descubrimiento 19,Mijas,35,187,201,17.4
 Don Juan Manuel 10,Torremolinos,35,127,180,19.4
 Nuñez de Balboa 9,Nerja,34,110,73,46.6
 Puerto Paraiso 1,Estepona,34,153,108,31.5
-Maritimo Rey de España 131,Fuengirola,34,188,109,31.2
 Playas del Duque 9,Marbella,34,156,164,20.7
 Los Hidalgos Golf 8,Manilva,34,146,204,16.7
 Jose Banus 4,Marbella,34,170,74,45.9
@@ -297,7 +297,7 @@ Benalauria 2,Mijas,34,186,80,42.5
 Almeria 23,Torrox,34,205,108,31.5
 Del Angel Nva Andal Aloha 5,Marbella,34,215,40,85.0
 Nicaragua 24,Estepona,34,183,115,29.6
-Azahar de Estepona 1022,Estepona,34,204,61,55.7
+Azahar de Estepona 49,Estepona,34,204,61,55.7
 "Los Naranjos de Marbella, Fase 1 67",Marbella,33,182,102,32.4
 Altos de la Quinta 2812,Benahavis,33,164,104,31.7
 Valdivia 1,Nerja,33,134,86,38.4
@@ -524,6 +524,7 @@ Golf de Riviera 2,Mijas,24,98,46,52.2
 Miami 1,Torremolinos,24,96,103,23.3
 Del Gaviero 2,Marbella,24,121,68,35.3
 Solana 4,Nerja,24,93,115,20.9
+Castilla Perez 17,Nerja,24,98,67,35.8
 De la Noria 21,Mijas,24,123,56,42.9
 Nenufar 6,Fuengirola,24,105,267,9.0
 Duque de Ahumada 9,Marbella,24,88,72,33.3
@@ -558,7 +559,6 @@ Bellavista 3,Benalmadena,23,89,58,39.7
 Sedella 3,Mijas,23,84,69,33.3
 Salvador Allende 40,Torremolinos,23,145,126,18.3
 Playa Esmeralda 176,Marbella,23,129,104,22.1
-Castilla Perez 17,Nerja,23,94,67,34.3
 Boqueron 1,Manilva,23,95,78,29.5
 Tarragona 1,Marbella,23,123,107,21.5
 Garcia Peñalver 7,Torrox,23,75,185,12.4
@@ -1630,8 +1630,8 @@ Guaras 3,Mijas,11,72,21,52.4
 Diego de Velazquez 7,Marbella,11,57,58,19.0
 Praga 1,Málaga,11,40,95,11.6
 Begoña 5,Fuengirola,11,67,60,18.3
-Solanum 30B,Marbella,11,61,48,22.9
-Solana Village Ii Fase 1 11,Mijas,11,64,24,45.8
+De San Patricio 8,Mijas,11,64,24,45.8
+Solanum 13,Marbella,11,61,48,22.9
 Tore Tore 32,Velez-Malaga,10,49,44,22.7
 Del Mediterraneo 5,Nerja,10,40,35,28.6
 Almuñecar 2,Nerja,10,49,20,50.0
