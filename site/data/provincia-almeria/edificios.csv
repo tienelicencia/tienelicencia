@@ -14,8 +14,8 @@ Moro Manco 1,Mojacar,65,312
 Lisboa 2,Pulpi,62,306
 Arquitecto Julian Laguna 35,"Ejido, el",59,256
 Del Descubrimiento 5,Vera,58,274
+Europa 7,Pulpi,57,301
 Las Higueras 95,Vicar,56,237
-Europa 7,Pulpi,56,297
 Alcazaba 115,Vera,54,281
 Juan Sebastian el Cano 72,Vera,53,203
 Torre Bahia 1,Roquetas de Mar,52,161
@@ -26,9 +26,9 @@ Del Generalife 2,Vera,48,223
 Clara Campoamor 7,Mojacar,47,241
 Tortuga Boba 5,Vera,46,158
 Del Mediterraneo 409,Mojacar,46,271
-Ciudad de Cadiz 9,Roquetas de Mar,44,235
 Playa Paraiso 1,Roquetas de Mar,44,161
 Islas Canarias 9,Vera,43,200
+Ciudad de Cadiz 9,Roquetas de Mar,43,230
 Del Mulhacen 1,Vera,43,218
 Viena 2,Pulpi,42,199
 Juan Sebastian el Cano 72,Vera,40,147
@@ -43,11 +43,11 @@ Amarguillos 2,Vera,33,165
 Aguadulce 8,Vera,33,84
 Las Pitas 1,Vera,33,153
 Islas Canarias 7,Vera,33,157
+Lira 6,Pulpi,32,179
 Finisterre 4,Mojacar,32,166
 Ciudad de Tarragona 2,Vera,32,117
 Miguel Hernandez 12,Mojacar,32,118
 Ciudad de Tarragona 2,Vera,31,98
-Lira 6,Pulpi,31,171
 Califato 2,Mojacar,31,211
 Melodia 5,Mojacar,30,122
 Sierra Nevada 15,Pulpi,30,134
@@ -117,6 +117,7 @@ Dique 10,"Ejido, el",17,90
 Mirafondo 18,"Ejido, el",17,70
 Murillo 2,Garrucha,17,91
 La Garrofa 9,Almería,17,73
+Espejo del Mar 72,Almería,17,88
 Alegria 7,Mojacar,16,78
 Sudamerica 204,Roquetas de Mar,16,76
 Ciudad de Murcia 4,Vera,16,94
@@ -125,9 +126,7 @@ Quilla 4,Nijar,16,71
 Bergantin 14,Vera,16,76
 Palo Mayor 14,"Ejido, el",16,57
 De las Gaviotas 49,Roquetas de Mar,16,56
-Mar Egeo 4,Roquetas de Mar,16,61
 Alameda 83,Roquetas de Mar,16,72
-Espejo del Mar 72,Almería,16,82
 Nuñez de Balboa 8,Vera,15,56
 Magallanes 7,Vera,15,64
 Monte Mahimon 1,Vera,15,79
@@ -135,6 +134,7 @@ Martinica 11,Nijar,15,61
 Ciudad de Tarragona 1,Vera,15,59
 Islas Canarias 17,Vera,15,83
 Meteosat 60,Pulpi,15,74
+Mar Egeo 4,Roquetas de Mar,15,57
 Juegos de Atenas 20,Almería,14,62
 La Mena 2,Mojacar,14,56
 Del Encaje 9,Almería,14,54
