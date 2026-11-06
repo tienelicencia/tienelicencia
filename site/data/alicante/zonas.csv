@@ -1,28 +1,28 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Casco Antiguo - Santa Cruz - Ayuntamiento,620,2264,2251,27.5,406,18.0,399,26.3
-Playa de San Juan,409,1662,22027,1.9,133,0.6,131,31.3
-Ensanche Diputacion,300,1078,9614,3.1,222,2.3,214,35.0
-Centro,281,1246,4542,6.2,217,4.8,213,37.6
-Mercado,262,1261,5663,4.6,189,3.3,184,33.7
-Carolinas Bajas,199,833,5414,3.7,162,3.0,161,34.8
-Albufereta,140,595,6581,2.1,97,1.5,95,27.4
-Cabo de las Huertas,131,708,9667,1.4,61,0.6,59,23.7
-Campoamor,126,631,6028,2.1,139,2.3,134,48.5
+Casco Antiguo - Santa Cruz - Ayuntamiento,620,2264,2251,27.5,406,18.0,406,26.1
+Playa de San Juan,409,1662,22027,1.9,133,0.6,133,31.6
+Ensanche Diputacion,300,1078,9614,3.1,222,2.3,221,35.3
+Centro,281,1246,4542,6.2,217,4.8,217,37.8
+Mercado,262,1261,5663,4.6,189,3.3,189,33.3
+Carolinas Bajas,199,833,5414,3.7,162,3.0,162,34.6
+Albufereta,140,595,6581,2.1,97,1.5,97,27.8
+Cabo de las Huertas,131,708,9667,1.4,61,0.6,61,24.6
+Campoamor,126,631,6028,2.1,139,2.3,139,48.2
 Pla del Bon Repos,114,575,8039,1.4,77,1.0,77,45.5
-Sananton,105,438,1481,7.1,148,10.0,143,46.9
+Sananton,105,438,1481,7.1,148,10.0,148,45.9
 Raval Roig - Virgen del Socorro,75,317,1621,4.6,37,2.3,37,21.6
-Carolinas Altas,62,301,8793,0.7,57,0.6,55,49.1
-Benalua,51,199,5740,0.9,22,0.4,21,
-San Blas - Santo Domingo,46,202,4753,1.0,55,1.2,54,51.9
-El Palmeral - Urbanova - Tabarca,39,202,3544,1.1,33,0.9,32,50.0
+Carolinas Altas,62,301,8793,0.7,57,0.6,57,47.4
+Benalua,51,199,5740,0.9,22,0.4,22,
+San Blas - Santo Domingo,46,202,4753,1.0,55,1.2,55,52.7
+El Palmeral - Urbanova - Tabarca,39,202,3544,1.1,33,0.9,33,48.5
 Vistahermosa,21,154,2865,0.7,23,0.8,23,
-Los Angeles,12,73,5139,0.2,32,0.6,31,41.9
+Los Angeles,12,73,5139,0.2,32,0.6,32,40.6
 Poligono San Blas,12,60,5261,0.2,14,0.3,14,
 Virgen del Remedio,10,43,6835,0.1,9,0.1,9,
-Altozano - Conde Lumiares,9,47,4780,0.2,25,0.5,24,
+Altozano - Conde Lumiares,9,47,4780,0.2,25,0.5,25,
 Disperso Partidas,8,66,4700,0.2,16,0.3,16,
 Villafranqueza - Santa Faz,6,45,2572,0.2,5,0.2,5,
-Alipark,5,18,1656,0.3,14,0.8,12,
+Alipark,5,18,1656,0.3,14,0.8,13,
 Lo Morant - San Nicolas de Bari,5,23,2876,0.2,7,0.2,7,
 San Fernando - Princesa Mercedes,5,15,2411,0.2,11,0.5,11,
 Ciudad Elegida,4,18,1955,0.2,7,0.4,7,
@@ -33,13 +33,13 @@ San Gabriel,3,14,2205,0.1,9,0.4,9,
 Florida Alta,2,8,2429,0.1,5,0.2,5,
 Florida Baja,2,7,4886,0.0,12,0.2,12,
 Garbinet,2,11,5844,0.0,9,0.2,9,
-Poligono Babel,2,8,3473,0.1,10,0.3,9,
+Poligono Babel,2,8,3473,0.1,10,0.3,10,
 San Agustin,2,9,928,0.2,0,0.0,,
 Ciudad Jardin,1,8,636,0.2,0,0.0,,
 Ciudad de Asis,1,6,3026,0.0,4,0.1,4,
 Colonia Requena,1,6,949,0.1,0,0.0,,
 Cuatrocientas Viviendas,1,5,480,0.2,0,0.0,,
-Juan Pablo II,1,4,3036,0.0,2,0.1,1,
+Juan Pablo II,1,4,3036,0.0,2,0.1,2,
 Rabasa,1,8,1188,0.1,1,0.1,1,
 Tombola,1,4,1062,0.1,0,0.0,,
 Divina Pastora,0,0,535,0.0,2,0.4,2,
