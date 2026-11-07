@@ -1,8 +1,8 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Granada,3611,18062,141461,2.6,2.19
-Almuñecar,2200,11680,29744,7.4,5.08
-Monachil,1257,6573,7906,15.9,8.98
-Salobreña,561,3530,11601,4.8,3.56
+Granada,3609,18060,141461,2.6,2.19
+Almuñecar,2197,11655,29744,7.4,5.08
+Monachil,1258,6579,7906,15.9,8.98
+Salobreña,559,3518,11601,4.8,3.56
 Motril,452,2615,32651,1.4,0.83
 Gualchos,92,502,4079,2.3,1.52
 Torrenueva Costa,85,423,5581,1.5,0.86
@@ -10,10 +10,10 @@ Velez de Benaudalla,80,380,2463,3.2,2.03
 Armilla,73,418,11304,0.6,0.46
 Güejar Sierra,70,396,2189,3.2,2.65
 Cenes de la Vega,69,345,4160,1.7,1.25
-Guadix,63,376,11071,0.6,0.56
+Guadix,64,379,11071,0.6,0.56
 "Zubia, la",49,282,9615,0.5,0.52
-"Gabias, las",34,218,11667,0.3,0.24
 Albolote,34,237,9091,0.4,0.11
+"Gabias, las",33,205,11667,0.3,0.24
 Villa de Otura,33,281,3538,0.9,0.65
 Alhendin,27,155,4915,0.5,0.59
 Pinos Genil,26,112,913,2.8,2.63
@@ -130,3 +130,5 @@ Iznalloz,1,2,,,0.0
 Molvizar,1,2,1765,0.1,0.17
 Aldeire,1,4,,,0.0
 Villanueva de las Torres,1,8,526,0.2,0.57
+Portugos,1,7,310,0.3,1.29
+Játar,1,6,392,0.3,0.51
