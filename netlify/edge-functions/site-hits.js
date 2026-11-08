@@ -97,13 +97,21 @@
  * one, e.g. a WhatsApp button) is reported as t:'contact' with the kind, page, title and section.
  * Never the number or address. It proves the tap, not that a call or message followed.
  *
+ * Named actions (8 Nov 2026): a site's own code reports something that happened, for goals the page address can't
+ * show (a search that found results, a map item opened, a share-button use):
+ *   (window.slq = window.slq || []).push(['search', 'code'])      // name ^[a-z][a-z0-9_]{1,39}$, detail ^[a-z0-9_-]{1,40}$ or none
+ * Works before this script has loaded (the queue is read when it starts). Sent as t:'action' → log_site_action →
+ * site_analytics.actions; goal source 'action', key = name. Only the name and the code-like detail are sent: never
+ * what a visitor typed. The same action within 3 s is sent once. Controls inside [data-sl-skip] (e.g. share buttons
+ * that report their own action) are not also counted as contact taps or copies.
+ *
  * Exclude your own browser on a site: open any page with ?count=off (undo: ?count=on).
  * Opening any /admin page on a site does this automatically (staff aren't visitors).
  */
 
 const ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_hit';
 // From ~/.config/shiftedlabs/site-hits/probe-paths.txt (inlined by install.sh)
-const APP_PAGE = (host, path) => host.replace(/^www\./, '') === 'shiftedlabs.ai' && /^\/analytics(\/|$)/.test(path);
+const APP_PAGE = (host, path) => host.replace(/^www\./, '') === 'shiftedlabs.ai' && /^\/analytics(\/|-|$)/.test(path);
 // Pages a site keeps out of the counts entirely: no hit logged, no script added, reports dropped.
 // TeleStats Fives (/fives, /predict) is a private game and stays out of every analytics tool;
 // a raw prefix, the same rule as EXCLUDED_PREFIXES in that site's ts-analytics.js.
@@ -133,6 +141,9 @@ const SHARE_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log
 const COPY_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_copy';
 const PRINT_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_print';
 const CONTACT_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_contact';
+const ACTION_ENDPOINT = 'https://dpbqttplugxcuuuzxgfk.supabase.co/rest/v1/rpc/log_site_action';
+const ACTION_RE = /^[a-z][a-z0-9_]{1,39}$/;
+const DETAIL_RE = /^[a-z0-9_-]{1,40}$/;
 const CODE_RE = /^[a-z0-9]{6}$/;
 
 // The browser side, served from SCRIPT_PATH. Visible time only (paused while the tab is hidden).
@@ -184,11 +195,15 @@ for(var i=0;i<hs.length;i++){if(r.intersectsNode(hs[i])){var l=txt(hs[i]);if(!se
 copied('selection',sel.toString(),a,b,x)}catch(e){}},true);
 function ckind(u){var l=String(u||'').trim().toLowerCase();if(l.indexOf('tel:')===0)return 'phone';if(l.indexOf('sms:')===0)return 'sms';if(l.indexOf('mailto:')===0)return 'email';if(/^whatsapp:|^(https?:\\/\\/)?(wa\\.me|api\\.whatsapp\\.com|web\\.whatsapp\\.com)(\\/|$)/.test(l))return 'whatsapp';return null}
 var ct='',ctt=0;
-function contact(k,el){var a=where(el),key=k+'|'+path+'|'+a.s,now=Date.now();if(key===ct&&now-ctt<10000)return;ct=key;ctt=now;post({t:'contact',p:path,h:(document.title||'').slice(0,140),k:k,s:a.s||null,ss:a.ss||null,c:SH})}
+function skip(n){var el=elOf(n);return !!(el&&el.closest&&el.closest('[data-sl-skip]'))}
+function contact(k,el){if(skip(el))return;var a=where(el),key=k+'|'+path+'|'+a.s,now=Date.now();if(key===ct&&now-ctt<10000)return;ct=key;ctt=now;post({t:'contact',p:path,h:(document.title||'').slice(0,140),k:k,s:a.s||null,ss:a.ss||null,c:SH})}
 document.addEventListener('click',function(e){try{if(e.isTrusted===false)return;var a=e.target&&e.target.closest&&e.target.closest('a[href]');var k=a&&ckind(a.getAttribute('href'));if(k)contact(k,a)}catch(x){}},true);
 try{var wo=window.open;if(wo&&!wo.__sl){window.open=function(u){try{var k=ckind(u);if(k)contact(k,Date.now()-prt<4000?press:document.activeElement)}catch(x){}return wo.apply(window,arguments)};window.open.__sl=1}}catch(e){}
+var an='',ant=0;
+function act(a,d){try{a=String(a||'');d=d==null||d===''?null:String(d);if(!/^[a-z][a-z0-9_]{1,39}$/.test(a)||(d!==null&&!/^[a-z0-9_-]{1,40}$/.test(d)))return;var k=a+'|'+d+'|'+path,now=Date.now();if(k===an&&now-ant<3000)return;an=k;ant=now;post({t:'action',p:path,h:(document.title||'').slice(0,140),a:a,d:d,c:SH})}catch(e){}}
+var slq=window.slq;window.slq={push:function(x){if(x&&x.length)act(x[0],x[1])}};if(slq&&slq.length)for(var qi=0;qi<slq.length;qi++)if(slq[qi])act(slq[qi][0],slq[qi][1]);
 var pr=null;addEventListener('beforeprint',function(){if(pr===path)return;pr=path;post({t:'print',p:path,h:(document.title||'').slice(0,140),c:SH})});
-try{var CB=navigator.clipboard;if(CB&&CB.writeText&&!CB.__sl){var wt=CB.writeText;CB.writeText=function(t){try{copied('button',String(t==null?'':t),where(Date.now()-prt<4000?press:document.activeElement),null,1)}catch(e){}return wt.apply(CB,arguments)};CB.__sl=1}}catch(e){}
+try{var CB=navigator.clipboard;if(CB&&CB.writeText&&!CB.__sl){var wt=CB.writeText;CB.writeText=function(t){try{var pe=Date.now()-prt<4000?press:document.activeElement;if(!skip(pe))copied('button',String(t==null?'':t),where(pe),null,1)}catch(e){}return wt.apply(CB,arguments)};CB.__sl=1}}catch(e){}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'){flush();since=null}else{since=performance.now()}});
 addEventListener('pagehide',flush);
 addEventListener('scroll',depth,{passive:true});depth();
@@ -627,7 +642,8 @@ async function withScript(response, pv) {
 }
 
 // /__sl/beat: { t: 'time', p, s, d, i } engagement for a page, { t: 'view', p } SPA navigation,
-// or { t: 'code', p, c, pc } the share code a page view issued (and the one it arrived with)
+// { t: 'code', p, c, pc } the share code a page view issued (and the one it arrived with), copy / print / contact, or
+// { t: 'action', p, h, a, d, c } a named action the site reported
 async function handleBeat(request, context, url) {
   const site = bareHost(url.hostname);
   if (!site.includes('.') || site.endsWith('.netlify.app') || site.endsWith('.netlify.live') || site === 'localhost') return;
@@ -713,6 +729,22 @@ async function handleBeat(request, context, url) {
       device: deviceOf(ua), browser: agent, os: osOf(ua),
     };
     await fetch(CONTACT_ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ t: tap }) });
+    return;
+  }
+  if (b.t === 'action') {
+    // A named action the site's own code reported (see header). Only the name and a short code-like detail, never page input.
+    if (b.w === true || typeof b.a !== 'string' || !ACTION_RE.test(b.a)) return;
+    const detail = typeof b.d === 'string' && DETAIL_RE.test(b.d) ? b.d : null;
+    const action = {
+      site, path, title: typeof b.h === 'string' && b.h.trim() ? b.h.replace(/\s+/g, ' ').trim().slice(0, 140) : null,
+      name: b.a, detail,
+      share_code: typeof b.c === 'string' && CODE_RE.test(b.c) ? b.c : null,
+      pv: typeof b.v === 'string' && /^[a-z0-9]{12}$/.test(b.v) ? b.v : null,
+      ip: context.ip ?? null, ua,
+      country: context.geo?.country?.code ?? null, city: context.geo?.city ?? null,
+      device: deviceOf(ua), browser: agent, os: osOf(ua),
+    };
+    await fetch(ACTION_ENDPOINT, { method: 'POST', headers, body: JSON.stringify({ a: action }) });
     return;
   }
   if (b.t !== 'time') return;

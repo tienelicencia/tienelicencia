@@ -567,6 +567,7 @@
     const my = ++reqId;
     TL.api("building", { id }).then((d) => {
       TL.track("map_select", { select_type: "building", area: focus?.slug || "spain", town: d.muni || "", place: barrioAt(r[0], r[1]) || d.muni || "" });
+      TL.action("building_open");
       if (my !== reqId) return;
       $("#p-detail h2").innerHTML = `${esc(d.addresses.slice(0, 3).join(" · "))}${d.addresses.length > 3 ? ` <span class="muted">+${d.addresses.length - 3}</span>` : ""}`;
       $("#p-detail .figs").insertAdjacentHTML("afterend", `<p class="sub" style="margin-top:10px">${esc([d.postcode, d.muni].filter(Boolean).join(" "))}</p>`);

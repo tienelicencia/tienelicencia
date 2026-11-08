@@ -67,6 +67,7 @@
       // Town only (the licence's, else the advert's own location line), never the advert or the number
       const town = last.licence?.muni || last.licence_muni || (last.location || "").split(",")[0].trim();
       TL.track("check_advert", { check_mode: mode, platform: last.platform || "none", result: last.reason || last.verdict, town });
+      TL.action("check_result", last.reason || last.verdict);   // Signals: a result was shown (the verdict code, never the advert)
     } catch (err) {
       last = null;
       const msg = { bad_url: L("Pega un enlace de un anuncio de Airbnb (…/rooms/123…) o de Booking.com (…/hotel/es/…).", "Paste an Airbnb listing link (…/rooms/123…) or a Booking.com link (…/hotel/es/…)."),

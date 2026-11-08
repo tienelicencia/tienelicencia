@@ -380,6 +380,7 @@
         }
         track("search", { search_kind: j.kind, area: a, town: (j.kind === "code" ? j.rows?.[0]?.muni || j.elsewhere?.muni : j.buildings?.[0]?.muni) || "", results: j.kind === "code" ? (j.rows.length ? "found" : j.elsewhere ? "elsewhere" : "none")
           : Math.min((j.buildings || []).length, 15), corrected: !!j.corrected });
+        if (j.kind === "code" ? j.rows?.length || j.elsewhere : j.buildings?.length) action("search", j.kind);   // a search that found something
       } catch {
         out.innerHTML = `<div class="empty">${t("search_error")}</div>`;
       } finally {
@@ -631,6 +632,11 @@
   function track(name, params = {}) {
     if (consent === "granted") gtag("event", name, { language: lang, ...params });
   }
+  // A named action for Signals (the Shifted Labs counter, no cookies, so no consent needed): goals that the address
+  // can't show. Name and a short code-like detail only, never what someone typed. Queued if the counter isn't loaded yet.
+  function action(name, detail) {
+    try { (window.slq = window.slq || []).push([name, detail ? String(detail).toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40) || null : null]); } catch { /* never break the page */ }
+  }
   function setConsent(v) {
     consent = v;
     try { localStorage.setItem(consentKey, v); } catch { /* private mode */ }
@@ -674,7 +680,7 @@
     menu?.remove();
     const url = b.dataset.shareUrl, text = b.dataset.shareText, content = b.dataset.shareContent;
     if (navigator.share && matchMedia("(pointer: coarse)").matches) {   // phones: the system share sheet
-      try { await navigator.share({ title: text, text, url }); track("share", { method: "native", content }); } catch { /* cancelled */ }
+      try { await navigator.share({ title: text, text, url }); track("share", { method: "native", content }); action("share_button", "native"); } catch { /* cancelled */ }
       return;
     }
     const enc = encodeURIComponent;
@@ -687,6 +693,7 @@
     const m = document.createElement("div");
     m.className = "share-menu";
     m.setAttribute("role", "menu");
+    m.setAttribute("data-sl-skip", "");   // reported as a share_button action: not also a contact tap (WhatsApp, email) or a copy
     m.innerHTML = items.map(([k, label, href]) => href
       ? `<a role="menuitem" href="${href}" target="_blank" rel="noopener" data-m="${k}">${label}</a>`
       : `<button role="menuitem" type="button" data-m="${k}">${label}</button>`).join("");
@@ -698,6 +705,7 @@
       const it = ev.target.closest("[data-m]");
       if (!it) return;
       track("share", { method: it.dataset.m, content });
+      action("share_button", it.dataset.m);
       if (it.dataset.m === "copy") {
         try { await navigator.clipboard.writeText(url); it.textContent = lang === "es" ? "¡Copiado!" : "Copied!"; } catch { prompt("", url); }
         setTimeout(() => m.remove(), 900);
@@ -727,7 +735,7 @@
     else consentBanner(false);
   }
 
-  window.TL = { init, t, lang: () => lang, setTitle, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
+  window.TL = { init, t, lang: () => lang, setTitle, action, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
     getJSON, api, byPopulation, cityAreas, wideAreas, areaHref, areaOfMuni, AREA_OF_PROV, COMING, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
     track, shareButton, loading };
 })();
