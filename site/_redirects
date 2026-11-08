@@ -5,7 +5,7 @@
 /sitemap.xml              /data/sitemap.xml  200!
 /llms.txt                 /data/llms.txt  200!
 /comprobar/resultado      /comprobar.html  200
-/guias                    /guias/index.html  200
+/guias                    /guias/index.html  200!
 /guias/*                  /guias/:splat.html  200
 /ranking                  /data/pages/ranking.html  200!
 /mapa                     /data/pages/mapa.html  200!
