@@ -227,8 +227,8 @@
     const CAP = S.cap,   // null where the council has no % cap (e.g. Barcelona)
       COUNCIL_OVER = { malaga: 43, sevilla: 11 }[slug];
     const R = S.registered, LS = S.listings;
-    document.title = `${name(area.name)} · ${L("Viviendas turísticas", "Tourist flats")} | tienelicencia.com`;
-    $("#area-name").textContent = name(area.name);
+    TL.setTitle(`${name(area.name)} · ${L("Viviendas turísticas", "Tourist flats")} | tienelicencia.com`);
+    if (!$("#area-name").hasAttribute("data-static")) $("#area-name").textContent = name(area.name);
     $("#crumb-area").textContent = name(area.name);
     $("#area-updated").innerHTML = `<span class="live"></span><span>${RG.src !== "Open RTA" ? `${RG.es}` : `${RG.es}: ${TL.date(M.register_lastUpdateData)}`}</span>` +
       (LS ? `<span aria-hidden="true">·</span><span>Airbnb: Inside Airbnb ${TL.date(S.snapshot_date || M.snapshot_date)}${LS.live_checked ? ` + ${fmt(LS.live_checked)} ${L("revisados en directo", "re-checked live")}` : ""}</span>` : "");

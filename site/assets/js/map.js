@@ -56,6 +56,7 @@
   const zf = (a) => a.zoom - ({ city: 2.2, island: 1.6, province: 0.9, region: 1.3 }[a.kind] ?? 2);
   const zt = (a) => a.zoom - (a.kind === "city" ? 3 : 1.5);
 
+  const PAGE_AREA = TL.currentArea();   // the address the page was loaded at (the address follows the map from then on)
   let A, AREA = {}, AIDX = {}, M, OWN = new Map(), focus = null, pin = null, view = params.get("capa") || "licences", selected = null;
   let B = [], byId = new Map(), pendingB = null, H3T, BT, layersReady = false, framing = false;
   const DATA = { h0: [], h1: [], h2: [], h3: [], buildings: [], ahex: [], barrios: [], dots: [], bub: [] };
@@ -254,7 +255,9 @@
     if (!force && s === sig) return;
     sig = s;
     const nm = focus ? name(focus.name) : L("España", "Spain");
-    document.title = `${L("Mapa", "Map")} · ${nm} | tienelicencia.com`;
+    const generic = `${L("Mapa", "Map")} · ${nm} | tienelicencia.com`;
+    if ((focus?.slug || "mapa") === PAGE_AREA) TL.setTitle(generic);   // the page's own title while it shows its own area
+    else document.title = generic;
     $("#map-title").innerHTML = `${esc(nm)}<small>${L("Viviendas turísticas registradas", "Registered tourist flats")}</small>`;
     $("#back").href = focus ? areaHref(focus.slug) : "/";
     $("#area-switch").innerHTML = `<option value="" ${focus ? "" : "selected"}>${L("España", "Spain")}</option>` +

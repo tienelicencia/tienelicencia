@@ -70,10 +70,10 @@
 
   function paint() {
     const k = S.subareas.kind;
-    document.title = `${L("Clasificación", "Ranking")} · ${name(A.name)} | tienelicencia.com`;
+    TL.setTitle(`${L("Clasificación", "Ranking")} · ${name(A.name)} | tienelicencia.com`);
     $("#crumb-area").textContent = name(A.name);
     $("#crumb-area").href = areaHref(slug);
-    $("#rank-title").textContent = { barrio: S.subareas.level === "district" ? L("Todos los distritos", "Every district") : L("Todos los barrios", "Every barrio"), municipality: L("Todos los municipios", "Every municipality"),
+    if (!$("#rank-title").hasAttribute("data-static")) $("#rank-title").textContent = { barrio: S.subareas.level === "district" ? L("Todos los distritos", "Every district") : L("Todos los barrios", "Every barrio"), municipality: L("Todos los municipios", "Every municipality"),
       locality: L("Todos los códigos postales", "Every postcode") }[k] + ` · ${name(A.name)}`;
     const fr = !A.has_listings && S.subareas.listings_from === "frame", unit = S.subareas.level === "district" ? L("distrito", "district") : L("barrio", "barrio");
     $("#rank-lede").innerHTML = k === "barrio" && fr

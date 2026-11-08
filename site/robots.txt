@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /data/pages/
 
 Sitemap: https://tienelicencia.com/sitemap.xml

@@ -126,3 +126,15 @@ body.map-page { overflow: hidden; }
 .legend-items { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); }
 .legend-items span { display: inline-flex; align-items: center; gap: 6px; }
 .legend-items i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+/* What the map shows, written by the build (rta_audit/pages.py): under the panel on desktop, in the search sheet on phones */
+#map-about { order: 5; padding: 18px 18px 28px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--ink-2); }
+#map-about h1 { font: 600 17px/1.25 var(--serif); margin: 0 0 8px; color: var(--ink); }
+#map-about h2 { font: 600 13px/1.2 var(--sans); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 0 8px; }
+#map-about p { margin: 0 0 8px; }
+#map-about ol { margin: 0 0 12px; padding-left: 20px; }
+#map-about li { margin: 3px 0; }
+@media (max-width: 760px) {
+  #map-about { padding: 14px 16px 22px; }
+  #sheet[data-mode="detail"] #map-about { display: none; }
+}

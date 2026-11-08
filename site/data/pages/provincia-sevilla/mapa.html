@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de viviendas turísticas en Provincia de Sevilla, edificio por edificio | tienelicencia.com</title>
+<meta name="description" content="Mapa de las 11.380 viviendas turísticas registradas en Provincia de Sevilla, en 6.379 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="title-es" content="Mapa de viviendas turísticas en Provincia de Sevilla, edificio por edificio | tienelicencia.com">
+<meta name="title-en" content="Map of tourist flats in Sevilla province, building by building | tienelicencia.com">
+<meta name="description-es" content="Mapa de las 11.380 viviendas turísticas registradas en Provincia de Sevilla, en 6.379 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="description-en" content="Map of the 11,380 registered tourist flats in Sevilla province, in 6,379 buildings. Tap a building to see each flat, with its licence, floor and door.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Mapa de viviendas turísticas en Provincia de Sevilla, edificio por edificio | tienelicencia.com">
+<meta property="og:description" content="Mapa de las 11.380 viviendas turísticas registradas en Provincia de Sevilla, en 6.379 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin>
+<!-- our map data starts downloading now, in parallel with maplibre-gl.js; map.js picks the responses up -->
+<link rel="preload" href="/data/areas.json" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/data/spain/map.json" as="fetch" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/map.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="/assets/js/core.js"></script>
+<link rel="canonical" href="https://tienelicencia.com/provincia-sevilla/mapa">
+<meta property="og:url" content="https://tienelicencia.com/provincia-sevilla/mapa">
+<meta property="og:locale" content="es_ES">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Dataset","name":"Mapa de viviendas turísticas en Provincia de Sevilla, edificio por edificio","description":"Mapa de las 11.380 viviendas turísticas registradas en Provincia de Sevilla, en 6.379 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.","url":"https://tienelicencia.com/provincia-sevilla/mapa","inLanguage":["es","en"],"isAccessibleForFree":true,"dateModified":"2026-11-08T12:44:17+00:00","spatialCoverage":{"@type":"Place","name":"Provincia de Sevilla","geo":{"@type":"GeoCoordinates","latitude":37.35,"longitude":-5.75}},"isBasedOn":"Registro de Turismo de Andalucía","creator":{"@type":"Organization","name":"tienelicencia.com","url":"https://tienelicencia.com"},"license":"https://tienelicencia.com/metodologia#fuentes","distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://tienelicencia.com/data/provincia-sevilla/summary.json"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tienelicencia.com/"},{"@type":"ListItem","position":2,"name":"Provincia de Sevilla","item":"https://tienelicencia.com/provincia-sevilla"},{"@type":"ListItem","position":3,"name":"Mapa","item":"https://tienelicencia.com/provincia-sevilla/mapa"}]}]}</script>
+</head>
+<body class="map-page">
+<header class="mapbar">
+  <a class="back" id="back" href="/provincia-sevilla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-t="summary"></span></a>
+  <span class="sep"></span>
+  <a class="brand-link" href="/" aria-label="tienelicencia.com"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d5a46"/><path d="M8.5 19.2 20 9.6l11.5 9.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 17v11.6c0 1 .8 1.8 1.8 1.8h11.6c1 0 1.8-.8 1.8-1.8V17" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.6 23.4 3.1 3.1 5.8-6" fill="none" stroke="#e2b54a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="title" id="map-title"><span lang="es">Provincia de Sevilla</span><span lang="en">Sevilla province</span><small><span lang="es">Viviendas turísticas registradas</span><span lang="en">Registered tourist flats</span></small></div>
+  <span class="spacer"></span>
+  <span id="map-share"></span>
+  <a id="map-report" class="share-btn" href="/contacto?tipo=correccion" data-t-aria="map_report"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span data-t="map_report"></span></a>
+  <select id="area-switch" aria-label="Zona / Area"></select>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button type="button" data-l="es" aria-pressed="false">ES</button>
+    <button type="button" data-l="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<div id="map" role="region" aria-label="Mapa"></div>
+<div id="map-loading" role="status" data-t="loading"></div>
+
+<aside id="side">
+  <nav id="layers" aria-label="Capas"></nav>
+  <div id="legend"></div>
+  <button class="search-fab" type="button" id="search-fab" data-t-aria="search_btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <div id="sheet" data-mode="search" aria-live="polite">
+    <div class="sheet-head"><span class="grip"></span><button class="x" type="button" id="sheet-close" aria-label="Cerrar / Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sheet-body">
+      <section id="p-search"></section>
+      <section id="p-detail"></section>
+      <section id="map-about">
+        <h1><span lang="es">Mapa de viviendas turísticas en Provincia de Sevilla, edificio por edificio</span><span lang="en">Map of tourist flats in Sevilla province, building by building</span></h1>
+        <p lang="es">Mapa de las 11.380 viviendas turísticas registradas en Provincia de Sevilla, en 6.379 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.</p><p lang="en">Map of the 11,380 registered tourist flats in Sevilla province, in 6,379 buildings. Tap a building to see each flat, with its licence, floor and door.</p>
+        <h2><span lang="es">Edificios con más viviendas turísticas</span><span lang="en">Buildings with most tourist flats</span></h2><ol><li><a href="/provincia-sevilla/mapa?b=4414402TG3441S&amp;lat=37.37985&amp;lon=-5.99995">Salado 2</a> · Sevilla <span class="muted"><span lang="es">94 viviendas</span><span lang="en">94 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=5627512TG3452H&amp;lat=37.39206&amp;lon=-5.98682">Santiago 27</a> · Sevilla <span class="muted"><span lang="es">42 viviendas</span><span lang="en">42 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=9097201QB4799N&amp;lat=37.73117&amp;lon=-6.17409">La Algara 37</a> · Ronquillo, el <span class="muted"><span lang="es">41 viviendas</span><span lang="en">41 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=4624011TG3442D&amp;lat=37.38822&amp;lon=-5.99849">Adolfo Cuellar 10</a> · Sevilla <span class="muted"><span lang="es">32 viviendas</span><span lang="en">32 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=5037413TG3453G&amp;lat=37.40085&amp;lon=-5.99447">Lumbreras 8</a> · Sevilla <span class="muted"><span lang="es">29 viviendas</span><span lang="en">29 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=5029006TG3452G&amp;lat=37.39319&amp;lon=-5.99432">Martin Villa 2</a> · Sevilla <span class="muted"><span lang="es">25 viviendas</span><span lang="en">25 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=4725401TG3442F&amp;lat=37.39029&amp;lon=-5.99706">San Pablo 1</a> · Sevilla <span class="muted"><span lang="es">24 viviendas</span><span lang="en">24 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=4120022TG3442S&amp;lat=37.38482&amp;lon=-6.00451">Alfareria 8</a> · Sevilla <span class="muted"><span lang="es">22 viviendas</span><span lang="en">22 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=5225006TG3452C&amp;lat=37.3893&amp;lon=-5.99204">San Isidoro 3-5</a> · Sevilla <span class="muted"><span lang="es">20 viviendas</span><span lang="en">20 flats</span></span></li><li><a href="/provincia-sevilla/mapa?b=5239903TG3453G&amp;lat=37.40268&amp;lon=-5.99207">Feria 159</a> · Sevilla <span class="muted"><span lang="es">20 viviendas</span><span lang="en">20 flats</span></span></li></ol>
+        <p class="tiny muted"><span lang="es">Fuente: Registro de Turismo de Andalucía. Datos actualizados el 8 de noviembre de 2026.</span><span lang="en">Source: Andalusian Tourism Register. Data updated 8 November 2026.</span></p>
+        <p class="small"><a href="/provincia-sevilla"><span lang="es">Resumen de Provincia de Sevilla</span><span lang="en">Sevilla province summary</span></a> · <a href="/provincia-sevilla/zonas"><span lang="es">Municipios</span><span lang="en">Municipalities</span></a> · <a href="/sevilla/mapa"><span lang="es">Sevilla</span><span lang="en">Seville</span></a> · <a href="/andalucia/mapa"><span lang="es">Andalucía</span><span lang="en">Andalucía</span></a> · <a href="/provincia-huelva/mapa"><span lang="es">Provincia de Huelva</span><span lang="en">Huelva province</span></a> · <a href="/provincia-cadiz/mapa"><span lang="es">Provincia de Cádiz</span><span lang="en">Cádiz province</span></a></p>
+      </section>
+    </div>
+  </div>
+</aside>
+<script src="/assets/js/map.js"></script>
+</body>
+</html>

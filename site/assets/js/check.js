@@ -13,6 +13,13 @@
     booking: "https://www.booking.com/content-moderation-policy/reporting-content-on-booking.html",
   };
 
+  // A verdict on screen moves the address to /comprobar/resultado (same page, see site/_redirects), so the traffic counter
+  // (Signals) can count "got a result" as a page goal. A new check moves it back first, so each result is a fresh view.
+  function resultPath(on) {
+    const p = on ? "/comprobar/resultado" : "/comprobar";
+    if (location.pathname !== p) history.replaceState(null, "", p + location.search + location.hash);
+  }
+
   function setMode(m) {
     mode = m;
     document.querySelectorAll(".check-tabs [data-mode]").forEach((b) => b.setAttribute("aria-selected", b.dataset.mode === m));
@@ -25,6 +32,7 @@
       : L("Escribe el número tal como aparece en el anuncio. Comprobaremos también las variantes habituales (VFT/VUT, ceros).",
         "Type the number exactly as the advert shows it. We'll also try the usual variants (VFT/VUT, zeros).");
   }
+  if (location.pathname.startsWith("/comprobar/")) resultPath(false);   // a reload or a shared link: no result on screen yet
   document.querySelectorAll(".check-tabs [data-mode]").forEach((b) => b.addEventListener("click", () => { setMode(b.dataset.mode); $("#check-input").focus(); }));
 
   $("#check-form").addEventListener("submit", async (e) => {
@@ -42,6 +50,7 @@
       $("#check-input").focus();
       return;
     }
+    resultPath(false);
     btn.disabled = true;
     btn.classList.add("busy");
     const box = document.createElement("div");
@@ -54,6 +63,7 @@
     try {
       last = await TL.api("check", mode === "url" ? { url: v } : { code: v });
       render();
+      resultPath(true);
       // Town only (the licence's, else the advert's own location line), never the advert or the number
       const town = last.licence?.muni || last.licence_muni || (last.location || "").split(",")[0].trim();
       TL.track("check_advert", { check_mode: mode, platform: last.platform || "none", result: last.reason || last.verdict, town });

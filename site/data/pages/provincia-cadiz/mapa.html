@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de viviendas turísticas en Provincia de Cádiz, edificio por edificio | tienelicencia.com</title>
+<meta name="description" content="Mapa de las 22.042 viviendas turísticas registradas en Provincia de Cádiz, en 10.078 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="title-es" content="Mapa de viviendas turísticas en Provincia de Cádiz, edificio por edificio | tienelicencia.com">
+<meta name="title-en" content="Map of tourist flats in Cádiz province, building by building | tienelicencia.com">
+<meta name="description-es" content="Mapa de las 22.042 viviendas turísticas registradas en Provincia de Cádiz, en 10.078 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="description-en" content="Map of the 22,042 registered tourist flats in Cádiz province, in 10,078 buildings. Tap a building to see each flat, with its licence, floor and door.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Mapa de viviendas turísticas en Provincia de Cádiz, edificio por edificio | tienelicencia.com">
+<meta property="og:description" content="Mapa de las 22.042 viviendas turísticas registradas en Provincia de Cádiz, en 10.078 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin>
+<!-- our map data starts downloading now, in parallel with maplibre-gl.js; map.js picks the responses up -->
+<link rel="preload" href="/data/areas.json" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/data/spain/map.json" as="fetch" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/map.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="/assets/js/core.js"></script>
+<link rel="canonical" href="https://tienelicencia.com/provincia-cadiz/mapa">
+<meta property="og:url" content="https://tienelicencia.com/provincia-cadiz/mapa">
+<meta property="og:locale" content="es_ES">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Dataset","name":"Mapa de viviendas turísticas en Provincia de Cádiz, edificio por edificio","description":"Mapa de las 22.042 viviendas turísticas registradas en Provincia de Cádiz, en 10.078 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.","url":"https://tienelicencia.com/provincia-cadiz/mapa","inLanguage":["es","en"],"isAccessibleForFree":true,"dateModified":"2026-11-08T12:44:17+00:00","spatialCoverage":{"@type":"Place","name":"Provincia de Cádiz","geo":{"@type":"GeoCoordinates","latitude":36.45,"longitude":-5.75}},"isBasedOn":"Registro de Turismo de Andalucía","creator":{"@type":"Organization","name":"tienelicencia.com","url":"https://tienelicencia.com"},"license":"https://tienelicencia.com/metodologia#fuentes","distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://tienelicencia.com/data/provincia-cadiz/summary.json"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tienelicencia.com/"},{"@type":"ListItem","position":2,"name":"Provincia de Cádiz","item":"https://tienelicencia.com/provincia-cadiz"},{"@type":"ListItem","position":3,"name":"Mapa","item":"https://tienelicencia.com/provincia-cadiz/mapa"}]}]}</script>
+</head>
+<body class="map-page">
+<header class="mapbar">
+  <a class="back" id="back" href="/provincia-cadiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-t="summary"></span></a>
+  <span class="sep"></span>
+  <a class="brand-link" href="/" aria-label="tienelicencia.com"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d5a46"/><path d="M8.5 19.2 20 9.6l11.5 9.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 17v11.6c0 1 .8 1.8 1.8 1.8h11.6c1 0 1.8-.8 1.8-1.8V17" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.6 23.4 3.1 3.1 5.8-6" fill="none" stroke="#e2b54a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="title" id="map-title"><span lang="es">Provincia de Cádiz</span><span lang="en">Cádiz province</span><small><span lang="es">Viviendas turísticas registradas</span><span lang="en">Registered tourist flats</span></small></div>
+  <span class="spacer"></span>
+  <span id="map-share"></span>
+  <a id="map-report" class="share-btn" href="/contacto?tipo=correccion" data-t-aria="map_report"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span data-t="map_report"></span></a>
+  <select id="area-switch" aria-label="Zona / Area"></select>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button type="button" data-l="es" aria-pressed="false">ES</button>
+    <button type="button" data-l="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<div id="map" role="region" aria-label="Mapa"></div>
+<div id="map-loading" role="status" data-t="loading"></div>
+
+<aside id="side">
+  <nav id="layers" aria-label="Capas"></nav>
+  <div id="legend"></div>
+  <button class="search-fab" type="button" id="search-fab" data-t-aria="search_btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <div id="sheet" data-mode="search" aria-live="polite">
+    <div class="sheet-head"><span class="grip"></span><button class="x" type="button" id="sheet-close" aria-label="Cerrar / Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sheet-body">
+      <section id="p-search"></section>
+      <section id="p-detail"></section>
+      <section id="map-about">
+        <h1><span lang="es">Mapa de viviendas turísticas en Provincia de Cádiz, edificio por edificio</span><span lang="en">Map of tourist flats in Cádiz province, building by building</span></h1>
+        <p lang="es">Mapa de las 22.042 viviendas turísticas registradas en Provincia de Cádiz, en 10.078 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.</p><p lang="en">Map of the 22,042 registered tourist flats in Cádiz province, in 10,078 buildings. Tap a building to see each flat, with its licence, floor and door.</p>
+        <h2><span lang="es">Edificios con más viviendas turísticas</span><span lang="en">Buildings with most tourist flats</span></h2><ol><li><a href="/provincia-cadiz/mapa?b=2500801QA5320S&amp;lat=36.38013&amp;lon=-6.18607">Maracaibo 5</a> · Chiclana de la Frontera <span class="muted"><span lang="es">113 viviendas</span><span lang="en">113 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=9838002QA5393N&amp;lat=36.37871&amp;lon=-6.17265">Aldea del Coto 98</a> · Chiclana de la Frontera <span class="muted"><span lang="es">92 viviendas</span><span lang="en">92 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=5705202TF4050N&amp;lat=36.11413&amp;lon=-5.82636">Atlanterra Playa 3</a> · Tarifa <span class="muted"><span lang="es">71 viviendas</span><span lang="en">71 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=4799301TE6849N&amp;lat=36.02379&amp;lon=-5.61207">Mar Adriatico 32</a> · Tarifa <span class="muted"><span lang="es">66 viviendas</span><span lang="en">66 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=34910E7QA5239S&amp;lat=36.37162&amp;lon=-6.17675">La Almadraba 7</a> · Chiclana de la Frontera <span class="muted"><span lang="es">66 viviendas</span><span lang="en">66 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=3400012QA5330S&amp;lat=36.37961&amp;lon=-6.17443">Molino Viejo 175</a> · Chiclana de la Frontera <span class="muted"><span lang="es">56 viviendas</span><span lang="en">56 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=2638701TF9123N&amp;lat=36.24398&amp;lon=-5.31004">Del Golf 7</a> · San Roque <span class="muted"><span lang="es">53 viviendas</span><span lang="en">53 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=2295001QA5229N&amp;lat=36.37663&amp;lon=-6.1909">Asuncion 1</a> · Chiclana de la Frontera <span class="muted"><span lang="es">51 viviendas</span><span lang="en">51 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=3695303TF2139S&amp;lat=36.27982&amp;lon=-6.07819">Ana Rossetti 15</a> · Conil de la Frontera <span class="muted"><span lang="es">50 viviendas</span><span lang="en">50 flats</span></span></li><li><a href="/provincia-cadiz/mapa?b=2401101QA5320S&amp;lat=36.38386&amp;lon=-6.18915">Maracaibo 1</a> · Chiclana de la Frontera <span class="muted"><span lang="es">50 viviendas</span><span lang="en">50 flats</span></span></li></ol>
+        <p class="tiny muted"><span lang="es">Fuente: Registro de Turismo de Andalucía. Datos actualizados el 8 de noviembre de 2026.</span><span lang="en">Source: Andalusian Tourism Register. Data updated 8 November 2026.</span></p>
+        <p class="small"><a href="/provincia-cadiz"><span lang="es">Resumen de Provincia de Cádiz</span><span lang="en">Cádiz province summary</span></a> · <a href="/provincia-cadiz/zonas"><span lang="es">Municipios</span><span lang="en">Municipalities</span></a> · <a href="/cadiz/mapa"><span lang="es">Cádiz</span><span lang="en">Cádiz</span></a> · <a href="/andalucia/mapa"><span lang="es">Andalucía</span><span lang="en">Andalucía</span></a> · <a href="/provincia-sevilla/mapa"><span lang="es">Provincia de Sevilla</span><span lang="en">Sevilla province</span></a> · <a href="/provincia/mapa"><span lang="es">Provincia de Málaga</span><span lang="en">Málaga province</span></a></p>
+      </section>
+    </div>
+  </div>
+</aside>
+<script src="/assets/js/map.js"></script>
+</body>
+</html>

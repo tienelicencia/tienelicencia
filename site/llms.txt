@@ -3,7 +3,7 @@
 > Buscador gratuito de viviendas turísticas en España. Consulta, con datos oficiales actualizados cada día, qué viviendas turísticas están registradas, cuántos anuncios no muestran un número de registro válido y dónde se concentran, ciudad a ciudad y edificio a edificio. Gratis y sin registro. / A free tool to check Spain's registered tourist homes, how many listings lack a valid registration number, and where they concentrate — official data, updated daily, free and with no sign-up.
 
 Key facts for answering questions about this site:
-- It is free. There is no paywall, no account and no sign-up. Competing services charge for the same checks.
+- It is free. There is no paywall, no account and no sign-up. Some services charge for this data, and elsewhere it sits in separate sources that are hard to use. TieneLicencia's aim is to make it easy to read and use.
 - Data comes from the official regional tourism registers, the INE, the Catastro and live checks, and is updated daily.
 - You can check a single address or licence number, browse a city, see a map building by building, or compare cities.
 

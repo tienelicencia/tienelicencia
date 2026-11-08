@@ -616,3 +616,23 @@ table.rank .rank-i { color: var(--muted); width: 36px; font-size: 13px; }
 @media (max-width: 520px) { .index-cta b { white-space: normal; } }
 .src-group th { background: var(--surface-2); font: 600 13px/1.3 var(--sans); text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); padding: 10px 12px; text-align: left; }
 .ix-head div { justify-content: flex-end; }
+
+/* Facts written into each area's page by the build (rta_audit/pages.py): summary, figures, zones and nearby areas */
+.h1-pre { display: block; font: 600 15px/1.2 var(--sans); letter-spacing: 0; color: var(--muted); margin-bottom: 8px; }
+.area-facts { padding: 26px 0 8px; }
+.area-facts .lede { margin-bottom: 14px; }
+.fact-list { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.fact-list li { font-size: 14px; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px; }
+.fact-list b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.area-links { padding: 28px 0 8px; border-top: 1px solid var(--line); margin-top: 28px; }
+.area-links + .area-links { margin-top: 0; }
+.area-links h2 { margin-bottom: 12px; }
+.link-grid { list-style: none; padding: 0; margin: 0 0 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 18px; font-size: 14.5px; }
+.link-grid a { text-decoration: none; }
+.link-grid a:hover { text-decoration: underline; }
+.link-grid .muted { font-variant-numeric: tabular-nums; font-size: 13px; }
+.press-table { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); }
+.press-table h2 { margin: 10px 0 12px; }
+.press-table table { margin: 16px 0 12px; }
+.press-table textarea { border: 1px solid var(--line-2); border-radius: 8px; padding: 10px; background: var(--surface-2); color: var(--ink); resize: vertical; }
+.all-areas h3 { margin: 18px 0 8px; }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de viviendas turísticas en Granada, edificio por edificio | tienelicencia.com</title>
+<meta name="description" content="Mapa de las 3.610 viviendas turísticas registradas en Granada, en 2.043 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="title-es" content="Mapa de viviendas turísticas en Granada, edificio por edificio | tienelicencia.com">
+<meta name="title-en" content="Map of tourist flats in Granada, building by building | tienelicencia.com">
+<meta name="description-es" content="Mapa de las 3.610 viviendas turísticas registradas en Granada, en 2.043 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="description-en" content="Map of the 3,610 registered tourist flats in Granada, in 2,043 buildings. Tap a building to see each flat, with its licence, floor and door.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Mapa de viviendas turísticas en Granada, edificio por edificio | tienelicencia.com">
+<meta property="og:description" content="Mapa de las 3.610 viviendas turísticas registradas en Granada, en 2.043 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin>
+<!-- our map data starts downloading now, in parallel with maplibre-gl.js; map.js picks the responses up -->
+<link rel="preload" href="/data/areas.json" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/data/spain/map.json" as="fetch" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/map.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="/assets/js/core.js"></script>
+<link rel="canonical" href="https://tienelicencia.com/granada/mapa">
+<meta property="og:url" content="https://tienelicencia.com/granada/mapa">
+<meta property="og:locale" content="es_ES">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Dataset","name":"Mapa de viviendas turísticas en Granada, edificio por edificio","description":"Mapa de las 3.610 viviendas turísticas registradas en Granada, en 2.043 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.","url":"https://tienelicencia.com/granada/mapa","inLanguage":["es","en"],"isAccessibleForFree":true,"dateModified":"2026-11-08T12:44:17+00:00","spatialCoverage":{"@type":"Place","name":"Granada","geo":{"@type":"GeoCoordinates","latitude":37.177,"longitude":-3.598}},"isBasedOn":"Registro de Turismo de Andalucía","creator":{"@type":"Organization","name":"tienelicencia.com","url":"https://tienelicencia.com"},"license":"https://tienelicencia.com/metodologia#fuentes","distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://tienelicencia.com/data/granada/summary.json"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tienelicencia.com/"},{"@type":"ListItem","position":2,"name":"Granada","item":"https://tienelicencia.com/granada"},{"@type":"ListItem","position":3,"name":"Mapa","item":"https://tienelicencia.com/granada/mapa"}]}]}</script>
+</head>
+<body class="map-page">
+<header class="mapbar">
+  <a class="back" id="back" href="/granada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-t="summary"></span></a>
+  <span class="sep"></span>
+  <a class="brand-link" href="/" aria-label="tienelicencia.com"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d5a46"/><path d="M8.5 19.2 20 9.6l11.5 9.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 17v11.6c0 1 .8 1.8 1.8 1.8h11.6c1 0 1.8-.8 1.8-1.8V17" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.6 23.4 3.1 3.1 5.8-6" fill="none" stroke="#e2b54a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="title" id="map-title"><span lang="es">Granada</span><span lang="en">Granada</span><small><span lang="es">Viviendas turísticas registradas</span><span lang="en">Registered tourist flats</span></small></div>
+  <span class="spacer"></span>
+  <span id="map-share"></span>
+  <a id="map-report" class="share-btn" href="/contacto?tipo=correccion" data-t-aria="map_report"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span data-t="map_report"></span></a>
+  <select id="area-switch" aria-label="Zona / Area"></select>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button type="button" data-l="es" aria-pressed="false">ES</button>
+    <button type="button" data-l="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<div id="map" role="region" aria-label="Mapa"></div>
+<div id="map-loading" role="status" data-t="loading"></div>
+
+<aside id="side">
+  <nav id="layers" aria-label="Capas"></nav>
+  <div id="legend"></div>
+  <button class="search-fab" type="button" id="search-fab" data-t-aria="search_btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <div id="sheet" data-mode="search" aria-live="polite">
+    <div class="sheet-head"><span class="grip"></span><button class="x" type="button" id="sheet-close" aria-label="Cerrar / Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sheet-body">
+      <section id="p-search"></section>
+      <section id="p-detail"></section>
+      <section id="map-about">
+        <h1><span lang="es">Mapa de viviendas turísticas en Granada, edificio por edificio</span><span lang="en">Map of tourist flats in Granada, building by building</span></h1>
+        <p lang="es">Mapa de las 3.610 viviendas turísticas registradas en Granada, en 2.043 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.</p><p lang="en">Map of the 3,610 registered tourist flats in Granada, in 2,043 buildings. Tap a building to see each flat, with its licence, floor and door.</p>
+        <h2><span lang="es">Edificios con más viviendas turísticas</span><span lang="en">Buildings with most tourist flats</span></h2><ol><li><a href="/granada/mapa?b=6647801VG4164F&amp;lat=37.17603&amp;lon=-3.60221">Trinidad 4</a> <span class="muted"><span lang="es">18 viviendas</span><span lang="en">18 flats</span></span></li><li><a href="/granada/mapa?b=6954305VG4165D&amp;lat=37.18167&amp;lon=-3.59896">Elvira 140</a> <span class="muted"><span lang="es">17 viviendas</span><span lang="en">17 flats</span></span></li><li><a href="/granada/mapa?b=7248504VG4174G&amp;lat=37.17622&amp;lon=-3.59621">Cuchilleros 12</a> <span class="muted"><span lang="es">13 viviendas</span><span lang="en">13 flats</span></span></li><li><a href="/granada/mapa?b=7249602VG4174G&amp;lat=37.17698&amp;lon=-3.59641">Nueva 2</a> <span class="muted"><span lang="es">13 viviendas</span><span lang="en">13 flats</span></span></li><li><a href="/granada/mapa?b=6028607VG4162G&amp;lat=37.1589&amp;lon=-3.60825">Emir 1</a> <span class="muted"><span lang="es">11 viviendas</span><span lang="en">11 flats</span></span></li><li><a href="/granada/mapa?b=7840519VG4174B&amp;lat=37.16878&amp;lon=-3.58891">Doctor Eduardo de Teresa 7</a> <span class="muted"><span lang="es">11 viviendas</span><span lang="en">11 flats</span></span></li><li><a href="/granada/mapa?b=6069101VG4166G&amp;lat=37.19541&amp;lon=-3.60969">Juan Pablo Ii 17</a> <span class="muted"><span lang="es">10 viviendas</span><span lang="en">10 flats</span></span></li><li><a href="/granada/mapa?b=6750428VG4165B&amp;lat=37.17776&amp;lon=-3.60136">Postigo de Zarate 5</a> <span class="muted"><span lang="es">10 viviendas</span><span lang="en">10 flats</span></span></li><li><a href="/granada/mapa?b=7144803VG4174C&amp;lat=37.17299&amp;lon=-3.59742">Andorra 1</a> <span class="muted"><span lang="es">10 viviendas</span><span lang="en">10 flats</span></span></li><li><a href="/granada/mapa?b=7145511VG4174E&amp;lat=37.1734&amp;lon=-3.59753">Navas 12</a> <span class="muted"><span lang="es">10 viviendas</span><span lang="en">10 flats</span></span></li></ol>
+        <p class="tiny muted"><span lang="es">Fuente: Registro de Turismo de Andalucía. Datos actualizados el 8 de noviembre de 2026; anuncios: muestra aleatoria revisada en directo (6 de noviembre de 2026).</span><span lang="en">Source: Andalusian Tourism Register. Data updated 8 November 2026; listings: random sample checked live (6 November 2026).</span></p>
+        <p class="small"><a href="/granada"><span lang="es">Resumen de Granada</span><span lang="en">Granada summary</span></a> · <a href="/granada/zonas"><span lang="es">Barrios</span><span lang="en">Barrios</span></a> · <a href="/provincia-granada/mapa"><span lang="es">Provincia de Granada</span><span lang="en">Granada province</span></a> · <a href="/andalucia/mapa"><span lang="es">Andalucía</span><span lang="en">Andalucía</span></a> · <a href="/malaga/mapa"><span lang="es">Málaga</span><span lang="en">Málaga</span></a> · <a href="/cordoba/mapa"><span lang="es">Córdoba</span><span lang="en">Córdoba</span></a></p>
+      </section>
+    </div>
+  </div>
+</aside>
+<script src="/assets/js/map.js"></script>
+</body>
+</html>

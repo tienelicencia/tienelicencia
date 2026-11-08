@@ -125,6 +125,9 @@
     listeners.forEach((f) => f(l));
     track("language_change", { to: l });
   }
+  // Pages written by the build (rta_audit/pages.py) carry their own title in both languages; scripts keep it.
+  const ownTitle = () => document.querySelector(`meta[name="title-${lang}"]`)?.content;
+  function setTitle(generic) { document.title = ownTitle() || generic; }
   function applyStatic() {
     document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
     document.querySelectorAll("[data-t-ph]").forEach((el) => (el.placeholder = t(el.dataset.tPh)));
@@ -724,7 +727,7 @@
     else consentBanner(false);
   }
 
-  window.TL = { init, t, lang: () => lang, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
+  window.TL = { init, t, lang: () => lang, setTitle, setLang, onLang: (f) => listeners.push(f), fmt, pct, pctStr, date, ymd, esc, name,
     getJSON, api, byPopulation, cityAreas, wideAreas, areaHref, areaOfMuni, AREA_OF_PROV, COMING, currentArea, ICON, searchWidget, flatsTable, unit, addr, kind, plural, tip, preview, applyStatic,
     track, shareButton, loading };
 })();

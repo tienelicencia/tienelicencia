@@ -25,7 +25,7 @@ from datetime import datetime, timezone
 warnings.filterwarnings("ignore")
 from rta_audit import index as pindex  # noqa: E402
 PINDEX_CFG = pindex.load_config()
-from rta_audit import aragon, baleares, boundaries, buildings, canarias, catastro, catalunya, classify, codes, cyl, euskadi, geo, ine, madrid, murcia, valencia, live, register, sample, serpavi, snapshot, state  # noqa: E402
+from rta_audit import aragon, baleares, boundaries, buildings, canarias, catastro, catalunya, classify, codes, cyl, euskadi, geo, ine, madrid, murcia, valencia, live, pages, register, sample, serpavi, snapshot, state  # noqa: E402
 
 PIPE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(PIPE)
@@ -1849,6 +1849,13 @@ def cmd_build(a):
     print("| areas", {a["slug"]: a.get("vut") for a in areas_out}, "| buildings", len(agg.b), "| search rows", n_search,
           "| live-based", (listing_stats or {}).get("live_checked"))
 
+    # ---- a real page per address (site/data/pages), sitemap.xml and llms.txt, from the files just written
+    def write_pages():
+        n, bad = pages.write_all(os.path.join(REPO, "site"))
+        problems.extend((f"page {rel}", err) for rel, err in bad)
+        return n
+    print("| pages", guard("static pages, sitemap and llms.txt", write_pages))
+
     # ---- what failed this run (each kept its previous version); a systemic failure stops before the commit
     if problems:
         print(f"\n{len(problems)} problem(s) this run; everything else was updated:")
@@ -1859,6 +1866,15 @@ def cmd_build(a):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as fh:
                 fh.write("### Build: kept previous versions\n\n" + "\n".join(f"- **{w_}**: {e_}" for w_, e_ in problems) + "\n")
 
+
+
+def cmd_pages(a):
+    """Only the static pages, sitemap and llms.txt, from the data already in site/data (no data cache needed)."""
+    n, bad = pages.write_all(os.path.join(REPO, "site"))
+    for rel, err in bad:
+        print(f"WARNING page {rel}: bare template written: {err}")
+    print(f"{n} pages written, {len(bad)} problem(s)")
+    return 1 if bad else 0
 
 
 def main():
@@ -1881,9 +1897,10 @@ def main():
     p.add_argument("--refresh-frame", action="store_true", help="rebuild the list of listings even if recent")
     p.set_defaults(f=cmd_sample)
     sp.add_parser("build").set_defaults(f=cmd_build)
+    sp.add_parser("pages").set_defaults(f=cmd_pages)
     sp.add_parser("seed-state").set_defaults(f=cmd_seed_state)
     a = ap.parse_args()
-    a.f(a)
+    return a.f(a)
 
 
 if __name__ == "__main__":

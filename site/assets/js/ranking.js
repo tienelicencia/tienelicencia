@@ -30,7 +30,7 @@
     const ranked = R.cities.filter((c) => c.index != null), pending = R.cities.filter((c) => c.index == null);
     const n = R.cities.length, w = R.weights, sev = R.severity, co = R.cohort || {};
     const minPop = fmt(co.min_population || 300000);
-    document.title = `${L(R.name.es, R.name.en)} | tienelicencia.com`;
+    TL.setTitle(`${L(R.name.es, R.name.en)} | tienelicencia.com`);
     $("#ix-title").textContent = L(R.name.es, R.name.en);
     $("#ix-sub").textContent = L(`Ranking de las ciudades españolas de más de ${minPop} habitantes`, `Ranking of Spanish cities with more than ${minPop} inhabitants`);
     $("#ix-meta").innerHTML = [

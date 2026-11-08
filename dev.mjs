@@ -23,8 +23,11 @@ for (const f of await readdir("netlify/functions")) {
 const REWRITES = {};
 for (const line of (await readFile("site/_redirects", "utf8")).split("\n")) {
   const [from, to, status] = line.trim().split(/\s+/);
-  if (from && !from.startsWith("#") && to && status === "200") REWRITES[from.replace(/\/$/, "")] = to;
+  if (from && !from.startsWith("#") && to && (status === "200" || status === "200!")) REWRITES[from.replace(/\/$/, "")] = to;
 }
+// "/x/*  /x/:splat.html" rules
+const SPLATS = Object.entries(REWRITES).filter(([f, to]) => f.endsWith("/*") && to.includes(":splat")).map(([f, to]) => [f.slice(0, -1), to]);
+const rewrite = (p) => REWRITES[p] || SPLATS.map(([pre, to]) => p.startsWith(pre) && p.length > pre.length && to.replace(":splat", p.slice(pre.length))).find(Boolean);
 
 createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -34,7 +37,7 @@ createServer(async (req, res) => {
     res.writeHead(r.status, Object.fromEntries(r.headers));
     return res.end(await r.text());
   }
-  const path = REWRITES[url.pathname.replace(/\/$/, "")] || (url.pathname === "/" ? "/index.html" : url.pathname);
+  const path = rewrite(url.pathname.replace(/\/$/, "")) || (url.pathname === "/" ? "/index.html" : url.pathname);
   const p = normalize(join(ROOT, path));
   if (!p.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   try {

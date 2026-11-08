@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de viviendas turísticas en Mallorca, edificio por edificio | tienelicencia.com</title>
+<meta name="description" content="Mapa de las 16.828 viviendas turísticas registradas en Mallorca, en 16.721 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="title-es" content="Mapa de viviendas turísticas en Mallorca, edificio por edificio | tienelicencia.com">
+<meta name="title-en" content="Map of tourist flats in Mallorca, building by building | tienelicencia.com">
+<meta name="description-es" content="Mapa de las 16.828 viviendas turísticas registradas en Mallorca, en 16.721 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<meta name="description-en" content="Map of the 16,828 registered tourist flats in Mallorca, in 16,721 buildings. Tap a building to see each flat, with its licence, floor and door.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:site_name" content="tienelicencia.com">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tienelicencia.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Mapa de viviendas turísticas en Mallorca, edificio por edificio | tienelicencia.com">
+<meta property="og:description" content="Mapa de las 16.828 viviendas turísticas registradas en Mallorca, en 16.721 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="preload" href="https://tiles.openfreemap.org/styles/positron" as="fetch" crossorigin>
+<!-- our map data starts downloading now, in parallel with maplibre-gl.js; map.js picks the responses up -->
+<link rel="preload" href="/data/areas.json" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="/data/spain/map.json" as="fetch" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/map.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="/assets/js/core.js"></script>
+<link rel="canonical" href="https://tienelicencia.com/mallorca/mapa">
+<meta property="og:url" content="https://tienelicencia.com/mallorca/mapa">
+<meta property="og:locale" content="es_ES">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Dataset","name":"Mapa de viviendas turísticas en Mallorca, edificio por edificio","description":"Mapa de las 16.828 viviendas turísticas registradas en Mallorca, en 16.721 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.","url":"https://tienelicencia.com/mallorca/mapa","inLanguage":["es","en"],"isAccessibleForFree":true,"dateModified":"2026-11-08T12:44:17+00:00","spatialCoverage":{"@type":"Place","name":"Mallorca","geo":{"@type":"GeoCoordinates","latitude":39.61,"longitude":2.99}},"isBasedOn":"registro turístico del Consell de Mallorca","creator":{"@type":"Organization","name":"tienelicencia.com","url":"https://tienelicencia.com"},"license":"https://tienelicencia.com/metodologia#fuentes","distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://tienelicencia.com/data/mallorca/summary.json"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tienelicencia.com/"},{"@type":"ListItem","position":2,"name":"Mallorca","item":"https://tienelicencia.com/mallorca"},{"@type":"ListItem","position":3,"name":"Mapa","item":"https://tienelicencia.com/mallorca/mapa"}]}]}</script>
+</head>
+<body class="map-page">
+<header class="mapbar">
+  <a class="back" id="back" href="/mallorca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-t="summary"></span></a>
+  <span class="sep"></span>
+  <a class="brand-link" href="/" aria-label="tienelicencia.com"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d5a46"/><path d="M8.5 19.2 20 9.6l11.5 9.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4 17v11.6c0 1 .8 1.8 1.8 1.8h11.6c1 0 1.8-.8 1.8-1.8V17" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.6 23.4 3.1 3.1 5.8-6" fill="none" stroke="#e2b54a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="title" id="map-title"><span lang="es">Mallorca</span><span lang="en">Mallorca</span><small><span lang="es">Viviendas turísticas registradas</span><span lang="en">Registered tourist flats</span></small></div>
+  <span class="spacer"></span>
+  <span id="map-share"></span>
+  <a id="map-report" class="share-btn" href="/contacto?tipo=correccion" data-t-aria="map_report"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span data-t="map_report"></span></a>
+  <select id="area-switch" aria-label="Zona / Area"></select>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button type="button" data-l="es" aria-pressed="false">ES</button>
+    <button type="button" data-l="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<div id="map" role="region" aria-label="Mapa"></div>
+<div id="map-loading" role="status" data-t="loading"></div>
+
+<aside id="side">
+  <nav id="layers" aria-label="Capas"></nav>
+  <div id="legend"></div>
+  <button class="search-fab" type="button" id="search-fab" data-t-aria="search_btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <div id="sheet" data-mode="search" aria-live="polite">
+    <div class="sheet-head"><span class="grip"></span><button class="x" type="button" id="sheet-close" aria-label="Cerrar / Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sheet-body">
+      <section id="p-search"></section>
+      <section id="p-detail"></section>
+      <section id="map-about">
+        <h1><span lang="es">Mapa de viviendas turísticas en Mallorca, edificio por edificio</span><span lang="en">Map of tourist flats in Mallorca, building by building</span></h1>
+        <p lang="es">Mapa de las 16.828 viviendas turísticas registradas en Mallorca, en 16.721 edificios. Pulsa un edificio para ver cada vivienda, con su licencia, planta y puerta.</p><p lang="en">Map of the 16,828 registered tourist flats in Mallorca, in 16,721 buildings. Tap a building to see each flat, with its licence, floor and door.</p>
+        <h2><span lang="es">Edificios con más viviendas turísticas</span><span lang="en">Buildings with most tourist flats</span></h2><ol><li><a href="/mallorca/mapa?b=af45a2a82cf&amp;lat=39.72102&amp;lon=3.1547">Almirante Carrero Blanco, 10, 07458, Can Picafort (Santa Margalida) (Mallorca), Illes Balears</a> · Santa Margalida <span class="muted"><span lang="es">9 viviendas</span><span lang="en">9 flats</span></span></li><li><a href="/mallorca/mapa?b=a8f051aa178&amp;lat=39.54827&amp;lon=2.38146">Carrer S´Almudaina, S/N</a> · Andratx <span class="muted"><span lang="es">5 viviendas</span><span lang="en">5 flats</span></span></li><li><a href="/mallorca/mapa?b=a6638b02250&amp;lat=39.54009&amp;lon=2.5908">Passeig de Illetas 38 PIS 1-2</a> · Calvià <span class="muted"><span lang="es">4 viviendas</span><span lang="en">4 flats</span></span></li><li><a href="/mallorca/mapa?b=af2d52b26f6&amp;lat=39.31651&amp;lon=2.99135">Principe, 16</a> · Ses Salines <span class="muted"><span lang="es">4 viviendas</span><span lang="en">4 flats</span></span></li><li><a href="/mallorca/mapa?b=a10ee7aede5&amp;lat=39.91949&amp;lon=3.05536">Carrer Temporal 14</a> · Pollença <span class="muted"><span lang="es">4 viviendas</span><span lang="en">4 flats</span></span></li><li><a href="/mallorca/mapa?b=a2185ebdc5e&amp;lat=39.45158&amp;lon=3.1598">Finca Es Fangar, 07209, Son Proenç (Felanitx) (Mallorca), Illes Balears</a> · Felanitx <span class="muted"><span lang="es">3 viviendas</span><span lang="en">3 flats</span></span></li><li><a href="/mallorca/mapa?b=a0c86182b38&amp;lat=39.57878&amp;lon=2.35213">Avinguda Jaume I</a> · Andratx <span class="muted"><span lang="es">3 viviendas</span><span lang="en">3 flats</span></span></li><li><a href="/mallorca/mapa?b=a6bdb48a60c&amp;lat=39.76317&amp;lon=3.151">Carretera Arta-Alcudia, Pol 2, Sector 6- Exp 3/99</a> · Santa Margalida <span class="muted"><span lang="es">3 viviendas</span><span lang="en">3 flats</span></span></li><li><a href="/mallorca/mapa?b=ac48578dcad&amp;lat=39.88676&amp;lon=3.02962">Pollença, 07460 Pollença (Mallorca), Illes Balears</a> · Pollença <span class="muted"><span lang="es">3 viviendas</span><span lang="en">3 flats</span></span></li><li><a href="/mallorca/mapa?b=af436837574&amp;lat=39.91758&amp;lon=3.05308">Carrer Temporal S/N</a> · Pollença <span class="muted"><span lang="es">3 viviendas</span><span lang="en">3 flats</span></span></li></ol>
+        <p class="tiny muted"><span lang="es">Fuente: registro turístico del Consell de Mallorca. Datos actualizados el 8 de noviembre de 2026; anuncios: Inside Airbnb (19 de septiembre de 2026) y revisiones en directo.</span><span lang="en">Source: Consell de Mallorca tourism register. Data updated 8 November 2026; listings: Inside Airbnb (19 September 2026) and live re-checks.</span></p>
+        <p class="small"><a href="/mallorca"><span lang="es">Resumen de Mallorca</span><span lang="en">Mallorca summary</span></a> · <a href="/mallorca/zonas"><span lang="es">Municipios</span><span lang="en">Municipalities</span></a> · <a href="/palma/mapa"><span lang="es">Palma</span><span lang="en">Palma</span></a> · <a href="/barcelona/mapa"><span lang="es">Barcelona</span><span lang="en">Barcelona</span></a> · <a href="/valencia/mapa"><span lang="es">Valencia</span><span lang="en">Valencia</span></a> · <a href="/alicante/mapa"><span lang="es">Alicante</span><span lang="en">Alicante</span></a></p>
+      </section>
+    </div>
+  </div>
+</aside>
+<script src="/assets/js/map.js"></script>
+</body>
+</html>
