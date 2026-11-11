@@ -94,8 +94,8 @@ Gregorio Marañon 8,Marbella,32,111,50,64.0
 Cumbres del Rodeo 110,Marbella,32,169,115,27.8
 Playa Real 108,Marbella,31,186,165,18.8
 Hacienda Elviria 27,Marbella,31,173,238,13.0
+Camilo José Cela 13,Marbella,31,140,126,24.6
 Sirio 21,Marbella,30,227,113,26.5
-Camilo José Cela 13,Marbella,30,136,126,23.8
 Alameda de las Brisas 4,Marbella,29,161,200,14.5
 Pueblo los Monteros 10,Marbella,29,157,142,20.4
 Ricardo Soriano 31,Marbella,29,118,201,14.4
@@ -144,13 +144,13 @@ Del Prado 69,Marbella,22,138,125,17.6
 Llanos de San Ramón 3,Marbella,22,111,109,20.2
 Casarabonela 16,Marbella,22,99,86,25.6
 Puente Romano 2,Marbella,22,102,78,28.2
+Fresno 4,Marbella,22,120,65,33.8
 Mirador del Rodeo 111,Marbella,22,131,75,29.3
 Guadalvillas 9,Marbella,22,154,72,30.6
 Luis Morales-Atalaya Rio 108,Marbella,22,115,51,43.1
 Las Petunias 2,Marbella,21,124,47,44.7
 Sierra Bermeja 93,Marbella,21,141,78,26.9
 Parque la Carolina 102,Marbella,21,102,77,27.3
-Fresno 4,Marbella,21,114,65,32.3
 Roy Boston 8,Marbella,21,106,96,21.9
 Reina Sofia 1,Marbella,21,122,100,21.0
 Los Pinos de Nagüeles 2,Marbella,21,104,238,8.8
@@ -348,7 +348,7 @@ Pablo Ruiz Picasso 39,Marbella,11,63,65,16.9
 Torrente Ballester 5,Marbella,11,66,116,9.5
 Los Acebos 29,Marbella,11,78,16,68.8
 Diego de Velazquez 7,Marbella,11,57,58,19.0
-Solanum 13,Marbella,11,61,48,22.9
+Solanum 30B,Marbella,11,61,48,22.9
 Albatros Hills 39,Marbella,10,54,72,13.9
 Magnolia-Santa Maria Golf 3,Marbella,10,55,21,47.6
 Fontanilla 4,Marbella,10,40,27,37.0
