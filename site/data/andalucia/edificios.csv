@@ -88,9 +88,9 @@ Principe Salman 6,Marbella,74,382,297,24.9
 Cartajima 10,Mijas,72,364,238,30.3
 Los Altos de los Monteros 14,Marbella,72,362,169,42.6
 Cuesta Correa 1,Marbella,72,237,254,28.3
+Maritimo Rey de España 54,Fuengirola,72,223,198,36.4
 Virgen de las Nieves 7,Monachil,72,311,,
 Atlanterra Playa 3,Tarifa,71,349,,
-Maritimo Rey de España 54,Fuengirola,71,219,198,35.9
 Las Ventas 22,Marbella,70,379,137,51.1
 Sierra de Baza 1,Mijas,70,344,197,35.5
 Tortuga Boba 3,Vera,70,220,,
@@ -698,7 +698,7 @@ Martin Villa 2,Sevilla,25,86,120,20.8
 Arturo Rubinstein 8,Marbella,25,122,230,10.9
 Piragüismo 2,Almería,25,129,,
 Arrayan 2,Vera,25,124,,
-De los Cisnes 7,Ayamonte,25,131,,
+De los Cisnes 7,Ayamonte,25,129,,
 Ronda del Golf Oeste 9,Benalmadena,25,135,118,21.2
 Islas Canarias 19,Vera,25,118,,
 Sardinero 4,Torremolinos,25,81,90,27.8
@@ -808,6 +808,7 @@ Saturno de Riviera 10,Mijas,23,111,24,95.8
 Flor de Sauco 5,Estepona,23,145,67,34.3
 Emilio Prados 4,Mijas,23,131,252,9.1
 Mendez Nuñez 2,Fuengirola,23,119,116,19.8
+Alicia 8,Fuengirola,23,100,60,38.3
 España 6,Torremolinos,22,96,77,28.6
 Sebastian Souviron 18,Málaga,22,100,35,62.9
 Ronda del Golf Este,Benalmadena,22,111,78,28.2
@@ -871,7 +872,6 @@ Italia 1,Velez-Malaga,22,107,119,18.5
 Concha Mendez 4,Casares,22,116,60,36.7
 Luis de Unzaga 17,Estepona,22,133,41,53.7
 Maria de Estrada 2,Estepona,22,120,54,40.7
-Alicia 8,Fuengirola,22,96,60,36.7
 Las Petunias 2,Marbella,21,124,47,44.7
 Alameda 2,Mijas,21,102,27,77.8
 De los Abedules 3,Benalmadena,21,76,38,55.3
@@ -1217,6 +1217,7 @@ Los Alcotanes 18,Marbella,17,101,72,23.6
 Ortega y Gasset 7,Conil de la Frontera,17,75,,
 Monte Paraiso 8,Marbella,17,121,93,18.3
 Trebujena 1,Conil de la Frontera,17,84,,
+Litoral 5,Estepona,17,77,45,37.8
 Maritimo Rey de España 97,Fuengirola,17,89,120,14.2
 Vista Verde 11,Mijas,17,85,81,21.0
 Conde Rudi 61,Marbella,17,106,84,20.2
@@ -1278,6 +1279,7 @@ Esmeralda 69,Manilva,17,81,118,14.4
 Jose Orbaneja Calahonda 20,Mijas,17,101,53,32.1
 Mirafondo 18,"Ejido, el",17,70,,
 Cerro Largo 13,Torremolinos,17,58,57,29.8
+Juan de Acurio 901,Sanlucar de Barrameda,17,94,,
 Saltillo 5,Torremolinos,17,64,55,30.9
 De la Cruz 20,Torremolinos,17,61,110,15.5
 Carlota Alexandri 194,Torremolinos,17,83,47,36.2
@@ -1309,6 +1311,7 @@ Juan Xxiii 4,Málaga,17,75,44,38.6
 Ribera del Guadiana 2,Estepona,17,137,47,36.2
 Elvira 140,Granada,17,81,1,1700.0
 Carmen de Burgos y Segui 1,Tarifa,17,83,,
+San Bernardo 11,Monachil,17,92,,
 Alicia 8,Fuengirola,17,82,,
 Zenobia Camprubi 4,Casares,17,87,47,36.2
 Juan Carlos I 10,Rota,16,93,,
@@ -1334,7 +1337,6 @@ Lirio 8,Sevilla,16,63,33,48.5
 Castaño 46,Fuengirola,16,84,88,18.2
 Cristobal Alarcon 75,Mijas,16,65,31,51.6
 Almadraba Playa,Tarifa,16,83,,
-Litoral 5,Estepona,16,71,45,35.6
 Peral 26,Estepona,16,76,68,23.5
 Arcaduces 1,Mijas,16,82,42,38.1
 Casares Beach 422,Casares,16,87,52,30.8
@@ -1386,7 +1388,6 @@ La Pasionaria 6,Manilva,16,57,225,7.1
 "De Brijan, Urbanización Jardines del Albaicín, S/N",Benahavis,16,84,78,20.5
 Virgen de las Nieves 20,Monachil,16,44,,
 Huerto de Monjas 6,Málaga,16,72,53,30.2
-Juan de Acurio 901,Sanlucar de Barrameda,16,89,,
 Montemenor 2,Marbella,16,94,110,14.5
 Benyamina 25,Torremolinos,16,53,102,15.7
 Bergantin 14,Vera,16,76,,
@@ -1411,7 +1412,6 @@ Menta 6,Benalmadena,16,80,114,14.0
 Teniente Alcalde Joaquin Coronado 4,Torrox,16,79,60,26.7
 Alicia 2,Fuengirola,16,75,72,22.2
 Pensamiento 54,Fuengirola,16,97,71,22.5
-San Bernardo 11,Monachil,16,88,,
 De la Canaliega 1,Almonte,16,70,,
 De la Almadraba 5,Tarifa,16,90,,
 Almez 1,Mijas,16,90,55,29.1
@@ -1426,6 +1426,7 @@ Clavel 6,Velez-Malaga,15,58,135,11.1
 Velez Malaga 5,Nerja,15,73,27,55.6
 Majestic Hills 105,Casares,15,91,77,19.5
 Carreteria 97,Málaga,15,54,19,78.9
+De la Manzanilla 9,Sanlucar de Barrameda,15,71,,
 Maritimo Rey de España 103,Fuengirola,15,70,88,17.0
 Filipinas 50,Nerja,15,63,20,75.0
 Edgar Neville,Marbella,15,92,37,40.5
@@ -1570,7 +1571,6 @@ Arena Beach 2,Estepona,14,81,20,70.0
 Del Mar 2,Rota,14,76,,
 Maritimo Rey de España 6,Fuengirola,14,67,98,14.3
 De Suiza 15,Mijas,14,69,69,20.3
-Manzanilla 9,Sanlucar de Barrameda,14,67,,
 Ayala 33,Málaga,14,91,144,9.7
 De las Palmeras 21,Benalmadena,14,57,72,19.4
 Alamos 17,Málaga,14,52,23,60.9
@@ -1938,6 +1938,7 @@ Julio Iglesias 3,Marbella,12,52,64,18.8
 Torre Esteril 34,Benahavis,12,60,98,12.2
 Maestranza 20,Málaga,12,48,28,42.9
 De la Rosaleda 6,Málaga,12,53,22,54.5
+El Presidente 16,Estepona,12,61,27,44.4
 Maritimo Rey de España 5,Fuengirola,12,52,94,12.8
 La Perla de la Bahia 2211,Casares,12,69,40,30.0
 Reina Sofia 1,Rota,12,66,,
@@ -1945,6 +1946,7 @@ Pintor Guillermo Perez Villalta 9A,Tarifa,12,75,,
 Carril de la Fuente 12,Conil de la Frontera,12,68,,
 Al Andalus 14,Torremolinos,12,73,70,17.1
 Magnolio 4,Torrox,12,66,26,46.2
+Andalucia Garden Club 28,Marbella,12,61,28,42.9
 Matias Saenz de Tejada 1,Fuengirola,12,40,81,14.8
 Carreteria 33,Málaga,12,37,20,60.0
 La Tahona 27,Tarifa,12,85,,
@@ -2112,7 +2114,6 @@ San Sebastian 36,Tarifa,11,48,,
 Puerta del Mar 36,Estepona,11,55,137,8.0
 Eslava 14,Málaga,11,42,112,9.8
 Opalo de Riviera 12,Mijas,11,57,63,17.5
-El Presidente 16,Estepona,11,55,27,40.7
 Bella Vista 3,Nerja,11,48,20,55.0
 Teodosio 12,Chiclana de la Frontera,11,87,,
 Beverly Hill 57,Estepona,11,61,50,22.0
@@ -2125,7 +2126,6 @@ Las Petunias 3,Marbella,11,58,37,29.7
 Hernando de Carabeo 1,Nerja,11,53,12,91.7
 Estribor 99,Chiclana de la Frontera,11,50,,
 San Francisco 59,Nerja,11,54,21,52.4
-Andalucia Garden Club 28,Marbella,11,53,28,39.3
 La Noria Golf 2,Mijas,11,52,78,14.1
 Monte Paraiso 8,Mijas,11,51,24,45.8
 De la Amistad 1,Estepona,11,49,24,45.8
@@ -2272,6 +2272,7 @@ Saturno 11,Conil de la Frontera,11,52,,
 Benyamina 2,Torremolinos,11,63,45,24.4
 Loma del Colegial 14,Torremolinos,11,38,100,11.0
 De la Fuente del Tesoro 3,Monachil,11,69,,
+Trafalgar 133,Barbate,11,48,,
 Olmos 19,Málaga,11,57,72,15.3
 De Torres 84,Roquetas de Mar,11,48,,
 Doctor Eduardo de Teresa 7,Granada,11,58,24,45.8
@@ -2549,7 +2550,6 @@ Deborah Kerr 2,Marbella,10,55,76,13.2
 De la Rosaleda 13,Málaga,10,40,21,47.6
 El Pocico 5,Roquetas de Mar,10,41,,
 Kansas City 7A,Sevilla,10,36,88,11.4
-Trafalgar 133,Barbate,10,42,,
 De los Juegos de Languedoc Rosellon 110,Almería,10,36,,
 Garrucha 126,Carboneras,10,46,,
 Carvajal 9,Benalmadena,10,42,44,22.7

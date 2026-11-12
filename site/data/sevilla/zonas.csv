@@ -1,23 +1,23 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 Alfalfa,829,3983,3168,26.2,924,572,199,89,24,22,31.2
-Feria,669,2994,3547,18.9,572,342,132,52,19,10,32.2
+Feria,669,2994,3547,18.9,572,344,131,52,18,10,32.0
 Triana Casco Antiguo,629,2925,4225,14.9,525,315,148,36,15,6,35.0
-Arenal,623,3270,2130,29.2,649,390,170,39,12,23,32.2
-Santa Cruz,600,3184,1685,35.6,678,384,176,73,8,15,36.7
-San Bartolomé,570,2778,2359,24.2,628,418,150,34,8,6,29.3
-San Gil,503,2131,3930,12.8,357,229,68,26,15,9,26.3
-"Encarnación, Regina",454,2148,2463,18.4,434,252,103,40,12,15,32.9
-San Vicente,425,2077,3213,13.2,355,211,79,26,9,12,29.6
-Santa Catalina,408,1850,2713,15.0,305,201,63,21,10,5,27.5
+Arenal,623,3270,2130,29.2,647,389,169,39,12,23,32.1
+Santa Cruz,600,3184,1685,35.6,677,384,176,73,8,14,36.8
+San Bartolomé,570,2778,2359,24.2,627,417,150,34,8,6,29.3
+San Gil,503,2131,3930,12.8,357,230,67,27,14,9,26.3
+"Encarnación, Regina",454,2148,2463,18.4,433,251,103,40,12,15,33.0
+San Vicente,425,2077,3213,13.2,355,212,78,26,9,12,29.3
+Santa Catalina,408,1850,2713,15.0,303,200,63,21,10,4,27.7
 Triana Este,373,1608,7395,5.0,229,141,56,13,6,10,30.1
-San Lorenzo,364,1712,2564,14.2,294,166,101,10,7,5,37.8
+San Lorenzo,364,1712,2564,14.2,292,165,101,9,7,5,37.7
 San Julián,314,1361,3182,9.9,230,149,51,6,7,6,24.8
-Museo,269,1430,3044,8.8,303,151,113,21,2,7,44.2
+Museo,269,1430,3044,8.8,304,152,113,21,2,7,44.1
 Triana Oeste,265,1224,8164,3.2,169,93,49,8,2,6,33.7
-Los Remedios,222,1139,11064,2.0,149,101,34,8,0,2,28.2
+Los Remedios,222,1139,11064,2.0,148,101,34,8,0,2,28.4
 San Bernardo,154,851,1917,8.0,107,72,25,4,0,1,27.1
 Nervión,122,630,7515,1.6,84,57,11,9,0,3,23.8
-an Roque,120,623,2272,5.3,111,68,28,3,3,2,27.9
+an Roque,120,623,2272,5.3,110,68,27,3,3,2,27.3
 La Buhaira,87,461,5922,1.5,59,37,7,3,1,2,16.9
 San José Obrero,85,413,4952,1.7,51,37,3,6,2,3,17.6
 "Doctor Barraquer, G. Renfe, Policlínico",79,317,2166,3.6,54,41,9,3,0,0,22.2
@@ -48,8 +48,8 @@ San Jerónimo,18,79,5136,0.4,12,,,,,,
 "El Torrejón, El Cerezo",17,83,1761,1.0,15,9,3,1,0,2,26.7
 "Palacio Congresos, Urbadiez, Entrepuentes, Jardines del Eden",17,78,6001,0.3,13,,,,,,
 "El Cano, Los Bermejales",16,63,5528,0.3,6,,,,,,
-Bami,15,78,2123,0.7,21,18,2,0,0,1,9.5
-"Santa María de Ordas, San Nicolas",15,75,2235,0.7,5,,,,,,
+Bami,15,78,2123,0.7,20,17,2,0,0,1,10.0
+"Santa María de Ordas, San Nicolas",15,75,2235,0.7,4,,,,,,
 San Pablo D y E,14,70,3289,0.4,6,,,,,,
 "Pedro Salvador, Las Palmeritas",13,68,1712,0.8,8,,,,,,
 Giralda Sur,12,56,1743,0.7,8,,,,,,
@@ -83,7 +83,7 @@ Pino Flores,5,26,1224,0.4,10,,,,,,
 Valdezorras,5,27,1051,0.5,4,,,,,,
 El Rocío,4,24,927,0.4,6,,,,,,
 La Oliva,4,14,2412,0.2,1,,,,,,
-La Plata,4,21,5408,0.1,10,,,,,,
+La Plata,4,21,5408,0.1,9,,,,,,
 "Las Naciones, Parque Atlántico, Las Dalias",4,12,1463,0.3,1,,,,,,
 "Cisneo Alto, Santa María de Graccia",3,13,940,0.3,3,,,,,,
 Consolación,3,12,2303,0.1,5,,,,,,
