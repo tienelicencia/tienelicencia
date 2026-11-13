@@ -1,13 +1,13 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Sevilla,9534,45971,327217,2.9,2.12
-Alcala de Guadaira,146,945,33333,0.4,0.24
+Sevilla,9523,45919,327217,2.9,2.12
+Alcala de Guadaira,146,941,33333,0.4,0.24
 Dos Hermanas,140,817,57647,0.2,0.17
-Mairena del Aljarafe,139,783,19756,0.7,0.41
+Mairena del Aljarafe,137,775,19756,0.7,0.41
 Carmona,126,756,15507,0.8,0.69
-San Juan de Aznalfarache,82,423,10588,0.8,0.51
-Camas,77,403,13125,0.6,0.32
+San Juan de Aznalfarache,81,417,10588,0.8,0.51
 Ecija,76,420,18611,0.4,0.36
-Tomares,72,416,10303,0.7,0.33
+Camas,76,397,13125,0.6,0.32
+Tomares,71,406,10303,0.7,0.33
 Gelves,53,300,4722,1.1,0.72
 Espartinas,52,339,6667,0.8,0.57
 Valencina de la Concepcion,51,329,3571,1.4,0.98
@@ -88,7 +88,6 @@ Almaden de la Plata,2,20,1250,0.2,0.08
 Pruna,1,4,,,0.0
 Badolatosa,1,14,1579,0.1,0.19
 "Roda de Andalucia, la",1,6,2000,0.1,0.1
-"Navas de la Concepcion, las",1,5,1111,0.1,0.09
 Aguadulce,1,8,1250,0.1,0.08
 "Molares, los",1,12,,,0.0
 Lora de Estepa,1,8,,,0.0

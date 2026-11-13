@@ -1,7 +1,7 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 Alfalfa,829,3983,3168,26.2,923,573,198,88,24,22,31.0
 Feria,669,2994,3547,18.9,572,344,131,52,18,10,32.0
-Triana Casco Antiguo,629,2925,4225,14.9,526,317,147,36,15,6,34.8
+Triana Casco Antiguo,628,2914,4225,14.9,526,317,147,36,15,6,34.8
 Arenal,623,3270,2130,29.2,645,389,169,39,10,23,32.2
 Santa Cruz,600,3184,1685,35.6,676,385,175,73,8,14,36.7
 San Bartolomé,570,2778,2359,24.2,627,418,149,34,8,6,29.2
@@ -10,27 +10,27 @@ San Gil,503,2131,3930,12.8,357,231,66,27,14,9,26.1
 San Vicente,425,2077,3213,13.2,355,213,78,26,9,11,29.3
 Santa Catalina,408,1850,2713,15.0,302,200,63,20,10,4,27.5
 Triana Este,373,1608,7395,5.0,228,140,56,13,6,10,30.3
-San Lorenzo,364,1712,2564,14.2,291,165,100,9,7,5,37.5
+San Lorenzo,363,1709,2564,14.2,291,165,100,9,7,5,37.5
 San Julián,314,1361,3182,9.9,229,148,51,6,7,6,24.9
 Museo,269,1430,3044,8.8,305,153,113,21,2,7,43.9
 Triana Oeste,265,1224,8164,3.2,169,93,49,8,2,6,33.7
-Los Remedios,222,1139,11064,2.0,147,100,34,8,0,2,28.6
-San Bernardo,154,851,1917,8.0,107,72,25,4,0,1,27.1
-Nervión,122,630,7515,1.6,83,57,11,9,0,3,24.1
+Los Remedios,222,1138,11064,2.0,147,100,34,8,0,2,28.6
+San Bernardo,153,846,1917,8.0,107,71,25,5,0,1,28.0
+Nervión,121,624,7515,1.6,83,57,11,9,0,3,24.1
 an Roque,120,623,2272,5.3,109,67,27,3,3,2,27.5
-La Buhaira,87,461,5922,1.5,59,37,7,3,1,2,16.9
+La Buhaira,85,450,5922,1.4,59,37,7,3,1,2,16.9
 San José Obrero,85,413,4952,1.7,51,37,3,6,2,3,17.6
 "Doctor Barraquer, G. Renfe, Policlínico",79,317,2166,3.6,54,41,9,3,0,0,22.2
 "León XIII, Los Naranjos",65,303,2988,2.2,41,37,0,2,0,2,4.9
 "Cruz Roja, Capuchinos",60,311,2828,2.1,56,38,12,6,0,0,32.1
 "El Tardón, El Carmen",59,286,3829,1.5,30,20,8,2,0,0,33.3
-Huerta de Santa Teresa,58,309,3413,1.7,46,19,12,6,0,7,39.1
+Huerta de Santa Teresa,58,312,3413,1.7,46,19,12,6,0,7,39.1
 La Florida,48,267,1573,3.1,65,46,8,2,1,1,15.4
 El Porvenir,47,323,2715,1.7,37,33,4,0,0,0,10.8
 "Colores, Entreparques",44,233,28390,0.2,29,12,6,9,0,2,51.7
 Huerta del Pilar,44,209,2559,1.7,20,20,0,0,0,0,0.0
 La Calzada,43,202,2354,1.8,38,22,8,1,0,4,23.7
-El Cerro,42,217,5855,0.7,27,11,7,1,4,3,29.6
+El Cerro,41,213,5855,0.7,27,11,7,1,4,3,29.6
 Barrio León,38,224,1423,2.7,16,10,5,0,0,1,31.2
 no asignado,38,143,2931,1.3,25,20,2,1,0,0,12.0
 "Tiro de Línea, Santa Genoveva",36,174,2692,1.3,10,,,,,,
@@ -42,7 +42,7 @@ Huerta de la Salud,29,149,2132,1.4,31,19,7,2,2,1,29.0
 Bellavista,26,145,8711,0.3,25,11,14,0,0,0,56.0
 "San Carlos, Tartessos",26,121,2108,1.2,9,,,,,,
 El Plantinar,25,114,3443,0.7,9,,,,,,
-El Carmen,20,87,749,2.7,7,,,,,,
+El Carmen,19,84,749,2.5,7,,,,,,
 San Pablo A y B,19,81,3700,0.5,8,,,,,,
 San Jerónimo,18,79,5136,0.4,12,,,,,,
 "El Torrejón, El Cerezo",17,83,1761,1.0,15,9,3,1,0,2,26.7
@@ -51,8 +51,8 @@ San Jerónimo,18,79,5136,0.4,12,,,,,,
 Bami,15,78,2123,0.7,20,17,2,0,0,1,10.0
 "Santa María de Ordas, San Nicolas",15,75,2235,0.7,4,,,,,,
 San Pablo D y E,14,70,3289,0.4,6,,,,,,
-"Pedro Salvador, Las Palmeritas",13,68,1712,0.8,8,,,,,,
 Giralda Sur,12,56,1743,0.7,8,,,,,,
+"Pedro Salvador, Las Palmeritas",12,63,1712,0.7,8,,,,,,
 "Begoña, Santa Catalina",11,51,1688,0.7,13,,,,,,
 Heliópolis,11,80,559,2.0,7,,,,,,
 "La Paz, Las Golondrinas",11,47,1657,0.7,9,,,,,,

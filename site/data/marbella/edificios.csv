@@ -55,10 +55,10 @@ Pedro Antonio de Alarcon 8,Marbella,42,139,156,26.9
 Calvario 8,Marbella,42,154,223,18.8
 La Reserva de Marbella 3,Marbella,42,210,168,25.0
 Los Naranjos de Marbella Fase 6 66,Marbella,41,196,96,42.7
-Ramon y Cajal 12,Marbella,41,244,187,21.9
 Juan Antonio de Torquemada 2,Marbella,40,241,114,35.1
 Arriate 3,Marbella,40,212,105,38.1
 Ashmawi 1,Marbella,40,231,248,16.1
+Ramon y Cajal 12,Marbella,40,240,187,21.4
 Las Ventas 4,Marbella,39,216,90,43.3
 Faisan 158,Marbella,39,221,96,40.6
 Cervantes 19,Marbella,39,294,119,32.8
@@ -66,9 +66,9 @@ Los Monteros Palm Beach 8,Marbella,39,242,147,26.5
 Duque de Ahumada 11,Marbella,39,182,157,24.8
 De las Nereidas 1,Marbella,39,214,98,39.8
 Conde Rudi 5,Marbella,39,171,273,14.3
+Juan Antonio de Torquemada 2,Marbella,39,227,130,30.0
 Aloha Royal 25,Marbella,39,229,91,42.9
 White Pearl Beach,Marbella,38,189,111,34.2
-Juan Antonio de Torquemada 2,Marbella,38,223,130,29.2
 Los Naranjos de Marbella Fase Iii,Marbella,37,167,70,52.9
 Duque de Ahumada 9,Marbella,37,133,90,41.1
 Pleyades 39,Marbella,37,173,93,39.8
@@ -236,7 +236,6 @@ Playas del Duque 3,Marbella,15,85,123,12.2
 Jardines las Golondrinas 2,Marbella,15,77,40,37.5
 Lomas del Puerto 3,Marbella,15,89,55,27.3
 Las Palmeras 4,Marbella,15,45,189,7.9
-25 4,Marbella,15,93,138,10.9
 Bahia Vista Hermosa 8,Marbella,15,106,60,25.0
 Gregorio Marañon 4,Marbella,15,47,65,23.1
 Balcones de Sierra Blanca 10,Marbella,15,66,51,29.4
@@ -265,6 +264,7 @@ Andasol 18,Marbella,14,69,38,36.8
 Muelle Ribera 1,Marbella,14,57,23,60.9
 Antonio Belón 1,Marbella,14,62,123,11.4
 Aries 19,Marbella,14,63,43,32.6
+25 4,Marbella,14,87,138,10.1
 Califa 17,Marbella,14,85,44,31.8
 Frankonia 4,Marbella,14,88,32,43.8
 Las Palmeras 6,Marbella,14,55,145,9.7
@@ -348,7 +348,7 @@ Pablo Ruiz Picasso 39,Marbella,11,63,65,16.9
 Torrente Ballester 5,Marbella,11,66,116,9.5
 Los Acebos 29,Marbella,11,78,16,68.8
 Diego de Velazquez 7,Marbella,11,57,58,19.0
-Solanum 30B,Marbella,11,61,48,22.9
+Solanum 13,Marbella,11,61,48,22.9
 Albatros Hills 39,Marbella,10,54,72,13.9
 Magnolia-Santa Maria Golf 3,Marbella,10,55,21,47.6
 Fontanilla 4,Marbella,10,40,27,37.0
