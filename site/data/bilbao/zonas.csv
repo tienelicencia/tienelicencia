@@ -1,6 +1,6 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 Casco Viejo,212,871,4071,5.2,298,225,46,7,7,11,17.8
-Abando,194,904,12426,1.6,213,130,59,9,3,9,31.9
+Abando,194,904,12426,1.6,210,130,58,9,3,7,31.9
 Indautxu,111,518,13105,0.8,119,89,18,7,0,4,21.0
 San Francisco,87,332,2852,3.1,72,57,11,2,2,0,18.1
 Uribarri,67,220,6299,1.1,79,55,16,2,3,2,22.8
@@ -21,7 +21,7 @@ Olabeaga,19,62,750,2.5,9,,,,,,
 Zurbaran,17,62,4560,0.4,23,11,7,3,2,0,43.5
 La Peña,14,39,2491,0.6,11,,,,,,
 San Ignacio,12,46,5432,0.2,13,,,,,,
-Ibarrekolanda,11,50,4920,0.2,9,,,,,,
+Ibarrekolanda,11,50,4920,0.2,10,,,,,,
 Errekaldeberri,10,34,7148,0.1,23,9,14,0,0,0,60.9
 Miribilla,7,30,3973,0.2,10,,,,,,
 Bolueta,6,24,3084,0.2,13,,,,,,
