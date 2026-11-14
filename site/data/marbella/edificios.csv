@@ -7,14 +7,14 @@ Lila 2,Marbella,105,553,340,30.9
 Roy Boston 1,Marbella,100,384,243,41.2
 Ramon Areces 4,Marbella,99,490,361,27.4
 Aloha Gardens 1,Marbella,87,445,204,42.6
-Crucero 3,Marbella,82,398,247,33.2
+Crucero 3,Marbella,81,390,247,32.8
 Alpandeire 6,Marbella,79,345,145,54.5
 Muelle Ribera 33,Marbella,78,428,129,60.5
 Adelfas 13,Marbella,77,410,150,51.3
 Adelfas 13,Marbella,76,418,137,55.5
+Cuesta Correa 1,Marbella,73,239,254,28.7
 Principe Salman 6,Marbella,73,382,297,24.6
 Los Altos de los Monteros 14,Marbella,72,362,169,42.6
-Cuesta Correa 1,Marbella,72,237,254,28.3
 Las Ventas 22,Marbella,70,379,137,51.1
 Mediterraneo 1,Marbella,70,254,162,43.2
 Aries 111,Marbella,63,328,214,29.4
@@ -93,15 +93,15 @@ Albatros 2,Marbella,32,226,148,21.6
 Gregorio Marañon 8,Marbella,32,111,50,64.0
 Cumbres del Rodeo 110,Marbella,32,169,115,27.8
 Playa Real 108,Marbella,31,186,165,18.8
-Hacienda Elviria 27,Marbella,31,173,238,13.0
 Camilo José Cela 13,Marbella,31,140,126,24.6
+Hacienda Elviria 27,Marbella,30,167,238,12.6
 Sirio 21,Marbella,30,227,113,26.5
-Alameda de las Brisas 4,Marbella,29,161,200,14.5
 Pueblo los Monteros 10,Marbella,29,157,142,20.4
 Ricardo Soriano 31,Marbella,29,118,201,14.4
 Alfonso de Hohenlohe,Marbella,29,107,74,39.2
 Camilo Jose Cela 9,Marbella,29,95,84,34.5
 La Reserva de Marbella 6,Marbella,29,156,97,29.9
+Bahia de Marbella 174,Marbella,28,153,200,14.0
 Virgen del Pilar 17,Marbella,28,124,99,28.3
 Los Patios de Santa Maria Golf 114,Marbella,28,134,137,20.4
 Las Adelfas 18,Marbella,28,162,150,18.7
@@ -215,6 +215,7 @@ Aries 14,Marbella,16,74,34,47.1
 Urbanización Real de Zaragoza 8,Marbella,16,119,46,34.8
 Guadalmina Baja 317,Marbella,16,129,80,20.0
 Las Azucenas 7,Marbella,16,84,20,80.0
+La Alzambra,Marbella,16,108,50,32.0
 Verdi 38,Marbella,16,101,58,27.6
 17 19,Marbella,16,92,120,13.3
 General Lopez Dominguez 2,Marbella,16,71,162,9.9
@@ -228,7 +229,6 @@ De las Antillas 23,Marbella,15,84,56,26.8
 Lomas del Puerto,Marbella,15,82,40,37.5
 Londres 1,Marbella,15,44,106,14.2
 Del Prado 14,Marbella,15,49,96,15.6
-La Alzambra,Marbella,15,100,50,30.0
 La Goleta,Marbella,15,72,40,37.5
 Del Prado 12,Marbella,15,49,95,15.8
 Incosol 7,Marbella,15,81,89,16.9
@@ -352,6 +352,7 @@ Solanum 13,Marbella,11,61,48,22.9
 Albatros Hills 39,Marbella,10,54,72,13.9
 Magnolia-Santa Maria Golf 3,Marbella,10,55,21,47.6
 Fontanilla 4,Marbella,10,40,27,37.0
+Mar de la Tranquilidad 1,Marbella,10,63,26,38.5
 Julio Iglesias 2,Marbella,10,53,44,22.7
 Las Petunias 1,Marbella,10,56,22,45.5
 De la Cruz 12,Marbella,10,64,29,34.5
