@@ -1,12 +1,12 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
-La Llotja,1100,52,13,25,3,0,11,53.8
+La Llotja,1100,52,14,24,3,0,11,51.9
 El Sindicat,2370,49,12,18,1,0,18,38.8
-Les Meravelles,2595,49,22,13,2,5,6,30.6
+Les Meravelles,2595,48,22,13,1,5,6,29.2
 Can Pastilla,3122,41,16,13,6,0,5,46.3
-L'Arenal,3380,40,12,17,8,0,2,62.5
+L'Arenal,3380,40,11,18,8,0,2,65.0
 Son Armadams,3803,33,5,19,2,0,7,63.6
 Camp d'en Serralta,5549,30,8,9,1,0,11,33.3
-Cort,874,29,7,8,3,0,11,37.9
+Cort,874,28,7,7,3,0,11,35.7
 El Terreno,3324,25,14,4,1,0,6,20.0
 Gènova,920,25,21,1,1,0,2,8.0
 El Pil·larí,792,24,8,14,2,0,0,66.7
@@ -14,11 +14,11 @@ La Casa Blanca,413,24,10,6,6,0,0,50.0
 Santa Catalina,4190,24,6,7,0,0,11,29.2
 Sant Nicolau,991,22,4,11,0,0,7,50.0
 El Molinar,4329,21,15,1,0,0,5,4.8
-La Bonanova,1332,20,8,6,1,0,5,35.0
 La Missió,916,20,5,9,1,0,5,50.0
 Sant Agustí,2672,20,11,2,1,1,5,15.0
 Sant Jaume,763,20,3,4,8,0,5,60.0
 Cala Major,3092,19,4,3,0,0,12,15.8
+La Bonanova,1332,19,8,6,1,0,4,36.8
 L'Aranjassa,381,18,5,0,9,2,0,50.0
 El Coll d'en Rabassa,4788,17,8,2,2,0,5,23.5
 Foners,6549,16,3,1,7,0,5,50.0
@@ -27,15 +27,15 @@ Son Sardina,1036,16,10,0,1,4,1,6.2
 Sant Jordi,1332,15,7,0,1,2,1,6.7
 Establiments,894,14,,,,,,
 Son Espanyolet,3197,12,,,,,,
-Bons Aires,7726,11,,,,,,
 La Calatrava,493,11,,,,,,
 Arxiduc,2688,10,,,,,,
-El Mercat,1297,10,,,,,,
+Bons Aires,7726,10,,,,,,
 Jaume III,1309,10,,,,,,
 Pere Garau,10396,10,,,,,,
 Plaça dels Patins,1761,10,,,,,,
 Portopí,1501,10,,,,,,
 Son Ferriol,3635,10,,,,,,
+El Mercat,1297,9,,,,,,
 Marqués de la Fontsanta,2662,8,,,,,,
 Plaça de Toros,6653,8,,,,,,
 Son Vida,883,8,,,,,,
@@ -56,7 +56,6 @@ Rafal Vell,4994,3,,,,,,
 Son Espanyol,174,3,,,,,,
 Son Oliva,2355,3,,,,,,
 Cas Capiscol,3830,2,,,,,,
-Els Hostalets,968,2,,,,,,
 L'Olivera,2287,2,,,,,,
 Son Cladera,2933,2,,,,,,
 Son Cotoner,4740,2,,,,,,
@@ -64,6 +63,7 @@ Son Forteza (Sud),1611,2,,,,,,
 Aeroport,5,1,,,,,,
 Bellver,,1,,,,,,
 Can Capes,641,1,,,,,,
+Els Hostalets,968,1,,,,,,
 Estadi Balear,1028,1,,,,,,
 La Indioteria (Urbà),1384,1,,,,,,
 La Soledat (Sud),941,1,,,,,,
