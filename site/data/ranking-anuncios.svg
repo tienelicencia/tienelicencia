@@ -10,17 +10,17 @@
 <rect x="300" y="176" width="670.2" height="30" rx="3" fill="#b3261e"/>
 <text x="980.2" y="198" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">40,3 %</text>
 <text x="284" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Alicante</text>
-<rect x="300" y="222" width="665.2" height="30" rx="3" fill="#b3261e"/>
-<text x="975.2" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">40 %</text>
+<rect x="300" y="222" width="663.6" height="30" rx="3" fill="#b3261e"/>
+<text x="973.6" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,9 %</text>
 <text x="284" y="290" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Valencia</text>
 <rect x="300" y="268" width="653.6" height="30" rx="3" fill="#d77a6f"/>
 <text x="963.6" y="290" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,3 %</text>
 <text x="284" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Palma</text>
-<rect x="300" y="314" width="590.4" height="30" rx="3" fill="#d77a6f"/>
-<text x="900.4" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">35,5 %</text>
+<rect x="300" y="314" width="587.1" height="30" rx="3" fill="#d77a6f"/>
+<text x="897.1" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">35,3 %</text>
 <text x="284" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Málaga</text>
-<rect x="300" y="360" width="517.2" height="30" rx="3" fill="#d77a6f"/>
-<text x="827.2" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">31,1 %</text>
+<rect x="300" y="360" width="515.6" height="30" rx="3" fill="#d77a6f"/>
+<text x="825.6" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">31 %</text>
 <text x="284" y="428" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Sevilla</text>
 <rect x="300" y="406" width="510.6" height="30" rx="3" fill="#d77a6f"/>
 <text x="820.6" y="428" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">30,7 %</text>
@@ -28,8 +28,8 @@
 <rect x="300" y="452" width="493.9" height="30" rx="3" fill="#d77a6f"/>
 <text x="803.9" y="474" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">29,7 %</text>
 <text x="284" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Bilbao</text>
-<rect x="300" y="498" width="427.4" height="30" rx="3" fill="#d77a6f"/>
-<text x="737.4" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,7 %</text>
+<rect x="300" y="498" width="425.8" height="30" rx="3" fill="#d77a6f"/>
+<text x="735.8" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,6 %</text>
 <text x="284" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Córdoba</text>
 <rect x="300" y="544" width="319.3" height="30" rx="3" fill="#d77a6f"/>
 <text x="629.3" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">19,2 %</text>
