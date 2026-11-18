@@ -1,9 +1,9 @@
 ﻿edificio,barrio_o_municipio,viviendas_turisticas,plazas
-Juan Pablo Ii 6,Ayamonte,76,378
-Juan Pablo Ii 1,Ayamonte,70,361
-De los Picapinos 44,Ayamonte,60,290
-Codornices 21,Ayamonte,60,297
+Juan Pablo Ii 6,Ayamonte,74,368
+Juan Pablo Ii 1,Ayamonte,68,349
 Blasco Ibañez 2,Ayamonte,59,310
+De los Picapinos 44,Ayamonte,59,286
+Codornices 21,Ayamonte,58,285
 De los Cisnes 4,Ayamonte,48,217
 De los Cisnes 39,Ayamonte,45,218
 De la Cruz 22,Ayamonte,44,243
@@ -27,15 +27,15 @@ Del Deporte 3,Isla Cristina,21,108
 De la Playa 11,Ayamonte,21,88
 Barranco del Moro 9,Isla Cristina,20,109
 Gonzalo de Berceo 1,Ayamonte,20,104
-De los Charranes 1,Ayamonte,20,89
-De la Playa 51,Ayamonte,19,108
 Del Deporte 12,Isla Cristina,19,97
 De las Mojarras 17,Ayamonte,19,87
 Islantilla 4,Isla Cristina,19,108
 Chaveta 28,Ayamonte,19,88
 De los Pelicanos 6,Ayamonte,19,97
 De las Mojarras 20,Ayamonte,18,98
+De la Playa 51,Ayamonte,18,103
 De las Cumbres 26,Lepe,18,94
+De los Charranes 1,Ayamonte,18,79
 Del Deporte 3,Isla Cristina,17,87
 Del Deporte 34,Lepe,17,87
 De los Cisnes 139,Ayamonte,17,84
@@ -46,10 +46,10 @@ Pedro de Alvarado 2,Cartaya,15,92
 De la Canaliega 1,Almonte,15,67
 Churruca 4,Cartaya,14,84
 De las Cumbres 29,Lepe,13,66
+De las Mojarras 9,Ayamonte,13,69
 Sector Dehesa de las Mars 82,Almonte,12,45
 Del Golf 17,Isla Cristina,12,73
 Golf Norte 7,Ayamonte,12,54
-De las Mojarras 9,Ayamonte,12,63
 De los Cisnes 38,Ayamonte,12,56
 Del Deporte 13,Isla Cristina,11,57
 Estadio 2,Ayamonte,11,57
