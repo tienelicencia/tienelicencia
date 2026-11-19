@@ -1,23 +1,22 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Casco Histórico,24894,351,1.4,351,21.9
-El Rabal,35080,67,0.2,67,26.9
-Centro,29034,66,0.2,66,33.3
-Universidad,26156,50,0.2,50,42.0
-Delicias,49188,47,0.1,47,48.9
+Casco Histórico,24894,353,1.4,353,21.8
+Centro,29034,68,0.2,68,33.8
+El Rabal,35080,64,0.2,64,25.0
+Universidad,26156,52,0.2,52,44.2
+Delicias,49188,45,0.1,45,51.1
 San José,33141,38,0.1,38,31.6
 Almozara,14645,17,0.1,17,
 Torrero,20277,12,0.1,12,
-Actur Rey Fernando,22854,10,0.0,10,
-Las Fuentes,20154,10,0.0,10,
+Actur Rey Fernando,22854,9,0.0,9,
+Las Fuentes,20154,9,0.0,9,
 Miralbueno,5503,7,0.1,7,
 Garrapinillos,1806,4,0.2,4,
 Distrito Sur,17590,3,0.0,3,
 Juslibol,1092,3,0.3,3,
 Monzalbarba,904,3,0.3,3,
 Oliver Valdefierro,14174,3,0.0,3,
+Peñaflor,725,3,0.4,3,
 Montañana,1374,2,0.1,2,
-Peñaflor,725,2,0.3,2,
-Santa Isabel,5164,2,0.0,2,
 Cartuja Baja,895,1,0.1,1,
 Casablanca,4331,1,0.0,1,
 Casetas,3208,1,0.0,1,
@@ -25,6 +24,7 @@ Alfocea,95,0,,,
 Movera,915,0,0.0,,
 San Gregorio,243,0,0.0,,
 San Juan de Mozarrifar,1118,0,0.0,,
+Santa Isabel,5164,0,0.0,,
 Torrecilla,27,0,,,
 Venta del Olivar,389,0,0.0,,
 Villarrapa,117,0,0.0,,

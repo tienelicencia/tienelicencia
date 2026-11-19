@@ -1,84 +1,84 @@
-﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Jeronimo y Avileses,2699,83,3.1,83,15.7
-Baños y Mendigo,1344,79,5.9,79,6.3
-Sucina,1875,39,2.1,39,15.4
-El Carmen,9283,29,0.3,29,
-San Juan,2773,21,0.8,21,
-San Pedro,1085,19,1.8,19,
-La Catedral,1383,18,1.3,18,
-Corvera,2184,16,0.7,16,
-Gea y Truyols,1617,15,0.9,15,
-San Lorenzo,1894,15,0.8,15,
-Vista Alegre,6771,15,0.2,15,
-Guadalupe,3979,14,0.4,13,
-La Ñora,2659,14,0.5,14,
-La Alberca,6151,12,0.2,12,
-Santiago y Zaraiche,6257,12,0.2,12,
-El Palmar,10020,11,0.1,11,
-Espinardo,6094,11,0.2,11,
-San Nicolas,1816,11,0.6,11,
-Santa Catalina,939,11,1.2,11,
-Puente Tocinos,6313,10,0.2,10,
-Santa Maria de Gracia,5899,10,0.2,10,
-La Arboleja,964,9,0.9,9,
-San Miguel,4116,9,0.2,9,
-Churra,4727,8,0.2,8,
-La Fama,2918,7,0.2,7,
-San Antolin,2266,7,0.3,7,
-San Anton,3783,7,0.2,7,
-San Jose de la Vega,2121,7,0.3,7,
-Santa Eulalia,1773,7,0.4,7,
-El Puntal,3888,6,0.2,6,
-Cabezo de Torres,5782,5,0.1,5,
-Garres y Lages,3283,5,0.2,5,
-San Andres,898,4,0.4,4,
-San Benito - Progreso,2677,4,0.1,4,
-Santa Cruz,952,4,0.4,4,
-Vistabella,1878,4,0.2,4,
-Aljucer,3429,3,0.1,3,
-Beniajan,4948,3,0.1,3,
-Cañadas de San Pedro,392,3,0.8,3,
-Infante Juan Manuel,5045,3,0.1,3,
-Monteagudo,1773,3,0.2,3,
-San Bartolome,854,3,0.4,3,
-Algezares,2732,2,0.1,2,
-Alquerias,2415,2,0.1,2,
-La Flota,3546,2,0.1,2,
-Llano de Brujas,2054,2,0.1,2,
-Rincon de Seca,1076,2,0.2,2,
-San Basilio,2548,2,0.1,2,
-Santiago el Mayor,4461,2,0.0,2,
-Buenos Aires,1170,1,0.1,1,
-Carrascoy la Murta,105,1,1.0,1,
-El Esparragal,3583,1,0.0,1,
-El Ranero,2242,1,0.0,1,
-Javali Viejo,1088,1,0.1,1,
-La Purisima - Barriomar,2105,1,0.0,1,
-Los Dolores,2284,1,0.0,1,
-Los Ramos,1636,1,0.1,1,
-San Benito - Patiño,3665,1,0.0,1,
-Zarandona,2981,1,0.0,1,
-Zeneta,770,1,0.1,1,
-Barqueros,412,0,0.0,,
-Casillas,1888,0,0.0,,
-Cañada Hermosa,53,0,,,
-Cobatillas,1303,0,0.0,,
-El Raal,2281,0,0.0,,
-Era Alta,1381,0,0.0,,
-Javali Nuevo,1462,0,0.0,,
-La Albatalia,958,0,0.0,,
-La Paz,1991,0,0.0,,
-La Raya,1032,0,0.0,,
-Lobosillo,733,0,0.0,,
-Los Martinez del Puerto,383,0,0.0,,
-Nonduermas,1106,0,0.0,,
-Ntra. Sra. Fuensanta,196,0,0.0,,
-Puebla de Soto,1015,0,0.0,,
-Rincon de Beniscornia,472,0,0.0,,
-San Gines,1339,0,0.0,,
-San Pio X,1358,0,0.0,,
-Sangonera la Seca,2144,0,0.0,,
-Sangonera la Verde,5048,0,0.0,,
-Santo Angel,2863,0,0.0,,
-Torreagüera,4185,0,0.0,,
-Valladolises y Lo Jurado,306,0,0.0,,
+﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra
+San Pedro,1085,14,1.3,14
+San Juan,2773,10,0.4,10
+Vista Alegre,6771,10,0.1,10
+San Lorenzo,1894,9,0.5,9
+Santa Maria de Gracia,5899,8,0.1,8
+El Carmen,9283,7,0.1,7
+Guadalupe,3979,7,0.2,7
+Baños y Mendigo,1344,6,0.4,6
+Jeronimo y Avileses,2699,6,0.2,6
+Puente Tocinos,6313,6,0.1,6
+San Nicolas,1816,6,0.3,6
+Espinardo,6094,5,0.1,5
+Sucina,1875,5,0.3,5
+Corvera,2184,4,0.2,4
+San Antolin,2266,4,0.2,4
+San Jose de la Vega,2121,4,0.2,4
+La Ñora,2659,3,0.1,3
+San Miguel,4116,3,0.1,3
+Santa Cruz,952,3,0.3,3
+Santa Eulalia,1773,3,0.2,3
+Alquerias,2415,2,0.1,2
+Churra,4727,2,0.0,2
+El Puntal,3888,2,0.1,2
+Garres y Lages,3283,2,0.1,2
+Gea y Truyols,1617,2,0.1,2
+La Alberca,6151,2,0.0,2
+La Catedral,1383,2,0.1,2
+La Fama,2918,2,0.1,2
+San Andres,898,2,0.2,2
+San Anton,3783,2,0.1,2
+San Bartolome,854,2,0.2,2
+San Benito - Progreso,2677,2,0.1,2
+Santa Catalina,939,2,0.2,2
+Santiago y Zaraiche,6257,2,0.0,2
+Beniajan,4948,1,0.0,1
+Cañadas de San Pedro,392,1,0.3,1
+El Esparragal,3583,1,0.0,1
+El Palmar,10020,1,0.0,1
+Infante Juan Manuel,5045,1,0.0,1
+La Flota,3546,1,0.0,1
+La Purisima - Barriomar,2105,1,0.0,1
+Monteagudo,1773,1,0.1,1
+Nonduermas,1106,1,0.1,1
+Rincon de Seca,1076,1,0.1,1
+San Basilio,2548,1,0.0,1
+San Benito - Patiño,3665,1,0.0,1
+Vistabella,1878,1,0.1,1
+Zarandona,2981,1,0.0,1
+Algezares,2732,0,0.0,
+Aljucer,3429,0,0.0,
+Barqueros,412,0,0.0,
+Buenos Aires,1170,0,0.0,
+Cabezo de Torres,5782,0,0.0,
+Carrascoy la Murta,105,0,0.0,
+Casillas,1888,0,0.0,
+Cañada Hermosa,53,0,,
+Cobatillas,1303,0,0.0,
+El Raal,2281,0,0.0,
+El Ranero,2242,0,0.0,
+Era Alta,1381,0,0.0,
+Javali Nuevo,1462,0,0.0,
+Javali Viejo,1088,0,0.0,
+La Albatalia,958,0,0.0,
+La Arboleja,964,0,0.0,
+La Paz,1991,0,0.0,
+La Raya,1032,0,0.0,
+Llano de Brujas,2054,0,0.0,
+Lobosillo,733,0,0.0,
+Los Dolores,2284,0,0.0,
+Los Martinez del Puerto,383,0,0.0,
+Los Ramos,1636,0,0.0,
+Ntra. Sra. Fuensanta,196,0,0.0,
+Puebla de Soto,1015,0,0.0,
+Rincon de Beniscornia,472,0,0.0,
+San Gines,1339,0,0.0,
+San Pio X,1358,0,0.0,
+Sangonera la Seca,2144,0,0.0,
+Sangonera la Verde,5048,0,0.0,
+Santiago el Mayor,4461,0,0.0,
+Santo Angel,2863,0,0.0,
+Torreagüera,4185,0,0.0,
+Valladolises y Lo Jurado,306,0,0.0,
+Zeneta,770,0,0.0,
