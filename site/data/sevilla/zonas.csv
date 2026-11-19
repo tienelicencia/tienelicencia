@@ -1,8 +1,8 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 Alfalfa,829,3983,3168,26.2,915,569,200,86,21,22,31.3
 Feria,669,2994,3547,18.9,567,341,130,52,18,10,32.1
-Triana Casco Antiguo,628,2914,4225,14.9,522,318,143,36,15,6,34.3
-Arenal,623,3270,2130,29.2,644,391,167,39,9,23,32.0
+Triana Casco Antiguo,628,2912,4225,14.9,522,318,143,36,15,6,34.3
+Arenal,623,3269,2130,29.2,644,391,167,39,9,23,32.0
 Santa Cruz,600,3184,1685,35.6,670,385,171,72,8,14,36.3
 San Bartolomé,567,2760,2359,24.0,627,418,145,38,8,5,29.2
 San Gil,503,2131,3930,12.8,356,230,66,27,14,9,26.1
@@ -81,12 +81,12 @@ Campos de Soria,5,30,1440,0.3,3,,,,,,
 "Los Príncipes, La Fontanilla",5,21,2413,0.2,4,,,,,,
 Pino Flores,5,26,1224,0.4,10,,,,,,
 Valdezorras,5,27,1051,0.5,4,,,,,,
+Consolación,4,16,2303,0.2,5,,,,,,
 El Rocío,4,24,927,0.4,6,,,,,,
 La Oliva,4,14,2412,0.2,1,,,,,,
 La Plata,4,21,5408,0.1,9,,,,,,
 "Las Naciones, Parque Atlántico, Las Dalias",4,12,1463,0.3,1,,,,,,
 "Cisneo Alto, Santa María de Graccia",3,13,940,0.3,3,,,,,,
-Consolación,3,12,2303,0.1,5,,,,,,
 "Felipe II, Los Diez Mandamientos",3,16,1251,0.2,3,,,,,,
 "Macarena 3 Huertas, Macarena 5",3,16,685,0.4,0,,,,,,
 Parque Alcosa,3,15,6650,0.0,3,,,,,,
