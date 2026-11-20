@@ -1,10 +1,10 @@
 ﻿edificio,barrio_o_municipio,viviendas_turisticas,plazas
 Juan Sebastian el Cano 3,Vera,147,617
-Tomillo 2,Vera,140,685
+Tomillo 2,Vera,139,681
 Madrid 9,Pulpi,135,674
 Ciudad de Alicante 6,Vera,121,591
 Califato 5,Mojacar,104,494
-Sotavento 2,Vera,96,459
+Sotavento 2,Vera,97,463
 España 2,Pulpi,88,407
 Pintor Morales 2,Mojacar,87,347
 Mirador de la Marina 2,Mojacar,83,350
@@ -14,8 +14,8 @@ Moro Manco 1,Mojacar,65,312
 Lisboa 2,Pulpi,62,306
 Arquitecto Julian Laguna 35,"Ejido, el",59,256
 Del Descubrimiento 5,Vera,58,274
-Europa 7,Pulpi,57,301
 Las Higueras 95,Vicar,56,237
+Europa 7,Pulpi,56,295
 Alcazaba 115,Vera,54,281
 Juan Sebastian el Cano 72,Vera,53,203
 Torre Bahia 1,Roquetas de Mar,52,161
@@ -179,7 +179,6 @@ Del Secano 49,Cuevas del Almanzora,12,48
 Lisboa 4,Pulpi,12,54
 Lerida 2,Vera,12,46
 Ciudad de Tarragona 1,Vera,12,43
-Turre 1,Garrucha,12,67
 Sierra Almagro 2,Vera,12,64
 Jose Artes de Arcos 32,Almería,12,45
 Sabinar 34,Roquetas de Mar,12,56
@@ -200,6 +199,7 @@ Sierra de Maria 3,Vera,11,49
 Los Castaños 1,Roquetas de Mar,11,52
 Redonda 2,Nijar,11,35
 Punta del Este 1,Roquetas de Mar,11,51
+Turre 1,Garrucha,11,61
 Cibeles 5,Roquetas de Mar,11,33
 Armada Española 29,Roquetas de Mar,11,53
 Nuñez de Balboa 2,Vera,11,46

@@ -28,8 +28,8 @@
 <rect x="300" y="452" width="504.8" height="30" rx="3" fill="#d77a6f"/>
 <text x="814.8" y="474" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">29,9 %</text>
 <text x="284" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Bilbao</text>
-<rect x="300" y="498" width="433.9" height="30" rx="3" fill="#d77a6f"/>
-<text x="743.9" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,7 %</text>
+<rect x="300" y="498" width="430.5" height="30" rx="3" fill="#d77a6f"/>
+<text x="740.5" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,5 %</text>
 <text x="284" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Córdoba</text>
 <rect x="300" y="544" width="368.1" height="30" rx="3" fill="#d77a6f"/>
 <text x="678.1" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">21,8 %</text>
@@ -39,6 +39,6 @@
 <text x="284" y="658" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Las Palmas de Gran Canaria</text>
 <rect x="300" y="636" width="243.1" height="30" rx="3" fill="#d77a6f"/>
 <text x="553.1" y="658" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">14,4 %</text>
-<text x="40" y="694" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="16" fill="#5d6779">Fuente: tienelicencia.com/ranking, a partir de los registros oficiales de turismo e Inside Airbnb. Datos al 19 de noviembre de 2026.</text>
+<text x="40" y="694" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="16" fill="#5d6779">Fuente: tienelicencia.com/ranking, a partir de los registros oficiales de turismo e Inside Airbnb. Datos al 20 de noviembre de 2026.</text>
 <text x="40" y="718" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="16" fill="#5d6779">No mostrar un número válido no demuestra que la vivienda no tenga licencia. Sin Madrid: allí mostrarlo no es obligatorio.</text>
 </svg>
