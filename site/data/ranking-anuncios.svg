@@ -5,40 +5,40 @@
 <text x="40" y="94" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" fill="#5d6779">Grandes ciudades españolas, noviembre de 2026. % de los anuncios analizados.</text>
 <text x="284" y="152" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Valladolid</text>
 <rect x="300" y="130" width="780.0" height="30" rx="3" fill="#b3261e"/>
-<text x="1090.0" y="152" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">46,2 %</text>
+<text x="1090.0" y="152" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">45,6 %</text>
 <text x="284" y="198" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Barcelona</text>
-<rect x="300" y="176" width="680.4" height="30" rx="3" fill="#b3261e"/>
-<text x="990.4" y="198" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">40,3 %</text>
+<rect x="300" y="176" width="689.3" height="30" rx="3" fill="#b3261e"/>
+<text x="999.3" y="198" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">40,3 %</text>
 <text x="284" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Alicante</text>
-<rect x="300" y="222" width="673.6" height="30" rx="3" fill="#b3261e"/>
-<text x="983.6" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,9 %</text>
+<rect x="300" y="222" width="682.5" height="30" rx="3" fill="#b3261e"/>
+<text x="992.5" y="244" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,9 %</text>
 <text x="284" y="290" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Valencia</text>
-<rect x="300" y="268" width="663.5" height="30" rx="3" fill="#d77a6f"/>
-<text x="973.5" y="290" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,3 %</text>
+<rect x="300" y="268" width="672.2" height="30" rx="3" fill="#d77a6f"/>
+<text x="982.2" y="290" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">39,3 %</text>
 <text x="284" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Palma</text>
-<rect x="300" y="314" width="590.9" height="30" rx="3" fill="#d77a6f"/>
-<text x="900.9" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">35 %</text>
+<rect x="300" y="314" width="602.1" height="30" rx="3" fill="#d77a6f"/>
+<text x="912.1" y="336" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">35,2 %</text>
 <text x="284" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Málaga</text>
-<rect x="300" y="360" width="523.4" height="30" rx="3" fill="#d77a6f"/>
-<text x="833.4" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">31 %</text>
+<rect x="300" y="360" width="530.3" height="30" rx="3" fill="#d77a6f"/>
+<text x="840.3" y="382" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">31 %</text>
 <text x="284" y="428" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Sevilla</text>
-<rect x="300" y="406" width="518.3" height="30" rx="3" fill="#d77a6f"/>
-<text x="828.3" y="428" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">30,7 %</text>
+<rect x="300" y="406" width="525.1" height="30" rx="3" fill="#d77a6f"/>
+<text x="835.1" y="428" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">30,7 %</text>
 <text x="284" y="474" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Zaragoza</text>
-<rect x="300" y="452" width="504.8" height="30" rx="3" fill="#d77a6f"/>
-<text x="814.8" y="474" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">29,9 %</text>
+<rect x="300" y="452" width="509.7" height="30" rx="3" fill="#d77a6f"/>
+<text x="819.7" y="474" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">29,8 %</text>
 <text x="284" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Bilbao</text>
-<rect x="300" y="498" width="430.5" height="30" rx="3" fill="#d77a6f"/>
-<text x="740.5" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,5 %</text>
+<rect x="300" y="498" width="436.2" height="30" rx="3" fill="#d77a6f"/>
+<text x="746.2" y="520" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">25,5 %</text>
 <text x="284" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Córdoba</text>
-<rect x="300" y="544" width="368.1" height="30" rx="3" fill="#d77a6f"/>
-<text x="678.1" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">21,8 %</text>
+<rect x="300" y="544" width="372.9" height="30" rx="3" fill="#d77a6f"/>
+<text x="682.9" y="566" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">21,8 %</text>
 <text x="284" y="612" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Murcia</text>
-<rect x="300" y="590" width="307.3" height="30" rx="3" fill="#d77a6f"/>
-<text x="617.3" y="612" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">18,2 %</text>
+<rect x="300" y="590" width="311.3" height="30" rx="3" fill="#d77a6f"/>
+<text x="621.3" y="612" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">18,2 %</text>
 <text x="284" y="658" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" text-anchor="end" fill="#142036">Las Palmas de Gran Canaria</text>
-<rect x="300" y="636" width="243.1" height="30" rx="3" fill="#d77a6f"/>
-<text x="553.1" y="658" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">14,4 %</text>
+<rect x="300" y="636" width="246.3" height="30" rx="3" fill="#d77a6f"/>
+<text x="556.3" y="658" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#142036">14,4 %</text>
 <text x="40" y="694" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="16" fill="#5d6779">Fuente: tienelicencia.com/ranking, a partir de los registros oficiales de turismo e Inside Airbnb. Datos al 20 de noviembre de 2026.</text>
 <text x="40" y="718" font-family="Public Sans,Helvetica,Arial,sans-serif" font-size="16" fill="#5d6779">No mostrar un número válido no demuestra que la vivienda no tenga licencia. Sin Madrid: allí mostrarlo no es obligatorio.</text>
 </svg>

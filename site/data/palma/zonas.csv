@@ -1,12 +1,12 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido
 La Llotja,1100,52,14,24,3,0,11,51.9
-El Sindicat,2370,49,12,18,1,0,18,38.8
+El Sindicat,2370,50,12,19,1,0,18,40.0
 Les Meravelles,2595,48,22,13,1,5,6,29.2
 Can Pastilla,3122,41,16,12,6,0,6,43.9
 L'Arenal,3380,40,11,18,8,0,2,65.0
 Son Armadams,3803,33,5,19,2,0,7,63.6
 Camp d'en Serralta,5549,30,8,9,1,0,11,33.3
-Cort,874,28,7,7,3,0,11,35.7
+Cort,874,27,6,7,3,0,11,37.0
 El Terreno,3324,25,14,4,1,0,6,20.0
 Gènova,920,25,21,1,1,0,2,8.0
 El Pil·larí,792,24,8,14,2,0,0,66.7
@@ -15,10 +15,10 @@ Santa Catalina,4190,24,6,7,0,0,11,29.2
 Sant Nicolau,991,22,4,11,0,0,7,50.0
 El Molinar,4329,21,15,1,0,0,5,4.8
 La Missió,916,20,5,9,1,0,5,50.0
-Sant Agustí,2672,20,11,2,1,1,5,15.0
 Sant Jaume,763,20,3,4,8,0,5,60.0
 Cala Major,3092,19,4,3,0,0,12,15.8
 La Bonanova,1332,19,8,6,1,0,4,36.8
+Sant Agustí,2672,19,11,2,1,1,4,15.8
 El Coll d'en Rabassa,4788,17,8,2,2,0,5,23.5
 Foners,6549,17,3,1,7,0,6,47.1
 L'Aranjassa,381,16,5,0,7,2,0,43.8
@@ -31,10 +31,10 @@ La Calatrava,493,11,,,,,,
 Arxiduc,2688,10,,,,,,
 Bons Aires,7726,10,,,,,,
 Jaume III,1309,10,,,,,,
-Pere Garau,10396,10,,,,,,
 Plaça dels Patins,1761,10,,,,,,
 Portopí,1501,10,,,,,,
 Son Ferriol,3635,10,,,,,,
+Pere Garau,10396,9,,,,,,
 El Mercat,1297,8,,,,,,
 Marqués de la Fontsanta,2662,8,,,,,,
 Plaça de Toros,6653,8,,,,,,

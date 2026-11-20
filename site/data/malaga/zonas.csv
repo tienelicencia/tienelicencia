@@ -1,8 +1,8 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,anuncios_airbnb,anuncios_numero_valido,anuncios_sin_numero,anuncios_numero_fuera_registro,anuncios_licencia_compartida,anuncios_posiblemente_exentos,pct_anuncios_sin_numero_valido,alquiler_eur_m2,subida_alquiler_desde_2015_pct
-Centro Histórico,1750,8389,4657,37.6,1828,988,493,222,48,43,39.1,12.97,62.6
-La Trinidad,831,3915,9081,9.2,643,394,128,46,16,18,27.1,10.04,72.2
+Centro Histórico,1750,8389,4657,37.6,1828,989,492,222,48,43,39.1,12.97,62.6
+La Trinidad,831,3915,9081,9.2,642,394,127,46,16,18,26.9,10.04,72.2
 La Merced,669,3076,1212,55.2,590,329,154,61,10,9,36.4,14.13,102.5
-La Goleta,540,2425,1839,29.4,485,311,103,42,13,9,29.9,10.97,56.6
+La Goleta,540,2425,1839,29.4,484,310,103,42,13,9,30.0,10.97,56.6
 La Victoria,412,1974,1645,25.0,294,173,80,23,6,5,35.0,11.87,74.1
 La Malagueta,405,1846,2965,13.7,254,188,43,7,9,1,19.7,13.07,66.7
 Ensanche Centro,341,1890,2030,16.8,310,178,96,29,2,2,40.3,11.0,84.7
@@ -46,7 +46,7 @@ Cruz del Humilladero,52,303,2215,2.3,27,18,4,2,0,3,22.2,8.22,85.3
 Camino de Antequera,51,281,3214,1.6,19,8,9,2,0,0,57.9,9.75,62.8
 San Andrés,50,296,723,6.9,11,,,,,,,12.01,64.5
 Hacienda Bizcochero,48,290,2669,1.8,12,,,,,,,9.49,70.2
-Tabacalera,44,205,361,12.2,27,22,1,0,1,1,3.7,,
+Tabacalera,44,205,361,12.2,26,21,1,0,1,1,3.8,,
 Regio,43,220,1037,4.1,16,10,5,1,0,0,37.5,9.03,63.1
 Arroyo del Cuarto,43,206,2057,2.1,13,,,,,,,9.52,61.4
 Girón,43,253,1084,4.0,30,20,5,1,0,0,20.0,,
@@ -109,7 +109,7 @@ Mainake,16,84,1237,1.3,12,,,,,,,9.26,52.4
 Las Cuevas,15,77,335,4.5,11,,,,,,,,
 El Cónsul,15,115,1249,1.2,6,,,,,,,9.13,63.1
 La Cizaña,14,58,105,13.3,4,,,,,,,,
-Cortijo de Maza,14,104,293,4.8,4,,,,,,,,
+Cortijo de Maza,14,104,293,4.8,5,,,,,,,,
 Sacaba Beach,14,78,232,6.0,6,,,,,,,,
 La Roca,14,81,1278,1.1,14,,,,,,,7.36,48.4
 Las Chapas,14,82,960,1.5,8,,,,,,,9.41,68.1
@@ -168,7 +168,7 @@ Los Naranjos,6,23,303,2.0,6,,,,,,,,
 Campanillas,6,34,1486,0.4,0,,,,,,,9.2,37.4
 Parque Empresarial Azucarera,6,16,157,3.8,4,,,,,,,,
 El Polvorín,5,25,189,2.6,4,,,,,,,,
-Baños del Carmen,5,28,37,,15,9,5,1,0,0,40.0,,
+Baños del Carmen,5,28,37,,14,,,,,,,,
 Hacienda Paredes,5,31,219,2.3,4,,,,,,,,
 Los Morales 2,5,30,119,4.2,2,,,,,,,,
 Las Morillas Pto Torre,5,34,501,1.0,2,,,,,,,,
@@ -301,7 +301,7 @@ Monte de Gibralfaro,0,0,,,18,8,7,1,1,1,44.4,,
 Los Cantos,0,0,27,,1,,,,,,,,
 Hda.Esperanza-Cuesta Cerrado,0,0,26,,1,,,,,,,,
 Pol Ind Ronda Exterior,0,0,,,3,,,,,,,,
-R.E.N.F.E.,0,0,,,12,,,,,,,,
+R.E.N.F.E.,0,0,,,11,,,,,,,,
 Parque Arroyo del Cuarto,0,0,195,0.0,4,,,,,,,,
 Ind Siemens,0,0,,,1,,,,,,,,
 Ind Alcalde Díaz Zafra,0,0,34,,2,,,,,,,,
