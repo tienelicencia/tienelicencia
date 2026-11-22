@@ -1,11 +1,11 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
 Vera,2846,13135,20948,13.6,5.59
 Roquetas de Mar,2319,10803,62275,3.7,1.67
-Mojacar,1942,9908,9663,20.1,10.69
+Mojacar,1943,9914,9663,20.1,10.69
 Almería,1705,8632,101053,1.7,0.95
 Nijar,1321,6991,15502,8.5,6.87
-Pulpi,912,4551,8664,10.5,4.49
-Carboneras,514,2600,6285,8.2,4.28
+Pulpi,912,4552,8664,10.5,4.49
+Carboneras,515,2602,6285,8.2,4.28
 "Ejido, el",372,1760,39756,0.9,0.41
 Cuevas del Almanzora,307,1570,10494,2.9,1.62
 Garrucha,222,1147,7056,3.1,1.97
@@ -22,9 +22,9 @@ Huercal-Overa,12,54,11000,0.1,0.4
 Velez-Blanco,11,70,2417,0.5,1.2
 Enix,11,55,760,1.4,2.5
 Zurgena,10,61,2128,0.5,0.47
+Albox,10,59,6964,0.1,0.56
 Berja,10,58,6667,0.1,0.15
 Ohanes,9,41,789,1.1,0.76
-Albox,9,55,6964,0.1,0.56
 Laujar de Andarax,9,62,1500,0.6,0.2
 Alhama de Almeria,8,40,2321,0.3,0.56
 Sorbas,7,50,2258,0.3,0.62
@@ -67,8 +67,8 @@ Fines,1,6,1200,0.1,0.25
 Tijola,1,5,2308,0.0,0.13
 Chirivel,1,6,1481,0.1,0.27
 Lijar,1,2,,,0.0
-Senes,1,4,400,0.2,0.25
 Macael,1,2,2857,0.0,0.07
-Padules,1,6,,,0.0
+Senes,1,4,400,0.2,0.25
 Abrucena,1,6,921,0.1,0.76
 Rioja,1,4,800,0.1,0.25
+Padules,1,6,,,0.0
