@@ -1,8 +1,8 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Sevilla,9509,45845,327217,2.9,2.12
+Sevilla,9505,45832,327217,2.9,2.12
 Alcala de Guadaira,145,934,33333,0.4,0.24
 Dos Hermanas,139,816,57647,0.2,0.17
-Mairena del Aljarafe,136,774,19756,0.7,0.41
+Mairena del Aljarafe,135,770,19756,0.7,0.41
 Carmona,124,746,15507,0.8,0.69
 San Juan de Aznalfarache,81,417,10588,0.8,0.51
 Ecija,76,420,18611,0.4,0.36
@@ -15,12 +15,12 @@ Guillena,46,368,6825,0.7,0.63
 "Ronquillo, el",46,236,1325,3.5,1.66
 Sanlucar la Mayor,38,253,7188,0.5,0.32
 Bormujos,37,182,9200,0.4,0.5
-"Algaba, la",30,191,7419,0.4,0.31
+"Algaba, la",32,205,7419,0.4,0.31
 Castilleja de la Cuesta,28,178,7368,0.4,0.19
+Bollullos de la Mitacion,26,163,4545,0.6,0.44
 Gines,26,156,5238,0.5,0.21
 Lebrija,25,116,12308,0.2,0.13
 Utrera,25,129,23333,0.1,0.15
-Bollullos de la Mitacion,25,157,4545,0.6,0.44
 Coria del Rio,24,103,13750,0.2,0.16
 Cazalla de la Sierra,24,131,3475,0.7,1.18
 Palomares del Rio,23,160,3750,0.6,0.4
@@ -40,8 +40,8 @@ Castilblanco de los Arroyos,12,91,3810,0.3,0.21
 Constantina,12,74,3937,0.3,1.27
 Moron de la Frontera,11,52,12857,0.1,0.07
 "Cuervo de Sevilla, el",11,58,3846,0.3,0.13
+Villanueva del Ariscal,10,58,3137,0.3,0.51
 "Pedroso, el",10,56,1633,0.6,0.49
-Villanueva del Ariscal,9,44,3137,0.3,0.51
 Almensilla,9,69,2963,0.3,0.27
 Estepa,9,46,6207,0.1,0.29
 Peñaflor,7,37,2167,0.3,0.6

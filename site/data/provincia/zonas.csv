@@ -1,18 +1,18 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Marbella,15789,92199,100796,15.7,6.97
+Marbella,15793,92211,100796,15.7,6.97
 Málaga,12606,64061,261269,4.8,3.17
-Mijas,10625,59115,64543,16.5,7.2
-Benalmadena,8694,41424,49793,17.5,7.26
-Estepona,8276,45677,52409,15.8,6.68
-Fuengirola,6375,32123,51269,12.4,5.94
-Torremolinos,5575,24590,45084,12.4,6.34
-Nerja,4410,20809,16692,26.4,16.43
+Mijas,10630,59147,64543,16.5,7.2
+Benalmadena,8695,41428,49793,17.5,7.26
+Estepona,8277,45682,52409,15.8,6.68
+Fuengirola,6374,32119,51269,12.4,5.94
+Torremolinos,5576,24591,45084,12.4,6.34
+Nerja,4411,20813,16692,26.4,16.43
 Manilva,2858,15149,18117,15.8,6.92
 Velez-Malaga,2326,12397,49190,4.7,2.25
 Benahavis,2258,14341,9888,22.8,9.03
 Torrox,2004,9214,19460,10.3,6.26
-Casares,1562,8389,8344,18.7,9.28
-Rincon de la Victoria,1398,7865,27531,5.1,2.38
+Casares,1563,8403,8344,18.7,9.28
+Rincon de la Victoria,1396,7856,27531,5.1,2.38
 Ronda,730,3812,17019,4.3,3.16
 Ojen,498,2739,3581,13.9,5.37
 Alhaurin de la Torre,463,3462,16222,2.9,1.45
@@ -37,9 +37,9 @@ Yunquera,30,204,2273,1.3,0.88
 Montejaque,28,130,844,3.3,2.94
 Casabermeja,27,201,2371,1.1,1.76
 Ardales,27,126,1396,1.9,3.1
+Periana,26,179,2309,1.1,1.88
 Archidona,26,178,4833,0.5,0.66
 Sayalonga,26,144,777,3.3,6.79
-Periana,25,173,2309,1.1,1.88
 Almogia,23,169,3078,0.7,1.59
 Villanueva de la Concepcion,23,130,1838,1.3,1.29
 Arriate,22,150,1843,1.2,1.29
@@ -87,10 +87,10 @@ Villanueva de Algaidas,4,21,2124,0.2,0.28
 Juzcar,4,32,175,2.3,9.05
 Cañete la Real,4,31,1137,0.4,0.66
 Cartajima,4,30,227,1.8,2.95
-Algatocin,3,18,619,0.5,1.63
 Alfarnatejo,3,21,257,1.2,1.42
 Jubrique,3,15,723,0.4,1.66
 Genalguacil,3,19,567,0.5,1.76
+Algatocin,2,11,619,0.3,1.63
 Almargen,1,8,1074,0.1,0.07
 Cuevas Bajas,1,4,752,0.1,0.24
 Benamocarra,1,8,1271,0.1,0.21
