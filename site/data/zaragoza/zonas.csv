@@ -1,26 +1,26 @@
 ﻿zona,viviendas_catastro,anuncios_airbnb,anuncios_por_100_viviendas,anuncios_revisados_muestra,pct_anuncios_sin_numero_valido
-Casco Histórico,24894,353,1.4,353,21.8
-Centro,29034,68,0.2,68,33.8
-El Rabal,35080,64,0.2,64,25.0
-Universidad,26156,52,0.2,50,42.0
-Delicias,49188,45,0.1,45,51.1
-San José,33141,38,0.1,38,31.6
-Almozara,14645,17,0.1,17,
-Torrero,20277,12,0.1,12,
-Actur Rey Fernando,22854,9,0.0,9,
-Las Fuentes,20154,9,0.0,9,
-Miralbueno,5503,7,0.1,7,
-Garrapinillos,1806,4,0.2,4,
+Casco Histórico,24894,207,0.8,207,27.5
+El Rabal,35080,36,0.1,36,25.0
+Centro,29034,31,0.1,31,38.7
+Universidad,26156,31,0.1,31,54.8
+Delicias,49188,25,0.1,25,
+San José,33141,25,0.1,25,
+Almozara,14645,8,0.1,8,
+Las Fuentes,20154,7,0.0,7,
+Actur Rey Fernando,22854,6,0.0,6,
+Miralbueno,5503,6,0.1,6,
+Torrero,20277,5,0.0,5,
 Distrito Sur,17590,3,0.0,3,
-Juslibol,1092,3,0.3,3,
-Monzalbarba,904,3,0.3,3,
-Oliver Valdefierro,14174,3,0.0,3,
-Peñaflor,725,3,0.4,3,
-Montañana,1374,2,0.1,2,
-Cartuja Baja,895,1,0.1,1,
-Casablanca,4331,1,0.0,1,
-Casetas,3208,1,0.0,1,
+Garrapinillos,1806,3,0.2,3,
+Peñaflor,725,2,0.3,2,
+Montañana,1374,1,0.1,1,
+Monzalbarba,904,1,0.1,1,
+Oliver Valdefierro,14174,1,0.0,1,
 Alfocea,95,0,,,
+Cartuja Baja,895,0,0.0,,
+Casablanca,4331,0,0.0,,
+Casetas,3208,0,0.0,,
+Juslibol,1092,0,0.0,,
 Movera,915,0,0.0,,
 San Gregorio,243,0,0.0,,
 San Juan de Mozarrifar,1118,0,0.0,,
