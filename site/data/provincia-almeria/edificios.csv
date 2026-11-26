@@ -1,6 +1,6 @@
 ﻿edificio,barrio_o_municipio,viviendas_turisticas,plazas
 Juan Sebastian el Cano 3,Vera,146,612
-Tomillo 2,Vera,139,681
+Tomillo 2,Vera,140,686
 Madrid 9,Pulpi,135,674
 Ciudad de Alicante 6,Vera,121,591
 Califato 5,Mojacar,104,494
@@ -39,11 +39,11 @@ Del Mediterraneo 93,Mojacar,37,165
 Cañada Julian 8,Vera,36,184
 Juegos Mediterraneos 4,Almería,35,199
 Albardin 3,Vera,34,167
-Amarguillos 2,Vera,33,165
 Aguadulce 8,Vera,33,84
 Las Pitas 1,Vera,33,153
 Islas Canarias 7,Vera,33,157
 Ciudad de Tarragona 2,Vera,32,100
+Amarguillos 2,Vera,32,159
 Lira 6,Pulpi,32,179
 Finisterre 4,Mojacar,32,166
 Ciudad de Tarragona 2,Vera,32,117
@@ -82,13 +82,13 @@ Belgica 8,Mojacar,22,94
 Magallanes 1,Vera,22,123
 Ciudad de Lorca 3,Vera,22,101
 Tortuga Boba 12,Vera,22,103
-Olimpiadas 12,Roquetas de Mar,22,95
 Santa Marta 2,Roquetas de Mar,22,105
 Sierra Nevada 28,Pulpi,22,113
 Washingtonias 3,Vera,21,113
 Bahia 25,Nijar,21,78
 Joaquin Sabina 10,Carboneras,21,88
 Cañada Julian 10,Vera,21,100
+Olimpiadas 12,Roquetas de Mar,21,91
 Del Mediterraneo 201,Mojacar,20,75
 Lira 10,Pulpi,20,108
 Canterbury 2,Roquetas de Mar,20,94
@@ -163,7 +163,6 @@ Pitas 1,Mojacar,13,65
 Jesus de Perceval 16,Mojacar,13,55
 Del Mediterraneo 39,Mojacar,13,61
 Costa Levante 1,Mojacar,13,57
-Quesada 22,Almería,13,51
 Extremadura 1,Mojacar,13,46
 Reino de España 184,Roquetas de Mar,13,41
 Ciudad de Cadiz 2,Roquetas de Mar,13,66
@@ -179,6 +178,7 @@ Del Secano 49,Cuevas del Almanzora,12,48
 Lisboa 4,Pulpi,12,54
 Lerida 2,Vera,12,46
 Ciudad de Tarragona 1,Vera,12,43
+Quesada 22,Almería,12,47
 Sierra Almagro 2,Vera,12,64
 Jose Artes de Arcos 32,Almería,12,45
 Sabinar 34,Roquetas de Mar,12,56

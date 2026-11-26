@@ -11,16 +11,16 @@ Tomares,72,410,10303,0.7,0.33
 Gelves,53,300,4722,1.1,0.72
 Espartinas,52,339,6667,0.8,0.57
 Valencina de la Concepcion,51,329,3571,1.4,0.98
-Guillena,46,368,6825,0.7,0.63
+Guillena,46,367,6825,0.7,0.63
 "Ronquillo, el",46,236,1325,3.5,1.66
 Sanlucar la Mayor,38,253,7188,0.5,0.32
 Bormujos,37,182,9200,0.4,0.5
 "Algaba, la",32,205,7419,0.4,0.31
 Castilleja de la Cuesta,28,178,7368,0.4,0.19
+Utrera,26,137,23333,0.1,0.15
 Bollullos de la Mitacion,26,163,4545,0.6,0.44
 Gines,26,156,5238,0.5,0.21
 Lebrija,25,116,12308,0.2,0.13
-Utrera,25,129,23333,0.1,0.15
 Coria del Rio,24,103,13750,0.2,0.16
 Cazalla de la Sierra,24,131,3475,0.7,1.18
 Palomares del Rio,23,160,3750,0.6,0.4
@@ -28,10 +28,10 @@ Palomares del Rio,23,160,3750,0.6,0.4
 Santiponce,18,102,3542,0.5,0.48
 Salteras,17,112,2381,0.7,0.21
 "Castillo de las Guardas, el",17,121,1884,0.9,0.69
-Marchena,15,100,11176,0.1,0.34
 Aznalcazar,15,96,2358,0.6,1.06
 Alcala del Rio,15,68,5714,0.3,0.21
 Gerena,15,97,3636,0.4,0.44
+Marchena,14,94,11176,0.1,0.34
 Lora del Rio,13,80,9286,0.1,0.14
 Mairena del Alcor,12,84,10000,0.1,0.17
 Cantillana,12,71,5472,0.2,0.53
@@ -72,13 +72,13 @@ San Nicolas del Puerto,3,22,541,0.6,0.74
 "Puebla de los Infantes, la",3,19,2083,0.1,0.48
 Benacazon,3,20,3000,0.1,0.1
 Fuentes de Andalucia,3,22,3667,0.1,0.3
+Alanis,3,28,1250,0.2,0.32
 Cañada Rosal,3,14,1667,0.2,0.24
 Villamanrique de la Condesa,3,24,2333,0.1,0.3
 Villanueva de San Juan,2,10,862,0.2,0.58
 "Coronil, el",2,10,2500,0.1,0.08
 Isla Mayor,2,12,2500,0.1,0.04
 Paradas,2,10,3750,0.1,0.08
-Alanis,2,16,1250,0.2,0.32
 Villaverde del Rio,2,16,3333,0.1,0.09
 Huevar del Aljarafe,2,7,1429,0.1,0.07
 Almaden de la Plata,2,20,1250,0.2,0.08
