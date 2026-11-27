@@ -1,14 +1,14 @@
 ﻿zona,viviendas_turisticas_registradas,plazas,viviendas_catastro,pct_viviendas_turisticas,pct_viviendas_anunciadas_ine
-Vera,2841,13111,20948,13.6,5.59
-Roquetas de Mar,2315,10785,62275,3.7,1.67
+Vera,2839,13106,20948,13.6,5.59
+Roquetas de Mar,2315,10784,62275,3.7,1.67
 Mojacar,1940,9901,9663,20.1,10.69
-Almería,1698,8599,101053,1.7,0.95
-Nijar,1320,6985,15502,8.5,6.87
+Almería,1699,8606,101053,1.7,0.95
+Nijar,1319,6982,15502,8.5,6.87
 Pulpi,910,4540,8664,10.5,4.49
-Carboneras,515,2604,6285,8.2,4.28
+Carboneras,514,2600,6285,8.2,4.28
 "Ejido, el",369,1748,39756,0.9,0.41
 Cuevas del Almanzora,307,1570,10494,2.9,1.62
-Garrucha,222,1147,7056,3.1,1.97
+Garrucha,221,1143,7056,3.1,1.97
 Vicar,132,556,12200,1.1,0.5
 Adra,96,550,12333,0.8,0.6
 Turre,60,332,3214,1.9,1.68
@@ -35,12 +35,12 @@ Felix,5,43,714,0.7,0.14
 Lucainena de las Torres,5,20,625,0.8,0.16
 Alcolea,5,40,746,0.7,0.67
 Paterna del Rio,5,33,833,0.6,0.12
+Pechina,4,28,2692,0.1,0.26
 Huercal de Almeria,4,16,6667,0.1,0.06
 Benahadux,4,24,2222,0.2,0.09
 Balanegra,4,18,1667,0.2,0.18
 Oria,4,18,1944,0.2,1.44
 Taberno,3,16,714,0.4,0.56
-Pechina,3,21,2692,0.1,0.26
 Viator,3,13,2727,0.1,0.22
 Lubrin,3,10,1860,0.2,0.43
 Terque,3,11,440,0.7,0.91
@@ -67,8 +67,8 @@ Fines,1,6,1200,0.1,0.25
 Tijola,1,5,2308,0.0,0.13
 Chirivel,1,6,1481,0.1,0.27
 Lijar,1,2,,,0.0
-Senes,1,4,400,0.2,0.25
 Macael,1,2,2857,0.0,0.07
-Padules,1,6,,,0.0
+Senes,1,4,400,0.2,0.25
 Abrucena,1,6,921,0.1,0.76
 Rioja,1,4,800,0.1,0.25
+Padules,1,6,,,0.0

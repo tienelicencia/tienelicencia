@@ -17,8 +17,8 @@ Constancia 22,Plaza de Toros Vieja,23,117,26,88.5
 Sebastian Souviron 18,Centro Histórico,22,100,35,62.9
 Maritimo Ciudad de Melilla 17,La Malagueta,22,116,85,25.9
 Carretería 81,La Goleta,22,89,36,61.1
-Pacifico 15,Pacífico,22,128,54,40.7
 Rogelio Oliva 11,Guadalmar,22,78,124,17.7
+Pacifico 15,Pacífico,22,128,54,40.7
 Camaron de la Isla 2,Colinas del Limonar,21,136,167,12.6
 La Trini 7,La Victoria,20,102,106,18.9
 Victoria 68,La Victoria,20,81,37,54.1
@@ -44,19 +44,19 @@ Carreteria 97,San Felipe Neri,15,54,19,78.9
 Lazcano 5,Centro Histórico,15,56,15,100.0
 Montaño 18,La Merced,15,58,27,55.6
 Armengual de la Mota 32,Perchel Norte,15,50,78,19.2
-Emilio de la Cerda 1,Huelin,15,63,77,19.5
 Alamos 45,La Merced,15,64,18,83.3
 Heroe de Sostoa 56,La Princesa,15,64,19,78.9
+Emilio de la Cerda 1,Huelin,15,63,77,19.5
 Del Teatro 1,Centro Histórico,15,86,36,41.7
 Alta 8,San Felipe Neri,15,82,31,48.4
 Ayala 33,Parque Ayala,14,91,144,9.7
 Alamos 17,La Merced,14,52,23,60.9
-Madre de Dios 39,La Merced,14,46,21,66.7
-De Colon 34,Ensanche Centro,14,97,86,16.3
 Granados 3,Centro Histórico,14,97,40,35.0
 Sebastian Souviron 4,Centro Histórico,14,54,11,127.3
 Eduardo Ocon 6,La Goleta,14,70,27,51.9
 Martinez Campos 15,Ensanche Centro,14,90,42,33.3
+Madre de Dios 39,La Merced,14,46,21,66.7
+De Colon 34,Ensanche Centro,14,97,86,16.3
 Victoria 64,La Victoria,14,68,55,25.5
 Asturias 1,El Palo,14,60,92,15.2
 Parras 10,San Felipe Neri,14,65,16,87.5
@@ -68,13 +68,13 @@ Puerta de Antequera 4,Centro Histórico,13,54,15,86.7
 Dos Aceras 39,San Felipe Neri,13,53,13,100.0
 Salitre 45,Plaza de Toros Vieja,13,58,42,31.0
 Postigos 3,San Felipe Neri,13,38,17,76.5
-Maritimo Pablo Ruiz Picasso 16,La Caleta,13,71,154,8.4
 Reding 11,La Malagueta,13,48,74,17.6
 De la Termica 30,Almudena,13,61,368,3.5
 Martinez Campos 2,Ensanche Centro,13,85,27,48.1
 Jinetes 9,La Merced,13,51,12,108.3
 Carrera de Capuchinos 6,El Ejido,13,54,37,35.1
 Peña 6,La Merced,13,39,9,144.4
+Maritimo Pablo Ruiz Picasso 16,La Caleta,13,71,154,8.4
 Ancha del Carmen 40,Perchel Sur,13,44,16,81.2
 Somera 9,Ensanche Centro,13,62,25,52.0
 Ollerias 22,San Felipe Neri,12,50,11,109.1
@@ -101,8 +101,8 @@ Molina Lario 5,Centro Histórico,11,73,1,1100.0
 San Rafael 4,La Goleta,11,51,18,61.1
 Ramos Carrion 64,Parque Clavero,11,75,10,110.0
 Pasillo del Matadero 7,Plaza de Toros Vieja,11,46,63,17.5
-Alta 1,San Felipe Neri,11,39,12,91.7
 Peña 26,La Merced,11,38,22,50.0
+Alta 1,San Felipe Neri,11,39,12,91.7
 Ventura Rodriguez 39,La Trinidad,11,44,16,68.8
 Maestranza 8,La Malagueta,11,64,133,8.3
 Agua 17,La Victoria,11,30,28,39.3
@@ -126,11 +126,11 @@ Pinzon 10,Ensanche Centro,10,62,25,40.0
 Marin Garcia 10,Centro Histórico,10,47,21,47.6
 Arango 17,Mármoles,10,57,66,15.2
 Castellón de la Plana 60,Guadalmar,10,55,148,6.8
-Victoria 32,La Victoria,10,61,39,25.6
 Ollerias 12,San Felipe Neri,10,30,7,142.9
 Almeria 34,El Palo,10,43,36,27.8
 Padre Mariana 1,Cristo de la Epidemia,10,57,95,10.5
 Granados 6,Pol Alameda,10,40,18,55.6
+Victoria 32,La Victoria,10,61,39,25.6
 San Juan de Letran 5,La Merced,10,54,22,45.5
 Marin Garcia 5,Centro Histórico,10,51,18,55.6
 Alta 20,San Felipe Neri,10,50,18,55.6
